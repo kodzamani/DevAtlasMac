@@ -1,0 +1,492 @@
+/*
+  Türkçe Localization
+*/
+
+/* App General */
+"app.name" = "DevAtlas";
+"app.tagline" = "Geliştirme Komuta Merkeziniz";
+"app.version" = "Sürüm %@";
+
+/* Tabs */
+"tab.atlas" = "Atlas";
+"tab.stats" = "İstatistikler";
+"tab.notebook" = "Defter";
+"tab.aiPrompts" = "AI Prompt";
+"tab.settings" = "Ayarlar";
+
+/* Sidebar */
+"sidebar.allProjects" = "Tüm Projeler";
+"sidebar.web" = "Web";
+"sidebar.desktop" = "Masaüstü";
+"sidebar.mobile" = "Mobil";
+"sidebar.cloud" = "Bulut";
+"sidebar.scanProjects" = "Projeleri Tara";
+"sidebar.darkMode" = "Karanlık Mod";
+"sidebar.showTour" = "Tur Göster";
+
+/* Search */
+"search.projects" = "Projeleri ara...";
+"search.notes" = "Notlarda ara...";
+
+/* Onboarding - Welcome */
+"onboarding.welcome.title" = "DevAtlas'a Hoş Geldiniz";
+"onboarding.welcome.subtitle" = "Geliştirme Komuta Merkeziniz";
+"onboarding.welcome.getStarted" = "Başlayalım";
+"onboarding.welcome.skip" = "Geç";
+
+/* Onboarding - Features */
+"onboarding.features.title" = "Proje Atlası";
+"onboarding.features.subtitle" = "Tüm geliştirme projelerinizi yönetin";
+"onboarding.features.feature1.title" = "Proje Atlası";
+"onboarding.features.feature1.subtitle" = "Tüm geliştirme projelerinizi yönetin";
+"onboarding.features.feature2.title" = "İstatistikler";
+"onboarding.features.feature2.subtitle" = "Kodlama aktivitenizi takip edin";
+"onboarding.features.feature3.title" = "Defter";
+"onboarding.features.feature3.subtitle" = "Projelerinizi belgelendirin";
+"onboarding.features.next" = "İleri";
+"onboarding.features.previous" = "Geri";
+
+/* Onboarding - Quick Actions */
+"onboarding.quickActions.title" = "Hızlı Eylemler";
+"onboarding.quickActions.subtitle" = "Araçlarınıza hızlı erişim";
+"onboarding.quickActions.next" = "İleri";
+"onboarding.quickActions.previous" = "Geri";
+
+/* Onboarding - Stats & Notebook */
+"onboarding.statsNotebook.title" = "İstatistikler ve Defter";
+"onboarding.statsNotebook.subtitle" = "İleriyi takip edin ve not alın";
+"onboarding.statsNotebook.next" = "İleri";
+"onboarding.statsNotebook.previous" = "Geri";
+
+/* Onboarding - Appearance */
+"onboarding.appearance.title" = "Görünüm";
+"onboarding.appearance.subtitle" = "DevAtlas'ın nasıl görünmesini seçin";
+"onboarding.appearance.light" = "Açık";
+"onboarding.appearance.dark" = "Karanlık";
+"onboarding.appearance.accentColor" = "Vurgu Rengi";
+"onboarding.appearance.allSet" = "Hazırsınız!";
+"onboarding.appearance.start" = "DevAtlas'ı Kullanmaya Başla";
+"onboarding.appearance.back" = "Geri";
+
+/* Settings */
+"settings.title" = "Ayarlar";
+"settings.about" = "Hakkında";
+"settings.about.description" = "DevAtlas, kapsamlı geliştirme komuta merkezinizdir. Tüm projelerinizi tek bir yerde organize edin, analiz edin ve takip edin.";
+"settings.language" = "Dil";
+"settings.language.select" = "Dil Seçin";
+"settings.appearance" = "Görünüm";
+"settings.appearance.theme" = "Tema";
+"settings.appearance.accentColor" = "Vurgu Rengi";
+"settings.appearance.light" = "Açık";
+"settings.appearance.dark" = "Karanlık";
+"settings.appearance.system" = "Sistem";
+"settings.version" = "Sürüm";
+"settings.copyright" = "© 2024 DevAtlas";
+
+/* Settings - Exclude */
+"settings.exclude" = "Hariç Tut";
+"settings.exclude.subtitle" = "Tarama sırasında atlanacak klasörler";
+"settings.exclude.addFolder" = "Klasör Seç";
+"settings.exclude.noPaths" = "Hariç tutulan klasör yok";
+"settings.exclude.remove" = "Kaldır";
+"settings.exclude.saveChanges" = "Değişiklikleri Kaydet";
+"settings.exclude.saved" = "Kaydedildi!";
+"settings.exclude.paths" = "hariç tutulan klasör";
+
+/* Languages */
+"language.en" = "İngilizce";
+"language.tr" = "Türkçe";
+"language.de" = "Almanca";
+"language.ja" = "Japonca";
+"language.zh" = "Çince (Basitleştirilmiş)";
+"language.ko" = "Korece";
+"language.it" = "İtalyanca";
+"language.fr" = "Fransızca";
+
+/* Common */
+"common.next" = "İleri";
+"common.previous" = "Geri";
+"common.back" = "Geri";
+"common.done" = "Tamam";
+"common.cancel" = "İptal";
+"common.save" = "Kaydet";
+"common.delete" = "Sil";
+"common.edit" = "Düzenle";
+"common.add" = "Ekle";
+"common.close" = "Kapat";
+"common.items" = "öğe";
+"common.now" = "şimdi";
+"common.ok" = "Tamam";
+
+/* Dashboard & Projects */
+"dashboard.quickActions" = "Hızlı Eylemler";
+"dashboard.techStack" = "Teknoloji Yığını";
+"dashboard.recentActivity" = "Son Aktiviteler";
+"dashboard.noRecentActivity" = "Son aktivite yok";
+"dashboard.type" = "Tür: %@";
+"dashboard.size" = "BOYUT";
+"dashboard.files" = "DOSYALAR";
+"dashboard.lines" = "SATIRLAR";
+"dashboard.lang" = "DİL";
+"dashboard.framework" = "FRAMEWORK";
+
+/* Stats View */
+"stats.projectsAnalyzed" = "Analiz Edilen Projeler";
+"stats.trackedCodeLines" = "İzlenen Kod Satırları";
+"stats.gitAdditions" = "Git Eklemeleri";
+"stats.gitDeletions" = "Git Silmeleri";
+"stats.gitActivity30Days" = "Git Aktivitesi (30 Gün)";
+"stats.mon" = "Pzt";
+"stats.wed" = "Çar";
+"stats.fri" = "Cum";
+
+/* Notebook View */
+"notebook.allNotes" = "Tüm Notlar";
+"notebook.searchNotes" = "Notlarda ara...";
+"notebook.untitledNote" = "İsimsiz Not";
+"notebook.exportAsMarkdown" = "Markdown Olarak Dışa Aktar";
+"notebook.exportAsHtml" = "HTML Olarak Dışa Aktar";
+"notebook.exportAsPdf" = "PDF Olarak Dışa Aktar";
+"notebook.exportAsWord" = "Word/RTF Olarak Dışa Aktar";
+"notebook.exportAsCsv" = "CSV Olarak Dışa Aktar";
+"notebook.exportAsJson" = "JSON Olarak Dışa Aktar";
+"notebook.duplicateNote" = "Notu Çoğalt";
+"notebook.deleteNote" = "Notu Sil";
+"notebook.export" = "Dışa Aktar";
+"notebook.currentProject" = "Geçerli Proje";
+"notebook.withinContent" = "İçerik İçerisinde";
+"notebook.byCategoryTags" = "Kategori/Etikete Göre";
+
+/* Sidebar - Additional */
+"sidebar.explorer" = "GEZGİN";
+
+/* Notebook - Additional */
+"notebook.searchNotesPlaceholder" = "Notlarda ara...";
+"notebook.newNote" = "Yeni Not";
+"notebook.importMd" = ".md İçe Aktar";
+"notebook.allFolders" = "Tüm Klasörler";
+"notebook.folders" = "KLASÖRLER";
+"notebook.tags" = "ETİKETLER";
+"notebook.noNotesYet" = "Henüz not yok";
+"notebook.createNoteFromSidebar" = "Kenardan not oluştur";
+"notebook.selectNoteToEdit" = "Düzenlemek için bir not seçin";
+"notebook.createNewFromSidebar" = "Veya kenardan yeni not oluşturun";
+
+/* Note Settings */
+"notebook.noteSettings" = "Not Ayarları";
+"notebook.icon" = "İkon";
+"notebook.none" = "Yok";
+"notebook.color" = "Renk";
+"notebook.theme" = "Tema";
+"notebook.tagsCommaSeparated" = "Etiketler (virgülle ayrılmış)";
+"notebook.folder" = "Klasör";
+
+/* Todo Settings */
+"notebook.todoDetails" = "Todo Detayları";
+"notebook.priority" = "Öncelik";
+"notebook.assignee" = "Atanan";
+
+/* Editor */
+"editor.edit" = "Düzenle";
+"editor.preview" = "Önizleme";
+"editor.notes" = "Notlar";
+"editor.startWriting" = "Notlarınızı yazmaya başlayın...";
+"editor.slashCommands" = "Slash Komutları";
+"editor.noContentYet" = "Henüz içerik yok...";
+"editor.todos" = "Yapılacaklar";
+"editor.add" = "Ekle";
+"editor.clear" = "Temizle";
+"editor.done" = "Bitti";
+"editor.lastUpdated" = "Son güncelleme: %@";
+
+/* Stats - Additional */
+"stats.gitActivity" = "Git Aktivitesi (%@)";
+"stats.noGitActivity" = "Bu dönemde git aktivitesi bulunamadı veya depo başlatılmamış olabilir.";
+"stats.activityVolume" = "Aktivite Hacmi";
+"stats.codeLinesByProject" = "Projeye Göre Kod Satırları";
+"stats.allProjects" = "Tüm Projeler";
+"stats.projectTypes" = "Proje Türleri";
+"stats.topProjectsByFileCount" = "Dosya Sayısına Göre En İyi Projeler";
+"stats.projectsAnalyze" = "Projeleri Analiz Et";
+"stats.noSourceFiles" = "Kaynak dosya bulunamadı";
+"stats.analyzingProject" = "Proje analiz ediliyor...";
+"stats.contributionsHeatmap" = "Katkı Isı Haritası";
+"stats.hoverDetails" = "Detaylar için bloğun üzerine gelin";
+"stats.less" = "Az";
+"stats.more" = "Çok";
+
+/* Project List */
+"projects.calculatingStats" = "İstatistikler hesaplanıyor...";
+"projects.noProjectsFound" = "Proje bulunamadı";
+"projects.tryScanning" = "Projeleri taramayı deneyin veya aramayı ayarlayın";
+"projects.scanProjects" = "Projeleri Tara";
+
+/* Project Detail */
+"projects.backToProjects" = "Projeye Geri Dön";
+"projects.active" = "Aktif";
+"projects.techStack" = "Teknoloji Yığını";
+"projects.type" = "Tür:";
+"projects.recentActivity" = "Son Aktiviteler";
+"projects.noRecentActivity" = "Son aktivite yok";
+"projects.chooseEditor" = "Editör Seç";
+"projects.noEditorsFound" = "Desteklenen editör bulunamadı";
+
+/* Project Analyze */
+"analyze.noUnusedCode" = "Projede kullanılmayan kod bulunamadı. Harika iş!";
+"analyze.projectsAnalyze" = "Projeleri Analiz Et";
+"analyze.file" = "Dosya";
+"analyze.extension" = "Uzantı";
+"analyze.lines" = "Satırlar";
+"analyze.pageOf" = "Sayfa %1$d / %2$d";
+"analyze.analysisResults" = "Analiz Sonuçları";
+"analyze.cancel" = "İptal";
+"analyze.copyCleanupPrompt" = "Temizlik Promptunu Kopyala";
+"analyze.copied" = "Kopyalandı";
+"analyze.saveToNotes" = "Notlara Kaydet";
+
+/* Navigation */
+"nav.devAtlas" = "DevAtlas";
+"nav.workspace" = "Çalışma Alanı";
+"nav.projects" = "Projeler";
+"nav.export" = "Dışa Aktar";
+
+/* Onboarding - Additional */
+"onboarding.chooseAccentColor" = "Favori vurgu renginizi seçin";
+"onboarding.discoverProjects" = "Tüm geliştirme projelerinizi keşfedin ve yönetin";
+"onboarding.twoMoreFeatures" = "Elinizde iki güçlü özellik daha";
+"onboarding.lightningAccess" = "Geliştirme araçlarınıza ışık hızında erişim";
+
+/* Notebook - Sort & Filter */
+"notebook.sortBy" = "Sırala";
+"notebook.showArchived" = "Arşivlenenleri Göster";
+"notebook.notesCount" = "not";
+"notebook.tagsPlaceholder" = "örn. swift, önemli, aşama1";
+"notebook.folderPlaceholder" = "İsteğe bağlı klasör adı";
+
+/* Todo Settings - Additional */
+"notebook.assigneePlaceholder" = "örn. Ahmet Yılmaz";
+"notebook.todoTagsPlaceholder" = "örn. acil, backend";
+
+/* Editor - Additional */
+"editor.noteTitle" = "Not Başlığı";
+"editor.words" = "kelime";
+"editor.addTodoPlaceholder" = "Yapılacak ekle...";
+"editor.completed" = "Tamamlandı";
+"editor.addSubtask" = "Alt görev ekle...";
+"editor.due" = "Son tarih";
+"editor.characters" = "karakter";
+"editor.lines" = "satır";
+
+/* Context Menu - Notebook */
+"notebook.pinNote" = "Notu Sabitle";
+"notebook.unpinNote" = "Notu Çöz";
+"notebook.archiveNote" = "Notu Arşivle";
+"notebook.unarchiveNote" = "Notu Arşivden Çıkar";
+
+/* Project Detail - Quick Actions */
+"projects.quickActions" = "⚡ Hızlı Eylemler";
+"projects.openInXcode" = "Xcode'da Aç";
+"projects.launchWorkspace" = "Çalışma alanını başlat";
+"projects.openInCodeEditor" = "Kod Editöründe Aç";
+"projects.runProject" = "Projeyi Çalıştır";
+"projects.startDevServer" = "Dev sunucusunu başlat";
+"projects.installDependencies" = "Bağımlılıkları yükle";
+"projects.chooseScript" = "Script Seç";
+"projects.openTerminal" = "Terminali Aç";
+"projects.commandPrompt" = "Komut istemi";
+"projects.revealInFinder" = "Finder'da Göster";
+"projects.openFileExplorer" = "Dosya gezginini aç";
+"projects.analyzeProject" = "Projeyi Analiz Et";
+"projects.codeLineStats" = "Kod satırı istatistikleri";
+
+/* Project Analyze - Additional */
+"analyze.findUnusedCode" = "Kullanılmayan Kodu Bul";
+"analyze.analyzing" = "Analiz ediliyor...";
+"analyze.savedToNotes" = "Notlara Kaydedildi!";
+"analyze.filesAnalyzed" = "dosya analiz edildi";
+"analyze.totalFiles" = "Toplam Dosya";
+"analyze.totalLines" = "Toplam Satır";
+"analyze.avgLinesPerFile" = "Ortalama Satır/Dosya";
+"analyze.largestFile" = "En Büyük Dosya";
+"analyze.peripheryRequired" = "Periphery Gerekli";
+"analyze.peripheryRequiredMessage" = "Swift kullanılmayan kod analizi yalnızca Periphery ile çalışır. Kurmak için şu komutu kullanın: brew install peripheryapp/periphery/periphery";
+"analyze.installPeriphery" = "Kurulum Rehberini Aç";
+
+/* Common - Additional */
+"common.openWith" = "Birlikte Aç…";
+"common.image" = "Görsel";
+
+/* Scan */
+"scan.foundProjects" = "%d proje bulundu";
+
+/* Stats - New */
+"stats.selectedProjects" = "%d Seçili";
+"stats.noCodeLines" = "Kullanılabilir kod satırı yok.";
+"stats.noProjectsToRank" = "Sıralanacak proje yok.";
+"stats.noData" = "Veri yok.";
+"stats.linesValue" = "%@ satır";
+"stats.projectTypeCount" = "%@ proje";
+"stats.codeLinesValue" = "%@ Kod Satırı";
+"stats.contributionsCount" = "%d katkı";
+"stats.onDate" = "%@ tarihinde";
+"stats.activity.high" = "Yüksek Aktivite";
+"stats.activity.medium" = "Orta Aktivite";
+"stats.activity.low" = "Düşük Aktivite";
+
+/* Projects Footer */
+"projects.footer.projects" = "Proje";
+"projects.footer.files" = "Dosya";
+"projects.footer.lines" = "Satır";
+
+/* Onboarding - Quick Actions (New) */
+"onboarding.quickActions.xcode" = "Apple projelerini doğrudan açın";
+"onboarding.quickActions.vscode" = "Visual Studio Code'da başlatın";
+"onboarding.quickActions.terminal" = "Projede terminal açın";
+"onboarding.quickActions.finder" = "Projeyi Finder'da gösterin";
+"onboarding.quickActions.runProjects" = "Projeleri Çalıştır";
+"onboarding.quickActions.analyzeCode" = "Kodu Analiz Et";
+
+/* Onboarding - Stats & Notebook (New Features) */
+"onboarding.stats.languageBreakdown" = "Dil dağılımı";
+"onboarding.stats.lineCountAnalysis" = "Satır sayısı analizi";
+"onboarding.stats.timeInsights" = "Zamana göre içgörüler";
+"onboarding.stats.exportReports" = "Raporları dışa aktar";
+"onboarding.notebook.projectDocs" = "Proje dokümanları";
+"onboarding.notebook.organizeTags" = "Etiketlerle organize edin";
+"onboarding.notebook.linkProjects" = "Projelerle ilişkilendirin";
+"onboarding.notebook.markdownSupport" = "Markdown desteği";
+
+/* Onboarding - Features (New Rows) */
+"onboarding.features.autoScan.title" = "Otomatik Tarama";
+"onboarding.features.autoScan.subtitle" = "Tüm disklerinizdeki projeleri bulur";
+"onboarding.features.smartFilters.title" = "Akıllı Filtreler";
+"onboarding.features.smartFilters.subtitle" = "Web, Masaüstü, Mobil veya Bulut'a göre filtreleyin";
+"onboarding.features.search.title" = "Arama";
+"onboarding.features.search.subtitle" = "Projeleri ada veya teknoloji yığınına göre bulun";
+"onboarding.features.recentActivity.title" = "Son Aktivite";
+"onboarding.features.recentActivity.subtitle" = "Üzerinde çalıştığınız son dosyaları görün";
+
+/* Editor - Slash Commands & Todo Status */
+"editor.heading1" = "Başlık 1";
+"editor.heading2" = "Başlık 2";
+"editor.heading3" = "Başlık 3";
+"editor.todoList" = "Yapılacak Listesi";
+"editor.bulletList" = "Madde İşaretli Liste";
+"editor.codeBlock" = "Kod Bloğu";
+
+"editor.todoStatus.todo" = "Yapılacak";
+"editor.todoStatus.inProgress" = "Devam Ediyor";
+"editor.todoStatus.done" = "Tamamlandı";
+
+"editor.priority.low" = "Düşük";
+"editor.priority.medium" = "Orta";
+"editor.priority.high" = "Yüksek";
+
+"editor.completedCount" = "Tamamlandı (%d)";
+"editor.overdue" = "Gecikmiş %@";
+"editor.minutesLeft" = "%d dk kaldı";
+"editor.hoursLeft" = "%d sa kaldı";
+"editor.daysLeft" = "%d gün kaldı";
+
+/* Dependencies */
+"projects.dependencies" = "Bağımlılıklar";
+"projects.devDependencies" = "Geliştirme Bağımlılıkları";
+"projects.noDependencies" = "Bağımlılık bulunamadı";
+"projects.loadingDependencies" = "Bağımlılıklar yükleniyor...";
+"projects.collapsedDependencies" = "Projede %d bağımlılık var, detayları görmek için tıklayın";
+"dependency.upgradeable" = "Yükseltilebilir";
+"projects.collapsedDependenciesMultiProject" = "%d proje üzerinde %d bağımlılık var, detayları görmek için tıklayın";
+
+
+/* --- AI Prompts --- */
+"aiprompts.title" = "AI Prompt Kütüphanesi";
+"aiprompts.subtitle" = "%d kategori · %d profesyonel prompt";
+"aiprompts.description" = "Kendi projelerini analiz etmek için bu detaylı promptları kopyala ve AI asistanına (ChatGPT, Claude, Gemini v.b.) yapıştır. Her prompt, uzman seviyesinde analiz çıktısı üretmek için tasarlandı.";
+"aiprompts.wordCount" = "%d kelime";
+"aiprompts.copied" = "Kopyalandı!";
+"aiprompts.copy" = "Kopyala";
+"aiprompts.collapse" = "Daralt";
+"aiprompts.expand" = "Tamamını Gör";
+
+"aiprompts.category.codeQuality" = "Kod Kalitesi";
+"aiprompts.category.performance" = "Performans";
+"aiprompts.category.architecture" = "Mimari & Tasarım";
+"aiprompts.category.testing" = "Testing";
+"aiprompts.category.documentation" = "Dokümantasyon";
+"aiprompts.category.debugging" = "Debugging & Profiling";
+"aiprompts.category.networking" = "API & Networking";
+"aiprompts.category.accessibility" = "Erişilebilirlik";
+"aiprompts.category.localization" = "i18n & Localization";
+"aiprompts.category.cicd" = "Git & CI/CD";
+"aiprompts.category.dependencies" = "Dependency Yönetimi";
+"aiprompts.category.codeGeneration" = "Kod Üretimi";
+
+"aiprompts.prompt.unusedCode.title" = "Unused Code (Kullanılmayan Kod)";
+"aiprompts.prompt.unusedCode.desc" = "Projendeki kullanılmayan fonksiyonları, değişkenleri, sınıfları ve import'ları tespit eder.";
+"aiprompts.prompt.codeSmells.title" = "Code Smells & Anti-Patterns";
+"aiprompts.prompt.codeSmells.desc" = "Kod kokuları, anti-pattern'leri ve potansiyel bug'ları derinlemesine tespit eder.";
+"aiprompts.prompt.memoryLeaks.title" = "Memory Leaks & Retain Cycles";
+"aiprompts.prompt.memoryLeaks.desc" = "Swift/Apple projelerindeki bellek sızıntılarını, retain cycle'ları ve kaynak yönetim hatalarını kapsamlı analiz eder.";
+"aiprompts.prompt.securityAudit.title" = "Security Audit";
+"aiprompts.prompt.securityAudit.desc" = "Güvenlik açıklarını, tehlikeli kod kalıplarını ve veri koruma eksikliklerini kapsamlı denetler.";
+"aiprompts.prompt.errorHandling.title" = "Error Handling Audit";
+"aiprompts.prompt.errorHandling.desc" = "Hata yönetimindeki eksiklikleri, force unwrap'ları ve crash risklerini tespit eder.";
+
+"aiprompts.prompt.bottleneck.title" = "Performance Bottleneck Analizi";
+"aiprompts.prompt.bottleneck.desc" = "Tüm kod tabanındaki performans darboğazlarını, yavaş noktaları ve gereksiz iş yüklerini tespit eder.";
+"aiprompts.prompt.swiftuiRender.title" = "SwiftUI Render Optimizasyonu";
+"aiprompts.prompt.swiftuiRender.desc" = "SwiftUI view hiyerarşisindeki gereksiz re-render'ları, state yönetimi hatalarını ve UI performans sorunlarını tespit eder.";
+"aiprompts.prompt.appLaunch.title" = "App Launch & Startup Optimizasyonu";
+"aiprompts.prompt.appLaunch.desc" = "Uygulama başlangıç süresini, cold/warm launch performansını ve ilk ekran gösterim hızını analiz eder.";
+
+"aiprompts.prompt.architectureDeep.title" = "Architecture Deep Review";
+"aiprompts.prompt.architectureDeep.desc" = "Projenin mimari yapısını SOLID prensipleri, bağımlılık yönetimi ve modülerlik açısından derinlemesine değerlendirir.";
+"aiprompts.prompt.designPatterns.title" = "Design Patterns & Best Practices";
+"aiprompts.prompt.designPatterns.desc" = "Mevcut design pattern kullanımını analiz eder, eksik pattern'leri önerir ve anti-pattern'leri tespit eder.";
+"aiprompts.prompt.refactoringGuide.title" = "Refactoring Rehberi";
+"aiprompts.prompt.refactoringGuide.desc" = "Refactoring gerektiren kod bloklarını Martin Fowler'ın refactoring kataloguna göre işaretler ve adım adım rehber sunar.";
+
+"aiprompts.prompt.testCoverage.title" = "Test Coverage & Gap Analizi";
+"aiprompts.prompt.testCoverage.desc" = "Test coverage boşluklarını, eksik test senaryolarını ve kritik test edilmemiş kod yollarını kapsamlı analiz eder.";
+"aiprompts.prompt.unitTestAudit.title" = "Unit Test Kalite Denetimi";
+"aiprompts.prompt.unitTestAudit.desc" = "Mevcut unit testlerin kalitesini, güvenilirliğini ve sürdürülebilirliğini denetler.";
+"aiprompts.prompt.testGenerator.title" = "Test Yazma Asistanı";
+"aiprompts.prompt.testGenerator.desc" = "Verdiğin kod dosyası için kapsamlı, çalışır durumda unit test'ler üretir.";
+
+"aiprompts.prompt.apiDocs.title" = "Otomatik API Dokümantasyonu";
+"aiprompts.prompt.apiDocs.desc" = "Tüm public API'lerin Swift DocC formatında detaylı dokümantasyonunu üretir.";
+"aiprompts.prompt.readmeDocs.title" = "README & Proje Dokümantasyonu";
+"aiprompts.prompt.readmeDocs.desc" = "Profesyonel, kapsamlı README ve proje dokümantasyonu oluşturur.";
+"aiprompts.prompt.commentsAudit.title" = "Kod Yorumları Analizi";
+"aiprompts.prompt.commentsAudit.desc" = "Mevcut yorumları analiz eder, eskimiş/hatalı olanları tespit eder ve iyileştirme önerileri sunar.";
+
+"aiprompts.prompt.crashBugAudit.title" = "Crash & Bug Analizi";
+"aiprompts.prompt.crashBugAudit.desc" = "Crash log'larını, bug raporlarını analiz eder, kök nedeni bulur ve düzeltme önerir.";
+"aiprompts.prompt.instrumentsGuide.title" = "Instruments & Profiling Rehberi";
+"aiprompts.prompt.instrumentsGuide.desc" = "Xcode Instruments ile profiling yapma rehberi ve projeye özel tavsiyeler sunar.";
+
+"aiprompts.prompt.networkAudit.title" = "Network Layer Audit";
+"aiprompts.prompt.networkAudit.desc" = "Networking katmanını, API çağrılarını, hata yönetimini ve veri akışını kapsamlı denetler.";
+"aiprompts.prompt.apiMock.title" = "API Mock & Test Altyapısı";
+"aiprompts.prompt.apiMock.desc" = "API test altyapısı, mock sunucu yapılandırması ve network test stratejisi oluşturur.";
+
+"aiprompts.prompt.a11yAudit.title" = "Accessibility Audit";
+"aiprompts.prompt.a11yAudit.desc" = "Erişilebilirlik standartlarına uyumu denetler, VoiceOver, Dynamic Type ve renk kontrastı sorunlarını tespit eder.";
+
+"aiprompts.prompt.i18nAudit.title" = "Localization Tam Denetim";
+"aiprompts.prompt.i18nAudit.desc" = "Hardcoded string'leri, eksik çevirileri, tarih/sayı formatlarını ve RTL desteğini kapsamlı denetler.";
+
+"aiprompts.prompt.gitWorkflow.title" = "Git Workflow Optimizasyonu";
+"aiprompts.prompt.gitWorkflow.desc" = "Git geçmişini, branch stratejisini, commit kalitesini ve .gitignore yapılandırmasını denetler.";
+"aiprompts.prompt.cicdPipeline.title" = "CI/CD Pipeline Tasarımı";
+"aiprompts.prompt.cicdPipeline.desc" = "Proje tipine uygun CI/CD pipeline tasarımı, build optimizasyonu ve deployment stratejisi oluşturur.";
+
+"aiprompts.prompt.depAudit.title" = "Dependency Audit";
+"aiprompts.prompt.depAudit.desc" = "Tüm bağımlılıkları güvenlik, güncellik, lisans uyumu ve gereklililik açısından denetler.";
+
+"aiprompts.prompt.crudGen.title" = "CRUD Feature Generator";
+"aiprompts.prompt.crudGen.desc" = "Yeni bir entity için komple CRUD feature (Model, Service, ViewModel, View) üretir.";
+"aiprompts.prompt.boilerplateGen.title" = "Proje Boilerplate Generator";
+"aiprompts.prompt.boilerplateGen.desc" = "Yeni bir modül veya feature için gerekli tüm dosya ve klasör yapısını oluşturur.";
+"aiprompts.prompt.projectReport.title" = "Proje Analiz Raporu";
+"aiprompts.prompt.projectReport.desc" = "Projenin bütünsel bir röntgenini çıkarır: mimari, kalite, risk ve iyileştirme önerileri.";

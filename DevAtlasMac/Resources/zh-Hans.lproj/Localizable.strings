@@ -1,0 +1,489 @@
+/*
+  简体中文本地化
+*/
+
+/* App General */
+"app.name" = "DevAtlas";
+"app.tagline" = "您的开发指挥中心";
+"app.version" = "版本 %@";
+
+/* Tabs */
+"tab.atlas" = "地图";
+"tab.stats" = "统计";
+"tab.notebook" = "笔记本";
+"tab.aiPrompts" = "AI提示词";
+"tab.settings" = "设置";
+
+/* Sidebar */
+"sidebar.allProjects" = "所有项目";
+"sidebar.web" = "网页";
+"sidebar.desktop" = "桌面";
+"sidebar.mobile" = "移动";
+"sidebar.cloud" = "云";
+"sidebar.scanProjects" = "扫描项目";
+"sidebar.darkMode" = "深色模式";
+"sidebar.showTour" = "显示导览";
+
+/* Search */
+"search.projects" = "搜索项目...";
+"search.notes" = "在笔记中搜索...";
+
+/* Onboarding - Welcome */
+"onboarding.welcome.title" = "欢迎使用 DevAtlas";
+"onboarding.welcome.subtitle" = "您的开发指挥中心";
+"onboarding.welcome.getStarted" = "开始";
+"onboarding.welcome.skip" = "跳过";
+
+/* Onboarding - Features */
+"onboarding.features.title" = "项目地图";
+"onboarding.features.subtitle" = "管理您所有的开发项目";
+"onboarding.features.feature1.title" = "项目地图";
+"onboarding.features.feature1.subtitle" = "管理您所有的开发项目";
+"onboarding.features.feature2.title" = "统计";
+"onboarding.features.feature2.subtitle" = "跟踪您的编码活动";
+"onboarding.features.feature3.title" = "笔记本";
+"onboarding.features.feature3.subtitle" = "记录您的项目";
+"onboarding.features.next" = "下一步";
+"onboarding.features.previous" = "上一步";
+
+/* Onboarding - Quick Actions */
+"onboarding.quickActions.title" = "快速操作";
+"onboarding.quickActions.subtitle" = "快速访问您的工具";
+"onboarding.quickActions.next" = "下一步";
+"onboarding.quickActions.previous" = "上一步";
+
+/* Onboarding - Stats & Notebook */
+"onboarding.statsNotebook.title" = "统计与笔记本";
+"onboarding.statsNotebook.subtitle" = "跟踪进度并做笔记";
+"onboarding.statsNotebook.next" = "下一步";
+"onboarding.statsNotebook.previous" = "上一步";
+
+/* Onboarding - Appearance */
+"onboarding.appearance.title" = "外观";
+"onboarding.appearance.subtitle" = "选择 DevAtlas 的外观";
+"onboarding.appearance.light" = "浅色";
+"onboarding.appearance.dark" = "深色";
+"onboarding.appearance.accentColor" = "强调色";
+"onboarding.appearance.allSet" = "您已准备就绪！";
+"onboarding.appearance.start" = "开始使用 DevAtlas";
+"onboarding.appearance.back" = "返回";
+
+/* Settings */
+"settings.title" = "设置";
+"settings.about" = "关于";
+"settings.about.description" = "DevAtlas 是您的综合开发指挥中心。在一个地方组织、分析和跟踪所有项目。";
+"settings.language" = "语言";
+"settings.language.select" = "选择语言";
+"settings.appearance" = "外观";
+"settings.appearance.theme" = "主题";
+"settings.appearance.accentColor" = "强调色";
+"settings.appearance.light" = "浅色";
+"settings.appearance.dark" = "深色";
+"settings.appearance.system" = "系统";
+"settings.version" = "版本";
+"settings.copyright" = "© 2024 DevAtlas";
+
+/* Settings - Exclude */
+"settings.exclude" = "排除";
+"settings.exclude.subtitle" = "扫描时要跳过的文件夹";
+"settings.exclude.addFolder" = "选择文件夹";
+"settings.exclude.noPaths" = "没有排除的文件夹";
+"settings.exclude.remove" = "移除";
+"settings.exclude.saveChanges" = "保存更改";
+"settings.exclude.saved" = "已保存！";
+"settings.exclude.paths" = "排除的文件夹";
+
+/* Languages */
+"language.en" = "英语";
+"language.tr" = "土耳其语";
+"language.de" = "德语";
+"language.ja" = "日语";
+"language.zh" = "简体中文";
+"language.ko" = "韩语";
+"language.it" = "意大利语";
+"language.fr" = "法语";
+
+/* Common */
+"common.next" = "下一步";
+"common.previous" = "上一步";
+"common.back" = "返回";
+"common.done" = "完成";
+"common.cancel" = "取消";
+"common.save" = "保存";
+"common.delete" = "删除";
+"common.edit" = "编辑";
+"common.add" = "添加";
+"common.close" = "关闭";
+"common.items" = "项";
+"common.now" = "现在";
+"common.ok" = "确定";
+
+/* Dashboard & Projects */
+"dashboard.quickActions" = "快捷操作";
+"dashboard.techStack" = "技术栈";
+"dashboard.recentActivity" = "最近活动";
+"dashboard.noRecentActivity" = "没有最近活动";
+"dashboard.type" = "类型: %@";
+"dashboard.size" = "大小";
+"dashboard.files" = "文件";
+"dashboard.lines" = "代码行";
+"dashboard.lang" = "语言";
+"dashboard.framework" = "框架";
+
+/* Stats View */
+"stats.projectsAnalyzed" = "分析的项目";
+"stats.trackedCodeLines" = "跟踪的代码行";
+"stats.gitAdditions" = "Git 增加";
+"stats.gitDeletions" = "Git 删除";
+"stats.gitActivity30Days" = "Git 活动 (30天)";
+"stats.mon" = "周一";
+"stats.wed" = "周三";
+"stats.fri" = "周五";
+
+/* Notebook View */
+"notebook.allNotes" = "所有笔记";
+"notebook.searchNotes" = "搜索笔记...";
+"notebook.untitledNote" = "未命名笔记";
+"notebook.exportAsMarkdown" = "导出为 Markdown";
+"notebook.exportAsHtml" = "导出为 HTML";
+"notebook.exportAsPdf" = "导出为 PDF";
+"notebook.exportAsWord" = "导出为 Word/RTF";
+"notebook.exportAsCsv" = "导出为 CSV";
+"notebook.exportAsJson" = "导出为 JSON";
+"notebook.duplicateNote" = "复制笔记";
+"notebook.deleteNote" = "删除笔记";
+"notebook.export" = "导出";
+"notebook.currentProject" = "当前项目";
+"notebook.withinContent" = "在内容中";
+"notebook.byCategoryTags" = "按类别/标签";
+
+/* Sidebar - Additional */
+"sidebar.explorer" = "资源管理器";
+
+/* Notebook - Additional */
+"notebook.searchNotesPlaceholder" = "搜索笔记...";
+"notebook.newNote" = "新建笔记";
+"notebook.importMd" = "导入 .md";
+"notebook.allFolders" = "所有文件夹";
+"notebook.folders" = "文件夹";
+"notebook.tags" = "标签";
+"notebook.noNotesYet" = "暂无笔记";
+"notebook.createNoteFromSidebar" = "从侧边栏创建笔记";
+"notebook.selectNoteToEdit" = "选择要编辑的笔记";
+"notebook.createNewFromSidebar" = "或从侧边栏新建笔记";
+
+/* Note Settings */
+"notebook.noteSettings" = "笔记设置";
+"notebook.icon" = "图标";
+"notebook.none" = "无";
+"notebook.color" = "颜色";
+"notebook.theme" = "主题";
+"notebook.tagsCommaSeparated" = "标签（逗号分隔）";
+"notebook.folder" = "文件夹";
+
+/* Todo Settings */
+"notebook.todoDetails" = "待办详情";
+"notebook.priority" = "优先级";
+"notebook.assignee" = "负责人";
+
+/* Editor */
+"editor.edit" = "编辑";
+"editor.preview" = "预览";
+"editor.notes" = "笔记";
+"editor.startWriting" = "开始写笔记...";
+"editor.slashCommands" = "斜杠命令";
+"editor.noContentYet" = "暂无内容...";
+"editor.todos" = "待办事项";
+"editor.add" = "添加";
+"editor.clear" = "清除";
+"editor.done" = "完成";
+"editor.lastUpdated" = "最后更新：%@";
+
+/* Stats - Additional */
+"stats.gitActivity" = "Git 活动 (%@)";
+"stats.noGitActivity" = "在此期间未找到 Git 活动，或者仓库可能尚未初始化。";
+"stats.activityVolume" = "活动量";
+"stats.codeLinesByProject" = "各项目代码行数";
+"stats.allProjects" = "所有项目";
+"stats.projectTypes" = "项目类型";
+"stats.topProjectsByFileCount" = "文件数最多的项目";
+"stats.projectsAnalyze" = "分析项目";
+"stats.noSourceFiles" = "未找到源文件";
+"stats.analyzingProject" = "正在分析项目...";
+"stats.contributionsHeatmap" = "贡献热力图";
+"stats.hoverDetails" = "悬停查看详情";
+"stats.less" = "少";
+"stats.more" = "多";
+
+/* Project List */
+"projects.calculatingStats" = "正在计算统计信息...";
+"projects.noProjectsFound" = "未找到项目";
+"projects.tryScanning" = "尝试扫描项目或调整搜索条件";
+"projects.scanProjects" = "扫描项目";
+
+/* Project Detail */
+"projects.backToProjects" = "返回项目";
+"projects.active" = "活跃";
+"projects.techStack" = "技术栈";
+"projects.type" = "类型：";
+"projects.recentActivity" = "最近活动";
+"projects.noRecentActivity" = "暂无最近活动";
+"projects.chooseEditor" = "选择编辑器";
+"projects.noEditorsFound" = "未找到支持的编辑器";
+
+/* Project Analyze */
+"analyze.noUnusedCode" = "项目中未发现未使用的代码。做得好！";
+"analyze.projectsAnalyze" = "分析项目";
+"analyze.file" = "文件";
+"analyze.extension" = "扩展名";
+"analyze.lines" = "行数";
+"analyze.pageOf" = "第 %1$d 页，共 %2$d 页";
+"analyze.analysisResults" = "分析结果";
+"analyze.cancel" = "取消";
+"analyze.saveToNotes" = "保存到笔记";
+
+/* Navigation */
+"nav.devAtlas" = "DevAtlas";
+"nav.workspace" = "工作区";
+"nav.projects" = "项目";
+"nav.export" = "导出";
+
+/* Onboarding - Additional */
+"onboarding.chooseAccentColor" = "选择您喜爱的强调色";
+"onboarding.discoverProjects" = "发现和管理您的所有开发项目";
+"onboarding.twoMoreFeatures" = "触手可及的另外两个强大功能";
+"onboarding.lightningAccess" = "快速访问您的开发工具";
+
+/* Notebook - Sort & Filter */
+"notebook.sortBy" = "排序";
+"notebook.showArchived" = "显示已归档";
+"notebook.notesCount" = "笔记";
+"notebook.tagsPlaceholder" = "例如: swift, 重要, phase1";
+"notebook.folderPlaceholder" = "文件夹名称（可选）";
+
+/* Todo Settings - Additional */
+"notebook.assigneePlaceholder" = "例如: 张三";
+"notebook.todoTagsPlaceholder" = "例如: 紧急, 后端";
+
+/* Editor - Additional */
+"editor.noteTitle" = "笔记标题";
+"editor.words" = "字";
+"editor.addTodoPlaceholder" = "添加待办...";
+"editor.completed" = "已完成";
+"editor.addSubtask" = "添加子任务...";
+"editor.due" = "截止日期";
+"editor.characters" = "字符";
+"editor.lines" = "行";
+
+/* Context Menu - Notebook */
+"notebook.pinNote" = "固定笔记";
+"notebook.unpinNote" = "取消固定笔记";
+"notebook.archiveNote" = "归档笔记";
+"notebook.unarchiveNote" = "取消归档笔记";
+
+/* Project Detail - Quick Actions */
+"projects.quickActions" = "⚡ 快速操作";
+"projects.openInXcode" = "在 Xcode 中打开";
+"projects.launchWorkspace" = "启动工作区";
+"projects.openInCodeEditor" = "在代码编辑器中打开";
+"projects.runProject" = "运行项目";
+"projects.startDevServer" = "启动开发服务器";
+"projects.installDependencies" = "安装依赖";
+"projects.chooseScript" = "选择脚本";
+"projects.openTerminal" = "打开终端";
+"projects.commandPrompt" = "命令提示符";
+"projects.revealInFinder" = "在访达中显示";
+"projects.openFileExplorer" = "打开文件资源管理器";
+"projects.analyzeProject" = "分析项目";
+"projects.codeLineStats" = "代码行统计";
+
+/* Project Analyze - Additional */
+"analyze.findUnusedCode" = "查找未使用的代码";
+"analyze.analyzing" = "分析中...";
+"analyze.savedToNotes" = "已保存到笔记！";
+"analyze.filesAnalyzed" = "文件已分析";
+"analyze.totalFiles" = "文件总数";
+"analyze.totalLines" = "代码总行数";
+"analyze.avgLinesPerFile" = "平均行数/文件";
+"analyze.largestFile" = "最大文件";
+"analyze.peripheryRequired" = "Periphery Required";
+"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
+"analyze.installPeriphery" = "Open Install Guide";
+
+/* Scan */
+"scan.foundProjects" = "已找到 %d 个项目";
+
+/* Onboarding - Quick Actions (New) */
+"onboarding.quickActions.xcode" = "在 Xcode 中打开 Apple 项目";
+"onboarding.quickActions.vscode" = "在 Visual Studio Code 中打开";
+"onboarding.quickActions.terminal" = "在项目位置打开终端";
+"onboarding.quickActions.finder" = "在访达中显示项目";
+"onboarding.quickActions.runProjects" = "运行项目";
+"onboarding.quickActions.analyzeCode" = "分析代码";
+
+/* Onboarding - Stats & Notebook (New Features) */
+"onboarding.stats.languageBreakdown" = "按语言划分";
+"onboarding.stats.lineCountAnalysis" = "代码行数分析";
+"onboarding.stats.timeInsights" = "基于时间的洞察";
+"onboarding.stats.exportReports" = "导出报表";
+"onboarding.notebook.projectDocs" = "项目文档";
+"onboarding.notebook.organizeTags" = "通过标签组织";
+"onboarding.notebook.linkProjects" = "链接到项目";
+"onboarding.notebook.markdownSupport" = "Markdown 支持";
+
+/* Onboarding - Features (New Rows) */
+"onboarding.features.autoScan.title" = "自动扫描";
+"onboarding.features.autoScan.subtitle" = "在所有磁盘中查找项目";
+"onboarding.features.smartFilters.title" = "智能筛选";
+"onboarding.features.smartFilters.subtitle" = "按 Web、桌面、移动或云进行筛选";
+"onboarding.features.search.title" = "搜索";
+"onboarding.features.search.subtitle" = "按名称或技术栈查找项目";
+"onboarding.features.recentActivity.title" = "最近活动";
+"onboarding.features.recentActivity.subtitle" = "查看最近处理的文件";
+
+/* Projects Footer */
+"projects.footer.projects" = "项目";
+"projects.footer.files" = "文件";
+"projects.footer.lines" = "代码行";
+
+/* Stats - New */
+"stats.selectedProjects" = "已选择 %d 个项目";
+"stats.noCodeLines" = "没有可用的代码行。";
+"stats.noProjectsToRank" = "没有可排序的项目。";
+"stats.noData" = "没有可用数据。";
+"stats.linesValue" = "%@ 行";
+"stats.projectTypeCount" = "%@ 个项目";
+"stats.codeLinesValue" = "%@ 行代码";
+"stats.contributionsCount" = "%d 次提交";
+"stats.onDate" = "于 %@";
+"stats.activity.high" = "高活动";
+"stats.activity.medium" = "中等活动";
+"stats.activity.low" = "低活动";
+
+/* Dependencies */
+"projects.dependencies" = "依赖项";
+"projects.devDependencies" = "开发依赖项";
+"projects.noDependencies" = "未找到依赖项";
+"projects.loadingDependencies" = "正在加载依赖项...";
+"projects.collapsedDependencies" = "项目中有%d个依赖项，点击查看详情";
+"projects.collapsedDependenciesMultiProject" = "跨%d个项目有%d个依赖项，点击查看详情";
+"dependency.upgradeable" = "可升级";
+
+
+
+/* --- AI Prompts --- */
+"aiprompts.title" = "AI提示词库";
+"aiprompts.subtitle" = "%d个分类 · %d个专业提示词";
+"aiprompts.description" = "复制这些详细的提示词并将其粘贴到您的AI助手(ChatGPT、Claude、Gemini等)中，以分析您自己的项目。每个提示词旨在生成专家级的分析输出。";
+"aiprompts.wordCount" = "%d词";
+"aiprompts.copied" = "已复制！";
+"aiprompts.copy" = "复制";
+"aiprompts.collapse" = "收起";
+"aiprompts.expand" = "查看全部";
+
+"aiprompts.category.codeQuality" = "代码质量";
+"aiprompts.category.performance" = "性能";
+"aiprompts.category.architecture" = "架构与设计";
+"aiprompts.category.testing" = "测试";
+"aiprompts.category.documentation" = "文档";
+"aiprompts.category.debugging" = "调试与分析";
+"aiprompts.category.networking" = "API与网络";
+"aiprompts.category.accessibility" = "无障碍访问";
+"aiprompts.category.localization" = "i18n与本地化";
+"aiprompts.category.cicd" = "Git与CI/CD";
+"aiprompts.category.dependencies" = "依赖管理";
+"aiprompts.category.codeGeneration" = "代码生成";
+
+"aiprompts.prompt.unusedCode.title" = "未使用的代码";
+"aiprompts.prompt.unusedCode.desc" = "检测项目中未使用的函数、变量、类和导入。";
+"aiprompts.prompt.codeSmells.title" = "代码异味与反模式";
+"aiprompts.prompt.codeSmells.desc" = "深度检测代码异味、反模式和潜在的错误。";
+"aiprompts.prompt.memoryLeaks.title" = "内存泄漏与保留环";
+"aiprompts.prompt.memoryLeaks.desc" = "全面分析Swift/Apple项目中的内存泄漏、保留环和资源管理错误。";
+"aiprompts.prompt.securityAudit.title" = "安全审计";
+"aiprompts.prompt.securityAudit.desc" = "全面审计安全漏洞、危险的代码模式和数据保护缺陷。";
+"aiprompts.prompt.errorHandling.title" = "错误处理审计";
+"aiprompts.prompt.errorHandling.desc" = "检测错误处理缺陷、强制解包和崩溃风险。";
+
+"aiprompts.prompt.bottleneck.title" = "性能瓶颈分析";
+"aiprompts.prompt.bottleneck.desc" = "检测整个代码库中的性能瓶颈、响应迟缓点和不必要的工作负载。";
+"aiprompts.prompt.swiftuiRender.title" = "SwiftUI渲染优化";
+"aiprompts.prompt.swiftuiRender.desc" = "检测SwiftUI视图层级中不必要的重新渲染、状态管理错误和UI性能问题。";
+"aiprompts.prompt.appLaunch.title" = "应用启动优化";
+"aiprompts.prompt.appLaunch.desc" = "分析应用启动时间、冷/热启动性能以及首屏显示速度。";
+
+"aiprompts.prompt.architectureDeep.title" = "架构深度审查";
+"aiprompts.prompt.architectureDeep.desc" = "从SOLID原则、依赖管理和模块化的角度深入评估项目的架构。";
+"aiprompts.prompt.designPatterns.title" = "设计模式与最佳实践";
+"aiprompts.prompt.designPatterns.desc" = "分析当前的设计模式使用情况，建议缺失的模式，并检测反模式。";
+"aiprompts.prompt.refactoringGuide.title" = "重构指南";
+"aiprompts.prompt.refactoringGuide.desc" = "根据Martin Fowler的重构目录标记需要重构的代码块，并提供分步指南。";
+
+"aiprompts.prompt.testCoverage.title" = "测试覆盖率与差距分析";
+"aiprompts.prompt.testCoverage.desc" = "全面分析测试覆盖率差距、缺失的测试场景和未经测试的关键代码路径。";
+"aiprompts.prompt.unitTestAudit.title" = "单元测试质量审计";
+"aiprompts.prompt.unitTestAudit.desc" = "审计现有单元测试的质量、可靠性和可维护性。";
+"aiprompts.prompt.testGenerator.title" = "测试编写助手";
+"aiprompts.prompt.testGenerator.desc" = "为提供的代码文件生成全面的、可运行的单元测试。";
+
+"aiprompts.prompt.apiDocs.title" = "自动化API文档";
+"aiprompts.prompt.apiDocs.desc" = "以Swift DocC格式为所有公共API生成详细文档。";
+"aiprompts.prompt.readmeDocs.title" = "README与项目文档";
+"aiprompts.prompt.readmeDocs.desc" = "创建专业、全面的README和项目文档。";
+"aiprompts.prompt.commentsAudit.title" = "代码注释分析";
+"aiprompts.prompt.commentsAudit.desc" = "分析现有注释，检测过时/错误的注释，并提供改进建议。";
+
+"aiprompts.prompt.crashBugAudit.title" = "崩溃与错误分析";
+"aiprompts.prompt.crashBugAudit.desc" = "分析崩溃日志和错误报告，找出根本原因，并建议修复方案。";
+"aiprompts.prompt.instrumentsGuide.title" = "Instruments与分析指南";
+"aiprompts.prompt.instrumentsGuide.desc" = "提供使用Xcode Instruments进行分析的指南以及特定于项目的建议。";
+
+"aiprompts.prompt.networkAudit.title" = "网络层审计";
+"aiprompts.prompt.networkAudit.desc" = "全面审计网络层、API调用、错误处理和数据流。";
+"aiprompts.prompt.apiMock.title" = "API Mock与测试基础设施";
+"aiprompts.prompt.apiMock.desc" = "创建API测试基础设施、Mock服务器配置和网络测试策略。";
+
+"aiprompts.prompt.a11yAudit.title" = "无障碍访问审计";
+"aiprompts.prompt.a11yAudit.desc" = "审计对无障碍标准的遵守情况，检测VoiceOver、Dynamic Type和颜色对比度问题。";
+
+"aiprompts.prompt.i18nAudit.title" = "本地化全面审计";
+"aiprompts.prompt.i18nAudit.desc" = "全面审计硬编码字符串、缺失的翻译、日期/数字格式以及RTL支持。";
+
+"aiprompts.prompt.gitWorkflow.title" = "Git工作流优化";
+"aiprompts.prompt.gitWorkflow.desc" = "审计Git历史记录、分支策略、提交质量和.gitignore配置。";
+"aiprompts.prompt.cicdPipeline.title" = "CI/CD流水线设计";
+"aiprompts.prompt.cicdPipeline.desc" = "创建适合项目类型的CI/CD流水线设计、构建优化和部署策略。";
+
+"aiprompts.prompt.depAudit.title" = "依赖关系审计";
+"aiprompts.prompt.depAudit.desc" = "从安全性、最新状态、许可证合规性和必要性方面审计所有依赖项。";
+
+"aiprompts.prompt.crudGen.title" = "CRUD功能生成器";
+"aiprompts.prompt.crudGen.desc" = "为新实体生成完整的CRUD功能(Model、Service、ViewModel、View)。";
+"aiprompts.prompt.boilerplateGen.title" = "项目模板生成器";
+"aiprompts.prompt.boilerplateGen.desc" = "为新模块或功能创建所有必需的文件和文件夹结构。";
+"aiprompts.prompt.projectReport.title" = "项目分析报告";
+"aiprompts.prompt.projectReport.desc" = "提供项目的整体透视图(架构、质量、风险和改进建议)。";
+
+
+/* --- Missing Keys --- */
+"analyze.copied" = "已复制！";
+"analyze.copyCleanupPrompt" = "复制清理提示词";
+"common.image" = "图片";
+"common.openWith" = "打开方式";
+"editor.bulletList" = "无序列表";
+"editor.codeBlock" = "代码块";
+"editor.completedCount" = "已完成%d项";
+"editor.daysLeft" = "%d天后";
+"editor.heading1" = "标题1";
+"editor.heading2" = "标题2";
+"editor.heading3" = "标题3";
+"editor.hoursLeft" = "%d小时后";
+"editor.minutesLeft" = "%d分钟后";
+"editor.overdue" = "已过期";
+"editor.priority.high" = "高";
+"editor.priority.low" = "低";
+"editor.priority.medium" = "中";
+"editor.todoList" = "任务列表";
+"editor.todoStatus.done" = "已完成";
+"editor.todoStatus.inProgress" = "进行中";
+"editor.todoStatus.todo" = "待办";

@@ -1,0 +1,487 @@
+/*
+  日本語ローカライゼーション
+*/
+
+/* App General */
+"app.name" = "DevAtlas";
+"app.tagline" = "開発コマンドセンター";
+"app.version" = "バージョン %@";
+
+/* Tabs */
+"tab.atlas" = "アトラス";
+"tab.stats" = "統計";
+"tab.notebook" = "ノートブック";
+"tab.aiPrompts" = "AIプロンプト";
+"tab.settings" = "設定";
+
+/* Sidebar */
+"sidebar.allProjects" = "すべてのプロジェクト";
+"sidebar.web" = "Web";
+"sidebar.desktop" = "デスクトップ";
+"sidebar.mobile" = "モバイル";
+"sidebar.cloud" = "クラウド";
+"sidebar.scanProjects" = "プロジェクトをスキャン";
+"sidebar.darkMode" = "ダークモード";
+"sidebar.showTour" = "ツアーを見る";
+
+/* Search */
+"search.projects" = "プロジェクトを検索...";
+"search.notes" = "ノートを検索...";
+
+/* Onboarding - Welcome */
+"onboarding.welcome.title" = "DevAtlasへようこそ";
+"onboarding.welcome.subtitle" = "開発コマンドセンター";
+"onboarding.welcome.getStarted" = "始める";
+"onboarding.welcome.skip" = "スキップ";
+
+/* Onboarding - Features */
+"onboarding.features.title" = "プロジェクトアトラス";
+"onboarding.features.subtitle" = "すべての開発プロジェクトを管理";
+"onboarding.features.feature1.title" = "プロジェクトアトラス";
+"onboarding.features.feature1.subtitle" = "すべての開発プロジェクトを管理";
+"onboarding.features.feature2.title" = "統計";
+"onboarding.features.feature2.subtitle" = "コーディング活動を追跡";
+"onboarding.features.feature3.title" = "ノートブック";
+"onboarding.features.feature3.subtitle" = "プロジェクトを文書化";
+"onboarding.features.next" = "次へ";
+"onboarding.features.previous" = "前へ";
+
+/* Onboarding - Quick Actions */
+"onboarding.quickActions.title" = "クイックアクション";
+"onboarding.quickActions.subtitle" = "ツールへの素早いアクセス";
+"onboarding.quickActions.next" = "次へ";
+"onboarding.quickActions.previous" = "前へ";
+
+/* Onboarding - Stats & Notebook */
+"onboarding.statsNotebook.title" = "統計とノートブック";
+"onboarding.statsNotebook.subtitle" = "進捗を追跡し、メモを取る";
+"onboarding.statsNotebook.next" = "次へ";
+"onboarding.statsNotebook.previous" = "前へ";
+
+/* Onboarding - Appearance */
+"onboarding.appearance.title" = "外観";
+"onboarding.appearance.subtitle" = "DevAtlasの表示方法を選択";
+"onboarding.appearance.light" = "ライト";
+"onboarding.appearance.dark" = "ダーク";
+"onboarding.appearance.accentColor" = "アクセントカラー";
+"onboarding.appearance.allSet" = "準備完了！";
+"onboarding.appearance.start" = "DevAtlasを使い始める";
+"onboarding.appearance.back" = "戻る";
+
+/* Settings */
+"settings.title" = "設定";
+"settings.about" = "について";
+"settings.about.description" = "DevAtlasは包括的な開発コマンドセンターです。すべてのプロジェクトを一箇所で整理、分析、追跡します。";
+"settings.language" = "言語";
+"settings.language.select" = "言語を選択";
+"settings.appearance" = "外観";
+"settings.appearance.theme" = "テーマ";
+"settings.appearance.accentColor" = "アクセントカラー";
+"settings.appearance.light" = "ライト";
+"settings.appearance.dark" = "ダーク";
+"settings.appearance.system" = "システム";
+"settings.version" = "バージョン";
+"settings.copyright" = "© 2024 DevAtlas";
+
+/* Settings - Exclude */
+"settings.exclude" = "除外";
+"settings.exclude.subtitle" = "スキャン中にスキップするフォルダ";
+"settings.exclude.addFolder" = "フォルダを選択";
+"settings.exclude.noPaths" = "除外されたフォルダはありません";
+"settings.exclude.remove" = "削除";
+"settings.exclude.saveChanges" = "変更を保存";
+"settings.exclude.saved" = "保存しました！";
+"settings.exclude.paths" = "除外されたフォルダ";
+
+/* Languages */
+"language.en" = "英語";
+"language.tr" = "トルコ語";
+"language.de" = "ドイツ語";
+"language.ja" = "日本語";
+"language.zh" = "中国語（簡体字）";
+"language.ko" = "韓国語";
+"language.it" = "イタリア語";
+"language.fr" = "フランス語";
+
+/* Common */
+"common.next" = "次へ";
+"common.previous" = "前へ";
+"common.back" = "戻る";
+"common.done" = "完了";
+"common.cancel" = "キャンセル";
+"common.save" = "保存";
+"common.delete" = "削除";
+"common.edit" = "編集";
+"common.add" = "追加";
+"common.close" = "閉じる";
+"common.items" = "項目";
+"common.now" = "今";
+"common.ok" = "OK";
+
+/* Dashboard & Projects */
+"dashboard.quickActions" = "クイックアクション";
+"dashboard.techStack" = "技術スタック";
+"dashboard.recentActivity" = "最近のアクティビティ";
+"dashboard.noRecentActivity" = "最近のアクティビティはありません";
+"dashboard.type" = "タイプ: %@";
+"dashboard.size" = "サイズ";
+"dashboard.files" = "ファイル数";
+"dashboard.lines" = "行数";
+"dashboard.lang" = "言語";
+"dashboard.framework" = "フレームワーク";
+
+/* Stats View */
+"stats.projectsAnalyzed" = "分析したプロジェクト";
+"stats.trackedCodeLines" = "追跡されたコード行数";
+"stats.gitAdditions" = "Git追加数";
+"stats.gitDeletions" = "Git削除数";
+"stats.gitActivity30Days" = "Gitアクティビティ (30日間)";
+"stats.mon" = "月";
+"stats.wed" = "水";
+"stats.fri" = "金";
+
+/* Notebook View */
+"notebook.allNotes" = "すべてのノート";
+"notebook.searchNotes" = "ノートを検索...";
+"notebook.untitledNote" = "無題のノート";
+"notebook.exportAsMarkdown" = "Markdownとしてエクスポート";
+"notebook.exportAsHtml" = "HTMLとしてエクスポート";
+"notebook.exportAsPdf" = "PDFとしてエクスポート";
+"notebook.exportAsWord" = "Word/RTFとしてエクスポート";
+"notebook.exportAsCsv" = "CSVとしてエクスポート";
+"notebook.exportAsJson" = "JSONとしてエクスポート";
+"notebook.duplicateNote" = "ノートを複製";
+"notebook.deleteNote" = "ノートを削除";
+"notebook.export" = "エクスポート";
+"notebook.currentProject" = "現在のプロジェクト";
+"notebook.withinContent" = "コンテンツ内";
+"notebook.byCategoryTags" = "カテゴリ/タグ別";
+
+/* Sidebar - Additional */
+"sidebar.explorer" = "エクスプローラー";
+
+/* Notebook - Additional */
+"notebook.searchNotesPlaceholder" = "ノートを検索...";
+"notebook.newNote" = "新規ノート";
+"notebook.importMd" = ".md インポート";
+"notebook.allFolders" = "すべてのフォルダ";
+"notebook.folders" = "フォルダ";
+"notebook.tags" = "タグ";
+"notebook.noNotesYet" = "まだノートがありません";
+"notebook.createNoteFromSidebar" = "サイドバーからノートを作成";
+"notebook.selectNoteToEdit" = "編集するノートを選択";
+"notebook.createNewFromSidebar" = "またはサイドバーから新規ノートを作成";
+
+/* Note Settings */
+"notebook.noteSettings" = "ノート設定";
+"notebook.icon" = "アイコン";
+"notebook.none" = "なし";
+"notebook.color" = "色";
+"notebook.theme" = "テーマ";
+"notebook.tagsCommaSeparated" = "タグ（カンマ区切り）";
+"notebook.folder" = "フォルダ";
+
+/* Todo Settings */
+"notebook.todoDetails" = "タスク詳細";
+"notebook.priority" = "優先度";
+"notebook.assignee" = "担当者";
+
+/* Editor */
+"editor.edit" = "編集";
+"editor.preview" = "プレビュー";
+"editor.notes" = "ノート";
+"editor.startWriting" = "ノートを書き始める...";
+"editor.slashCommands" = "スラッシュコマンド";
+"editor.noContentYet" = "まだ内容がありません...";
+"editor.todos" = "タスク";
+"editor.add" = "追加";
+"editor.clear" = "クリア";
+"editor.done" = "完了";
+"editor.lastUpdated" = "最終更新: %@";
+
+/* Stats - Additional */
+"stats.gitActivity" = "Gitアクティビティ (%@)";
+"stats.noGitActivity" = "この期間のGitアクティビティが見つかりません、またはリポジトリが初期化されていない可能性があります。";
+"stats.activityVolume" = "アクティビティ量";
+"stats.codeLinesByProject" = "プロジェクト別コード行数";
+"stats.allProjects" = "すべてのプロジェクト";
+"stats.projectTypes" = "プロジェクトタイプ";
+"stats.topProjectsByFileCount" = "ファイル数最多的プロジェクト";
+"stats.projectsAnalyze" = "プロジェクト分析";
+"stats.noSourceFiles" = "ソースファイルが見つかりません";
+"stats.analyzingProject" = "プロジェクト分析中...";
+"stats.contributionsHeatmap" = "コントリビューションヒートマップ";
+"stats.hoverDetails" = "詳細を表示するにはブロックにホバー";
+"stats.less" = "少ない";
+"stats.more" = "多い";
+
+/* Project List */
+"projects.calculatingStats" = "統計計算中...";
+"projects.noProjectsFound" = "プロジェクトが見つかりません";
+"projects.tryScanning" = "プロジェクトのスキャンまたは検索の調整を試行";
+"projects.scanProjects" = "プロジェクトをスキャン";
+
+/* Project Detail */
+"projects.backToProjects" = "プロジェクトに戻る";
+"projects.active" = "アクティブ";
+"projects.techStack" = "技術スタック";
+"projects.type" = "タイプ:";
+"projects.recentActivity" = "最近のアクティビティ";
+"projects.noRecentActivity" = "最近のアクティビティなし";
+"projects.chooseEditor" = "エディタを選択";
+"projects.noEditorsFound" = "サポートされているエディタが見つかりません";
+
+/* Project Analyze */
+"analyze.noUnusedCode" = "プロジェクトに未使用のコードは見つかりませんでした。よくできました！";
+"analyze.projectsAnalyze" = "プロジェクト分析";
+"analyze.file" = "ファイル";
+"analyze.extension" = "拡張子";
+"analyze.lines" = "行数";
+"analyze.pageOf" = "ページ %1$d / %2$d";
+"analyze.analysisResults" = "分析結果";
+"analyze.cancel" = "キャンセル";
+"analyze.saveToNotes" = "ノートに保存";
+
+/* Navigation */
+"nav.devAtlas" = "DevAtlas";
+"nav.workspace" = "ワークスペース";
+"nav.projects" = "プロジェクト";
+"nav.export" = "エクスポート";
+
+/* Onboarding - Additional */
+"onboarding.chooseAccentColor" = "お気に入りアクセントカラーを選択";
+"onboarding.discoverProjects" = "すべての開発プロジェクトを発見・管理";
+"onboarding.twoMoreFeatures" = "手に取れるさらに2つの強力な機能";
+"onboarding.lightningAccess" = "開発ツールへのLightning高速アクセス";
+
+/* Onboarding - Quick Actions (New) */
+"onboarding.quickActions.xcode" = "AppleプロジェクトをXcodeで開く";
+"onboarding.quickActions.vscode" = "Visual Studio Codeで開く";
+"onboarding.quickActions.terminal" = "プロジェクトフォルダでターミナルを開く";
+"onboarding.quickActions.finder" = "Finderでプロジェクトを表示";
+"onboarding.quickActions.runProjects" = "プロジェクトを実行";
+"onboarding.quickActions.analyzeCode" = "コードを分析";
+
+/* Onboarding - Stats & Notebook (New Features) */
+"onboarding.stats.languageBreakdown" = "言語別の内訳";
+"onboarding.stats.lineCountAnalysis" = "行数の分析";
+"onboarding.stats.timeInsights" = "時間ベースのインサイト";
+"onboarding.stats.exportReports" = "レポートをエクスポート";
+"onboarding.notebook.projectDocs" = "プロジェクトドキュメント";
+"onboarding.notebook.organizeTags" = "タグで整理";
+"onboarding.notebook.linkProjects" = "プロジェクトにリンク";
+"onboarding.notebook.markdownSupport" = "Markdownサポート";
+
+/* Onboarding - Features (New Rows) */
+"onboarding.features.autoScan.title" = "自動スキャン";
+"onboarding.features.autoScan.subtitle" = "すべてのドライブからプロジェクトを検出";
+"onboarding.features.smartFilters.title" = "スマートフィルター";
+"onboarding.features.smartFilters.subtitle" = "Web／デスクトップ／モバイル／クラウドでフィルタリング";
+"onboarding.features.search.title" = "検索";
+"onboarding.features.search.subtitle" = "名前または技術スタックでプロジェクトを検索";
+"onboarding.features.recentActivity.title" = "最近のアクティビティ";
+"onboarding.features.recentActivity.subtitle" = "最近作業したファイルを表示";
+
+/* Notebook - Sort & Filter */
+"notebook.sortBy" = "並べ替え";
+"notebook.showArchived" = "アーカイブを表示";
+"notebook.notesCount" = "ノート";
+"notebook.tagsPlaceholder" = "例: swift, 重要, phase1";
+"notebook.folderPlaceholder" = "フォルダ名（任意）";
+
+/* Todo Settings - Additional */
+"notebook.assigneePlaceholder" = "例: 山田太郎";
+"notebook.todoTagsPlaceholder" = "例: 緊急, バックエンド";
+
+/* Editor - Additional */
+"editor.noteTitle" = "ノートタイトル";
+"editor.words" = "単語";
+"editor.addTodoPlaceholder" = "タスクを追加...";
+"editor.completed" = "完了";
+"editor.addSubtask" = "サブタスクを追加...";
+"editor.due" = "期限";
+"editor.characters" = "文字";
+"editor.lines" = "行";
+
+/* Context Menu - Notebook */
+"notebook.pinNote" = "ノートを固定";
+"notebook.unpinNote" = "ノートの固定を解除";
+"notebook.archiveNote" = "ノートをアーカイブ";
+"notebook.unarchiveNote" = "アーカイブから復元";
+
+/* Project Detail - Quick Actions */
+"projects.quickActions" = "⚡ クイックアクション";
+"projects.openInXcode" = "Xcodeで開く";
+"projects.launchWorkspace" = "ワークスペースを起動";
+"projects.openInCodeEditor" = "コードエディタで開く";
+"projects.runProject" = "プロジェクトを実行";
+"projects.startDevServer" = "開発サーバーを起動";
+"projects.installDependencies" = "依存関係をインストール";
+"projects.chooseScript" = "スクリプトを選択";
+"projects.openTerminal" = "ターミナルを開く";
+"projects.commandPrompt" = "コマンドプロンプト";
+"projects.revealInFinder" = "Finderで表示";
+"projects.openFileExplorer" = "エクスプローラーを開く";
+"projects.analyzeProject" = "プロジェクトを分析";
+"projects.codeLineStats" = "コード行統計";
+
+/* Project Analyze - Additional */
+"analyze.findUnusedCode" = "未使用コードを見つける";
+"analyze.analyzing" = "分析中...";
+"analyze.savedToNotes" = "ノートに保存しました！";
+"analyze.filesAnalyzed" = "ファイル分析済み";
+"analyze.totalFiles" = "総ファイル数";
+"analyze.totalLines" = "総行数";
+"analyze.avgLinesPerFile" = "平均行数/ファイル";
+"analyze.largestFile" = "最大ファイル";
+"analyze.peripheryRequired" = "Periphery Required";
+"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
+"analyze.installPeriphery" = "Open Install Guide";
+
+/* Projects Footer */
+"projects.footer.projects" = "プロジェクト";
+"projects.footer.files" = "ファイル";
+"projects.footer.lines" = "行";
+
+/* Stats - New */
+"stats.selectedProjects" = "%d 件選択中";
+"stats.noCodeLines" = "表示できるコード行がありません。";
+"stats.noProjectsToRank" = "ランク付けするプロジェクトがありません。";
+"stats.noData" = "利用可能なデータがありません。";
+"stats.linesValue" = "%@ 行";
+"stats.projectTypeCount" = "%@ 件のプロジェクト";
+"stats.codeLinesValue" = "%@ 行のコード";
+"stats.contributionsCount" = "%d 件のコントリビューション";
+"stats.onDate" = "%@ 時点";
+"stats.activity.high" = "アクティビティ高";
+"stats.activity.medium" = "アクティビティ中";
+"stats.activity.low" = "アクティビティ低";
+
+/* Dependencies */
+"projects.dependencies" = "依存関係";
+"projects.devDependencies" = "開発用依存関係";
+"projects.noDependencies" = "依存関係が見つかりません";
+"projects.loadingDependencies" = "依存関係を読み込み中...";
+"projects.collapsedDependencies" = "プロジェクトに%d個の依存関係があります。詳細を表示するにはクリックしてください";
+"projects.collapsedDependenciesMultiProject" = "%d個のプロジェクトにわたる%d個の依存関係があります。詳細を表示するにはクリックしてください";
+"dependency.upgradeable" = "アップグレード可能";
+
+
+
+/* --- AI Prompts --- */
+"aiprompts.title" = "AIプロンプトライブラリ";
+"aiprompts.subtitle" = "%dカテゴリー · %dプロフェッショナルプロンプト";
+"aiprompts.description" = "これらの詳細なプロンプトをコピーしてAIアシスタント（ChatGPT、Claude、Geminiなど）に貼り付け、自分のプロジェクトを分析してください。各プロンプトは専門家レベルの分析結果を生成するように設計されています。";
+"aiprompts.wordCount" = "%d語";
+"aiprompts.copied" = "コピーしました！";
+"aiprompts.copy" = "コピー";
+"aiprompts.collapse" = "折りたたむ";
+"aiprompts.expand" = "すべて見る";
+
+"aiprompts.category.codeQuality" = "コード品質";
+"aiprompts.category.performance" = "パフォーマンス";
+"aiprompts.category.architecture" = "アーキテクチャと設計";
+"aiprompts.category.testing" = "テスト";
+"aiprompts.category.documentation" = "ドキュメンテーション";
+"aiprompts.category.debugging" = "デバッグとプロファイリング";
+"aiprompts.category.networking" = "APIとネットワーキング";
+"aiprompts.category.accessibility" = "アクセシビリティ";
+"aiprompts.category.localization" = "i18nとローカリゼーション";
+"aiprompts.category.cicd" = "GitとCI/CD";
+"aiprompts.category.dependencies" = "依存関係管理";
+"aiprompts.category.codeGeneration" = "コード生成";
+
+"aiprompts.prompt.unusedCode.title" = "未使用コード";
+"aiprompts.prompt.unusedCode.desc" = "プロジェクト内の未使用の関数、変数、クラス、およびインポートを検出します。";
+"aiprompts.prompt.codeSmells.title" = "コードの匂いとアンチパターン";
+"aiprompts.prompt.codeSmells.desc" = "コードの匂い、アンチパターン、および潜在的なバグを深く検出します。";
+"aiprompts.prompt.memoryLeaks.title" = "メモリリークとリテインサイクル";
+"aiprompts.prompt.memoryLeaks.desc" = "Swift/Appleプロジェクトのメモリリーク、リテインサイクル、およびリソース管理エラーを包括的に分析します。";
+"aiprompts.prompt.securityAudit.title" = "セキュリティ監査";
+"aiprompts.prompt.securityAudit.desc" = "セキュリティの脆弱性、危険なコードパターン、およびデータ保護の欠陥を包括的に監査します。";
+"aiprompts.prompt.errorHandling.title" = "エラー処理監査";
+"aiprompts.prompt.errorHandling.desc" = "エラー処理の欠陥、強制アンラップ、およびクラッシュのリスクを検出します。";
+
+"aiprompts.prompt.bottleneck.title" = "パフォーマンスボトルネック分析";
+"aiprompts.prompt.bottleneck.desc" = "コードベース全体のパフォーマンスのボトルネック、遅いポイント、および不要なワークロードを検出します。";
+"aiprompts.prompt.swiftuiRender.title" = "SwiftUIレンダリングの最適化";
+"aiprompts.prompt.swiftuiRender.desc" = "SwiftUIビュー階層内の不要な再レンダリング、状態管理エラー、およびUIパフォーマンスの問題を検出します。";
+"aiprompts.prompt.appLaunch.title" = "アプリ起動とスタートアップの最適化";
+"aiprompts.prompt.appLaunch.desc" = "アプリの起動時間、コールド/ウォーム起動パフォーマンス、および最初の画面表示速度を分析します。";
+
+"aiprompts.prompt.architectureDeep.title" = "アーキテクチャ詳細レビュー";
+"aiprompts.prompt.architectureDeep.desc" = "SOLID原則、依存関係管理、およびモジュール性の観点からプロジェクトのアーキテクチャを深く評価します。";
+"aiprompts.prompt.designPatterns.title" = "デザインパターンとベストプラクティス";
+"aiprompts.prompt.designPatterns.desc" = "現在のデザインパターンの使用状況を分析し、不足しているパターンを提案し、アンチパターンを検出します。";
+"aiprompts.prompt.refactoringGuide.title" = "リファクタリングガイド";
+"aiprompts.prompt.refactoringGuide.desc" = "マーティン・ファウラーのリファクタリングカタログに従ってリファクタリングが必要なコードブロックをマークし、ステップバイステップのガイドを提供します。";
+
+"aiprompts.prompt.testCoverage.title" = "テストカバレッジとギャップ分析";
+"aiprompts.prompt.testCoverage.desc" = "テストカバレッジのギャップ、不足しているテストシナリオ、およびテストされていない重要なコードパスを包括的に分析します。";
+"aiprompts.prompt.unitTestAudit.title" = "ユニットテスト品質監査";
+"aiprompts.prompt.unitTestAudit.desc" = "既存のユニットテストの品質、信頼性、および保守性を監査します。";
+"aiprompts.prompt.testGenerator.title" = "テスト作成アシスタント";
+"aiprompts.prompt.testGenerator.desc" = "提供されたコードファイルに対して包括的で機能するユニットテストを生成します。";
+
+"aiprompts.prompt.apiDocs.title" = "自動APIドキュメント化";
+"aiprompts.prompt.apiDocs.desc" = "すべてのパブリックAPIの詳細なドキュメントをSwift DocC形式で生成します。";
+"aiprompts.prompt.readmeDocs.title" = "READMEとプロジェクトドキュメント";
+"aiprompts.prompt.readmeDocs.desc" = "プロフェッショナルで包括的なREADMEおよびプロジェクトドキュメントを作成します。";
+"aiprompts.prompt.commentsAudit.title" = "コードコメント分析";
+"aiprompts.prompt.commentsAudit.desc" = "既存のコメントを分析し、古くなった/間違っているものを検出し、改善の提案を提供します。";
+
+"aiprompts.prompt.crashBugAudit.title" = "クラッシュとバグ分析";
+"aiprompts.prompt.crashBugAudit.desc" = "クラッシュログとバグレポートを分析し、根本原因を見つけて修正を提案します。";
+"aiprompts.prompt.instrumentsGuide.title" = "Instrumentsとプロファイリングガイド";
+"aiprompts.prompt.instrumentsGuide.desc" = "Xcode Instrumentsを使用したプロファイリングのガイドとプロジェクト固有の推奨事項を提供します。";
+
+"aiprompts.prompt.networkAudit.title" = "ネットワーク層監査";
+"aiprompts.prompt.networkAudit.desc" = "ネットワーキング層、API呼び出し、エラー処理、およびデータフローを包括的に監査します。";
+"aiprompts.prompt.apiMock.title" = "APIモックとテストインフラストラクチャ";
+"aiprompts.prompt.apiMock.desc" = "APIテストインフラストラクチャ、モックサーバー構成、およびネットワークテスト戦略を作成します。";
+
+"aiprompts.prompt.a11yAudit.title" = "アクセシビリティ監査";
+"aiprompts.prompt.a11yAudit.desc" = "アクセシビリティ基準の遵守を監査し、VoiceOver、Dynamic Type、および色のコントラストの問題を検出します。";
+
+"aiprompts.prompt.i18nAudit.title" = "ローカリゼーション完全監査";
+"aiprompts.prompt.i18nAudit.desc" = "ハードコードされた文字列、欠落している翻訳、日付/数値形式、およびRTLサポートを包括的に監査します。";
+
+"aiprompts.prompt.gitWorkflow.title" = "Gitワークフローの最適化";
+"aiprompts.prompt.gitWorkflow.desc" = "Gitの履歴、ブランチ戦略、コミット品質、および.gitignore構成を監査します。";
+"aiprompts.prompt.cicdPipeline.title" = "CI/CDパイプライン設計";
+"aiprompts.prompt.cicdPipeline.desc" = "プロジェクトタイプに適したCI/CDパイプライン設計、ビルドの最適化、およびデプロイ戦略を作成します。";
+
+"aiprompts.prompt.depAudit.title" = "依存関係監査";
+"aiprompts.prompt.depAudit.desc" = "セキュリティ、最新性、ライセンスの遵守、および必要性についてすべての依存関係を監査します。";
+
+"aiprompts.prompt.crudGen.title" = "CRUD機能ジェネレーター";
+"aiprompts.prompt.crudGen.desc" = "新しいエンティティのための完全なCRUD機能（Model、Service、ViewModel、View）を生成します。";
+"aiprompts.prompt.boilerplateGen.title" = "プロジェクトボイラープレートジェネレーター";
+"aiprompts.prompt.boilerplateGen.desc" = "新しいモジュールまたは機能に必要なすべてのファイルとフォルダー構造を作成します。";
+"aiprompts.prompt.projectReport.title" = "プロジェクト分析レポート";
+"aiprompts.prompt.projectReport.desc" = "プロジェクトの全体的なX線（アーキテクチャ、品質、リスク、改善の提案）を提供します。";
+
+
+/* --- Missing Keys --- */
+"analyze.copied" = "コピーしました！";
+"analyze.copyCleanupPrompt" = "クリーンアッププロンプトをコピー";
+"common.image" = "画像";
+"common.openWith" = "次で開く";
+"editor.bulletList" = "箇条書きリスト";
+"editor.codeBlock" = "コードブロック";
+"editor.completedCount" = "%d件完了";
+"editor.daysLeft" = "%d日後";
+"editor.heading1" = "見出し1";
+"editor.heading2" = "見出し2";
+"editor.heading3" = "見出し3";
+"editor.hoursLeft" = "%d時間後";
+"editor.minutesLeft" = "%d分後";
+"editor.overdue" = "期限切れ";
+"editor.priority.high" = "高";
+"editor.priority.low" = "低";
+"editor.priority.medium" = "中";
+"editor.todoList" = "タスクリスト";
+"editor.todoStatus.done" = "完了";
+"editor.todoStatus.inProgress" = "進行中";
+"editor.todoStatus.todo" = "未着手";
+"scan.foundProjects" = "%d件のプロジェクトが見つかりました";

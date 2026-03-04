@@ -1,0 +1,487 @@
+/*
+  한국어 현지화
+*/
+
+/* App General */
+"app.name" = "DevAtlas";
+"app.tagline" = "개발 명령 센터";
+"app.version" = "버전 %@";
+
+/* Tabs */
+"tab.atlas" = "아틀라스";
+"tab.stats" = "통계";
+"tab.notebook" = "노트북";
+"tab.aiPrompts" = "AI 프롬프트";
+"tab.settings" = "설정";
+
+/* Sidebar */
+"sidebar.allProjects" = "모든 프로젝트";
+"sidebar.web" = "웹";
+"sidebar.desktop" = "데스크톱";
+"sidebar.mobile" = "모바일";
+"sidebar.cloud" = "클라우드";
+"sidebar.scanProjects" = "프로젝트 스캔";
+"sidebar.darkMode" = "다크 모드";
+"sidebar.showTour" = "투어 보기";
+
+/* Search */
+"search.projects" = "프로젝트 검색...";
+"search.notes" = "노트에서 검색...";
+
+/* Onboarding - Welcome */
+"onboarding.welcome.title" = "DevAtlas에 오신 것을 환영합니다";
+"onboarding.welcome.subtitle" = "개발 명령 센터";
+"onboarding.welcome.getStarted" = "시작하기";
+"onboarding.welcome.skip" = "건너뛰기";
+
+/* Onboarding - Features */
+"onboarding.features.title" = "프로젝트 아틀라스";
+"onboarding.features.subtitle" = "모든 개발 프로젝트 관리";
+"onboarding.features.feature1.title" = "프로젝트 아틀라스";
+"onboarding.features.feature1.subtitle" = "모든 개발 프로젝트 관리";
+"onboarding.features.feature2.title" = "통계";
+"onboarding.features.feature2.subtitle" = "코딩 활동 추적";
+"onboarding.features.feature3.title" = "노트북";
+"onboarding.features.feature3.subtitle" = "프로젝트 문서화";
+"onboarding.features.next" = "다음";
+"onboarding.features.previous" = "이전";
+
+/* Onboarding - Quick Actions */
+"onboarding.quickActions.title" = "빠른 작업";
+"onboarding.quickActions.subtitle" = "도구로 빠르게 이동";
+"onboarding.quickActions.next" = "다음";
+"onboarding.quickActions.previous" = "이전";
+
+/* Onboarding - Stats & Notebook */
+"onboarding.statsNotebook.title" = "통계 및 노트북";
+"onboarding.statsNotebook.subtitle" = "진행 상황 추적 및 메모";
+"onboarding.statsNotebook.next" = "다음";
+"onboarding.statsNotebook.previous" = "이전";
+
+/* Onboarding - Appearance */
+"onboarding.appearance.title" = "모양";
+"onboarding.appearance.subtitle" = "DevAtlas이 어떻게 보이는지 선택";
+"onboarding.appearance.light" = "라이트";
+"onboarding.appearance.dark" = "다크";
+"onboarding.appearance.accentColor" = "강조 색상";
+"onboarding.appearance.allSet" = "준비 완료!";
+"onboarding.appearance.start" = "DevAtlas 사용 시작";
+"onboarding.appearance.back" = "뒤로";
+
+/* Settings */
+"settings.title" = "설정";
+"settings.about" = "정보";
+"settings.about.description" = "DevAtlas은 포괄적인 개발 명령 센터입니다. 모든 프로젝트를 한 곳에서 구성, 분석 및 추적하세요.";
+"settings.language" = "언어";
+"settings.language.select" = "언어 선택";
+"settings.appearance" = "모양";
+"settings.appearance.theme" = "테마";
+"settings.appearance.accentColor" = "강조 색상";
+"settings.appearance.light" = "라이트";
+"settings.appearance.dark" = "다크";
+"settings.appearance.system" = "시스템";
+"settings.version" = "버전";
+"settings.copyright" = "© 2024 DevAtlas";
+
+/* Settings - Exclude */
+"settings.exclude" = "제외";
+"settings.exclude.subtitle" = "스캔 중에 건너뛸 폴더";
+"settings.exclude.addFolder" = "폴더 선택";
+"settings.exclude.noPaths" = "제외된 폴더 없음";
+"settings.exclude.remove" = "제거";
+"settings.exclude.saveChanges" = "변경 사항 저장";
+"settings.exclude.saved" = "저장됨!";
+"settings.exclude.paths" = "제외된 폴더";
+
+/* Languages */
+"language.en" = "영어";
+"language.tr" = "터키어";
+"language.de" = "독일어";
+"language.ja" = "일본어";
+"language.zh" = "중국어 (간체)";
+"language.ko" = "한국어";
+"language.it" = "이탈리아어";
+"language.fr" = "프랑스어";
+
+/* Common */
+"common.next" = "다음";
+"common.previous" = "이전";
+"common.back" = "뒤로";
+"common.done" = "완료";
+"common.cancel" = "취소";
+"common.save" = "저장";
+"common.delete" = "삭제";
+"common.edit" = "편집";
+"common.add" = "추가";
+"common.close" = "닫기";
+"common.items" = "항목";
+"common.now" = "지금";
+"common.ok" = "확인";
+
+/* Dashboard & Projects */
+"dashboard.quickActions" = "빠른 작업";
+"dashboard.techStack" = "기술 스택";
+"dashboard.recentActivity" = "최근 활동";
+"dashboard.noRecentActivity" = "최근 활동 없음";
+"dashboard.type" = "유형: %@";
+"dashboard.size" = "크기";
+"dashboard.files" = "파일";
+"dashboard.lines" = "줄";
+"dashboard.lang" = "언어";
+"dashboard.framework" = "프레임워크";
+
+/* Stats View */
+"stats.projectsAnalyzed" = "분석된 프로젝트";
+"stats.trackedCodeLines" = "추적된 코드 줄 수";
+"stats.gitAdditions" = "Git 추가";
+"stats.gitDeletions" = "Git 삭제";
+"stats.gitActivity30Days" = "Git 활동 (30일)";
+"stats.mon" = "월";
+"stats.wed" = "수";
+"stats.fri" = "금";
+
+/* Notebook View */
+"notebook.allNotes" = "모든 노트";
+"notebook.searchNotes" = "노트 검색...";
+"notebook.untitledNote" = "제목 없는 노트";
+"notebook.exportAsMarkdown" = "Markdown으로 내보내기";
+"notebook.exportAsHtml" = "HTML로 내보내기";
+"notebook.exportAsPdf" = "PDF로 내보내기";
+"notebook.exportAsWord" = "Word/RTF로 내보내기";
+"notebook.exportAsCsv" = "CSV로 내보내기";
+"notebook.exportAsJson" = "JSON으로 내보내기";
+"notebook.duplicateNote" = "노트 복제";
+"notebook.deleteNote" = "노트 삭제";
+"notebook.export" = "내보내기";
+"notebook.currentProject" = "현재 프로젝트";
+"notebook.withinContent" = "콘텐츠 내";
+"notebook.byCategoryTags" = "카테고리/태그 별";
+
+/* Sidebar - Additional */
+"sidebar.explorer" = "탐색기";
+
+/* Notebook - Additional */
+"notebook.searchNotesPlaceholder" = "노트 검색...";
+"notebook.newNote" = "새 노트";
+"notebook.importMd" = ".md 가져오기";
+"notebook.allFolders" = "모든 폴더";
+"notebook.folders" = "폴더";
+"notebook.tags" = "태그";
+"notebook.noNotesYet" = "아직 노트가 없습니다";
+"notebook.createNoteFromSidebar" = "사이드바에서 노트 만들기";
+"notebook.selectNoteToEdit" = "편집할 노트를 선택하세요";
+"notebook.createNewFromSidebar" = "또는 사이드바에서 새 노트를 만드세요";
+
+/* Note Settings */
+"notebook.noteSettings" = "노트 설정";
+"notebook.icon" = "아이콘";
+"notebook.none" = "없음";
+"notebook.color" = "색상";
+"notebook.theme" = "테마";
+"notebook.tagsCommaSeparated" = "태그 (쉼표로 구분)";
+"notebook.folder" = "폴더";
+
+/* Todo Settings */
+"notebook.todoDetails" = "할 일 상세";
+"notebook.priority" = "우선순위";
+"notebook.assignee" = "담당자";
+
+/* Editor */
+"editor.edit" = "편집";
+"editor.preview" = "미리보기";
+"editor.notes" = "노트";
+"editor.startWriting" = "노트를 쓰기 시작하세요...";
+"editor.slashCommands" = "슬래시 명령";
+"editor.noContentYet" = "아직 내용이 없습니다...";
+"editor.todos" = "할 일";
+"editor.add" = "추가";
+"editor.clear" = "지우기";
+"editor.done" = "완료";
+"editor.lastUpdated" = "마지막 업데이트: %@";
+
+/* Stats - Additional */
+"stats.gitActivity" = "Git 활동 (%@)";
+"stats.noGitActivity" = "이 기간에 Git 활동을 찾을 수 없거나 저장소가 초기화되지 않았을 수 있습니다.";
+"stats.activityVolume" = "활동량";
+"stats.codeLinesByProject" = "프로젝트별 코드 줄 수";
+"stats.allProjects" = "모든 프로젝트";
+"stats.projectTypes" = "프로젝트 유형";
+"stats.topProjectsByFileCount" = "파일 수最多的 프로젝트";
+"stats.projectsAnalyze" = "프로젝트 분석";
+"stats.noSourceFiles" = "소스 파일을 찾을 수 없습니다";
+"stats.analyzingProject" = "프로젝트 분석 중...";
+"stats.contributionsHeatmap" = "기여 히트맵";
+"stats.hoverDetails" = "세부 정보를 보려면 블록 위에 마우스를 놓으세요";
+"stats.less" = "적음";
+"stats.more" = "많음";
+
+/* Project List */
+"projects.calculatingStats" = "통계 계산 중...";
+"projects.noProjectsFound" = "프로젝트를 찾을 수 없습니다";
+"projects.tryScanning" = "프로젝트 스캔 또는 검색 조정을 시도해 보세요";
+"projects.scanProjects" = "프로젝트 스캔";
+
+/* Project Detail */
+"projects.backToProjects" = "프로젝트로 돌아가기";
+"projects.active" = "활성";
+"projects.techStack" = "기술 스택";
+"projects.type" = "유형:";
+"projects.recentActivity" = "최근 활동";
+"projects.noRecentActivity" = "최근 활동 없음";
+"projects.chooseEditor" = "편집기 선택";
+"projects.noEditorsFound" = "지원되는 편집기를 찾을 수 없습니다";
+
+/* Project Analyze */
+"analyze.noUnusedCode" = "프로젝트에서 사용하지 않는 코드를 찾지 못했습니다. 잘했어요!";
+"analyze.projectsAnalyze" = "프로젝트 분석";
+"analyze.file" = "파일";
+"analyze.extension" = "확장자";
+"analyze.lines" = "줄";
+"analyze.pageOf" = "페이지 %1$d / %2$d";
+"analyze.analysisResults" = "분석 결과";
+"analyze.cancel" = "취소";
+"analyze.saveToNotes" = "노트에 저장";
+
+/* Navigation */
+"nav.devAtlas" = "DevAtlas";
+"nav.workspace" = "워크스페이스";
+"nav.projects" = "프로젝트";
+"nav.export" = "내보내기";
+
+/* Onboarding - Additional */
+"onboarding.chooseAccentColor" = "좋아하는 강조 색상을 선택하세요";
+"onboarding.discoverProjects" = "모든 개발 프로젝트를 발견하고 관리하세요";
+"onboarding.twoMoreFeatures" = "손에 넣을 수 있는 두 가지 더 강력한 기능";
+"onboarding.lightningAccess" = "개발 도구에 대한 번개처럼 빠른 접근";
+
+/* Onboarding - Quick Actions (New) */
+"onboarding.quickActions.xcode" = "Apple 프로젝트를 Xcode에서 열기";
+"onboarding.quickActions.vscode" = "Visual Studio Code에서 열기";
+"onboarding.quickActions.terminal" = "프로젝트 위치에서 터미널 열기";
+"onboarding.quickActions.finder" = "Finder에서 프로젝트 보기";
+"onboarding.quickActions.runProjects" = "프로젝트 실행";
+"onboarding.quickActions.analyzeCode" = "코드 분석";
+
+/* Onboarding - Stats & Notebook (New Features) */
+"onboarding.stats.languageBreakdown" = "언어별 분포";
+"onboarding.stats.lineCountAnalysis" = "라인 수 분석";
+"onboarding.stats.timeInsights" = "시간 기반 인사이트";
+"onboarding.stats.exportReports" = "보고서 내보내기";
+"onboarding.notebook.projectDocs" = "프로젝트 문서";
+"onboarding.notebook.organizeTags" = "태그로 정리";
+"onboarding.notebook.linkProjects" = "프로젝트와 연결";
+"onboarding.notebook.markdownSupport" = "Markdown 지원";
+
+/* Onboarding - Features (New Rows) */
+"onboarding.features.autoScan.title" = "자동 스캔";
+"onboarding.features.autoScan.subtitle" = "모든 드라이브에서 프로젝트 찾기";
+"onboarding.features.smartFilters.title" = "스마트 필터";
+"onboarding.features.smartFilters.subtitle" = "웹, 데스크톱, 모바일 또는 클라우드로 필터링";
+"onboarding.features.search.title" = "검색";
+"onboarding.features.search.subtitle" = "이름이나 기술 스택으로 프로젝트 찾기";
+"onboarding.features.recentActivity.title" = "최근 활동";
+"onboarding.features.recentActivity.subtitle" = "최근에 작업한 파일 보기";
+
+/* Notebook - Sort & Filter */
+"notebook.sortBy" = "정렬";
+"notebook.showArchived" = "보관된 항목 표시";
+"notebook.notesCount" = "노트";
+"notebook.tagsPlaceholder" = "예: swift, 중요, phase1";
+"notebook.folderPlaceholder" = "폴더 이름 (선택사항)";
+
+/* Todo Settings - Additional */
+"notebook.assigneePlaceholder" = "예: 홍길동";
+"notebook.todoTagsPlaceholder" = "예: 긴급, 백엔드";
+
+/* Editor - Additional */
+"editor.noteTitle" = "노트 제목";
+"editor.words" = "단어";
+"editor.addTodoPlaceholder" = "할 일 추가...";
+"editor.completed" = "완료됨";
+"editor.addSubtask" = "하위 작업 추가...";
+"editor.due" = "마감일";
+"editor.characters" = "문자";
+"editor.lines" = "줄";
+
+/* Context Menu - Notebook */
+"notebook.pinNote" = "노트 고정";
+"notebook.unpinNote" = "노트 고정 해제";
+"notebook.archiveNote" = "노트 보관";
+"notebook.unarchiveNote" = "보관에서 복원";
+
+/* Project Detail - Quick Actions */
+"projects.quickActions" = "⚡ 빠른 작업";
+"projects.openInXcode" = "Xcode에서 열기";
+"projects.launchWorkspace" = "워크스페이스 실행";
+"projects.openInCodeEditor" = "코드 편집기에서 열기";
+"projects.runProject" = "프로젝트 실행";
+"projects.startDevServer" = "개발 서버 시작";
+"projects.installDependencies" = "종속성 설치";
+"projects.chooseScript" = "스크립트 선택";
+"projects.openTerminal" = "터미널 열기";
+"projects.commandPrompt" = "명령 프롬프트";
+"projects.revealInFinder" = "Finder에서 보기";
+"projects.openFileExplorer" = "파일 탐색기 열기";
+"projects.analyzeProject" = "프로젝트 분석";
+"projects.codeLineStats" = "코드 줄 통계";
+
+/* Project Analyze - Additional */
+"analyze.findUnusedCode" = "미사용 코드 찾기";
+"analyze.analyzing" = "분석 중...";
+"analyze.savedToNotes" = "노트에 저장됨!";
+"analyze.filesAnalyzed" = "파일 분석됨";
+"analyze.totalFiles" = "총 파일";
+"analyze.totalLines" = "총 줄";
+"analyze.avgLinesPerFile" = "평균 줄/파일";
+"analyze.largestFile" = "가장 큰 파일";
+"analyze.peripheryRequired" = "Periphery Required";
+"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
+"analyze.installPeriphery" = "Open Install Guide";
+
+/* Projects Footer */
+"projects.footer.projects" = "프로젝트";
+"projects.footer.files" = "파일";
+"projects.footer.lines" = "줄";
+
+/* Stats - New */
+"stats.selectedProjects" = "%d개 선택됨";
+"stats.noCodeLines" = "표시할 코드 줄이 없습니다.";
+"stats.noProjectsToRank" = "순위를 매길 프로젝트가 없습니다.";
+"stats.noData" = "데이터가 없습니다.";
+"stats.linesValue" = "%@줄";
+"stats.projectTypeCount" = "%@개 프로젝트";
+"stats.codeLinesValue" = "%@개의 코드 줄";
+"stats.contributionsCount" = "%d개의 커밋";
+"stats.onDate" = "%@ 기준";
+"stats.activity.high" = "활동도 높음";
+"stats.activity.medium" = "활동도 보통";
+"stats.activity.low" = "활동도 낮음";
+
+/* Dependencies */
+"projects.dependencies" = "종속성";
+"projects.devDependencies" = "개발 종속성";
+"projects.noDependencies" = "종속성을 찾을 수 없습니다";
+"projects.loadingDependencies" = "종속성 로드 중...";
+"projects.collapsedDependencies" = "프로젝트에 %d개의 종속성이 있습니다. 자세히 보려면 클릭하세요";
+"projects.collapsedDependenciesMultiProject" = "%d개의 프로젝트에 걸쳐 %d개의 종속성이 있습니다. 자세히 보려면 클릭하세요";
+"dependency.upgradeable" = "업그레이드 가능";
+
+
+
+/* --- AI Prompts --- */
+"aiprompts.title" = "AI 프롬프트 라이브러리";
+"aiprompts.subtitle" = "%d개 카테고리 · %d개 전문가 프롬프트";
+"aiprompts.description" = "자신의 프로젝트를 분석하기 위해 이 자세한 프롬프트를 복사하여 AI 어시스턴트(ChatGPT, Claude, Gemini 등)에 붙여넣으세요. 각 프롬프트는 전문가 수준의 분석 결과를 생성하도록 설계되었습니다.";
+"aiprompts.wordCount" = "%d단어";
+"aiprompts.copied" = "복사되었습니다!";
+"aiprompts.copy" = "복사";
+"aiprompts.collapse" = "접기";
+"aiprompts.expand" = "모두 보기";
+
+"aiprompts.category.codeQuality" = "코드 품질";
+"aiprompts.category.performance" = "성능";
+"aiprompts.category.architecture" = "아키텍처 및 설계";
+"aiprompts.category.testing" = "테스트";
+"aiprompts.category.documentation" = "문서화";
+"aiprompts.category.debugging" = "디버깅 및 프로파일링";
+"aiprompts.category.networking" = "API 및 네트워킹";
+"aiprompts.category.accessibility" = "접근성";
+"aiprompts.category.localization" = "i18n 및 다국어 지원";
+"aiprompts.category.cicd" = "Git 및 CI/CD";
+"aiprompts.category.dependencies" = "종속성 관리";
+"aiprompts.category.codeGeneration" = "코드 생성";
+
+"aiprompts.prompt.unusedCode.title" = "사용되지 않는 코드";
+"aiprompts.prompt.unusedCode.desc" = "프로젝트에서 사용되지 않는 함수, 변수, 클래스 및 가져오기를 감지합니다.";
+"aiprompts.prompt.codeSmells.title" = "코드 악취 및 안티 패턴";
+"aiprompts.prompt.codeSmells.desc" = "코드 악취, 안티 패턴 및 잠재적 버그를 깊이 있게 감지합니다.";
+"aiprompts.prompt.memoryLeaks.title" = "메모리 누수 및 유지 사이클";
+"aiprompts.prompt.memoryLeaks.desc" = "Swift/Apple 프로젝트의 메모리 누수, 유지 사이클 및 리소스 관리 오류를 포괄적으로 분석합니다.";
+"aiprompts.prompt.securityAudit.title" = "보안 감사";
+"aiprompts.prompt.securityAudit.desc" = "보안 취약점, 위험한 코드 패턴 및 데이터 보호 결함을 포괄적으로 감사합니다.";
+"aiprompts.prompt.errorHandling.title" = "오류 처리 감사";
+"aiprompts.prompt.errorHandling.desc" = "오류 처리 결함, 강제 언래핑 및 크래시 위험을 감지합니다.";
+
+"aiprompts.prompt.bottleneck.title" = "성능 병목 현상 분석";
+"aiprompts.prompt.bottleneck.desc" = "전체 코드베이스의 성능 병목 현상, 느린 지점 및 불필요한 워크로드를 감지합니다.";
+"aiprompts.prompt.swiftuiRender.title" = "SwiftUI 렌더링 최적화";
+"aiprompts.prompt.swiftuiRender.desc" = "SwiftUI 뷰 계층 구조의 불필요한 재렌더링, 상태 관리 오류 및 UI 성능 문제를 감지합니다.";
+"aiprompts.prompt.appLaunch.title" = "앱 시작 및 실행 최적화";
+"aiprompts.prompt.appLaunch.desc" = "앱 시작 시간, 콜드/웜 실행 성능 및 첫 화면 표시 속도를 분석합니다.";
+
+"aiprompts.prompt.architectureDeep.title" = "아키텍처 정밀 점검";
+"aiprompts.prompt.architectureDeep.desc" = "SOLID 원칙, 종속성 관리 및 모듈성 측면에서 프로젝트의 아키텍처를 깊이 있게 평가합니다.";
+"aiprompts.prompt.designPatterns.title" = "디자인 패턴 및 모범 사례";
+"aiprompts.prompt.designPatterns.desc" = "현재 디자인 패턴 사용을 분석하고 부족한 패턴을 제안하며 안티 패턴을 감지합니다.";
+"aiprompts.prompt.refactoringGuide.title" = "리팩토링 가이드";
+"aiprompts.prompt.refactoringGuide.desc" = "마틴 파울러의 리팩토링 카탈로그에 따라 리팩토링이 필요한 코드 블록을 표시하고 단계별 가이드를 제공합니다.";
+
+"aiprompts.prompt.testCoverage.title" = "테스트 커버리지 및 갭 분석";
+"aiprompts.prompt.testCoverage.desc" = "테스트 커버리지 갭, 누락된 테스트 시나리오 및 테스트되지 않은 중요한 코드 경로를 포괄적으로 분석합니다.";
+"aiprompts.prompt.unitTestAudit.title" = "단위 테스트 품질 감사";
+"aiprompts.prompt.unitTestAudit.desc" = "기존 단위 테스트의 품질, 안정성 및 유지 관리 가능성을 감사합니다.";
+"aiprompts.prompt.testGenerator.title" = "테스트 작성 어시스턴트";
+"aiprompts.prompt.testGenerator.desc" = "제공된 코드 파일에 대해 포괄적이고 작동하는 단위 테스트를 생성합니다.";
+
+"aiprompts.prompt.apiDocs.title" = "자동화된 API 설명서";
+"aiprompts.prompt.apiDocs.desc" = "모든 공용 API에 대한 자세한 설명서를 Swift DocC 형식으로 생성합니다.";
+"aiprompts.prompt.readmeDocs.title" = "README 및 프로젝트 설명서";
+"aiprompts.prompt.readmeDocs.desc" = "전문적이고 포괄적인 README 및 프로젝트 설명서를 생성합니다.";
+"aiprompts.prompt.commentsAudit.title" = "코드 주석 분석";
+"aiprompts.prompt.commentsAudit.desc" = "기존 주석을 분석하여 오래되거나 잘못된 주석을 감지하고 개선 제안을 제공합니다.";
+
+"aiprompts.prompt.crashBugAudit.title" = "크래시 및 버그 분석";
+"aiprompts.prompt.crashBugAudit.desc" = "크래시 로그 및 버그 보고서를 분석하여 근본 원인을 찾고 수정 사항을 제안합니다.";
+"aiprompts.prompt.instrumentsGuide.title" = "Instruments 및 프로파일링 가이드";
+"aiprompts.prompt.instrumentsGuide.desc" = "Xcode Instruments를 사용한 프로파일링 가이드와 프로젝트별 권장 사항을 제공합니다.";
+
+"aiprompts.prompt.networkAudit.title" = "네트워크 계층 감사";
+"aiprompts.prompt.networkAudit.desc" = "네트워킹 계층, API 호출, 오류 처리 및 데이터 흐름을 포괄적으로 감사합니다.";
+"aiprompts.prompt.apiMock.title" = "API 모의 및 테스트 인프라";
+"aiprompts.prompt.apiMock.desc" = "API 테스트 인프라, 모의 서버 구성 및 네트워크 테스트 전략을 생성합니다.";
+
+"aiprompts.prompt.a11yAudit.title" = "접근성 감사";
+"aiprompts.prompt.a11yAudit.desc" = "접근성 표준 준수 여부를 감사하고 VoiceOver, 다이내믹 타입 및 색상 대비 문제를 감지합니다.";
+
+"aiprompts.prompt.i18nAudit.title" = "다국어 지원 종합 감사";
+"aiprompts.prompt.i18nAudit.desc" = "하드코딩된 문자열, 누락된 번역, 날짜/숫자 형식 및 RTL 지원을 포괄적으로 감사합니다.";
+
+"aiprompts.prompt.gitWorkflow.title" = "Git 워크플로우 최적화";
+"aiprompts.prompt.gitWorkflow.desc" = "Git 기록, 브랜치 전략, 커밋 품질 및 .gitignore 구성을 감사합니다.";
+"aiprompts.prompt.cicdPipeline.title" = "CI/CD 파이프라인 설계";
+"aiprompts.prompt.cicdPipeline.desc" = "프로젝트 유형에 적합한 CI/CD 파이프라인 설계, 빌드 최적화 및 배포 전략을 생성합니다.";
+
+"aiprompts.prompt.depAudit.title" = "종속성 감사";
+"aiprompts.prompt.depAudit.desc" = "보안, 최신 상태, 라이선스 준수 및 필요성에 대해 모든 종속성을 감사합니다.";
+
+"aiprompts.prompt.crudGen.title" = "CRUD 기능 생성기";
+"aiprompts.prompt.crudGen.desc" = "새 엔티티에 대한 완벽한 CRUD 기능(Model, Service, ViewModel, View)을 생성합니다.";
+"aiprompts.prompt.boilerplateGen.title" = "프로젝트 보일러플레이트 생성기";
+"aiprompts.prompt.boilerplateGen.desc" = "새 모듈 또는 기능에 필요한 모든 파일 및 폴더 구조를 생성합니다.";
+"aiprompts.prompt.projectReport.title" = "프로젝트 분석 보고서";
+"aiprompts.prompt.projectReport.desc" = "프로젝트의 전체적인 엑스레이(아키텍처, 품질, 위험 및 개선 제안)를 제공합니다.";
+
+
+/* --- Missing Keys --- */
+"analyze.copied" = "복사되었습니다!";
+"analyze.copyCleanupPrompt" = "정리 프롬프트 복사";
+"common.image" = "이미지";
+"common.openWith" = "다음으로 열기";
+"editor.bulletList" = "글머리 기호 목록";
+"editor.codeBlock" = "코드 블록";
+"editor.completedCount" = "%d개 완료";
+"editor.daysLeft" = "%d일 후";
+"editor.heading1" = "제목 1";
+"editor.heading2" = "제목 2";
+"editor.heading3" = "제목 3";
+"editor.hoursLeft" = "%d시간 후";
+"editor.minutesLeft" = "%d분 후";
+"editor.overdue" = "기한 초과";
+"editor.priority.high" = "높음";
+"editor.priority.low" = "낮음";
+"editor.priority.medium" = "보통";
+"editor.todoList" = "할 일 목록";
+"editor.todoStatus.done" = "완료";
+"editor.todoStatus.inProgress" = "진행 중";
+"editor.todoStatus.todo" = "할 일";
+"scan.foundProjects" = "%d개의 프로젝트를 찾았습니다";

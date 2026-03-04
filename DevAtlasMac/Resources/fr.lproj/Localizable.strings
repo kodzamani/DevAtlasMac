@@ -1,0 +1,487 @@
+/*
+  Localisation Française
+*/
+
+/* App General */
+"app.name" = "DevAtlas";
+"app.tagline" = "Votre Centre de Commande de Développement";
+"app.version" = "Version %@";
+
+/* Tabs */
+"tab.atlas" = "Atlas";
+"tab.stats" = "Statistiques";
+"tab.notebook" = "Cahier";
+"tab.aiPrompts" = "Prompts IA";
+"tab.settings" = "Paramètres";
+
+/* Sidebar */
+"sidebar.allProjects" = "Tous les Projets";
+"sidebar.web" = "Web";
+"sidebar.desktop" = "Bureau";
+"sidebar.mobile" = "Mobile";
+"sidebar.cloud" = "Cloud";
+"sidebar.scanProjects" = "Scanner les Projets";
+"sidebar.darkMode" = "Mode Sombre";
+"sidebar.showTour" = "Afficher la Visite";
+
+/* Search */
+"search.projects" = "Rechercher des projets...";
+"search.notes" = "Rechercher dans les notes...";
+
+/* Onboarding - Welcome */
+"onboarding.welcome.title" = "Bienvenue sur DevAtlas";
+"onboarding.welcome.subtitle" = "Votre Centre de Commande de Développement";
+"onboarding.welcome.getStarted" = "Commencer";
+"onboarding.welcome.skip" = "Passer";
+
+/* Onboarding - Features */
+"onboarding.features.title" = "Atlas des Projets";
+"onboarding.features.subtitle" = "Gérez tous vos projets de développement";
+"onboarding.features.feature1.title" = "Atlas des Projets";
+"onboarding.features.feature1.subtitle" = "Gérez tous vos projets de développement";
+"onboarding.features.feature2.title" = "Statistiques";
+"onboarding.features.feature2.subtitle" = "Suivez votre activité de codage";
+"onboarding.features.feature3.title" = "Cahier";
+"onboarding.features.feature3.subtitle" = "Documentez vos projets";
+"onboarding.features.next" = "Suivant";
+"onboarding.features.previous" = "Précédent";
+
+/* Onboarding - Quick Actions */
+"onboarding.quickActions.title" = "Actions Rapides";
+"onboarding.quickActions.subtitle" = "Accès rapide à vos outils";
+"onboarding.quickActions.next" = "Suivant";
+"onboarding.quickActions.previous" = "Précédent";
+
+/* Onboarding - Stats & Notebook */
+"onboarding.statsNotebook.title" = "Statistiques et Cahier";
+"onboarding.statsNotebook.subtitle" = "Suivez les progrès et prenez des notes";
+"onboarding.statsNotebook.next" = "Suivant";
+"onboarding.statsNotebook.previous" = "Précédent";
+
+/* Onboarding - Appearance */
+"onboarding.appearance.title" = "Apparence";
+"onboarding.appearance.subtitle" = "Choisissez comment DevAtlas looks";
+"onboarding.appearance.light" = "Clair";
+"onboarding.appearance.dark" = "Sombre";
+"onboarding.appearance.accentColor" = "Couleur d'Accent";
+"onboarding.appearance.allSet" = "Vous êtes prêt !";
+"onboarding.appearance.start" = "Commencer à Utiliser DevAtlas";
+"onboarding.appearance.back" = "Retour";
+
+/* Settings */
+"settings.title" = "Paramètres";
+"settings.about" = "À Propos";
+"settings.about.description" = "DevAtlas est votre centre de commande de développement complet. Organisez, analysez et suivi tous vos projets en un seul endroit.";
+"settings.language" = "Langue";
+"settings.language.select" = "Sélectionner la Langue";
+"settings.appearance" = "Apparence";
+"settings.appearance.theme" = "Thème";
+"settings.appearance.accentColor" = "Couleur d'Accent";
+"settings.appearance.light" = "Clair";
+"settings.appearance.dark" = "Sombre";
+"settings.appearance.system" = "Système";
+"settings.version" = "Version";
+"settings.copyright" = "© 2024 DevAtlas";
+
+/* Settings - Exclude */
+"settings.exclude" = "Exclure";
+"settings.exclude.subtitle" = "Dossiers à ignorer lors de l'analyse";
+"settings.exclude.addFolder" = "Sélectionner un dossier";
+"settings.exclude.noPaths" = "Aucun dossier exclu";
+"settings.exclude.remove" = "Supprimer";
+"settings.exclude.saveChanges" = "Enregistrer les modifications";
+"settings.exclude.saved" = "Enregistré !";
+"settings.exclude.paths" = "dossier exclu";
+
+/* Languages */
+"language.en" = "Anglais";
+"language.tr" = "Turc";
+"language.de" = "Allemand";
+"language.ja" = "Japonais";
+"language.zh" = "Chinois (Simplifié)";
+"language.ko" = "Coréen";
+"language.it" = "Italien";
+"language.fr" = "Français";
+
+/* Common */
+"common.next" = "Suivant";
+"common.previous" = "Précédent";
+"common.back" = "Retour";
+"common.done" = "Terminé";
+"common.cancel" = "Annuler";
+"common.save" = "Enregistrer";
+"common.delete" = "Supprimer";
+"common.edit" = "Modifier";
+"common.add" = "Ajouter";
+"common.close" = "Fermer";
+"common.items" = "éléments";
+"common.now" = "maintenant";
+"common.ok" = "OK";
+
+/* Dashboard & Projects */
+"dashboard.quickActions" = "Actions Rapides";
+"dashboard.techStack" = "Stack Technique";
+"dashboard.recentActivity" = "Activité Récente";
+"dashboard.noRecentActivity" = "Aucune activité récente";
+"dashboard.type" = "Type : %@";
+"dashboard.size" = "TAILLE";
+"dashboard.files" = "FICHIERS";
+"dashboard.lines" = "LIGNES";
+"dashboard.lang" = "LANG.";
+"dashboard.framework" = "FRAMEWORK";
+
+/* Stats View */
+"stats.projectsAnalyzed" = "Projets Analysés";
+"stats.trackedCodeLines" = "Lignes de Code Suivies";
+"stats.gitAdditions" = "Ajouts Git";
+"stats.gitDeletions" = "Suppressions Git";
+"stats.gitActivity30Days" = "Activité Git (30 Jours)";
+"stats.mon" = "Lun";
+"stats.wed" = "Mer";
+"stats.fri" = "Ven";
+
+/* Notebook View */
+"notebook.allNotes" = "Toutes les Notes";
+"notebook.searchNotes" = "Rechercher dans les notes...";
+"notebook.untitledNote" = "Note sans titre";
+"notebook.exportAsMarkdown" = "Exporter en Markdown";
+"notebook.exportAsHtml" = "Exporter en HTML";
+"notebook.exportAsPdf" = "Exporter en PDF";
+"notebook.exportAsWord" = "Exporter en Word/RTF";
+"notebook.exportAsCsv" = "Exporter en CSV";
+"notebook.exportAsJson" = "Exporter en JSON";
+"notebook.duplicateNote" = "Dupliquer la Note";
+"notebook.deleteNote" = "Supprimer la Note";
+"notebook.export" = "Exporter";
+"notebook.currentProject" = "Projet Actuel";
+"notebook.withinContent" = "Dans le Contenu";
+"notebook.byCategoryTags" = "Par Catégorie/Tags";
+
+/* Sidebar - Additional */
+"sidebar.explorer" = "EXPLORATEUR";
+
+/* Notebook - Additional */
+"notebook.searchNotesPlaceholder" = "Rechercher dans les notes...";
+"notebook.newNote" = "Nouvelle Note";
+"notebook.importMd" = "Importer .md";
+"notebook.allFolders" = "Tous les Dossiers";
+"notebook.folders" = "DOSSIERS";
+"notebook.tags" = "TAGS";
+"notebook.noNotesYet" = "Pas encore de notes";
+"notebook.createNoteFromSidebar" = "Créer une note depuis la barre latérale";
+"notebook.selectNoteToEdit" = "Sélectionnez une note pour commencer à modifier";
+"notebook.createNewFromSidebar" = "Ou créez une nouvelle note depuis la barre latérale";
+
+/* Note Settings */
+"notebook.noteSettings" = "Paramètres de Note";
+"notebook.icon" = "Icône";
+"notebook.none" = "Aucun";
+"notebook.color" = "Couleur";
+"notebook.theme" = "Thème";
+"notebook.tagsCommaSeparated" = "Tags (séparés par des virgules)";
+"notebook.folder" = "Dossier";
+
+/* Todo Settings */
+"notebook.todoDetails" = "Détails de la Tâche";
+"notebook.priority" = "Priorité";
+"notebook.assignee" = "Assigné à";
+
+/* Editor */
+"editor.edit" = "Modifier";
+"editor.preview" = "Aperçu";
+"editor.notes" = "Notes";
+"editor.startWriting" = "Commencez à écrire vos notes...";
+"editor.slashCommands" = "Commandes Slash";
+"editor.noContentYet" = "Pas encore de contenu...";
+"editor.todos" = "Tâches";
+"editor.add" = "Ajouter";
+"editor.clear" = "Effacer";
+"editor.done" = "Fait";
+"editor.lastUpdated" = "Dernière mise à jour: %@";
+
+/* Stats - Additional */
+"stats.gitActivity" = "Activité Git (%@)";
+"stats.noGitActivity" = "Aucune activité git trouvée pendant cette période ou le dépôt n'a peut-être pas été initialisé.";
+"stats.activityVolume" = "Volume d'Activité";
+"stats.codeLinesByProject" = "Lignes de Code par Projet";
+"stats.allProjects" = "Tous les Projets";
+"stats.projectTypes" = "Types de Projets";
+"stats.topProjectsByFileCount" = "Meilleurs Projets par Nombre de Fichiers";
+"stats.projectsAnalyze" = "Analyser les Projets";
+"stats.noSourceFiles" = "Aucun fichier source trouvé";
+"stats.analyzingProject" = "Analyse du projet en cours...";
+"stats.contributionsHeatmap" = "Carte de Contributions";
+"stats.hoverDetails" = "Passez votre souris sur un bloc pour voir les détails";
+"stats.less" = "Moins";
+"stats.more" = "Plus";
+
+/* Project List */
+"projects.calculatingStats" = "Calcul des statistiques...";
+"projects.noProjectsFound" = "Aucun projet trouvé";
+"projects.tryScanning" = "Essayez de scanner des projets ou ajustez votre recherche";
+"projects.scanProjects" = "Scanner les Projets";
+
+/* Project Detail */
+"projects.backToProjects" = "Retour aux Projets";
+"projects.active" = "Actif";
+"projects.techStack" = "Stack Technique";
+"projects.type" = "Type:";
+"projects.recentActivity" = "Activité Récente";
+"projects.noRecentActivity" = "Pas d'activité récente";
+"projects.chooseEditor" = "Choisir un Éditeur";
+"projects.noEditorsFound" = "Aucun éditeur pris en charge trouvé";
+
+/* Project Analyze */
+"analyze.noUnusedCode" = "Aucun code inutilisé trouvé dans le projet. Excellent travail!";
+"analyze.projectsAnalyze" = "Analyser les Projets";
+"analyze.file" = "Fichier";
+"analyze.extension" = "Extension";
+"analyze.lines" = "Lignes";
+"analyze.pageOf" = "Page %1$d sur %2$d";
+"analyze.analysisResults" = "Résultats de l'Analyse";
+"analyze.cancel" = "Annuler";
+"analyze.saveToNotes" = "Enregistrer dans les Notes";
+
+/* Navigation */
+"nav.devAtlas" = "DevAtlas";
+"nav.workspace" = "Espace de Travail";
+"nav.projects" = "Projets";
+"nav.export" = "Exporter";
+
+/* Onboarding - Additional */
+"onboarding.chooseAccentColor" = "Choisissez votre couleur d'accent préférée";
+"onboarding.discoverProjects" = "Découvrez et gérez tous vos projets de développement";
+"onboarding.twoMoreFeatures" = "Deux fonctionnalités puissantes de plus à portée de main";
+"onboarding.lightningAccess" = "Accès instantané à vos outils de développement";
+
+/* Onboarding - Quick Actions (New) */
+"onboarding.quickActions.xcode" = "Ouvrir les projets Apple dans Xcode";
+"onboarding.quickActions.vscode" = "Lancer dans Visual Studio Code";
+"onboarding.quickActions.terminal" = "Ouvrir le terminal dans le dossier du projet";
+"onboarding.quickActions.finder" = "Afficher le projet dans le Finder";
+"onboarding.quickActions.runProjects" = "Lancer les projets";
+"onboarding.quickActions.analyzeCode" = "Analyser le code";
+
+/* Onboarding - Stats & Notebook (New Features) */
+"onboarding.stats.languageBreakdown" = "Répartition par langage";
+"onboarding.stats.lineCountAnalysis" = "Analyse du nombre de lignes";
+"onboarding.stats.timeInsights" = "Analyses basées sur le temps";
+"onboarding.stats.exportReports" = "Exporter les rapports";
+"onboarding.notebook.projectDocs" = "Docs de projet";
+"onboarding.notebook.organizeTags" = "Organiser avec des tags";
+"onboarding.notebook.linkProjects" = "Lier aux projets";
+"onboarding.notebook.markdownSupport" = "Support Markdown";
+
+/* Onboarding - Features (New Rows) */
+"onboarding.features.autoScan.title" = "Scan Automatique";
+"onboarding.features.autoScan.subtitle" = "Trouve des projets sur tous vos disques";
+"onboarding.features.smartFilters.title" = "Filtres Intelligents";
+"onboarding.features.smartFilters.subtitle" = "Filtrer par Web, Bureau, Mobile ou Cloud";
+"onboarding.features.search.title" = "Recherche";
+"onboarding.features.search.subtitle" = "Trouver un projet par nom ou stack technique";
+"onboarding.features.recentActivity.title" = "Activité Récente";
+"onboarding.features.recentActivity.subtitle" = "Voir les derniers fichiers sur lesquels vous avez travaillé";
+
+/* Notebook - Sort & Filter */
+"notebook.sortBy" = "Trier par";
+"notebook.showArchived" = "Afficher les archivés";
+"notebook.notesCount" = "notes";
+"notebook.tagsPlaceholder" = "ex: swift, important, phase1";
+"notebook.folderPlaceholder" = "Nom de dossier optionnel";
+
+/* Todo Settings - Additional */
+"notebook.assigneePlaceholder" = "ex: Jean Dupont";
+"notebook.todoTagsPlaceholder" = "ex: urgent, backend";
+
+/* Editor - Additional */
+"editor.noteTitle" = "Titre de la note";
+"editor.words" = "mots";
+"editor.addTodoPlaceholder" = "Ajouter une tâche...";
+"editor.completed" = "Terminé";
+"editor.addSubtask" = "Ajouter une sous-tâche...";
+"editor.due" = "Échéance";
+"editor.characters" = "caractères";
+"editor.lines" = "lignes";
+
+/* Context Menu - Notebook */
+"notebook.pinNote" = "Épingler la note";
+"notebook.unpinNote" = "Désépingler la note";
+"notebook.archiveNote" = "Archiver la note";
+"notebook.unarchiveNote" = "Désarchiver la note";
+
+/* Project Detail - Quick Actions */
+"projects.quickActions" = "⚡ Actions rapides";
+"projects.openInXcode" = "Ouvrir dans Xcode";
+"projects.launchWorkspace" = "Lancer l'espace de travail";
+"projects.openInCodeEditor" = "Ouvrir dans l'éditeur de code";
+"projects.runProject" = "Exécuter le projet";
+"projects.startDevServer" = "Démarrer le serveur dev";
+"projects.installDependencies" = "Installer les dépendances";
+"projects.chooseScript" = "Choisir le script";
+"projects.openTerminal" = "Ouvrir le terminal";
+"projects.commandPrompt" = "Invite de commande";
+"projects.revealInFinder" = "Révéler dans le Finder";
+"projects.openFileExplorer" = "Ouvrir l'explorateur de fichiers";
+"projects.analyzeProject" = "Analyser le projet";
+"projects.codeLineStats" = "Statistiques des lignes de code";
+
+/* Project Analyze - Additional */
+"analyze.findUnusedCode" = "Trouver le code non utilisé";
+"analyze.analyzing" = "Analyse en cours...";
+"analyze.savedToNotes" = "Enregistré dans les notes!";
+"analyze.filesAnalyzed" = "fichiers analysés";
+"analyze.totalFiles" = "Total des fichiers";
+"analyze.totalLines" = "Total des lignes";
+"analyze.avgLinesPerFile" = "Moy. lignes/fichier";
+"analyze.largestFile" = "Plus grand fichier";
+"analyze.peripheryRequired" = "Periphery Required";
+"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
+"analyze.installPeriphery" = "Open Install Guide";
+
+/* Projects Footer */
+"projects.footer.projects" = "Projets";
+"projects.footer.files" = "Fichiers";
+"projects.footer.lines" = "Lignes";
+
+/* Stats - New */
+"stats.selectedProjects" = "%d sélectionné(s)";
+"stats.noCodeLines" = "Aucune ligne de code disponible.";
+"stats.noProjectsToRank" = "Aucun projet à classer.";
+"stats.noData" = "Aucune donnée disponible.";
+"stats.linesValue" = "%@ lignes";
+"stats.projectTypeCount" = "%@ projets";
+"stats.codeLinesValue" = "%@ lignes de code";
+"stats.contributionsCount" = "%d contributions";
+"stats.onDate" = "le %@";
+"stats.activity.high" = "Activité élevée";
+"stats.activity.medium" = "Activité moyenne";
+"stats.activity.low" = "Faible activité";
+
+/* Dependencies */
+"projects.dependencies" = "Dépendances";
+"projects.devDependencies" = "Dépendances de développement";
+"projects.noDependencies" = "Aucune dépendance trouvée";
+"projects.loadingDependencies" = "Chargement des dépendances...";
+"projects.collapsedDependencies" = "%d dépendances dans le projet, cliquez pour voir les détails";
+"dependency.upgradeable" = "Mise à jour disponible";
+"projects.collapsedDependenciesMultiProject" = "%d dépendances sur %d projets, cliquez pour voir les détails";
+
+
+
+/* --- AI Prompts --- */
+"aiprompts.title" = "Bibliothèque de Prompts IA";
+"aiprompts.subtitle" = "%d catégories · %d prompts professionnels";
+"aiprompts.description" = "Copiez ces prompts détaillés et collez-les dans votre assistant IA (ChatGPT, Claude, Gemini, etc.) pour analyser vos propres projets. Chaque prompt est conçu pour générer une analyse de niveau expert.";
+"aiprompts.wordCount" = "%d mots";
+"aiprompts.copied" = "Copié !";
+"aiprompts.copy" = "Copier";
+"aiprompts.collapse" = "Réduire";
+"aiprompts.expand" = "Voir tout";
+
+"aiprompts.category.codeQuality" = "Qualité du Code";
+"aiprompts.category.performance" = "Performance";
+"aiprompts.category.architecture" = "Architecture & Design";
+"aiprompts.category.testing" = "Testing";
+"aiprompts.category.documentation" = "Documentation";
+"aiprompts.category.debugging" = "Débogage & Profilage";
+"aiprompts.category.networking" = "API & Réseau";
+"aiprompts.category.accessibility" = "Accessibilité";
+"aiprompts.category.localization" = "i18n & Localisation";
+"aiprompts.category.cicd" = "Git & CI/CD";
+"aiprompts.category.dependencies" = "Gestion des Dépendances";
+"aiprompts.category.codeGeneration" = "Génération de Code";
+
+"aiprompts.prompt.unusedCode.title" = "Code Inutilisé";
+"aiprompts.prompt.unusedCode.desc" = "Détecte les fonctions, variables, classes et importations inutilisées dans votre projet.";
+"aiprompts.prompt.codeSmells.title" = "Code Smells & Anti-Patrons";
+"aiprompts.prompt.codeSmells.desc" = "Détecte en profondeur les 'code smells', les anti-patrons et les bugs potentiels.";
+"aiprompts.prompt.memoryLeaks.title" = "Fuites de Mémoire & Cycles de Rétention";
+"aiprompts.prompt.memoryLeaks.desc" = "Analyse de manière exhaustive les fuites de mémoire, les cycles de rétention et les erreurs de gestion des ressources dans les projets Swift/Apple.";
+"aiprompts.prompt.securityAudit.title" = "Audit de Sécurité";
+"aiprompts.prompt.securityAudit.desc" = "Audite de manière exhaustive les vulnérabilités de sécurité, les modèles de code dangereux et les failles de protection des données.";
+"aiprompts.prompt.errorHandling.title" = "Audit de la Gestion des Erreurs";
+"aiprompts.prompt.errorHandling.desc" = "Détecte les failles de gestion des erreurs, les 'force unwraps' et les risques de crash.";
+
+"aiprompts.prompt.bottleneck.title" = "Analyse des Goulots d'Étranglement des Performances";
+"aiprompts.prompt.bottleneck.desc" = "Détecte les goulots d'étranglement des performances, les points lents et les charges de travail inutiles sur l'ensemble de la base de code.";
+"aiprompts.prompt.swiftuiRender.title" = "Optimisation du Rendu SwiftUI";
+"aiprompts.prompt.swiftuiRender.desc" = "Détecte les re-rendus inutiles, les erreurs de gestion d'état et les problèmes de performances de l'interface utilisateur dans la hiérarchie des vues SwiftUI.";
+"aiprompts.prompt.appLaunch.title" = "Optimisation du Démarrage & du Lancement de l'App";
+"aiprompts.prompt.appLaunch.desc" = "Analyse le temps de démarrage de l'app, les performances de lancement à froid/à chaud et la vitesse d'affichage du premier écran.";
+
+"aiprompts.prompt.architectureDeep.title" = "Revue Approfondie de l'Architecture";
+"aiprompts.prompt.architectureDeep.desc" = "Évalue en profondeur l'architecture du projet en termes de principes SOLID, de gestion des dépendances et de modularité.";
+"aiprompts.prompt.designPatterns.title" = "Modèles de Conception & Bonnes Pratiques";
+"aiprompts.prompt.designPatterns.desc" = "Analyse l'utilisation actuelle des modèles de conception, suggère les modèles manquants et détecte les anti-patrons.";
+"aiprompts.prompt.refactoringGuide.title" = "Guide de Refactoring";
+"aiprompts.prompt.refactoringGuide.desc" = "Marque les blocs de code nécessitant un refactoring selon le catalogue de refactoring de Martin Fowler et fournit un guide étape par étape.";
+
+"aiprompts.prompt.testCoverage.title" = "Couverture des Tests & Analyse des Écarts";
+"aiprompts.prompt.testCoverage.desc" = "Analyse de manière exhaustive les écarts de couverture des tests, les scénarios de test manquants et les chemins de code non testés critiques.";
+"aiprompts.prompt.unitTestAudit.title" = "Audit de Qualité des Tests Unitaires";
+"aiprompts.prompt.unitTestAudit.desc" = "Audite la qualité, la fiabilité et la maintenabilité des tests unitaires existants.";
+"aiprompts.prompt.testGenerator.title" = "Assistant de Rédaction de Tests";
+"aiprompts.prompt.testGenerator.desc" = "Génère des tests unitaires complets et fonctionnels pour le fichier de code fourni.";
+
+"aiprompts.prompt.apiDocs.title" = "Documentation Automatisée de l'API";
+"aiprompts.prompt.apiDocs.desc" = "Génère une documentation détaillée pour toutes les API publiques au format Swift DocC.";
+"aiprompts.prompt.readmeDocs.title" = "README & Documentation du Projet";
+"aiprompts.prompt.readmeDocs.desc" = "Crée un README et une documentation de projet professionnels et complets.";
+"aiprompts.prompt.commentsAudit.title" = "Analyse des Commentaires dans le Code";
+"aiprompts.prompt.commentsAudit.desc" = "Analyse les commentaires existants, détecte ceux qui sont obsolètes/incorrects et fournit des suggestions d'amélioration.";
+
+"aiprompts.prompt.crashBugAudit.title" = "Analyse des Crashs & Bugs";
+"aiprompts.prompt.crashBugAudit.desc" = "Analyse les journaux de crash et les rapports de bogues, trouve la cause première et suggère des corrections.";
+"aiprompts.prompt.instrumentsGuide.title" = "Guide des Instruments & du Profilage";
+"aiprompts.prompt.instrumentsGuide.desc" = "Fournit un guide sur le profilage avec Xcode Instruments et offre des recommandations spécifiques au projet.";
+
+"aiprompts.prompt.networkAudit.title" = "Audit de la Couche Réseau";
+"aiprompts.prompt.networkAudit.desc" = "Audite de manière exhaustive la couche réseau, les appels d'API, la gestion des erreurs et le flux de données.";
+"aiprompts.prompt.apiMock.title" = "Mock d'API & Infrastructure de Test";
+"aiprompts.prompt.apiMock.desc" = "Crée une infrastructure de test d'API, une configuration de serveur fictif (mock) et une stratégie de test réseau.";
+
+"aiprompts.prompt.a11yAudit.title" = "Audit d'Accessibilité";
+"aiprompts.prompt.a11yAudit.desc" = "Audite la conformité aux normes d'accessibilité, détectant les problèmes de VoiceOver, de Dynamic Type et de contraste des couleurs.";
+
+"aiprompts.prompt.i18nAudit.title" = "Audit Complet de Localisation";
+"aiprompts.prompt.i18nAudit.desc" = "Audite de manière exhaustive les chaînes codées en dur, les traductions manquantes, les formats de date/nombre et la prise en charge RTL.";
+
+"aiprompts.prompt.gitWorkflow.title" = "Optimisation du Workflow Git";
+"aiprompts.prompt.gitWorkflow.desc" = "Audite l'historique Git, la stratégie de branche, la qualité des commits et la configuration de .gitignore.";
+"aiprompts.prompt.cicdPipeline.title" = "Conception de Pipeline CI/CD";
+"aiprompts.prompt.cicdPipeline.desc" = "Crée une conception de pipeline CI/CD, une optimisation de la compilation et une stratégie de déploiement adaptées au type de projet.";
+
+"aiprompts.prompt.depAudit.title" = "Audit des Dépendances";
+"aiprompts.prompt.depAudit.desc" = "Audite toutes les dépendances en termes de sécurité, d'actualité, de conformité de licence et de nécessité.";
+
+"aiprompts.prompt.crudGen.title" = "Générateur de Fonctionnalités CRUD";
+"aiprompts.prompt.crudGen.desc" = "Génère une fonctionnalité CRUD complète (Model, Service, ViewModel, View) pour une nouvelle entité.";
+"aiprompts.prompt.boilerplateGen.title" = "Générateur de 'Boilerplate' de Projet";
+"aiprompts.prompt.boilerplateGen.desc" = "Crée toutes les structures de fichiers et de dossiers nécessaires pour un nouveau module ou une nouvelle fonctionnalité.";
+"aiprompts.prompt.projectReport.title" = "Rapport d'Analyse du Projet";
+"aiprompts.prompt.projectReport.desc" = "Fournit une radiographie globale du projet : architecture, qualité, risques et suggestions d'amélioration.";
+
+
+/* --- Missing Keys --- */
+"analyze.copied" = "Copié !";
+"analyze.copyCleanupPrompt" = "Copier le prompt de nettoyage";
+"common.image" = "Image";
+"common.openWith" = "Ouvrir avec";
+"editor.bulletList" = "Liste à puces";
+"editor.codeBlock" = "Bloc de code";
+"editor.completedCount" = "%d terminés";
+"editor.daysLeft" = "%d jours restants";
+"editor.heading1" = "Titre 1";
+"editor.heading2" = "Titre 2";
+"editor.heading3" = "Titre 3";
+"editor.hoursLeft" = "%d heures restantes";
+"editor.minutesLeft" = "%d minutes restantes";
+"editor.overdue" = "En retard";
+"editor.priority.high" = "Élevée";
+"editor.priority.low" = "Basse";
+"editor.priority.medium" = "Moyenne";
+"editor.todoList" = "Liste de tâches";
+"editor.todoStatus.done" = "Terminé";
+"editor.todoStatus.inProgress" = "En cours";
+"editor.todoStatus.todo" = "À faire";
+"scan.foundProjects" = "%d projets trouvés";
