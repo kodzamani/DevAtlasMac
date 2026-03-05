@@ -1,0 +1,54 @@
+# Xcode
+xcuserdata/
+*.xcuserstate
+
+# Build
+DerivedData/
+.build/
+*.build/
+
+# Swift Package Manager
+.swiftpm/
+Packages/
+Package.resolved
+
+# App packaging
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Obj-C / Swift
+*.hmap
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Xcode user data
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Certificates / secrets (çok önemli)
+*.p12
+*.mobileprovision
+*.cer
+*.p8
+
+# Environment / configs
+.env
+.env.*
