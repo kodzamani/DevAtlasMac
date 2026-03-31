@@ -42,6 +42,7 @@ struct ProjectInfo: Identifiable, Codable, Hashable {
     private func languageAbbreviation(for type: String) -> String {
         let mapping: [String: String] = [
             "Node.js": "JS",
+            "React Native": "RN",
             "Next.js": "JS",
             "Vite": "JS",
             "Vue": "JS",

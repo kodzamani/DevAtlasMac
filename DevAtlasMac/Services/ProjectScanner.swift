@@ -247,6 +247,12 @@ actor ProjectScanner {
     private func detectProject(at path: String, files: [String]) -> ProjectInfo? {
         var projectType: String?
         var tags: Set<String> = []
+        let isReactNative = isReactNativeProject(at: path, files: files)
+
+        if isReactNative {
+            tags.insert("React Native")
+            tags.insert("Mobile")
+        }
 
         for file in files {
             let ext = (file as NSString).pathExtension
@@ -266,6 +272,12 @@ actor ProjectScanner {
             if let fileTags = self.fileTags[file] {
                 tags.formUnion(fileTags)
             }
+        }
+
+        if isReactNative {
+            projectType = "React Native"
+            tags.remove("JavaScript")
+            tags.remove("Node.js")
         }
 
         guard let type = projectType else { return nil }
@@ -303,7 +315,7 @@ actor ProjectScanner {
             "React", "Next.js", "Vue", "Angular", "Vite", "Node.js", "PHP", "Ruby", "Go"
         ]
         let desktopTypes: Set<String> = [".NET", ".NET Solution", "F#", "VB.NET"]
-        let mobileTypes: Set<String> = ["iOS", "Flutter", "Xcode", "Xcode Workspace"]
+        let mobileTypes: Set<String> = ["iOS", "Flutter", "Xcode", "Xcode Workspace", "React Native"]
         let cloudTypes: Set<String> = ["Docker"]
 
         if mobileTypes.contains(type) { return .mobile }
@@ -361,6 +373,7 @@ actor ProjectScanner {
     private func generateIconColor(type: String) -> String {
         let typeColors: [String: String] = [
             "Node.js": "68A063",
+            "React Native": "61DAFB",
             "React": "61DAFB",
             "Next.js": "000000",
             "Vue": "42B883",
@@ -385,5 +398,86 @@ actor ProjectScanner {
             "Xcode Workspace": "147EFB"
         ]
         return typeColors[type] ?? "6B7280"
+    }
+
+    // MARK: - React Native Detection
+
+    private func isReactNativeProject(at path: String, files: [String]) -> Bool {
+        let normalizedFiles = Set(files.map { $0.lowercased() })
+        guard normalizedFiles.contains("package.json") else { return false }
+
+        let reactNativeMarkerFiles: Set<String> = [
+            "app.json",
+            "app.config.js",
+            "app.config.ts",
+            "react-native.config.js",
+            "metro.config.js",
+            "metro.config.cjs",
+            "eas.json"
+        ]
+
+        if !reactNativeMarkerFiles.isDisjoint(with: normalizedFiles) {
+            return true
+        }
+
+        let hasPlatformFolders = normalizedFiles.contains("ios") && normalizedFiles.contains("android")
+
+        let packagePath = (path as NSString).appendingPathComponent("package.json")
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: packagePath)),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            return hasPlatformFolders
+        }
+
+        if hasReactNativeDependency(in: json) {
+            return true
+        }
+
+        if let scripts = json["scripts"] as? [String: Any] {
+            let scriptKeys = scripts.keys.map { $0.lowercased() }
+            let scriptValues = scripts.values
+                .compactMap { $0 as? String }
+                .map { $0.lowercased() }
+
+            if scriptKeys.contains(where: { $0.contains("react-native") || $0.contains("expo") }) {
+                return true
+            }
+
+            if scriptValues.contains(where: { $0.contains("react-native") || $0.contains("expo") }) {
+                return true
+            }
+        }
+
+        if let keywords = json["keywords"] as? [String] {
+            let loweredKeywords = keywords.map { $0.lowercased() }
+            if loweredKeywords.contains(where: { $0.contains("react-native") || $0 == "expo" }) {
+                return true
+            }
+        }
+
+        if let name = (json["name"] as? String)?.lowercased(), name.contains("react-native") {
+            return true
+        }
+
+        return hasPlatformFolders
+    }
+
+    private func hasReactNativeDependency(in packageJson: [String: Any]) -> Bool {
+        let dependencyKeys = ["dependencies", "devDependencies", "peerDependencies"]
+        for key in dependencyKeys {
+            guard let deps = packageJson[key] as? [String: Any] else { continue }
+            let depNames = deps.keys.map { $0.lowercased() }
+
+            if depNames.contains(where: {
+                $0 == "react-native" ||
+                $0.hasPrefix("@react-native/") ||
+                $0.hasPrefix("react-native-") ||
+                $0 == "expo" ||
+                $0.hasPrefix("@expo/") ||
+                $0.hasPrefix("expo-")
+            }) {
+                return true
+            }
+        }
+        return false
     }
 }

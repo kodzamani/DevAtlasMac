@@ -12,7 +12,7 @@ actor DependenciesService {
         
         // Route to appropriate parser based on project type
         switch projectType {
-        case "Node.js", "React", "Next.js", "Vue", "Angular", "Vite":
+        case "Node.js", "React", "React Native", "Next.js", "Vue", "Angular", "Vite":
             return parseJavaScriptProject(at: projectPath, type: projectType)
             
         case "Flutter":
