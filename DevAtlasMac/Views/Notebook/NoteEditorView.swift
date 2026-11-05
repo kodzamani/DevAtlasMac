@@ -36,7 +36,6 @@ struct NoteEditorView: View {
             
             editorFooter
         }
-        .background(Color.daOffWhite)
         .onAppear {
             editingTitle = note.title
             editingContent = note.content
@@ -176,7 +175,7 @@ struct NoteEditorView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
-        .background(Color.daWhite)
+        .background(Color.daCard)
     }
     
     // MARK: - Notes Section (Premium Card)
@@ -241,7 +240,7 @@ struct NoteEditorView: View {
                             }
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
-                            .background(Color.daVeryLightGray)
+                            .background(Color.daCard)
                             .clipShape(Capsule())
                         }
                     }
@@ -527,7 +526,7 @@ struct NoteEditorView: View {
                 }
             }
         }
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
@@ -628,7 +627,7 @@ struct NoteEditorView: View {
             .frame(maxWidth: .infinity, alignment: .top)
         }
         .padding(12)
-        .background(Color.daVeryLightGray)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .onDrop(of: [.plainText], isTargeted: nil) { providers in
             if let provider = providers.first {
@@ -698,7 +697,7 @@ struct NoteEditorView: View {
             }
         }
         .padding(10)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
@@ -807,7 +806,7 @@ struct NoteEditorView: View {
                                         .foregroundStyle(Color.daMutedText)
                                         .padding(.horizontal, 4)
                                         .padding(.vertical, 2)
-                                        .background(Color.daVeryLightGray)
+                                        .background(Color.daCard)
                                         .clipShape(Capsule())
                                 }
                             }
@@ -1065,7 +1064,7 @@ struct NoteEditorView: View {
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 8)
-        .background(Color.daVeryLightGray)
+        .background(Color.daCard)
     }
     
     // MARK: - Footer
@@ -1086,7 +1085,7 @@ struct NoteEditorView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 8)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .overlay(alignment: .top) {
             Divider().foregroundStyle(Color.daBorder)
         }

@@ -22,7 +22,7 @@ struct NotebookSidebarView: View {
             bottomSection
         }
         .frame(width: 180)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .overlay(alignment: .trailing) {
             Rectangle()
                 .fill(Color.daBorder)

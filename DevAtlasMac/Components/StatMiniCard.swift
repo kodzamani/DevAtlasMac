@@ -5,21 +5,21 @@ struct StatMiniCard: View {
     let value: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 3) {
+        VStack(alignment: .leading, spacing: 4) {
             Text(label)
-                .font(.daSmallLabelSemiBold)
-                .foregroundStyle(Color.daMutedText)
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(Color.daTertiaryText)
 
             Text(value)
-                .font(.daBodySemiBold)
+                .font(.system(size: 20, weight: .semibold))
+                .monospacedDigit()
                 .foregroundStyle(Color.daPrimaryText)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
+                .contentTransition(.numericText())
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 10)
-        .padding(.vertical, 10)
-        .background(Color.daLightGray)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(14)
+        .daCardSurface(cornerRadius: 10)
     }
 }

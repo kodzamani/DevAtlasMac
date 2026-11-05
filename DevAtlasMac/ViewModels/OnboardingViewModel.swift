@@ -41,6 +41,12 @@ final class OnboardingViewModel {
         }
     }
     
+    func go(to page: OnboardingPage) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            currentPage = page
+        }
+    }
+
     func previousPage() {
         if let prev = OnboardingPage(rawValue: currentPage.rawValue - 1) {
             withAnimation(.easeInOut(duration: 0.3)) {

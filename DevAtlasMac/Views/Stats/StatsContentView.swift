@@ -113,7 +113,7 @@ struct StatsContentView: View {
                 .animation(.spring(response: 0.3, dampingFraction: 0.7), value: value)
         }
         .padding(20)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
     }
@@ -164,7 +164,7 @@ struct StatsContentView: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(Color.daOffWhite)
+                    .background(Color.daCard)
                     .clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
@@ -294,7 +294,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
     }
@@ -581,7 +581,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(maxWidth: .infinity)
@@ -608,7 +608,7 @@ struct StatsContentView: View {
                         .textFieldStyle(.plain)
                 }
                 .padding(8)
-                .background(Color.daOffWhite)
+                .background(Color.daCard)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 
                 // Type filters
@@ -693,7 +693,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(minWidth: 350)
@@ -805,7 +805,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(maxWidth: .infinity)
@@ -880,7 +880,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(maxWidth: .infinity)
@@ -915,7 +915,7 @@ struct StatsContentView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
-            .background(Color.daWhite)
+            .background(Color.daCard)
 
             Divider()
                 .foregroundStyle(Color.daBorder)
@@ -952,7 +952,7 @@ struct StatsContentView: View {
         }
         .frame(minWidth: 800, minHeight: 600)
         .frame(idealWidth: 900, idealHeight: 700)
-        .background(Color.daOffWhite)
+        .background { AuroraBackground() }
         .task(id: proj.id) {
             codeAnalysisForPopup = await CodeAnalyzer.analyze(for: proj)
         }
@@ -1007,7 +1007,7 @@ struct StatsContentView: View {
                     .frame(width: 80, height: 28)
             }
             .padding(20)
-            .background(Color.daWhite)
+            .background(Color.daCard)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
             .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)
@@ -1028,7 +1028,7 @@ struct StatsContentView: View {
             }
             .padding(20)
             .frame(height: height)
-            .background(Color.daWhite)
+            .background(Color.daCard)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
             .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)

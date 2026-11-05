@@ -35,7 +35,7 @@ struct CollapsibleDependenciesSectionView: View {
             }
             .padding(18)
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .background(Color.daWhite)
+            .background(Color.daCard)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)

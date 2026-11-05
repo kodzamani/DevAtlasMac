@@ -19,7 +19,6 @@ struct ContentView: View {
                 OnboardingContainerView(viewModel: onboardingVM)
                     .environment(viewModel)
                     .environment(languageManager)
-                    .background(Color.daOffWhite.ignoresSafeArea())
                     .navigationTitle("")
                     .toolbarBackground(.hidden, for: .windowToolbar)
                     .transition(.opacity)
@@ -72,6 +71,7 @@ struct ContentView: View {
                 prompt: viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized
             )
             .navigationTitle(viewModel.windowTitle)
+            .toolbarBackground(.hidden, for: .windowToolbar)
             .toolbar {
                 AppToolbar(viewModel: viewModel, statsVM: statsVM)
             }

@@ -116,7 +116,7 @@ struct SettingsContentView: View {
             inlineExcludeSection
         }
         .padding(12)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
     
@@ -186,7 +186,7 @@ struct SettingsContentView: View {
                         }
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
-                        .background(Color.daWhite.opacity(0.6))
+                        .background(Color.daCard)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                     }
                 }
@@ -379,7 +379,7 @@ struct SettingsContentView: View {
             }
         }
         .frame(width: 260, height: 340)
-        .background(Color.daWhite)
+        .background(Color.daCard)
     }
 }
 

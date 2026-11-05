@@ -55,7 +55,7 @@ struct ProjectAnalyzeView: View {
             }
         }
         .padding(18)
-        .background(Color.daWhite)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
@@ -193,7 +193,7 @@ struct ProjectAnalyzeView: View {
             }
         }
         .padding(12)
-        .background(Color.daVeryLightGray)
+        .background(Color.daCard)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     

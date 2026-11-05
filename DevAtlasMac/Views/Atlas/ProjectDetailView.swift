@@ -16,11 +16,20 @@ struct ProjectDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 14) {
                 projectHeader
-                techStackAndDependenciesCard
+                quickActionsSection
+                statsRow
+                techStackCard
+
+                CollapsibleDependenciesSectionView(
+                    project: project,
+                    dependencies: dependencies
+                )
             }
-            .padding(.init(top: 20, leading: 20, bottom: 32, trailing: 20))
+            .frame(maxWidth: 1100)
+            .padding(.init(top: 20, leading: 24, bottom: 32, trailing: 24))
+            .frame(maxWidth: .infinity)
         }
         .task {
             async let s = ProjectStatistics.calculate(for: project)
@@ -55,114 +64,80 @@ struct ProjectDetailView: View {
     
     // MARK: - Project Header
     private var projectHeader: some View {
-        HStack(alignment: .top, spacing: 16) {
-            // Left side: Icon
-            ProjectFolderIcon(project: project, size: 64)
+        HStack(spacing: 16) {
+            ProjectFolderIcon(project: project, size: 76)
 
-            // Left side: Project info
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(spacing: 10) {
                     Text(project.name)
-                        .font(.daProjectTitle)
+                        .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.daPrimaryText)
-                    
+                        .lineLimit(1)
+
                     if project.isActive {
-                        Text("projects.active".localized)
-                            .font(.daFileExtensionMedium)
-                            .foregroundStyle(Color.daDarkGreen)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 3)
-                            .background(Color.daLightGreen)
-                            .clipShape(Capsule())
+                        HStack(spacing: 5) {
+                            Circle()
+                                .fill(Color.daGreen)
+                                .frame(width: 6, height: 6)
+                            Text("projects.active".localized)
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundStyle(Color.daTertiaryText)
+                        }
                     }
-                    
-                    // Git branch badge (now on the left)
-                    if let branch = project.gitBranch {
-                        gitBranchBadge(branch)
-                    }
-                    
-                    // Last modified badge (now on the left)
-                    lastModifiedBadge
                 }
-                
-                HStack(spacing: 6) {
-                    Image(systemName: "folder")
-                        .font(.system(size: 12))
-                        .foregroundStyle(Color.daTertiaryText.opacity(0.5))
+
+                HStack(spacing: 12) {
+                    Text(project.projectType)
+
+                    if let branch = project.gitBranch {
+                        metaItem(.branch, branch)
+                    }
+
+                    metaItem(.clock, timeAgoString(from: project.lastModified))
+                }
+                .font(.system(size: 12))
+                .foregroundStyle(Color.daTertiaryText)
+
+                Button {
+                    viewModel.revealInFinder(project)
+                } label: {
                     Text(project.path)
-                        .font(.daBody)
-                        .foregroundStyle(Color.daTertiaryText)
+                        .font(.system(size: 11))
+                        .foregroundStyle(Color.daMutedText)
                         .lineLimit(1)
                         .truncationMode(.middle)
                 }
+                .buttonStyle(.plain)
+                .help("projects.revealInFinder".localized)
             }
-            
-            Spacer()
-            
-            // Right side: Quick Actions Grid
-            quickActionsSection
+
+            Spacer(minLength: 0)
         }
-        .padding(.bottom, 20)
     }
-    
-    // MARK: - Last Modified Badge
-    private var lastModifiedBadge: some View {
-        HStack(spacing: 4) {
-            Image(systemName: "clock")
-                .font(.system(size: 9))
-            Text(timeAgoString(from: project.lastModified))
-                .font(.daSmallLabel)
+
+    private func metaItem(_ glyph: LineGlyph, _ text: String) -> some View {
+        HStack(spacing: 3) {
+            LineGlyphView(glyph: glyph)
+                .scaleEffect(0.72)
+                .frame(width: 14, height: 14)
+            Text(text)
+                .lineLimit(1)
         }
-        .foregroundStyle(Color.daMutedText)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
-        .background(Color.daLightGray)
-        .clipShape(Capsule())
     }
-    
-    // MARK: - Time Ago Helper
+
     private func timeAgoString(from date: Date) -> String {
-        let now = Date()
-        let components = Calendar.current.dateComponents([.minute, .hour, .day, .weekOfYear], from: date, to: now)
-        
-        if let weeks = components.weekOfYear, weeks >= 1 {
-            return weeks == 1 ? "1 week" : "\(weeks) weeks"
-        } else if let days = components.day, days >= 1 {
-            return days == 1 ? "1 day" : "\(days) days"
-        } else if let hours = components.hour, hours >= 1 {
-            return hours == 1 ? "1 hour" : "\(hours) hours"
-        } else if let minutes = components.minute, minutes >= 1 {
-            return minutes == 1 ? "1 min" : "\(minutes) mins"
-        } else {
-            return "Just now"
-        }
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        formatter.locale = Locale(identifier: UserDefaults.standard.string(forKey: "appLanguage") ?? AppLanguage.english.rawValue)
+        return formatter.localizedString(for: date, relativeTo: Date())
     }
-    
-    private func gitBranchBadge(_ branch: String) -> some View {
-        HStack(spacing: 4) {
-            Image(systemName: "arrow.triangle.branch")
-                .font(.system(size: 9))
-            Text(branch)
-                .font(.daSmallLabel)
-                .foregroundStyle(Color.daSecondaryText)
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
-        .background(Color.daLightGray)
-        .overlay(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.daBorder, lineWidth: 1)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 5))
-    }
-    
-    // MARK: - Quick Actions (2-column grid on the right)
+
+    // MARK: - Action Bar
     private var quickActionsSection: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 2) {
             if project.isAppleProject {
                 CompactQuickActionCard(
-                    icon: "hammer.fill",
-                    iconColor: .daBlue,
+                    glyph: .hammer,
                     title: "projects.openInXcode".localized
                 ) {
                     viewModel.openInXcode(project)
@@ -170,8 +145,7 @@ struct ProjectDetailView: View {
             }
             
             CompactQuickActionCard(
-                icon: "curlybraces",
-                iconColor: .daBlue,
+                glyph: .braces,
                 title: "projects.openInCodeEditor".localized
             ) {
                 showEditorPicker = true
@@ -182,8 +156,7 @@ struct ProjectDetailView: View {
             
             if viewModel.runner.isRunnableProject(at: project.path) {
                 CompactQuickActionCard(
-                    icon: "play.fill",
-                    iconColor: .daEmerald,
+                    glyph: .play,
                     title: "projects.runProject".localized
                 ) {
                     // Use preloaded scripts
@@ -210,103 +183,63 @@ struct ProjectDetailView: View {
             }
             
             CompactQuickActionCard(
-                icon: "terminal",
-                iconColor: .daPrimaryText,
+                glyph: .terminal,
                 title: "projects.openTerminal".localized
             ) {
                 viewModel.openTerminal(project)
             }
             
             CompactQuickActionCard(
-                icon: "folder",
-                iconColor: .daTertiaryText,
+                glyph: .folder,
                 title: "projects.revealInFinder".localized
             ) {
                 viewModel.revealInFinder(project)
             }
             
             CompactQuickActionCard(
-                icon: "chart.bar.doc.horizontal",
-                iconColor: .daEmerald,
+                glyph: .bars,
                 title: "projects.analyzeProject".localized
             ) {
                 showAnalyze = true
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .daCardSurface(cornerRadius: 10)
     }
     
-    // MARK: - Tech Stack & Dependencies Combined Card
-    private var techStackAndDependenciesCard: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            
-            VStack(alignment: .leading, spacing: 14) {
-                Text("projects.techStack".localized)
-                    .font(.daSubSectionSemiBold)
-                    .foregroundStyle(Color.daPrimaryText)
-                
-                FlowLayout(spacing: 8) {
-                    ForEach(project.tags, id: \.self) { tag in
-                        HStack(spacing: 6) {
-                            Circle()
-                                .fill(Color.daBlue)
-                                .frame(width: 6, height: 6)
-                            Text(tag)
-                                .font(.daTechTag)
-                                .foregroundStyle(Color.daDarkBlue)
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 5)
-                        .background(Color.daLightBlue)
-                        .clipShape(Capsule())
-                    }
-                }
-                
-                HStack(spacing: 6) {
-                    Text("projects.type".localized)
-                        .font(.daFileExtension)
-                        .foregroundStyle(Color.daTertiaryText)
-                    Text(project.projectType)
-                        .font(.daFileExtensionMedium)
+    // MARK: - Overview
+    private var statsRow: some View {
+        HStack(spacing: 10) {
+            StatMiniCard(label: "dashboard.size".localized, value: stats?.totalSize ?? "–")
+            StatMiniCard(label: "dashboard.files".localized, value: codeAnalysis.map { formatNumber($0.totalFiles) } ?? "–")
+            StatMiniCard(label: "dashboard.lines".localized, value: codeAnalysis.map { formatNumber($0.totalLines) } ?? "–")
+        }
+    }
+
+    // MARK: - Tech Stack
+    private var techStackCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("projects.techStack".localized)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(Color.daPrimaryText)
+
+            FlowLayout(spacing: 6) {
+                ForEach(project.tags, id: \.self) { tag in
+                    Text(tag)
+                        .font(.system(size: 11.5, weight: .medium))
                         .foregroundStyle(Color.daSecondaryText)
-                        .fontWeight(.semibold)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.daLightGray)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                
-                // Stats row
-                HStack(spacing: 10) {
-                    StatMiniCard(label: "dashboard.size".localized, value: stats?.totalSize ?? "–")
-                    StatMiniCard(label: "dashboard.files".localized, value: codeAnalysis.map { "\($0.totalFiles)" } ?? "–")
-                    StatMiniCard(label: "dashboard.lines".localized, value: codeAnalysis.map { formatNumber($0.totalLines) } ?? "–")
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .background(Color.daAccent.opacity(0.08), in: RoundedRectangle(cornerRadius: 6, style: .continuous))
                 }
             }
-            .frame(maxWidth: 500, alignment: .topLeading)
-            
-            CollapsibleDependenciesSectionView(
-                project: project,
-                dependencies: dependencies
-            )
-            
-           
-            
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.daBorder, lineWidth: 1)
-        )
+        .daCardSurface()
     }
-    
+
     // MARK: - Format Number
     private func formatNumber(_ n: Int) -> String {
         let formatter = NumberFormatter()
@@ -344,7 +277,6 @@ struct ProjectDetailView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
-            .background(Color.daWhite)
             
             Divider()
                 .foregroundStyle(Color.daBorder)
@@ -386,7 +318,7 @@ struct ProjectDetailView: View {
         }
         .frame(minWidth: 800, minHeight: 600)
         .frame(idealWidth: 900, idealHeight: 700)
-        .background(Color.daOffWhite)
+        .background { AuroraBackground() }
         .task {
             if codeAnalysis == nil {
                 codeAnalysis = await CodeAnalyzer.analyze(for: project)

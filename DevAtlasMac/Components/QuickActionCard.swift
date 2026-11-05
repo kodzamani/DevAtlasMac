@@ -1,8 +1,8 @@
 import SwiftUI
 
+/// A compact icon-and-title button for the action bar on the project page.
 struct CompactQuickActionCard: View {
-    let icon: String
-    let iconColor: Color
+    let glyph: LineGlyph
     let title: String
     let action: () -> Void
 
@@ -10,20 +10,18 @@ struct CompactQuickActionCard: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 8) {
-                Image(systemName: icon)
-                    .font(.system(size: 14))
-                    .foregroundStyle(iconColor)
-                    .frame(width: 20)
+            HStack(spacing: 6) {
+                LineGlyphView(glyph: glyph, isSelected: isHovered)
 
                 Text(title)
-                    .font(.daSmallLabel)
-                    .foregroundStyle(Color.daPrimaryText)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(Color.daSecondaryText)
+                    .lineLimit(1)
             }
             .padding(.horizontal, 10)
-            .padding(.vertical, 8)
-            .background(isHovered ? Color.daLightGray.opacity(0.7) : Color.clear)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .frame(height: 32)
+            .background(isHovered ? Color.primary.opacity(0.05) : Color.clear, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .onHover { isHovered = $0 }

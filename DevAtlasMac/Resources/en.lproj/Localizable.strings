@@ -512,3 +512,5 @@
 "finder.noSelection" = "Select a project to see its details";
 "finder.iconSize" = "Icon Size";
 "scan.scanning" = "Scanning projects…";
+"onboarding.step.welcome" = "Welcome";
+"onboarding.stepCounter" = "Step %d of %d";

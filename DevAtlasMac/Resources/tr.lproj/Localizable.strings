@@ -512,3 +512,5 @@
 "finder.noSelection" = "Ayrıntıları görmek için bir proje seçin";
 "finder.iconSize" = "Simge Boyutu";
 "scan.scanning" = "Projeler taranıyor…";
+"onboarding.step.welcome" = "Hoş Geldiniz";
+"onboarding.stepCounter" = "Adım %d / %d";

@@ -507,3 +507,5 @@
 "finder.noSelection" = "프로젝트를 선택하면 세부 정보가 표시됩니다";
 "finder.iconSize" = "아이콘 크기";
 "scan.scanning" = "프로젝트 스캔 중…";
+"onboarding.step.welcome" = "환영합니다";
+"onboarding.stepCounter" = "%d / %d단계";

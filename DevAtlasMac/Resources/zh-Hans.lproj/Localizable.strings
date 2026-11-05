@@ -509,3 +509,5 @@
 "finder.noSelection" = "选择一个项目以查看详情";
 "finder.iconSize" = "图标大小";
 "scan.scanning" = "正在扫描项目…";
+"onboarding.step.welcome" = "欢迎";
+"onboarding.stepCounter" = "第 %d 步，共 %d 步";

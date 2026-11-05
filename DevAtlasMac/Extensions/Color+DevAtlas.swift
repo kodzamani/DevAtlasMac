@@ -82,6 +82,8 @@ extension Color {
 
     // MARK: - Background Colors
     static var daWhite: Color { isDark ? Color(hex: "262628") : Color(hex: "FFFFFF") }
+    /// Translucent card fill for use on the Metal surface.
+    static var daCard: Color { isDark ? Color.white.opacity(0.05) : Color.white.opacity(0.62) }
     static var daOffWhite: Color { isDark ? Color(hex: "1A1A1C") : Color(hex: "F5F5F7") }
     static var daLightGray: Color { isDark ? Color(hex: "2E2E30") : Color(hex: "F0F0F3") }
     static var daVeryLightGray: Color { isDark ? Color(hex: "222224") : Color(hex: "F8F8FA") }

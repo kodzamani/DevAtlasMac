@@ -115,7 +115,7 @@ struct FileTableRow: View {
             }
         }
         .frame(width: 200)
-        .background(Color.daWhite)
+        .background(Color.daCard)
     }
 
     private static let lineCountFormatter: NumberFormatter = {

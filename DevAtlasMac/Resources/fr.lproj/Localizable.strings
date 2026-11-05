@@ -507,3 +507,5 @@
 "finder.noSelection" = "Sélectionnez un projet pour voir ses détails";
 "finder.iconSize" = "Taille des icônes";
 "scan.scanning" = "Analyse des projets…";
+"onboarding.step.welcome" = "Bienvenue";
+"onboarding.stepCounter" = "Étape %d sur %d";

@@ -507,3 +507,5 @@
 "finder.noSelection" = "プロジェクトを選択すると詳細が表示されます";
 "finder.iconSize" = "アイコンサイズ";
 "scan.scanning" = "プロジェクトをスキャン中…";
+"onboarding.step.welcome" = "ようこそ";
+"onboarding.stepCounter" = "ステップ %d / %d";
