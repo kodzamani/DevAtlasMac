@@ -531,3 +531,7 @@
 "dependency.version" = "Versione";
 "dependency.source" = "Origine";
 "dependency.upgradeableCount" = "%d aggiornabili";
+
+// MARK: - Menu Bar
+"menuBar.open" = "Apri DevAtlas";
+"menuBar.quit" = "Esci da DevAtlas";

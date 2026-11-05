@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// Two-pane setup assistant: a step rail on the left, the current page and its actions on the right.
+/// A centered setup assistant with horizontal progress and persistent navigation.
 struct OnboardingContainerView: View {
     @Environment(AppViewModel.self) private var appViewModel
     @Environment(LanguageManager.self) private var languageManager
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Bindable var viewModel: OnboardingViewModel
 
     @State private var languageTrigger: Int = 0
@@ -12,100 +13,54 @@ struct OnboardingContainerView: View {
         ZStack {
             AuroraBackground()
 
-            HStack(spacing: 0) {
-                stepRail
-                Divider()
+            VStack(spacing: 8) {
                 VStack(spacing: 0) {
+                    OnboardingStepper(
+                        currentPage: viewModel.currentPage,
+                        selectPage: viewModel.go
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.top, 16)
+                    .padding(.bottom, 8)
+
+                    Divider()
+
                     pageArea
                     footer
                 }
+                .frame(maxWidth: 1040, maxHeight: 740)
+                .background(Color.daOffWhite.opacity(0.94), in: RoundedRectangle(cornerRadius: 24))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 24)
+                        .strokeBorder(Color.daCardEdge, lineWidth: 1)
+                        .allowsHitTesting(false)
+                }
+                .shadow(color: .black.opacity(appViewModel.isDarkMode ? 0.16 : 0.06), radius: 28, y: 12)
+
+                Button("onboarding.welcome.skip".localized, action: viewModel.skipOnboarding)
+                    .buttonStyle(.plain)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(Color.daTertiaryText)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .opacity(viewModel.currentPage == .appearance ? 0 : 1)
+                    .disabled(viewModel.currentPage == .appearance)
+                    .accessibilityHidden(viewModel.currentPage == .appearance)
             }
-            .ignoresSafeArea(.container, edges: .top)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 12)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .preferredColorScheme(appViewModel.isDarkMode ? .dark : .light)
-        // The palette is read from UserDefaults, so a theme or accent change needs a rebuild.
-        .id(appViewModel.isDarkMode)
+        // Accent colors are read from UserDefaults, so changing the accent needs a rebuild.
         .id(languageManager.accentColor)
         .onReceive(NotificationCenter.default.publisher(for: .languageDidChange)) { _ in
             languageTrigger += 1
         }
         .id(languageTrigger)
-    }
-
-    // MARK: - Step Rail
-
-    private var stepRail: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 9) {
-                Image("logo_brand")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .accessibilityHidden(true)
-                Text("app.name".localized)
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(Color.daPrimaryText)
-            }
-            .padding(.bottom, 26)
-
-            ForEach(OnboardingPage.allCases, id: \.self) { page in
-                stepRow(page)
-            }
-
-            Spacer(minLength: 0)
-        }
-        .padding(.horizontal, 20)
-        .padding(.top, 58)
-        .frame(width: 236, alignment: .leading)
-        .frame(maxHeight: .infinity, alignment: .top)
-        .background(Color.daCard)
-    }
-
-    private func stepRow(_ page: OnboardingPage) -> some View {
-        let isCurrent = page == viewModel.currentPage
-        let isDone = page.rawValue < viewModel.currentPageIndex
-
-        return VStack(alignment: .leading, spacing: 0) {
-            Button {
-                viewModel.go(to: page)
-            } label: {
-                HStack(spacing: 10) {
-                    ZStack {
-                        Circle()
-                            .fill(isCurrent || isDone ? Color.daAccent : Color.clear)
-                        Circle()
-                            .strokeBorder(isCurrent || isDone ? Color.daAccent : Color.daSeparator, lineWidth: 1)
-                        if isDone {
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 9, weight: .bold))
-                                .foregroundStyle(.white)
-                        } else {
-                            Text("\(page.rawValue + 1)")
-                                .font(.system(size: 10, weight: .semibold))
-                                .monospacedDigit()
-                                .foregroundStyle(isCurrent ? Color.white : Color.daTertiaryText)
-                        }
-                    }
-                    .frame(width: 22, height: 22)
-
-                    Text(page.stepTitle)
-                        .font(.system(size: 12, weight: isCurrent ? .semibold : .regular))
-                        .foregroundStyle(isCurrent ? Color.daPrimaryText : Color.daTertiaryText)
-                        .lineLimit(1)
-
-                    Spacer(minLength: 0)
-                }
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityAddTraits(isCurrent ? .isSelected : [])
-
-            if page != OnboardingPage.allCases.last {
-                Rectangle()
-                    .fill(isDone ? Color.daAccent : Color.daBorder)
-                    .frame(width: 1, height: 16)
-                    .padding(.leading, 10.5)
+        .transaction { transaction in
+            if reduceMotion {
+                transaction.disablesAnimations = true
             }
         }
     }
@@ -115,35 +70,34 @@ struct OnboardingContainerView: View {
     private var pageArea: some View {
         GeometryReader { proxy in
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(spacing: 18) {
                     if let title = viewModel.currentPage.title {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("onboarding.stepCounter".localized(viewModel.currentPageIndex + 1, viewModel.totalPages))
-                                .font(.system(size: 11, weight: .semibold))
-                                .foregroundStyle(Color.daAccent)
-
+                        VStack(spacing: 4) {
                             Text(title)
-                                .font(.system(size: 26, weight: .bold))
+                                .font(.system(size: 28, weight: .bold))
                                 .foregroundStyle(Color.daPrimaryText)
+                                .accessibilityAddTraits(.isHeader)
 
                             Text(viewModel.currentPage.subtitle)
                                 .font(.system(size: 13))
                                 .foregroundStyle(Color.daTertiaryText)
                         }
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                     }
 
                     pageContent
                 }
-                .frame(maxWidth: 840)
-                .padding(.horizontal, 40)
-                .padding(.top, 44)
-                .padding(.bottom, 20)
+                .frame(maxWidth: 820)
+                .padding(.horizontal, 28)
+                .padding(.vertical, 18)
                 .frame(maxWidth: .infinity, minHeight: proxy.size.height)
             }
-            .scrollIndicators(.never)
+            .scrollIndicators(.automatic)
         }
         .id(viewModel.currentPage)
-        .transition(.opacity.combined(with: .offset(y: 8)))
+        .transition(reduceMotion ? .opacity : .opacity.combined(with: .offset(y: 8)))
+        .clipped()
     }
 
     @ViewBuilder
@@ -167,41 +121,58 @@ struct OnboardingContainerView: View {
     // MARK: - Footer
 
     private var footer: some View {
-        HStack(spacing: 10) {
-            if viewModel.currentPage != .appearance {
-                Button("onboarding.welcome.skip".localized) {
-                    viewModel.skipOnboarding()
-                }
-                .buttonStyle(.plain)
-                .font(.system(size: 12))
+        ZStack {
+            Text("onboarding.stepCounter".localized(viewModel.currentPageIndex + 1, viewModel.totalPages))
+                .font(.system(size: 12, weight: .medium))
+                .monospacedDigit()
                 .foregroundStyle(Color.daTertiaryText)
-            }
 
-            Spacer()
-
-            if viewModel.currentPage != .welcome {
-                Button("common.back".localized) {
-                    viewModel.previousPage()
-                }
-                .controlSize(.large)
-                .keyboardShortcut("[", modifiers: .command)
+            HStack(spacing: 16) {
+                backButton
+                Spacer(minLength: 0)
+                nextButton
             }
-
-            Button(primaryTitle) {
-                if viewModel.currentPage == .appearance {
-                    viewModel.completeOnboarding()
-                } else {
-                    viewModel.nextPage()
-                }
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(Color.daAccent)
-            .controlSize(.large)
-            .keyboardShortcut(.defaultAction)
         }
-        .padding(.horizontal, 24)
-        .frame(height: 64)
-        .overlay(alignment: .top) { Divider() }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+        .background(Color.daCard, in: UnevenRoundedRectangle(bottomLeadingRadius: 24, bottomTrailingRadius: 24))
+        .overlay(alignment: .top) {
+            Divider()
+        }
+    }
+
+    private var backButton: some View {
+        Button(action: viewModel.previousPage) {
+            Label("common.back".localized, systemImage: "arrow.left")
+                .frame(minWidth: 72, minHeight: 24)
+        }
+        .controlSize(.large)
+        .keyboardShortcut("[", modifiers: .command)
+        .disabled(viewModel.currentPage == .welcome)
+    }
+
+    private var nextButton: some View {
+        Button(action: advance) {
+            HStack(spacing: 10) {
+                Text(primaryTitle)
+                Image(systemName: viewModel.currentPage == .appearance ? "checkmark" : "arrow.right")
+                    .accessibilityHidden(true)
+            }
+            .font(.system(size: 13, weight: .semibold))
+            .frame(minWidth: 140, minHeight: 24)
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(Color.daAccent)
+        .controlSize(.large)
+        .keyboardShortcut(.defaultAction)
+    }
+
+    private func advance() {
+        if viewModel.currentPage == .appearance {
+            viewModel.completeOnboarding()
+        } else {
+            viewModel.nextPage()
+        }
     }
 
     private var primaryTitle: String {
@@ -217,4 +188,5 @@ struct OnboardingContainerView: View {
     OnboardingContainerView(viewModel: OnboardingViewModel())
         .environment(AppViewModel())
         .environment(LanguageManager())
+        .frame(width: 1200, height: 800)
 }

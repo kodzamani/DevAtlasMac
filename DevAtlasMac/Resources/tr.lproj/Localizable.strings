@@ -536,3 +536,7 @@
 "dependency.version" = "Sürüm";
 "dependency.source" = "Kaynak";
 "dependency.upgradeableCount" = "%d güncellenebilir";
+
+// MARK: - Menu Bar
+"menuBar.open" = "DevAtlas'ı Aç";
+"menuBar.quit" = "DevAtlas'tan Çık";

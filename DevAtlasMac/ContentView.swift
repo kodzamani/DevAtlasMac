@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var viewModel = AppViewModel()
-    @State private var notebookVM = NotebookViewModel()
-    @State private var statsVM = StatsViewModel()
+    @Bindable var viewModel: AppViewModel
+    let notebookVM: NotebookViewModel
+    let statsVM: StatsViewModel
     @State private var onboardingVM = OnboardingViewModel()
     @State private var languageManager = LanguageManager()
     @State private var isSearchPresented = false
@@ -32,11 +32,12 @@ struct ContentView: View {
             await viewModel.loadInitialData()
             await notebookVM.loadNotes()
             // Warm the stats so the tab opens with its data already in place.
-            statsVM.refreshStats(with: viewModel.filteredProjects)
+            statsVM.projectsDidChange(viewModel.filteredProjects)
         }
         .animation(.easeInOut(duration: 0.3), value: onboardingVM.isPresented)
         .onReceive(NotificationCenter.default.publisher(for: .languageDidChange)) { _ in
             languageRefreshTrigger += 1
+            viewModel.languageRevision += 1
         }
         .id(languageRefreshTrigger)
     }
@@ -168,5 +169,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: AppViewModel(), notebookVM: NotebookViewModel(), statsVM: StatsViewModel())
 }

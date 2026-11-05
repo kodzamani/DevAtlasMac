@@ -11,7 +11,7 @@ enum OnboardingPage: Int, CaseIterable {
 }
 
 extension OnboardingPage {
-    /// The label of this page in the step rail.
+    /// The label of this page in the horizontal stepper.
     var stepTitle: String {
         switch self {
         case .welcome: return "onboarding.step.welcome".localized

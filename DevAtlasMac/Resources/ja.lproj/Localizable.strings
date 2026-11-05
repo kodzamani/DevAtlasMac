@@ -531,3 +531,7 @@
 "dependency.version" = "バージョン";
 "dependency.source" = "ソース";
 "dependency.upgradeableCount" = "%d 件更新可能";
+
+// MARK: - Menu Bar
+"menuBar.open" = "DevAtlasを開く";
+"menuBar.quit" = "DevAtlasを終了";

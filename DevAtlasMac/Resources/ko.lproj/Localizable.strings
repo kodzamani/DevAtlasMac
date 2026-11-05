@@ -531,3 +531,7 @@
 "dependency.version" = "버전";
 "dependency.source" = "소스";
 "dependency.upgradeableCount" = "업그레이드 가능 %d개";
+
+// MARK: - Menu Bar
+"menuBar.open" = "DevAtlas 열기";
+"menuBar.quit" = "DevAtlas 종료";

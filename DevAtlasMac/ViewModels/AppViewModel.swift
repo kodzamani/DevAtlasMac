@@ -4,7 +4,14 @@ import Observation
 @Observable
 final class AppViewModel {
     // MARK: - State
-    var projects: [ProjectInfo] = []
+    var projects: [ProjectInfo] = [] {
+        didSet { refreshMenuProjects() }
+    }
+    /// The menu bar's list, newest first. Ignores line counts, which change one project at a
+    /// time during analysis and would otherwise rebuild the whole menu on each update.
+    private(set) var menuProjects: [ProjectInfo] = []
+    /// Bumped when the language changes, so views outside the window can redraw.
+    var languageRevision: Int = 0
     var filteredProjects: [ProjectInfo] = []
     var searchText: String = "" {
         didSet {
@@ -48,6 +55,7 @@ final class AppViewModel {
 
     // MARK: - Stats
     private var statsTask: Task<Void, Never>?
+    private var initialLoad: Task<Void, Never>?
     /// Projects whose persisted counts were already re-checked during this launch.
     private var refreshedCountIDs: Set<String> = []
     var filteredTotalFiles: Int = 0
@@ -190,7 +198,15 @@ final class AppViewModel {
 
     // MARK: - Initialization
 
+    /// Safe to call repeatedly: every window opening shares the same single load.
     func loadInitialData() async {
+        if initialLoad == nil {
+            initialLoad = Task { await performInitialLoad() }
+        }
+        await initialLoad?.value
+    }
+
+    private func performInitialLoad() async {
         var cached = await index.loadProjects()
         
         // Filter out excluded paths from cached projects
@@ -262,6 +278,27 @@ final class AppViewModel {
             let resolved = URL(fileURLWithPath: $0.path).resolvingSymlinksInPath().path
             return seen.insert(resolved).inserted
         }
+    }
+
+    // MARK: - Menu Bar
+
+    private func refreshMenuProjects() {
+        let snapshot = projects
+            .map { project in
+                var project = project
+                project.totalFiles = nil
+                project.totalLines = nil
+                return project
+            }
+            .sorted { $0.lastModified > $1.lastModified }
+        if snapshot != menuProjects { menuProjects = snapshot }
+    }
+
+    /// Languages in alphabetical order, each with its projects newest first.
+    var menuProjectsByLanguage: [(language: String, projects: [ProjectInfo])] {
+        Dictionary(grouping: menuProjects, by: \.language)
+            .map { (language: $0.key, projects: $0.value) }
+            .sorted { $0.language.localizedStandardCompare($1.language) == .orderedAscending }
     }
 
     // MARK: - Filtering
@@ -372,6 +409,12 @@ final class AppViewModel {
         selectedProject = project
         isShowingDetail = true
         isShowingProjectAnalysis = false
+    }
+
+    /// Opens a project from outside the browser, whichever tab the window was left on.
+    func openProject(_ project: ProjectInfo) {
+        selectedTab = .atlas
+        selectProject(projects.first { $0.id == project.id } ?? project)
     }
 
     func goBack() {

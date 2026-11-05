@@ -5,9 +5,19 @@ import AppKit
 struct ProjectContextMenu: View {
     let viewModel: AppViewModel
     let project: ProjectInfo
+    /// Already looked up by the caller, when it shows this menu for many projects at once.
+    var editors: [CodeEditor]?
+    /// Replaces selecting the project in the browser, for menus shown outside the window.
+    var onOpen: (() -> Void)?
 
     var body: some View {
-        Button("finder.open".localized) { viewModel.selectProject(project) }
+        Button("finder.open".localized) {
+            if let onOpen {
+                onOpen()
+            } else {
+                viewModel.selectProject(project)
+            }
+        }
 
         Divider()
 
@@ -16,7 +26,7 @@ struct ProjectContextMenu: View {
         }
 
         Menu("common.openWith".localized) {
-            ForEach(viewModel.installedEditors()) { editor in
+            ForEach(editors ?? viewModel.installedEditors()) { editor in
                 Button(editor.name) { viewModel.openInEditor(editor, project: project) }
             }
         }

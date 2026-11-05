@@ -39,6 +39,30 @@ struct ProjectInfo: Identifiable, Codable, Hashable {
         return false
     }
 
+    /// The programming language behind the project type, for grouping projects by language.
+    var language: String {
+        let mapping: [String: String] = [
+            "iOS": "Swift",
+            "Swift": "Swift",
+            "Xcode": "Swift",
+            "Xcode Workspace": "Swift",
+            "Node.js": "JavaScript",
+            "React Native": "JavaScript",
+            "Next.js": "JavaScript",
+            "Vite": "JavaScript",
+            "Vue": "JavaScript",
+            "React": "JavaScript",
+            "Angular": "TypeScript",
+            ".NET": "C#",
+            ".NET Solution": "C#",
+            "VB.NET": "Visual Basic",
+            "Java/Maven": "Java",
+            "Java/Gradle": "Java",
+            "Flutter": "Dart"
+        ]
+        return mapping[projectType] ?? projectType
+    }
+
     private func languageAbbreviation(for type: String) -> String {
         let mapping: [String: String] = [
             "Node.js": "JS",

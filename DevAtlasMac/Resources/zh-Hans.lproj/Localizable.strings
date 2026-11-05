@@ -533,3 +533,7 @@
 "dependency.version" = "版本";
 "dependency.source" = "来源";
 "dependency.upgradeableCount" = "%d 个可升级";
+
+// MARK: - Menu Bar
+"menuBar.open" = "打开 DevAtlas";
+"menuBar.quit" = "退出 DevAtlas";
