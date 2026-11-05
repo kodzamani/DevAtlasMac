@@ -36,61 +36,55 @@ Instead of acting like another launcher, DevAtlas combines **workspace discovery
 
 ## Screenshots
 
-Current app screenshots, captured with the Turkish interface in light appearance. Private project names, local paths, Git details, and note contents are blurred for privacy. Click any image to view it at full size.
+Explore the app through the screenshots below. Click any image to view it at full size.
 
 ### Atlas · Icon View
 
 Browse color-coded project folders grouped by recency. The sidebar filters projects by category or tag; the preview pane shows the selected project's metadata and quick actions.
 
-[![Atlas icon view with category sidebar and project preview](./docs/app.png)](./docs/app.png)
+[![Atlas icon view with category sidebar and project preview](./docs/app.webp)](./docs/app.webp)
 
 ### Atlas · List View
 
 A compact, sortable table shows project names, modification dates, types, Git branches, and tags alongside the project preview.
 
-[![Atlas list view with project metadata columns](./docs/atlas_list.png)](./docs/atlas_list.png)
+[![Atlas list view with project metadata columns](./docs/atlas_list.webp)](./docs/atlas_list.webp)
 
 ### Atlas · Column View
 
 Navigate from project type to repository to preview in a three-column browser, with a path bar and workspace totals below.
 
-[![Atlas column view with project types, repositories, and preview](./docs/atlas_columns.png)](./docs/atlas_columns.png)
+[![Atlas column view with project types, repositories, and preview](./docs/atlas_columns.webp)](./docs/atlas_columns.webp)
 
 ### Project Overview
 
 Open a project to read its README, inspect Git status and the latest commit, review its language distribution and dependencies, and launch an editor or terminal.
 
-[![Project overview with README, Git summary, languages, and dependencies](./docs/project_detail.png)](./docs/project_detail.png)
+[![Project overview with README, Git summary, languages, and dependencies](./docs/project_detail.webp)](./docs/project_detail.webp)
 
 ### Code Analysis
 
 Inspect file and line totals, average file size, the largest source files, and language distribution, with access to unused code analysis.
 
-[![Code analysis with file metrics and language breakdown](./docs/code_analysis.png)](./docs/code_analysis.png)
+[![Code analysis with file metrics and language breakdown](./docs/code_analysis.webp)](./docs/code_analysis.webp)
 
 ### Stats
 
 Portfolio metrics, Git additions and deletions, activity charts, a contribution heatmap, and project distribution charts share one dashboard. Date filters and CSV export live in the toolbar.
 
-[![Statistics dashboard with Git activity, contribution heatmap, and project charts](./docs/stats.png)](./docs/stats.png)
+[![Statistics dashboard with Git activity, contribution heatmap, and project charts](./docs/stats.webp)](./docs/stats.webp)
 
 ### Notebook
 
 A multi-pane notebook keeps note collections, project-linked notes, the Markdown editor, and todo lists together.
 
-[![Notebook with note list, Markdown editor, and project todos](./docs/notebook.png)](./docs/notebook.png)
+[![Notebook with note list, Markdown editor, and project todos](./docs/notebook.webp)](./docs/notebook.webp)
 
 ### AI Prompts
 
 Browse 29 engineering prompts across 12 categories, preview their contents, and copy them into your preferred AI assistant.
 
-[![AI prompt library with code quality review cards and copy actions](./docs/ai_prompts.png)](./docs/ai_prompts.png)
-
-### Settings
-
-Choose light, dark, or system appearance, set an accent color and interface language, and manage folders excluded from scanning.
-
-[![Settings with app branding, theme, accent colors, language, and scan exclusions](./docs/settings.png)](./docs/settings.png)
+[![AI prompt library with code quality review cards and copy actions](./docs/ai_prompts.webp)](./docs/ai_prompts.webp)
 
 ---
 
