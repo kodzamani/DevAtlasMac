@@ -1,35 +1,58 @@
 import SwiftUI
 import Observation
 
+@MainActor
 @Observable
 final class StatsViewModel {
     var dateRange: DateRangeFilter = .month {
         didSet {
-            // Recalculate or filter stats when date range changes
-            Task { await loadGitStats(for: currentProjects) }
+            guard dateRange != oldValue else { return }
+            loadGitStats(force: true)
         }
     }
     
-    var gitDailyStats: [GitDailyStat] = []
-    var projectMetrics: [ProjectMetric] = []
+    var gitDailyStats: [GitDailyStat] = [] {
+        didSet { rebuildGitLookups() }
+    }
+    var projectMetrics: [ProjectMetric] = [] {
+        didSet { rebuildProjectNames() }
+    }
     var projectFileMetrics: [ProjectMetric] = []
     var projectTypeMetrics: [ProjectMetric] = []
-    var isCalculating: Bool = false
+    /// False only until the first metrics are in.
+    private(set) var hasLoadedMetrics = false
+    /// True while the git section has nothing valid to show. A refresh of the range already
+    /// on screen keeps the current data visible instead.
+    private(set) var isLoadingGitStats = false
+    /// Sorted names across metrics and git activity, which keeps project colors stable.
+    private(set) var allProjectNames: [String] = []
     
     // Internal state
+    private struct GitRequest: Equatable {
+        let range: DateRangeFilter
+        let paths: Set<String>
+    }
+    
     private var currentProjects: [ProjectInfo] = []
     private var statsTask: Task<Void, Never>?
+    private var runningRequest: GitRequest?
+    private var loadedRequest: GitRequest?
+    private var lastCommitByProject: [String: Date] = [:]
+    private var recentChangesByProject: [String: Int] = [:]
     
-    // Performance optimization: Cache metrics
-    private var cachedProjectMetrics: [ProjectMetric]?
-    private var cachedFileMetrics: [ProjectMetric]?
-    private var cachedTypeMetrics: [ProjectMetric]?
-    private var lastProjectsHash: Int = 0
+    /// Reloads everything. Unchanged repositories come from the git stats cache.
+    func refreshStats(with projects: [ProjectInfo]) {
+        currentProjects = projects
+        calculateProjectMetrics()
+        loadGitStats(force: true)
+    }
     
-    func refreshStats(with projects: [ProjectInfo]) async {
-        self.currentProjects = projects
-        await calculateProjectMetrics()
-        await loadGitStats(for: projects)
+    /// Updates for a changed project list. Line count updates don't touch git; only a
+    /// different set of projects does.
+    func projectsDidChange(_ projects: [ProjectInfo]) {
+        currentProjects = projects
+        calculateProjectMetrics()
+        loadGitStats(force: false)
     }
     
     func getProject(named name: String) -> ProjectInfo? {
@@ -37,16 +60,7 @@ final class StatsViewModel {
     }
     
     func getActivityLevel(for projectName: String) -> ActivityLevel {
-        // Calculate based on recent git activity (last 30 days)
-        let calendar = Calendar.current
-        let thirtyDaysAgo = calendar.date(byAdding: .day, value: -30, to: Date()) ?? Date()
-        
-        let recentStats = gitDailyStats.filter { stat in
-            stat.projectName == projectName &&
-            stat.date >= thirtyDaysAgo
-        }
-        
-        let totalChanges = recentStats.reduce(0) { $0 + $1.totalChanges }
+        let totalChanges = recentChangesByProject[projectName] ?? 0
         
         if totalChanges > 100 {
             return .high
@@ -58,85 +72,81 @@ final class StatsViewModel {
     }
     
     func getLastCommitDate(for projectName: String) -> Date? {
-        return gitDailyStats
-            .filter { $0.projectName == projectName }
-            .sorted { $0.date > $1.date }
-            .first?.date
+        lastCommitByProject[projectName]
     }
     
-    private func loadGitStats(for projects: [ProjectInfo]) async {
+    private func loadGitStats(force: Bool) {
+        let projects = currentProjects
+        let request = GitRequest(range: dateRange, paths: Set(projects.map(\.path)))
+        
+        guard request != runningRequest else { return }
+        guard force || request != loadedRequest else { return }
+        
         statsTask?.cancel()
+        runningRequest = request
+        isLoadingGitStats = loadedRequest?.range != request.range
         
-        let range = self.dateRange
         statsTask = Task {
-            await MainActor.run { isCalculating = true }
+            let stats = await GitStatsService.shared.fetchGitStats(for: projects, in: request.range)
+            guard !Task.isCancelled else { return }
             
-            let stats = await GitStatsService.shared.fetchGitStats(for: projects, in: range)
-            
-            if !Task.isCancelled {
-                await MainActor.run {
-                    self.gitDailyStats = stats
-                    self.isCalculating = false
-                }
-            }
+            gitDailyStats = stats
+            loadedRequest = request
+            runningRequest = nil
+            isLoadingGitStats = false
         }
     }
     
-    private func calculateProjectMetrics() async {
-        let projectsHash = currentProjects.hashValue
+    private func calculateProjectMetrics() {
+        var metrics: [ProjectMetric] = []
+        var fileMetrics: [ProjectMetric] = []
+        var typeCounts: [String: Int] = [:]
         
-        // Check if we can use cached data
-        if cachedProjectMetrics != nil &&
-           cachedFileMetrics != nil &&
-           cachedTypeMetrics != nil &&
-           lastProjectsHash == projectsHash {
-            await MainActor.run {
-                self.projectMetrics = cachedProjectMetrics!
-                self.projectFileMetrics = cachedFileMetrics!
-                self.projectTypeMetrics = cachedTypeMetrics!
-            }
-            return
-        }
-        
-        // Calculate metrics in background for better performance
-        let (sortedLines, sortedFiles, sortedTypes) = await Task.detached(priority: .userInitiated) {
-            var metrics: [ProjectMetric] = []
-            var fileMetrics: [ProjectMetric] = []
-            var typeCounts: [String: Int] = [:]
-            
-            for project in self.currentProjects {
-                let loc = project.totalLines ?? 0
-                if loc > 0 {
-                    metrics.append(ProjectMetric(projectName: project.name, projectType: project.projectType, value: loc))
-                }
-                
-                let files = project.totalFiles ?? 0
-                if files > 0 {
-                    fileMetrics.append(ProjectMetric(projectName: project.name, projectType: project.projectType, value: files))
-                }
-                
-                typeCounts[project.projectType, default: 0] += 1
+        for project in currentProjects {
+            let loc = project.totalLines ?? 0
+            if loc > 0 {
+                metrics.append(ProjectMetric(projectName: project.name, projectType: project.projectType, value: loc))
             }
             
-            // Sort by value descending
-            let sortedLines = metrics.sorted(by: { $0.value > $1.value })
-            let sortedFiles = fileMetrics.sorted(by: { $0.value > $1.value })
-            let sortedTypes = typeCounts.map { ProjectMetric(projectName: $0.key, projectType: $0.key, value: $0.value) }.sorted(by: { $0.value > $1.value })
+            let files = project.totalFiles ?? 0
+            if files > 0 {
+                fileMetrics.append(ProjectMetric(projectName: project.name, projectType: project.projectType, value: files))
+            }
             
-            return (sortedLines, sortedFiles, sortedTypes)
-        }.value
-        
-        // Cache the results
-        cachedProjectMetrics = sortedLines
-        cachedFileMetrics = sortedFiles
-        cachedTypeMetrics = sortedTypes
-        lastProjectsHash = projectsHash
-        
-        await MainActor.run {
-            self.projectMetrics = sortedLines
-            self.projectFileMetrics = sortedFiles
-            self.projectTypeMetrics = sortedTypes
+            typeCounts[project.projectType, default: 0] += 1
         }
+        
+        // Sort by value descending
+        projectMetrics = metrics.sorted(by: { $0.value > $1.value })
+        projectFileMetrics = fileMetrics.sorted(by: { $0.value > $1.value })
+        projectTypeMetrics = typeCounts
+            .map { ProjectMetric(projectName: $0.key, projectType: $0.key, value: $0.value) }
+            .sorted(by: { $0.value > $1.value })
+        hasLoadedMetrics = true
+    }
+    
+    private func rebuildGitLookups() {
+        // Activity levels look at the last 30 days of what's loaded.
+        let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? Date()
+        var lastCommit: [String: Date] = [:]
+        var recentChanges: [String: Int] = [:]
+        
+        for stat in gitDailyStats {
+            if stat.date > (lastCommit[stat.projectName] ?? .distantPast) {
+                lastCommit[stat.projectName] = stat.date
+            }
+            if stat.date >= thirtyDaysAgo {
+                recentChanges[stat.projectName, default: 0] += stat.totalChanges
+            }
+        }
+        
+        lastCommitByProject = lastCommit
+        recentChangesByProject = recentChanges
+        rebuildProjectNames()
+    }
+    
+    private func rebuildProjectNames() {
+        allProjectNames = Array(Set(projectMetrics.map(\.projectName) + gitDailyStats.map(\.projectName))).sorted()
     }
     
     // MARK: - Export Functions

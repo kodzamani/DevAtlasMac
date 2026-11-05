@@ -140,11 +140,10 @@ struct GitHeatmapView: View {
                                                         .strokeBorder(Color.black.opacity(0.05), lineWidth: isFuture ? 0 : 1)
                                                 )
                                                 .onHover { hover in
+                                                    // Leaving a cell is handled by the grid, so the gaps between cells don't blank the legend.
                                                     if hover && !isFuture {
                                                         hoveredDate = date
                                                         hoveredAmount = amount
-                                                    } else if !hover && hoveredDate == date {
-                                                        hoveredDate = nil
                                                     }
                                                 }
                                         }
@@ -170,6 +169,9 @@ struct GitHeatmapView: View {
                 }
             }
             .frame(height: (12 * 7) + (4 * 6) + 8) // explicitly sized
+            .onHover { hovering in
+                if !hovering { hoveredDate = nil }
+            }
             
             Spacer()
             

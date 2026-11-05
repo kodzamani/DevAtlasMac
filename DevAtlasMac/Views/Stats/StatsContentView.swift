@@ -5,7 +5,7 @@ struct StatsContentView: View {
     @Bindable var viewModel: AppViewModel
     @Bindable var statsVM: StatsViewModel
     @State private var selectedProjectToAnalyze: ProjectInfo?
-    @State private var codeAnalysisForPopup: CodeAnalysisResult?
+    @State private var codeAnalysisForAnalysis: CodeAnalysisResult?
     @State private var hoveredProject: String? = nil
     @State private var hoveredProjectType: String? = nil
     @State private var hoveredGitDate: Date? = nil
@@ -17,18 +17,50 @@ struct StatsContentView: View {
     @State private var selectedGitProjects: Set<String> = []
     
     var body: some View {
+        DrillInContainer(isPresented: selectedProjectToAnalyze != nil) {
+            statsPage
+        } detail: {
+            if let project = selectedProjectToAnalyze {
+                ProjectAnalysisPage(
+                    project: project,
+                    analysis: codeAnalysisForAnalysis,
+                    runner: viewModel.runner
+                ) {
+                    selectedProjectToAnalyze = nil
+                }
+                .task(id: project.id) {
+                    let result = await CodeAnalyzer.analyze(for: project)
+                    guard !Task.isCancelled else { return }
+                    codeAnalysisForAnalysis = result
+                }
+            }
+        }
+        .task {
+            // Filtered projects are already gathered by AppViewModel
+            statsVM.refreshStats(with: viewModel.filteredProjects)
+        }
+        .onChange(of: viewModel.filteredProjects) { _, newProjects in
+            statsVM.projectsDidChange(newProjects)
+        }
+    }
+
+    private var statsPage: some View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 24) {
                     
-                    if statsVM.isCalculating {
+                    if isWaitingForMetrics {
                         StatsSkeletonView()
                     } else {
                         // 0. Summary Cards
                         summaryCardsSection
                         
                         // 1. Git Contributions Chart
-                        gitChartSection
+                        if statsVM.isLoadingGitStats {
+                            SkeletonChartCard(height: 330)
+                        } else {
+                            gitChartSection
+                        }
                         
                         // 2. Project Metrics Donut Charts
                         HStack(alignment: .top, spacing: 24) {
@@ -45,22 +77,12 @@ struct StatsContentView: View {
                 }
                 .padding(24)
             }
-            .background(Color.daOffWhite)
         }
-        .task {
-            // Filtered projects are already gathered by AppViewModel
-            await statsVM.refreshStats(with: viewModel.filteredProjects)
-        }
-        .onChange(of: viewModel.filteredProjects) { _, newProjects in
-            Task {
-                await statsVM.refreshStats(with: newProjects)
-            }
-        }
-        .sheet(item: $selectedProjectToAnalyze, onDismiss: {
-            codeAnalysisForPopup = nil
-        }) { proj in
-            analyzeSheet(for: proj)
-        }
+    }
+    
+    /// Nothing to draw yet: line counts are still arriving for the very first time.
+    private var isWaitingForMetrics: Bool {
+        !statsVM.hasLoadedMetrics || (viewModel.isCalculatingStats && statsVM.projectMetrics.isEmpty)
     }
     
     // MARK: - Summary Cards
@@ -84,19 +106,21 @@ struct StatsContentView: View {
                 title: "stats.gitAdditions".localized,
                 value: "+\(statsVM.gitDailyStats.reduce(0) { $0 + $1.additions }.formatted())",
                 icon: "plus.circle.fill",
-                color: Color.green
+                color: Color.green,
+                isLoading: statsVM.isLoadingGitStats
             )
             
             summaryCard(
                 title: "stats.gitDeletions".localized,
                 value: "-\(statsVM.gitDailyStats.reduce(0) { $0 + $1.deletions }.formatted())",
                 icon: "minus.circle.fill",
-                color: Color.red
+                color: Color.red,
+                isLoading: statsVM.isLoadingGitStats
             )
         }
     }
     
-    private func summaryCard(title: String, value: String, icon: String, color: Color) -> some View {
+    private func summaryCard(title: String, value: String, icon: String, color: Color, isLoading: Bool = false) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text(title)
@@ -107,16 +131,21 @@ struct StatsContentView: View {
                     .font(.system(size: 16))
                     .foregroundStyle(color.opacity(0.8))
             }
-            Text(value)
-                .font(.system(size: 28, weight: .bold, design: .rounded))
-                .foregroundStyle(Color.daPrimaryText)
-                .contentTransition(.numericText())
-                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: value)
+            if isLoading {
+                SkeletonBlock(cornerRadius: 8)
+                    .frame(width: 96, height: 34)
+            } else {
+                Text(value)
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color.daPrimaryText)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                    .contentTransition(.numericText())
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: value)
+            }
         }
         .padding(20)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .daCardSurface()
     }
     
     // MARK: - Git Activity Chart
@@ -165,7 +194,7 @@ struct StatsContentView: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(Color.daOffWhite)
+                    .background(Color.primary.opacity(0.05))
                     .clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
@@ -234,7 +263,7 @@ struct StatsContentView: View {
                                     }
                             }
                         }
-                        .overlay(
+                        .overlay(alignment: .topLeading) {
                             Group {
                                 if let hoveredDate = hoveredGitDate,
                                    let stat = hoveredGitStat {
@@ -254,13 +283,14 @@ struct StatsContentView: View {
                                         }
                                     }
                                     .padding(8)
-                                    .background(Color.daWhite)
+                                    .background(.regularMaterial)
                                     .clipShape(RoundedRectangle(cornerRadius: 6))
                                     .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                                 }
                             }
                             .padding()
-                        )
+                            .allowsHitTesting(false)
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     
@@ -295,9 +325,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .daCardSurface()
     }
     
     // Helper function to check if a Git stat is being hovered
@@ -454,7 +482,7 @@ struct StatsContentView: View {
     
     // MARK: - Consistent Colors
     private var allProjectNames: [String] {
-        Array(Set(statsVM.projectMetrics.map(\.projectName) + statsVM.gitDailyStats.map(\.projectName))).sorted()
+        statsVM.allProjectNames
     }
     
     private var allProjectColors: [Color] {
@@ -556,12 +584,13 @@ struct StatsContentView: View {
                                     .font(.daSmallLabel)
                             }
                             .padding(8)
-                            .background(Color.daWhite)
+                            .background(.regularMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                         }
                     }
                         .padding()
+                        .allowsHitTesting(false)
                 )
                 
                 // Custom wrapping legend
@@ -582,9 +611,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .daCardSurface()
         .frame(maxWidth: .infinity)
     }
     
@@ -609,7 +636,7 @@ struct StatsContentView: View {
                         .textFieldStyle(.plain)
                 }
                 .padding(8)
-                .background(Color.daOffWhite)
+                .background(Color.primary.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 
                 // Type filters
@@ -626,8 +653,8 @@ struct StatsContentView: View {
                                 Text(type)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
-                                    .background(selectedTypes.contains(type) ? Color.daBlue : Color.daOffWhite)
-                                    .foregroundStyle(selectedTypes.contains(type) ? Color.daWhite : Color.daPrimaryText)
+                                    .background(selectedTypes.contains(type) ? Color.daAccent : Color.primary.opacity(0.05))
+                                    .foregroundStyle(selectedTypes.contains(type) ? Color.white : Color.daPrimaryText)
                                     .clipShape(Capsule())
                             }
                             .buttonStyle(.plain)
@@ -641,7 +668,7 @@ struct StatsContentView: View {
                         ForEach(Array(filteredProjects.enumerated()), id: \.element.id) { index, metric in
                             Button {
                                 if let proj = statsVM.getProject(named: metric.projectName) {
-                                    codeAnalysisForPopup = nil
+                                    codeAnalysisForAnalysis = nil
                                     selectedProjectToAnalyze = proj
                                 }
                             } label: {
@@ -694,9 +721,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .daCardSurface()
         .frame(minWidth: 350)
         .frame(height: 500)
     }
@@ -780,12 +805,13 @@ struct StatsContentView: View {
                                     .font(.daSmallLabel)
                             }
                             .padding(8)
-                            .background(Color.daWhite)
+                            .background(.regularMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                         }
                     }
                         .padding()
+                        .allowsHitTesting(false)
                 )
                 
                 // Custom wrapping legend
@@ -806,9 +832,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .daCardSurface()
         .frame(maxWidth: .infinity)
     }
     
@@ -871,169 +895,55 @@ struct StatsContentView: View {
                                     .font(.daSmallLabel)
                             }
                             .padding(8)
-                            .background(Color.daWhite)
+                            .background(.regularMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                             .padding(12)
+                            .allowsHitTesting(false)
                         }
                     }
                 }
             }
         }
         .padding(20)
-        .background(Color.daWhite)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .daCardSurface()
         .frame(maxWidth: .infinity)
         .frame(height: 500)
     }
     
-    // MARK: - Analyze Sheet
-    private func analyzeSheet(for proj: ProjectInfo) -> some View {
-        VStack(spacing: 0) {
-            HStack {
-                HStack(spacing: 8) {
-                    Image(systemName: "chart.bar.doc.horizontal")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(Color.daEmerald)
-                    Text("stats.projectsAnalyze".localized)
-                        .font(.daSectionTitle)
-                        .foregroundStyle(Color.daPrimaryText)
-                }
-                Spacer()
-                Text(proj.name)
-                    .font(.daBody)
-                    .foregroundStyle(Color.daMutedText)
-                Button {
-                    selectedProjectToAnalyze = nil
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 18))
-                        .foregroundStyle(Color.daMutedText)
-                }
-                .buttonStyle(.plain)
-                .padding(.leading, 12)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
-            .background(Color.daWhite)
-
-            Divider()
-                .foregroundStyle(Color.daBorder)
-
-            if let analysis = codeAnalysisForPopup {
-                if analysis.totalFiles > 0 {
-                    ScrollView {
-                        ProjectAnalyzeView(analysis: analysis, projectPath: proj.path, runner: viewModel.runner)
-                            .padding(20)
-                    }
-                } else {
-                    Spacer()
-                    VStack(spacing: 8) {
-                        Image(systemName: "doc.text.magnifyingglass")
-                            .font(.system(size: 32))
-                            .foregroundStyle(Color.daMutedText)
-                        Text("stats.noSourceFiles".localized)
-                            .font(.daBody)
-                            .foregroundStyle(Color.daMutedText)
-                    }
-                    Spacer()
-                }
-            } else {
-                Spacer()
-                VStack(spacing: 10) {
-                    ProgressView()
-                        .controlSize(.regular)
-                    Text("stats.analyzingProject".localized)
-                        .font(.daBody)
-                        .foregroundStyle(Color.daMutedText)
-                }
-                Spacer()
-            }
-        }
-        .frame(minWidth: 800, minHeight: 600)
-        .frame(idealWidth: 900, idealHeight: 700)
-        .background(Color.daOffWhite)
-        .task(id: proj.id) {
-            codeAnalysisForPopup = await CodeAnalyzer.analyze(for: proj)
-        }
-    }
-    
     // MARK: - Skeleton Loading View
     struct StatsSkeletonView: View {
-        @State private var isAnimating = false
-        
         var body: some View {
             VStack(spacing: 24) {
                 // Summary Cards
                 HStack(spacing: 24) {
                     ForEach(0..<4, id: \.self) { _ in
-                        skeletonSummaryCard
+                        SkeletonCard {
+                            VStack(alignment: .leading, spacing: 14) {
+                                SkeletonBlock()
+                                    .frame(width: 100, height: 14)
+                                SkeletonBlock(cornerRadius: 8)
+                                    .frame(width: 96, height: 30)
+                            }
+                        }
                     }
                 }
                 
                 // Git Chart
-                skeletonCard(height: 330)
+                SkeletonChartCard(height: 330)
                 
                 // Donut Charts
                 HStack(alignment: .top, spacing: 24) {
-                    skeletonCard(height: 380)
-                    skeletonCard(height: 380)
+                    SkeletonChartCard(height: 380)
+                    SkeletonChartCard(height: 380)
                 }
                 
                 // Details & Files
                 HStack(alignment: .top, spacing: 24) {
-                    skeletonCard(height: 500)
-                    skeletonCard(height: 500)
+                    SkeletonChartCard(height: 500)
+                    SkeletonChartCard(height: 500)
                 }
             }
-            .onAppear {
-                isAnimating = true
-            }
-        }
-        
-        private var skeletonSummaryCard: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                        .frame(width: 100, height: 16)
-                    Spacer()
-                    Circle()
-                        .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                        .frame(width: 16, height: 16)
-                }
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                    .frame(width: 80, height: 28)
-            }
-            .padding(20)
-            .background(Color.daWhite)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
-            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)
-        }
-        
-        private func skeletonCard(height: CGFloat) -> some View {
-            VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                        .frame(width: 150, height: 20)
-                    Spacer()
-                }
-                
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(isAnimating ? 0.05 : 0.1))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .padding(20)
-            .frame(height: height)
-            .background(Color.daWhite)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
-            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)
         }
     }
 }
-

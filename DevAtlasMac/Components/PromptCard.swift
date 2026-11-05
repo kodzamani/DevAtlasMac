@@ -86,8 +86,8 @@ struct PromptCard: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.controlBackgroundColor))
-                .shadow(color: .black.opacity(0.05), radius: 4, y: 2)
+                .fill(Color.daCard)
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .sheet(isPresented: $isExpanded) {

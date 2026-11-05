@@ -7,12 +7,7 @@ enum CodeAnalyzer {
     // MARK: - Public API
 
     static func analyze(for project: ProjectInfo) async -> CodeAnalysisResult {
-        await withCheckedContinuation { continuation in
-            DispatchQueue.global(qos: .userInitiated).async {
-                let result = analyzeSync(projectPath: project.path)
-                continuation.resume(returning: result)
-            }
-        }
+        await CodeAnalysisCache.shared.result(for: project.path)
     }
 
     // MARK: - Skip Directories
@@ -136,7 +131,7 @@ enum CodeAnalyzer {
 
     // MARK: - Sync Analysis
 
-    private static func analyzeSync(projectPath: String) -> CodeAnalysisResult {
+    fileprivate static func analyzeSync(projectPath: String) -> CodeAnalysisResult {
         let fm = FileManager.default
         let projectURL = URL(fileURLWithPath: projectPath)
         var fileInfos: [FileLineInfo] = []
@@ -239,13 +234,67 @@ enum CodeAnalyzer {
     // MARK: - Line Counter
 
     private static func countLines(at url: URL) -> Int? {
-        guard let data = try? Data(contentsOf: url),
+        guard let data = try? Data(contentsOf: url, options: .mappedIfSafe),
               data.count < 5_000_000 else { return nil } // Skip files > 5MB
 
-        guard let content = String(data: data, encoding: .utf8) else { return nil }
+        // Non-UTF-8 files are treated as binary.
+        guard String(data: data, encoding: .utf8) != nil else { return nil }
 
         // Count newlines + 1 for last line (if non-empty)
-        if content.isEmpty { return 0 }
-        return content.components(separatedBy: "\n").count
+        if data.isEmpty { return 0 }
+        let newlines = data.withUnsafeBytes { bytes in
+            bytes.reduce(into: 0) { count, byte in
+                if byte == 0x0A { count += 1 }
+            }
+        }
+        return newlines + 1
+    }
+}
+
+// MARK: - Cache
+
+/// Shares one running analysis between callers and keeps recent results for a short time,
+/// so the detail page, the analyze sheet and the background counts don't repeat the same walk.
+private actor CodeAnalysisCache {
+    static let shared = CodeAnalysisCache()
+
+    private struct Entry {
+        let result: CodeAnalysisResult
+        let date: Date
+    }
+
+    private let lifetime: TimeInterval = 120
+    private let maxEntries = 16
+    private var entries: [String: Entry] = [:]
+    private var running: [String: Task<CodeAnalysisResult, Never>] = [:]
+
+    func result(for path: String) async -> CodeAnalysisResult {
+        if let entry = entries[path], Date().timeIntervalSince(entry.date) < lifetime {
+            return entry.result
+        }
+        if let task = running[path] {
+            return await task.value
+        }
+
+        let task = Task<CodeAnalysisResult, Never> {
+            await withCheckedContinuation { continuation in
+                DispatchQueue.global(qos: .userInitiated).async {
+                    continuation.resume(returning: CodeAnalyzer.analyzeSync(projectPath: path))
+                }
+            }
+        }
+        running[path] = task
+        let result = await task.value
+        running[path] = nil
+        store(result, for: path)
+        return result
+    }
+
+    private func store(_ result: CodeAnalysisResult, for path: String) {
+        entries[path] = Entry(result: result, date: Date())
+        if entries.count > maxEntries,
+           let oldest = entries.min(by: { $0.value.date < $1.value.date })?.key {
+            entries[oldest] = nil
+        }
     }
 }

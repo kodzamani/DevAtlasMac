@@ -207,7 +207,6 @@
 "stats.allProjects" = "모든 프로젝트";
 "stats.projectTypes" = "프로젝트 유형";
 "stats.topProjectsByFileCount" = "파일 수最多的 프로젝트";
-"stats.projectsAnalyze" = "프로젝트 분석";
 "stats.noSourceFiles" = "소스 파일을 찾을 수 없습니다";
 "stats.analyzingProject" = "프로젝트 분석 중...";
 "stats.contributionsHeatmap" = "기여 히트맵";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "프로젝트에서 사용하지 않는 코드를 찾지 못했습니다. 잘했어요!";
-"analyze.projectsAnalyze" = "프로젝트 분석";
 "analyze.file" = "파일";
 "analyze.extension" = "확장자";
 "analyze.lines" = "줄";
@@ -328,7 +326,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "미사용 코드 찾기";
 "analyze.analyzing" = "분석 중...";
-"analyze.savedToNotes" = "노트에 저장됨!";
 "analyze.filesAnalyzed" = "파일 분석됨";
 "analyze.totalFiles" = "총 파일";
 "analyze.totalLines" = "총 줄";
@@ -362,8 +359,6 @@
 "projects.devDependencies" = "개발 종속성";
 "projects.noDependencies" = "종속성을 찾을 수 없습니다";
 "projects.loadingDependencies" = "종속성 로드 중...";
-"projects.collapsedDependencies" = "프로젝트에 %d개의 종속성이 있습니다. 자세히 보려면 클릭하세요";
-"projects.collapsedDependenciesMultiProject" = "%d개의 프로젝트에 걸쳐 %d개의 종속성이 있습니다. 자세히 보려면 클릭하세요";
 "dependency.upgradeable" = "업그레이드 가능";
 
 
@@ -485,3 +480,58 @@
 "editor.todoStatus.inProgress" = "진행 중";
 "editor.todoStatus.todo" = "할 일";
 "scan.foundProjects" = "%d개의 프로젝트를 찾았습니다";
+
+/* Finder-style browser */
+"finder.name" = "이름";
+"finder.dateModified" = "수정일";
+"finder.kind" = "종류";
+"finder.branch" = "브랜치";
+"finder.tags" = "태그";
+"finder.iconsView" = "아이콘";
+"finder.listView" = "목록";
+"finder.columnsView" = "열";
+"finder.viewMode" = "보기";
+"finder.back" = "뒤로";
+"finder.forward" = "앞으로";
+"finder.actions" = "동작";
+"finder.togglePreview" = "미리보기 표시/숨기기";
+"finder.open" = "열기";
+"finder.copyPath" = "경로 복사";
+"finder.information" = "정보";
+"finder.path" = "경로";
+"finder.noSelection" = "프로젝트를 선택하면 세부 정보가 표시됩니다";
+"finder.iconSize" = "아이콘 크기";
+"scan.scanning" = "프로젝트 스캔 중…";
+"onboarding.step.welcome" = "환영합니다";
+"onboarding.stepCounter" = "%d / %d단계";
+
+/* Project detail overview */
+"detail.loading" = "프로젝트 세부 정보 로딩 중…";
+"detail.git.title" = "Git 요약";
+"detail.git.refresh" = "Git 요약 새로고침";
+"detail.git.noRepository" = "이 프로젝트는 Git 저장소가 아닙니다.";
+"detail.git.unavailable" = "Git 정보를 읽을 수 없습니다.";
+"detail.git.detached" = "분리된 HEAD";
+"detail.git.clean" = "작업 트리가 깨끗합니다";
+"detail.git.changedFiles" = "변경된 파일 %d개";
+"detail.git.lastCommit" = "최근 커밋";
+"detail.git.noCommits" = "아직 커밋이 없습니다.";
+"detail.git.openRemote" = "저장소 열기";
+"detail.languages.title" = "사용 언어";
+"detail.languages.other" = "기타";
+"detail.readme.readFull" = "전체 문서 읽기";
+"detail.readme.empty" = "README가 비어 있습니다.";
+"detail.readme.missing" = "프로젝트 폴더에 README가 없습니다.";
+"detail.readme.unreadable" = "README를 읽을 수 없습니다.";
+"detail.readme.tooLarge" = "이 README는 미리 보기에는 너무 큽니다. 파일을 열어 읽으세요.";
+"detail.readme.openFile" = "파일 열기";
+"detail.readme.close" = "닫기";
+"analyze.title" = "코드 분석";
+"dependency.package" = "패키지";
+"dependency.version" = "버전";
+"dependency.source" = "소스";
+"dependency.upgradeableCount" = "업그레이드 가능 %d개";
+
+// MARK: - Menu Bar
+"menuBar.open" = "DevAtlas 열기";
+"menuBar.quit" = "DevAtlas 종료";

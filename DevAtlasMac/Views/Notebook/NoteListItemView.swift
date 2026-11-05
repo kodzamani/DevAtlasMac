@@ -49,7 +49,7 @@ struct NoteListItemView: View {
                             .foregroundStyle(Color.daAccent)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background(Color.daAccentLight)
+                            .background(Color.daAccent.opacity(0.12))
                             .clipShape(Capsule())
                     }
 
@@ -72,11 +72,11 @@ struct NoteListItemView: View {
             .padding(.vertical, 10)
             .background(
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(isSelected ? selectionBackgroundColor : Color.daWhite)
+                    .fill(isSelected ? selectionBackgroundColor : Color.daCard)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(isSelected ? selectionBorderColor : Color.daBorder, lineWidth: 1)
+                    .stroke(isSelected ? selectionBorderColor : Color.daCardEdge, lineWidth: 1)
             )
         }
         .buttonStyle(.plain)
@@ -126,15 +126,15 @@ struct NoteListItemView: View {
     }
     
     private var selectionBackgroundColor: Color {
-        guard let customColor = note.colorCode else { return Color.daAccentLight }
+        guard let customColor = note.colorCode else { return Color.daAccent.opacity(0.12) }
         switch customColor {
-        case "blue": return Color.daAccentLight
+        case "blue": return Color.daAccent.opacity(0.12)
         case "red": return Color(hex: "EF4444").opacity(0.1)
         case "green": return Color.daGreen.opacity(0.1)
         case "yellow": return Color(hex: "F59E0B").opacity(0.1)
         case "orange": return Color.daOrange.opacity(0.1)
         case "purple": return Color(hex: "8B5CF6").opacity(0.1)
-        default: return Color.daAccentLight
+        default: return Color.daAccent.opacity(0.12)
         }
     }
     

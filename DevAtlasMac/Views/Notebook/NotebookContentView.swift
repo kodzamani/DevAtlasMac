@@ -14,7 +14,6 @@ struct NotebookContentView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.daOffWhite)
         .onChange(of: viewModel.notebookSearchScope) { _, newScope in
             notebookVM.searchScope = newScope
         }
@@ -67,9 +66,8 @@ struct NotebookContentView: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
-            .background(Color.daWhite)
             .overlay(alignment: .bottom) {
-                Divider().foregroundStyle(Color.daBorder)
+                Divider().overlay(Color.daCardEdge)
             }
             
             // Notes list
@@ -160,11 +158,10 @@ struct NotebookContentView: View {
             }
         }
         .frame(width: 260)
-        .background(Color.daWhite)
         .overlay(alignment: .trailing) {
             Rectangle()
-                .fill(Color.daBorder)
-                .frame(width: 0.5)
+                .fill(Color.daCardEdge)
+                .frame(width: 1)
         }
     }
     
@@ -184,7 +181,6 @@ struct NotebookContentView: View {
                 .foregroundStyle(Color.daMutedText)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.daOffWhite)
     }
     
     // MARK: - Helpers

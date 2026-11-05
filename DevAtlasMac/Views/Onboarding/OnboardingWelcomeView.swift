@@ -1,101 +1,68 @@
 import SwiftUI
 
 struct OnboardingWelcomeView: View {
-    let onNext: () -> Void
-    let onSkip: () -> Void
-    
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            
-            // Logo & Title
-            VStack(spacing: 16) {
+        VStack(spacing: 20) {
+            VStack(spacing: 4) {
+                logo
+
+                Text("app.name".localized)
+                    .font(.system(size: 38, weight: .bold))
+                    .tracking(-0.6)
+                    .foregroundStyle(Color.daPrimaryText)
+                    .accessibilityAddTraits(.isHeader)
+
+                Text("app.tagline".localized)
+                    .font(.system(size: 15))
+                    .foregroundStyle(Color.daSecondaryText)
+                    .multilineTextAlignment(.center)
+            }
+
+            HStack(alignment: .top, spacing: 12) {
+                card(.folder, "onboarding.features.feature1.title", "onboarding.features.feature1.subtitle")
+                card(.bars, "onboarding.features.feature2.title", "onboarding.features.feature2.subtitle")
+                card(.notebook, "onboarding.features.feature3.title", "onboarding.features.feature3.subtitle")
+            }
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    /// The logo over a blurred copy of itself, so its own colors make the glow.
+    private var logo: some View {
+        Image("logo_brand")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 168, height: 168)
+            .background {
                 Image("logo_brand")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 256, height: 256)
-                    .clipShape(RoundedRectangle(cornerRadius: 22))
-                    .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 8)
-                
-                VStack(spacing: 6) {
-                    Text("app.name".localized)
-                        .font(.system(size: 36, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color.daPrimaryText)
-                    
-                    Text("app.tagline".localized)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(Color.daSecondaryText)
-                }
+                    .blur(radius: 30)
+                    .opacity(0.5)
             }
-            
-            Spacer().frame(height: 36)
-            
-            // Feature List Card
-            VStack(spacing: 0) {
-                featureRow(icon: "folder.fill", title: "onboarding.features.feature1.title".localized, subtitle: "onboarding.features.feature1.subtitle".localized, color: Color.daBlue)
-                
-                Divider().padding(.horizontal, 16)
-                
-                featureRow(icon: "chart.bar.fill", title: "onboarding.features.feature2.title".localized, subtitle: "onboarding.features.feature2.subtitle".localized, color: Color.daEmerald)
-                
-                Divider().padding(.horizontal, 16)
-                
-                featureRow(icon: "note.text", title: "onboarding.features.feature3.title".localized, subtitle: "onboarding.features.feature3.subtitle".localized, color: Color.daBlue)
-            }
-            .background(Color.daWhite)
-            .clipShape(RoundedRectangle(cornerRadius: 14))
-            .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .stroke(Color.daBorder.opacity(0.6), lineWidth: 1)
-            )
-            .shadow(color: Color.black.opacity(0.04), radius: 12, x: 0, y: 6)
-            
-            Spacer()
-            
-            // Buttons
-            OnboardingButtons(
-                primaryTitle: "onboarding.welcome.getStarted".localized,
-                primaryAction: onNext,
-                secondaryTitle: "onboarding.welcome.skip".localized,
-                secondaryAction: onSkip
-            )
-        }
-        .padding(.horizontal, 24)
-        .padding(.bottom, 36)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.daOffWhite)
+            .accessibilityHidden(true)
     }
-    
-    private func featureRow(icon: String, title: String, subtitle: String, color: Color) -> some View {
-        HStack(spacing: 14) {
-            Image(systemName: icon)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(color)
-                .frame(width: 36, height: 36)
-                .background(color.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 9))
-            
-            VStack(alignment: .leading, spacing: 1) {
-                Text(title)
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Color.daPrimaryText)
-                
-                Text(subtitle)
-                    .font(.system(size: 12))
-                    .foregroundStyle(Color.daTertiaryText)
-            }
-            
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(Color.daTertiaryText.opacity(0.5))
+
+    private func card(_ glyph: LineGlyph, _ titleKey: String, _ subtitleKey: String) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            OnboardingGlyphTile(glyph: glyph)
+
+            Text(titleKey.localized)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(Color.daPrimaryText)
+
+            Text(subtitleKey.localized)
+                .font(.system(size: 12))
+                .foregroundStyle(Color.daTertiaryText)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(14)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .daCardSurface()
     }
 }
 
 #Preview {
-    OnboardingWelcomeView(onNext: {}, onSkip: {})
+    OnboardingWelcomeView()
 }

@@ -207,7 +207,6 @@
 "stats.allProjects" = "Tüm Projeler";
 "stats.projectTypes" = "Proje Türleri";
 "stats.topProjectsByFileCount" = "Dosya Sayısına Göre En İyi Projeler";
-"stats.projectsAnalyze" = "Projeleri Analiz Et";
 "stats.noSourceFiles" = "Kaynak dosya bulunamadı";
 "stats.analyzingProject" = "Proje analiz ediliyor...";
 "stats.contributionsHeatmap" = "Katkı Isı Haritası";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "Projede kullanılmayan kod bulunamadı. Harika iş!";
-"analyze.projectsAnalyze" = "Projeleri Analiz Et";
 "analyze.file" = "Dosya";
 "analyze.extension" = "Uzantı";
 "analyze.lines" = "Satırlar";
@@ -302,7 +300,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "Kullanılmayan Kodu Bul";
 "analyze.analyzing" = "Analiz ediliyor...";
-"analyze.savedToNotes" = "Notlara Kaydedildi!";
 "analyze.filesAnalyzed" = "dosya analiz edildi";
 "analyze.totalFiles" = "Toplam Dosya";
 "analyze.totalLines" = "Toplam Satır";
@@ -393,9 +390,7 @@
 "projects.devDependencies" = "Geliştirme Bağımlılıkları";
 "projects.noDependencies" = "Bağımlılık bulunamadı";
 "projects.loadingDependencies" = "Bağımlılıklar yükleniyor...";
-"projects.collapsedDependencies" = "Projede %d bağımlılık var, detayları görmek için tıklayın";
 "dependency.upgradeable" = "Yükseltilebilir";
-"projects.collapsedDependenciesMultiProject" = "%d proje üzerinde %d bağımlılık var, detayları görmek için tıklayın";
 
 
 /* --- AI Prompts --- */
@@ -490,3 +485,58 @@
 "aiprompts.prompt.boilerplateGen.desc" = "Yeni bir modül veya feature için gerekli tüm dosya ve klasör yapısını oluşturur.";
 "aiprompts.prompt.projectReport.title" = "Proje Analiz Raporu";
 "aiprompts.prompt.projectReport.desc" = "Projenin bütünsel bir röntgenini çıkarır: mimari, kalite, risk ve iyileştirme önerileri.";
+
+/* Finder-style browser */
+"finder.name" = "Ad";
+"finder.dateModified" = "Değiştirilme Tarihi";
+"finder.kind" = "Tür";
+"finder.branch" = "Dal";
+"finder.tags" = "Etiketler";
+"finder.iconsView" = "Simgeler";
+"finder.listView" = "Liste";
+"finder.columnsView" = "Sütunlar";
+"finder.viewMode" = "Görünüm";
+"finder.back" = "Geri";
+"finder.forward" = "İleri";
+"finder.actions" = "Eylemler";
+"finder.togglePreview" = "Önizlemeyi Göster/Gizle";
+"finder.open" = "Aç";
+"finder.copyPath" = "Yolu Kopyala";
+"finder.information" = "Bilgi";
+"finder.path" = "Yol";
+"finder.noSelection" = "Ayrıntıları görmek için bir proje seçin";
+"finder.iconSize" = "Simge Boyutu";
+"scan.scanning" = "Projeler taranıyor…";
+"onboarding.step.welcome" = "Hoş Geldiniz";
+"onboarding.stepCounter" = "Adım %d / %d";
+
+/* Project detail overview */
+"detail.loading" = "Proje detayları yükleniyor…";
+"detail.git.title" = "Git Özeti";
+"detail.git.refresh" = "Git özetini yenile";
+"detail.git.noRepository" = "Bu proje bir Git deposu değil.";
+"detail.git.unavailable" = "Git bilgileri okunamadı.";
+"detail.git.detached" = "Bağımsız HEAD";
+"detail.git.clean" = "Çalışma alanı temiz";
+"detail.git.changedFiles" = "%d değiştirilmiş dosya";
+"detail.git.lastCommit" = "SON COMMIT";
+"detail.git.noCommits" = "Henüz commit yok.";
+"detail.git.openRemote" = "Depoyu aç";
+"detail.languages.title" = "Dil Dağılımı";
+"detail.languages.other" = "Diğer";
+"detail.readme.readFull" = "Tamamını oku";
+"detail.readme.empty" = "README dosyası boş.";
+"detail.readme.missing" = "Proje klasöründe README bulunamadı.";
+"detail.readme.unreadable" = "README dosyası okunamadı.";
+"detail.readme.tooLarge" = "Bu README önizleme için çok büyük. Okumak için dosyayı açın.";
+"detail.readme.openFile" = "Dosyayı aç";
+"detail.readme.close" = "Kapat";
+"analyze.title" = "Kod Analizi";
+"dependency.package" = "Paket";
+"dependency.version" = "Sürüm";
+"dependency.source" = "Kaynak";
+"dependency.upgradeableCount" = "%d güncellenebilir";
+
+// MARK: - Menu Bar
+"menuBar.open" = "DevAtlas'ı Aç";
+"menuBar.quit" = "DevAtlas'tan Çık";

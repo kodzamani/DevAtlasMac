@@ -4,7 +4,14 @@ import Observation
 @Observable
 final class AppViewModel {
     // MARK: - State
-    var projects: [ProjectInfo] = []
+    var projects: [ProjectInfo] = [] {
+        didSet { refreshMenuProjects() }
+    }
+    /// The menu bar's list, newest first. Ignores line counts, which change one project at a
+    /// time during analysis and would otherwise rebuild the whole menu on each update.
+    private(set) var menuProjects: [ProjectInfo] = []
+    /// Bumped when the language changes, so views outside the window can redraw.
+    var languageRevision: Int = 0
     var filteredProjects: [ProjectInfo] = []
     var searchText: String = "" {
         didSet {
@@ -18,10 +25,25 @@ final class AppViewModel {
             applyFilters()
         }
     }
-    var isGridView: Bool = true
+    var selectedTag: String? {
+        didSet {
+            if isShowingDetail { goBack() }
+            applyFilters()
+        }
+    }
+    var viewMode: BrowserViewMode = BrowserViewMode(rawValue: UserDefaults.standard.string(forKey: "browserViewMode") ?? "") ?? .icons {
+        didSet { UserDefaults.standard.set(viewMode.rawValue, forKey: "browserViewMode") }
+    }
+    var isPreviewPaneVisible: Bool = UserDefaults.standard.object(forKey: "browserPreviewPaneVisible") as? Bool ?? true {
+        didSet { UserDefaults.standard.set(isPreviewPaneVisible, forKey: "browserPreviewPaneVisible") }
+    }
+    /// The project selected in the browser. Opening it is a separate step, as in Finder.
+    var highlightedProjectID: String?
     var scanProgress = ScanProgress()
     var selectedProject: ProjectInfo?
     var isShowingDetail: Bool = false
+    /// The open project page has stepped into its code analysis.
+    var isShowingProjectAnalysis: Bool = false
     var isDarkMode: Bool = UserDefaults.standard.bool(forKey: "isDarkMode") {
         didSet { UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode") }
     }
@@ -33,6 +55,9 @@ final class AppViewModel {
 
     // MARK: - Stats
     private var statsTask: Task<Void, Never>?
+    private var initialLoad: Task<Void, Never>?
+    /// Projects whose persisted counts were already re-checked during this launch.
+    private var refreshedCountIDs: Set<String> = []
     var filteredTotalFiles: Int = 0
     var filteredTotalLines: Int = 0
     var isCalculatingStats: Bool = false
@@ -49,9 +74,139 @@ final class AppViewModel {
     var mobileCount: Int { projects.filter { $0.category == .mobile }.count }
     var cloudCount: Int { projects.filter { $0.category == .cloud }.count }
 
+    /// The most used tags, shown in the sidebar like Finder's tags.
+    var topTags: [String] {
+        let counts = Dictionary(projects.flatMap(\.tags).map { ($0, 1) }, uniquingKeysWith: +)
+        return counts
+            .sorted { ($0.value, $1.key) > ($1.value, $0.key) }
+            .prefix(6)
+            .map(\.key)
+    }
+
+    var highlightedProject: ProjectInfo? {
+        guard let highlightedProjectID else { return nil }
+        return filteredProjects.first { $0.id == highlightedProjectID }
+    }
+
+    // MARK: - Sidebar
+
+    var sidebarSelection: SidebarDestination? {
+        get {
+            if selectedTab != .atlas { return .tab(selectedTab) }
+            if let selectedTag { return .tag(selectedTag) }
+            return .category(selectedCategory)
+        }
+        set {
+            switch newValue {
+            case .category(let category):
+                selectedTab = .atlas
+                if selectedTag != nil { selectedTag = nil }
+                selectedCategory = category
+            case .tag(let tag):
+                selectedTab = .atlas
+                selectedCategory = "All"
+                selectedTag = tag
+            case .tab(let tab):
+                selectedTab = tab
+            case nil:
+                break
+            }
+        }
+    }
+
+    /// The current place, as shown in the window title and the path bar.
+    var locationTitle: String {
+        if let selectedTag { return selectedTag }
+        switch selectedCategory {
+        case "All": return "sidebar.allProjects".localized
+        case "Web": return "sidebar.web".localized
+        case "Desktop": return "sidebar.desktop".localized
+        case "Mobile": return "sidebar.mobile".localized
+        case "Cloud": return "sidebar.cloud".localized
+        default: return selectedCategory
+        }
+    }
+
+    var windowTitle: String {
+        switch selectedTab {
+        case .atlas: return isShowingDetail ? (selectedProject?.name ?? locationTitle) : locationTitle
+        case .stats: return "tab.stats".localized
+        case .notebook: return "tab.notebook".localized
+        case .aiPrompts: return "tab.aiPrompts".localized
+        case .settings: return "tab.settings".localized
+        }
+    }
+
+    // MARK: - History
+
+    private var backStack: [BrowserLocation] = []
+    private var forwardStack: [BrowserLocation] = []
+    private var recordedLocation: BrowserLocation?
+
+    var canNavigateBack: Bool { !backStack.isEmpty }
+    var canNavigateForward: Bool { !forwardStack.isEmpty }
+
+    var currentLocation: BrowserLocation {
+        BrowserLocation(
+            tab: selectedTab,
+            category: selectedCategory,
+            tag: selectedTag,
+            projectID: isShowingDetail ? selectedProject?.id : nil,
+            isAnalyzingProject: isShowingDetail && isShowingProjectAnalysis
+        )
+    }
+
+    /// Adds the current location to the history if it changed since the last call.
+    func recordLocationChange() {
+        let location = currentLocation
+        guard let previous = recordedLocation else {
+            recordedLocation = location
+            return
+        }
+        guard previous != location else { return }
+        backStack.append(previous)
+        if backStack.count > 50 { backStack.removeFirst() }
+        forwardStack.removeAll()
+        recordedLocation = location
+    }
+
+    func navigateBack() {
+        guard let target = backStack.popLast() else { return }
+        forwardStack.append(currentLocation)
+        restore(target)
+    }
+
+    func navigateForward() {
+        guard let target = forwardStack.popLast() else { return }
+        backStack.append(currentLocation)
+        restore(target)
+    }
+
+    private func restore(_ location: BrowserLocation) {
+        selectedTab = location.tab
+        if selectedCategory != location.category { selectedCategory = location.category }
+        if selectedTag != location.tag { selectedTag = location.tag }
+
+        if let id = location.projectID, let project = projects.first(where: { $0.id == id }) {
+            selectProject(project)
+            isShowingProjectAnalysis = location.isAnalyzingProject
+        } else {
+            goBack()
+        }
+        recordedLocation = currentLocation
+    }
+
     // MARK: - Initialization
 
+    /// Safe to call repeatedly: every window opening shares the same single load.
     func loadInitialData() async {
+        if initialLoad == nil {
+            initialLoad = Task { await performInitialLoad() }
+        }
+        await initialLoad?.value
+    }
+
+    private func performInitialLoad() async {
         var cached = await index.loadProjects()
         
         // Filter out excluded paths from cached projects
@@ -70,10 +225,6 @@ final class AppViewModel {
             }
         }
         
-        for i in cached.indices {
-            cached[i].totalFiles = nil
-            cached[i].totalLines = nil
-        }
         if !cached.isEmpty {
             await MainActor.run {
                 self.projects = deduplicatedByPath(cached)
@@ -129,6 +280,27 @@ final class AppViewModel {
         }
     }
 
+    // MARK: - Menu Bar
+
+    private func refreshMenuProjects() {
+        let snapshot = projects
+            .map { project in
+                var project = project
+                project.totalFiles = nil
+                project.totalLines = nil
+                return project
+            }
+            .sorted { $0.lastModified > $1.lastModified }
+        if snapshot != menuProjects { menuProjects = snapshot }
+    }
+
+    /// Languages in alphabetical order, each with its projects newest first.
+    var menuProjectsByLanguage: [(language: String, projects: [ProjectInfo])] {
+        Dictionary(grouping: menuProjects, by: \.language)
+            .map { (language: $0.key, projects: $0.value) }
+            .sorted { $0.language.localizedStandardCompare($1.language) == .orderedAscending }
+    }
+
     // MARK: - Filtering
 
     func applyFilters() {
@@ -136,6 +308,10 @@ final class AppViewModel {
 
         if selectedCategory != "All" {
             result = result.filter { $0.category.rawValue == selectedCategory }
+        }
+
+        if let selectedTag {
+            result = result.filter { $0.tags.contains(selectedTag) }
         }
 
         if !searchText.isEmpty {
@@ -175,7 +351,7 @@ final class AppViewModel {
             for project in currentProjects {
                 if Task.isCancelled { return }
                 
-                if let f = project.totalFiles, let l = project.totalLines {
+                if let f = project.totalFiles, let l = project.totalLines, refreshedCountIDs.contains(project.id) {
                     files += f
                     lines += l
                 } else {
@@ -185,6 +361,9 @@ final class AppViewModel {
                     
                     if !Task.isCancelled {
                         await MainActor.run {
+                            self.refreshedCountIDs.insert(project.id)
+                            // Unchanged counts must not republish the project list.
+                            guard project.totalFiles != result.totalFiles || project.totalLines != result.totalLines else { return }
                             if let idx = self.projects.firstIndex(where: { $0.id == project.id }) {
                                 self.projects[idx].totalFiles = result.totalFiles
                                 self.projects[idx].totalLines = result.totalLines
@@ -229,10 +408,18 @@ final class AppViewModel {
     func selectProject(_ project: ProjectInfo) {
         selectedProject = project
         isShowingDetail = true
+        isShowingProjectAnalysis = false
+    }
+
+    /// Opens a project from outside the browser, whichever tab the window was left on.
+    func openProject(_ project: ProjectInfo) {
+        selectedTab = .atlas
+        selectProject(projects.first { $0.id == project.id } ?? project)
     }
 
     func goBack() {
         isShowingDetail = false
+        isShowingProjectAnalysis = false
         selectedProject = nil
     }
 

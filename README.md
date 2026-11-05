@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![DevAtlas Logo](./DevAtlasMac/Assets.xcassets/Icons/logo_brand.imageset/logo_brand-2.png)
+<img src="./DevAtlasMac/Assets.xcassets/Icons/logo_brand.imageset/Neon%20Code%20Folder%20Orbit%20Icon.png" alt="DevAtlas Logo" width="160" />
 
 ![Platform](https://img.shields.io/badge/platform-macOS%2014%2B-blue?logo=apple)
 ![Swift](https://img.shields.io/badge/Swift-5.9-orange?logo=swift)
@@ -12,7 +12,7 @@
 **A native macOS command center for your entire local codebase.**  
 Discover projects, inspect dependencies, analyze code health, track Git activity, keep project notes, and jump into work instantly.
 
-[Features](#-features) • [Getting Started](#-getting-started) • [Tech Stack](#-tech-stack) • [Contributing](#-contributing)
+[Screenshots](#screenshots) • [Features](#-features) • [Getting Started](#-getting-started) • [Tech Stack](#-tech-stack) • [Contributing](#-contributing)
 
 </div>
 
@@ -31,17 +31,66 @@ Instead of acting like another launcher, DevAtlas combines **workspace discovery
 - **Built-in dependency visibility**: parses manifests across multiple ecosystems and shows what each project depends on
 - **Actionable code insights**: includes unused code analysis, AI prompt workflows, line/file metrics, and Git activity trends
 - **Native developer workflow**: open projects in installed editors, Terminal, Finder, or Xcode without leaving the app
-- **Zero third-party runtime dependencies**: built entirely on Apple's native frameworks
+- **Finder-style workspace**: browse projects as icons, a sortable list, or columns, with category and tag filters, navigation history, and a preview pane
+- **Native rendering**: built with SwiftUI, Swift Charts, and Metal effects, with MarkdownUI for rich Markdown content
 
 ## Screenshots
 
-| Screen | Description | Screenshot |
-|---|---|---|
-| Atlas | Main workspace view for discovering, filtering, and opening local projects. | <img src="./docs/app.png" alt="Atlas" width="500" /> |
-| Stats | Portfolio-level dashboard for code volume, project mix, and Git activity. | <img src="./docs/stats.png" alt="Stats" width="500" /> |
-| Notebook | Project-linked notes and todos with Markdown editing and organization tools. | <img src="./docs/notebook.png" alt="Notebook" width="500" /> |
-| AI Prompts | Curated engineering prompts for audits, refactoring, testing, and documentation workflows. | <img src="./docs/ai_prompts.png" alt="AI Prompts" width="500" /> |
-| Settings | App preferences for theme, language, scanning behavior, and personalization. | <img src="./docs/settings.png" alt="Settings" width="500" /> |
+Current app screenshots, captured with the Turkish interface in light appearance. Private project names, local paths, Git details, and note contents are blurred for privacy. Click any image to view it at full size.
+
+### Atlas · Icon View
+
+Browse color-coded project folders grouped by recency. The sidebar filters projects by category or tag; the preview pane shows the selected project's metadata and quick actions.
+
+[![Atlas icon view with category sidebar and project preview](./docs/app.png)](./docs/app.png)
+
+### Atlas · List View
+
+A compact, sortable table shows project names, modification dates, types, Git branches, and tags alongside the project preview.
+
+[![Atlas list view with project metadata columns](./docs/atlas_list.png)](./docs/atlas_list.png)
+
+### Atlas · Column View
+
+Navigate from project type to repository to preview in a three-column browser, with a path bar and workspace totals below.
+
+[![Atlas column view with project types, repositories, and preview](./docs/atlas_columns.png)](./docs/atlas_columns.png)
+
+### Project Overview
+
+Open a project to read its README, inspect Git status and the latest commit, review its language distribution and dependencies, and launch an editor or terminal.
+
+[![Project overview with README, Git summary, languages, and dependencies](./docs/project_detail.png)](./docs/project_detail.png)
+
+### Code Analysis
+
+Inspect file and line totals, average file size, the largest source files, and language distribution, with access to unused code analysis.
+
+[![Code analysis with file metrics and language breakdown](./docs/code_analysis.png)](./docs/code_analysis.png)
+
+### Stats
+
+Portfolio metrics, Git additions and deletions, activity charts, a contribution heatmap, and project distribution charts share one dashboard. Date filters and CSV export live in the toolbar.
+
+[![Statistics dashboard with Git activity, contribution heatmap, and project charts](./docs/stats.png)](./docs/stats.png)
+
+### Notebook
+
+A multi-pane notebook keeps note collections, project-linked notes, the Markdown editor, and todo lists together.
+
+[![Notebook with note list, Markdown editor, and project todos](./docs/notebook.png)](./docs/notebook.png)
+
+### AI Prompts
+
+Browse 29 engineering prompts across 12 categories, preview their contents, and copy them into your preferred AI assistant.
+
+[![AI prompt library with code quality review cards and copy actions](./docs/ai_prompts.png)](./docs/ai_prompts.png)
+
+### Settings
+
+Choose light, dark, or system appearance, set an accent color and interface language, and manage folders excluded from scanning.
+
+[![Settings with app branding, theme, accent colors, language, and scan exclusions](./docs/settings.png)](./docs/settings.png)
 
 ---
 
@@ -53,7 +102,10 @@ DevAtlas's core strength is automatic project indexing across your machine. It s
 - Full-disk recursive scan with smart exclusions (`node_modules`, `.git`, `build`, `dist`, etc.)
 - Auto-detects project type from marker files (`package.json`, `go.mod`, `pubspec.yaml`, `Dockerfile`, ...)
 - Timeline grouping: **Today**, **This Week**, **This Month**, **Older**
-- Live search with `⌘P` quick-launch
+- **Icon, list, and column views** with a shared category and tag sidebar
+- Project preview pane with metadata, editor shortcuts, and a clickable path bar
+- Back/forward navigation with `⌘[` / `⌘]`
+- Live project search with `⌘P` or `⌘F`; toggle the preview pane with `⇧⌘P`
 - Custom exclusion paths for personalized scanning
 
 ---
@@ -110,7 +162,7 @@ DevAtlas ships with a dedicated prompt workspace for reviewing, refactoring, doc
 ---
 
 ### 📦 Dependency Management & Version Checker
-Dependency insight is built into the project detail flow. DevAtlas parses manifests directly from each repository and aggregates regular, development, and grouped project dependencies where applicable.
+Dependency insight is built into the project overview alongside a README preview, Git status, the latest commit, and a language breakdown. DevAtlas parses manifests directly from each repository and aggregates regular, development, and grouped project dependencies where applicable.
 
 | Ecosystem | Manifest File |
 |---|---|
@@ -145,7 +197,7 @@ The stats dashboard turns your local repos into a portfolio-level view. It combi
 - Total file count and **lines of code** per project
 - **Git commit history**: commit count, activity graph, lines added/deleted
 - Date-range filtering for Git stats
-- **Export** statistics as CSV or JSON
+- **Export** statistics as CSV from the toolbar
 - Interactive **Charts** for visualizing data
 
 ---
@@ -166,16 +218,18 @@ Once a project is indexed, DevAtlas is also the fastest way back into it. Quick 
 
 - **VS Code**, **Xcode**, **Cursor**, **Windsurf**, **Antigravity**
 - Open in **Terminal** or **Finder** with one click
-- `⌘P` keyboard shortcut for instant project search
+- `⌘P` / `⌘F` keyboard shortcuts for instant project search
 - Run detected Node-based project scripts directly from the app
 
 ---
 
-### 🎨 Beautiful UI/UX
-- Native macOS look and feel with smooth animations
-- Full **Dark Mode** support
-- Custom accent colors to match your preference
-- Responsive grid layouts
+### 🎨 Native macOS Workspace
+- Finder-style sidebar with project counts, category filters, and colored tags
+- Unified toolbar with contextual controls, search, and navigation history
+- **Icon, list, and column layouts**, an optional preview pane, and a bottom path/status bar
+- Metal-rendered folder icons and a subtle animated accent background
+- **Light, Dark, and System** appearance with custom accent colors
+- Multi-pane notebook and card-based project, statistics, and prompt screens
 
 ---
 
@@ -192,12 +246,14 @@ Once a project is indexed, DevAtlas is also the fastest way back into it. Quick 
 |---|---|
 | Language | Swift 5.9 |
 | UI Framework | SwiftUI 5 |
+| Charts & Effects | Swift Charts, Metal shaders |
+| Markdown | MarkdownUI (Swift Package Manager) |
 | Concurrency | Swift Concurrency (`async/await`, `actor`) |
 | State Management | `@Observable` (Observation framework) |
 | Minimum OS | macOS 14.0 Sonoma |
 | Build Tool | Xcode 15+ |
 
-Zero third-party dependencies — built entirely on top of Apple's native frameworks.
+Apple's native frameworks power the interface, charts, and shader effects. MarkdownUI provides rich Markdown rendering and is resolved through Swift Package Manager.
 
 ---
 
@@ -209,7 +265,7 @@ cd DevAtlasMac
 open DevAtlasMac.xcodeproj
 ```
 
-Press `⌘R` in Xcode to build and run. No additional setup required.
+Let Xcode resolve the Swift package dependencies, then press `⌘R` to build and run.
 
 **Requirements:** macOS 14.0 or later · Xcode 15.0 or later
 
@@ -220,14 +276,15 @@ Press `⌘R` in Xcode to build and run. No additional setup required.
 ```
 DevAtlasMac/
 ├── DevAtlasMacApp.swift          # App entry point
-├── ContentView.swift             # Root view & tab routing
+├── ContentView.swift             # NavigationSplitView shell & workspace routing
 ├── Views/
-│   ├── Atlas/                    # Project list, grid & detail
+│   ├── Shell/                    # Sidebar & contextual window toolbar
+│   ├── Atlas/                    # Icon, list, column, preview & detail views
 │   ├── Stats/                    # Statistics dashboard
 │   ├── Notebook/                 # Note-taking
 │   ├── Settings/                 # App preferences
 │   ├── Onboarding/               # First-launch walkthrough
-│   └── AIPrompts/               # AI-powered code analysis
+│   └── AIPrompts/                # Curated AI prompt library
 ├── ViewModels/                   # Business logic & state
 ├── Services/
 │   ├── ProjectScanner.swift      # Disk-scanning engine
@@ -238,6 +295,8 @@ DevAtlasMac/
 │   └── UnusedCodeAnalyzer/       # Static analysis engine
 ├── Models/                       # Data models
 ├── Components/                   # Reusable SwiftUI components
+│   └── Shaders/                  # Folder icons & animated surfaces
+├── Shaders/                      # Metal shader functions
 ├── Extensions/                   # Swift extensions & helpers
 └── *.lproj/                      # Localization strings
 ```

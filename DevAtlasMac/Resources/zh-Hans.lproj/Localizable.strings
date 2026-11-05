@@ -207,7 +207,6 @@
 "stats.allProjects" = "所有项目";
 "stats.projectTypes" = "项目类型";
 "stats.topProjectsByFileCount" = "文件数最多的项目";
-"stats.projectsAnalyze" = "分析项目";
 "stats.noSourceFiles" = "未找到源文件";
 "stats.analyzingProject" = "正在分析项目...";
 "stats.contributionsHeatmap" = "贡献热力图";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "项目中未发现未使用的代码。做得好！";
-"analyze.projectsAnalyze" = "分析项目";
 "analyze.file" = "文件";
 "analyze.extension" = "扩展名";
 "analyze.lines" = "行数";
@@ -300,7 +298,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "查找未使用的代码";
 "analyze.analyzing" = "分析中...";
-"analyze.savedToNotes" = "已保存到笔记！";
 "analyze.filesAnalyzed" = "文件已分析";
 "analyze.totalFiles" = "文件总数";
 "analyze.totalLines" = "代码总行数";
@@ -365,8 +362,6 @@
 "projects.devDependencies" = "开发依赖项";
 "projects.noDependencies" = "未找到依赖项";
 "projects.loadingDependencies" = "正在加载依赖项...";
-"projects.collapsedDependencies" = "项目中有%d个依赖项，点击查看详情";
-"projects.collapsedDependenciesMultiProject" = "跨%d个项目有%d个依赖项，点击查看详情";
 "dependency.upgradeable" = "可升级";
 
 
@@ -487,3 +482,58 @@
 "editor.todoStatus.done" = "已完成";
 "editor.todoStatus.inProgress" = "进行中";
 "editor.todoStatus.todo" = "待办";
+
+/* Finder-style browser */
+"finder.name" = "名称";
+"finder.dateModified" = "修改日期";
+"finder.kind" = "种类";
+"finder.branch" = "分支";
+"finder.tags" = "标签";
+"finder.iconsView" = "图标";
+"finder.listView" = "列表";
+"finder.columnsView" = "分栏";
+"finder.viewMode" = "显示方式";
+"finder.back" = "后退";
+"finder.forward" = "前进";
+"finder.actions" = "操作";
+"finder.togglePreview" = "显示或隐藏预览";
+"finder.open" = "打开";
+"finder.copyPath" = "复制路径";
+"finder.information" = "信息";
+"finder.path" = "路径";
+"finder.noSelection" = "选择一个项目以查看详情";
+"finder.iconSize" = "图标大小";
+"scan.scanning" = "正在扫描项目…";
+"onboarding.step.welcome" = "欢迎";
+"onboarding.stepCounter" = "第 %d 步，共 %d 步";
+
+/* Project detail overview */
+"detail.loading" = "正在加载项目详情…";
+"detail.git.title" = "Git 概览";
+"detail.git.refresh" = "刷新 Git 概览";
+"detail.git.noRepository" = "此项目不是 Git 仓库。";
+"detail.git.unavailable" = "无法读取 Git 信息。";
+"detail.git.detached" = "分离的 HEAD";
+"detail.git.clean" = "工作区干净";
+"detail.git.changedFiles" = "%d 个文件已更改";
+"detail.git.lastCommit" = "最近提交";
+"detail.git.noCommits" = "尚无提交。";
+"detail.git.openRemote" = "打开仓库";
+"detail.languages.title" = "语言分布";
+"detail.languages.other" = "其他";
+"detail.readme.readFull" = "阅读全文";
+"detail.readme.empty" = "README 为空。";
+"detail.readme.missing" = "项目文件夹中未找到 README。";
+"detail.readme.unreadable" = "无法读取 README。";
+"detail.readme.tooLarge" = "此 README 太大，无法预览。请打开文件阅读。";
+"detail.readme.openFile" = "打开文件";
+"detail.readme.close" = "关闭";
+"analyze.title" = "代码分析";
+"dependency.package" = "包";
+"dependency.version" = "版本";
+"dependency.source" = "来源";
+"dependency.upgradeableCount" = "%d 个可升级";
+
+// MARK: - Menu Bar
+"menuBar.open" = "打开 DevAtlas";
+"menuBar.quit" = "退出 DevAtlas";

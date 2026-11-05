@@ -1,31 +1,43 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var viewModel = AppViewModel()
-    @State private var notebookVM = NotebookViewModel()
-    @State private var statsVM = StatsViewModel()
+    @Bindable var viewModel: AppViewModel
+    let notebookVM: NotebookViewModel
+    let statsVM: StatsViewModel
     @State private var onboardingVM = OnboardingViewModel()
     @State private var languageManager = LanguageManager()
-    @FocusState private var isSearchFocused: Bool
+    @State private var isSearchPresented = false
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
     
     // Force refresh for language changes
     @State private var languageRefreshTrigger: Int = 0
 
     var body: some View {
         ZStack {
-            mainContent
-            
-            // Onboarding Overlay
+            // Rendered instead of the main content so the window toolbar goes away with it.
             if onboardingVM.isPresented {
                 OnboardingContainerView(viewModel: onboardingVM)
                     .environment(viewModel)
                     .environment(languageManager)
+                    .navigationTitle("")
+                    .toolbarBackground(.hidden, for: .windowToolbar)
                     .transition(.opacity)
+            } else {
+                mainContent
             }
+        }
+        .frame(minWidth: 1080, minHeight: 600)
+        .preferredColorScheme(viewModel.isDarkMode ? .dark : .light)
+        .task {
+            await viewModel.loadInitialData()
+            await notebookVM.loadNotes()
+            // Warm the stats so the tab opens with its data already in place.
+            statsVM.projectsDidChange(viewModel.filteredProjects)
         }
         .animation(.easeInOut(duration: 0.3), value: onboardingVM.isPresented)
         .onReceive(NotificationCenter.default.publisher(for: .languageDidChange)) { _ in
             languageRefreshTrigger += 1
+            viewModel.languageRevision += 1
         }
         .id(languageRefreshTrigger)
     }
@@ -33,13 +45,14 @@ struct ContentView: View {
     // MARK: - Main Content
     @ViewBuilder
     private var mainContent: some View {
-        VStack(spacing: 0) {
-            TopNavigationBar(viewModel: viewModel, notebookVM: notebookVM, statsVM: statsVM, isSearchFocused: $isSearchFocused)
+        NavigationSplitView(columnVisibility: $columnVisibility) {
+            AppSidebarView(viewModel: viewModel)
+                .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
+        } detail: {
+            ZStack {
+                AuroraBackground()
 
-            HStack(spacing: 0) {
-                SidebarView(viewModel: viewModel)
-
-                Group {
+                HStack(spacing: 0) {
                     switch viewModel.selectedTab {
                     case .atlas:
                         atlasContent
@@ -53,28 +66,28 @@ struct ContentView: View {
                         settingsLayout
                     }
                 }
-                .animation(.easeInOut(duration: 0.2), value: viewModel.selectedTab)
+            }
+            .searchable(
+                text: $viewModel.searchText,
+                isPresented: $isSearchPresented,
+                placement: .toolbar,
+                prompt: viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized
+            )
+            .navigationTitle(viewModel.windowTitle)
+            .toolbar {
+                AppToolbar(viewModel: viewModel, statsVM: statsVM)
             }
         }
-        .ignoresSafeArea(.container, edges: .top)
-        .id(viewModel.isDarkMode)
-        .frame(minWidth: 1080, minHeight: 600)
-        .background(Color.daOffWhite)
-        .preferredColorScheme(viewModel.isDarkMode ? .dark : .light)
-        .task {
-            await viewModel.loadInitialData()
-            await notebookVM.loadNotes()
+        .tint(Color.daAccent)
+        .onChange(of: viewModel.currentLocation, initial: true) {
+            viewModel.recordLocationChange()
         }
         .keyboardShortcut(KeyEquivalent("p"), modifiers: .command, action: {
-            isSearchFocused = true
+            isSearchPresented = true
         })
-        .onKeyPress(.init("p"), phases: .down) { _ in
-            if NSEvent.modifierFlags.contains(.command) {
-                isSearchFocused = true
-                return .handled
-            }
-            return .ignored
-        }
+        .keyboardShortcut(KeyEquivalent("f"), modifiers: .command, action: {
+            isSearchPresented = true
+        })
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NotebookNotesUpdated"))) { _ in
             Task {
                 await notebookVM.loadNotes()
@@ -111,25 +124,28 @@ struct ContentView: View {
 
     // MARK: - Atlas Content
     private var atlasContent: some View {
-        ZStack {
-            if viewModel.isShowingDetail, let project = viewModel.selectedProject {
-                ProjectDetailView(viewModel: viewModel, project: project)
-                    .transition(.move(edge: .trailing).combined(with: .opacity))
-            } else {
-                ProjectListView(viewModel: viewModel) {
-                    onboardingVM.showOnboarding()
-                }
-                .transition(.opacity)
+        VStack(spacing: 0) {
+            if viewModel.scanProgress.isScanning {
+                ScanStatusStrip(progress: viewModel.scanProgress)
+                    .transition(.move(edge: .top).combined(with: .opacity))
             }
 
-            if viewModel.scanProgress.isScanning {
-                ScanningOverlay(progress: viewModel.scanProgress)
+            ZStack {
+                if viewModel.isShowingDetail, let project = viewModel.selectedProject {
+                    ProjectDetailView(viewModel: viewModel, project: project)
+                        .id(project.id)
+                        .transition(.opacity)
+                } else {
+                    ProjectBrowserView(viewModel: viewModel) {
+                        onboardingVM.showOnboarding()
+                    }
                     .transition(.opacity)
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .animation(.easeInOut(duration: 0.25), value: viewModel.isShowingDetail)
-        .animation(.easeInOut(duration: 0.3), value: viewModel.scanProgress.isScanning)
+        .animation(.easeInOut(duration: 0.15), value: viewModel.isShowingDetail)
+        .animation(.easeInOut(duration: 0.2), value: viewModel.scanProgress.isScanning)
     }
 
     // MARK: - Stats Layout
@@ -153,5 +169,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: AppViewModel(), notebookVM: NotebookViewModel(), statsVM: StatsViewModel())
 }

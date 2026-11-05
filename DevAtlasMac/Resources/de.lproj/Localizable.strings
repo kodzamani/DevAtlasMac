@@ -207,7 +207,6 @@
 "stats.allProjects" = "Alle Projekte";
 "stats.projectTypes" = "Projekttypen";
 "stats.topProjectsByFileCount" = "Top-Projekte nach Dateianzahl";
-"stats.projectsAnalyze" = "Projekte analysieren";
 "stats.noSourceFiles" = "Keine Quelldateien gefunden";
 "stats.analyzingProject" = "Projekt wird analysiert...";
 "stats.contributionsHeatmap" = "Beitrags-Heatmap";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "Kein ungenutzter Code im Projekt gefunden. Gut gemacht!";
-"analyze.projectsAnalyze" = "Projekte analysieren";
 "analyze.file" = "Datei";
 "analyze.extension" = "Erweiterung";
 "analyze.lines" = "Zeilen";
@@ -328,7 +326,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "Ungenutzten Code finden";
 "analyze.analyzing" = "Analysiere...";
-"analyze.savedToNotes" = "In Notizen gespeichert!";
 "analyze.filesAnalyzed" = "Dateien analysiert";
 "analyze.totalFiles" = "Gesamtdateien";
 "analyze.totalLines" = "Gesamtzeilen";
@@ -362,9 +359,7 @@
 "projects.devDependencies" = "Dev-Abhängigkeiten";
 "projects.noDependencies" = "Keine Abhängigkeiten gefunden";
 "projects.loadingDependencies" = "Abhängigkeiten werden geladen...";
-"projects.collapsedDependencies" = "%d Abhängigkeiten im Projekt, klicken Sie für Details";
 "dependency.upgradeable" = "Aktualisierbar";
-"projects.collapsedDependenciesMultiProject" = "%d Abhängigkeiten über %d Projekte, klicken Sie für Details";
 
 
 
@@ -485,3 +480,58 @@
 "editor.todoStatus.inProgress" = "In Bearbeitung";
 "editor.todoStatus.todo" = "Offen";
 "scan.foundProjects" = "%d Projekte gefunden";
+
+/* Finder-style browser */
+"finder.name" = "Name";
+"finder.dateModified" = "Änderungsdatum";
+"finder.kind" = "Art";
+"finder.branch" = "Branch";
+"finder.tags" = "Tags";
+"finder.iconsView" = "Symbole";
+"finder.listView" = "Liste";
+"finder.columnsView" = "Spalten";
+"finder.viewMode" = "Darstellung";
+"finder.back" = "Zurück";
+"finder.forward" = "Vorwärts";
+"finder.actions" = "Aktionen";
+"finder.togglePreview" = "Vorschau ein-/ausblenden";
+"finder.open" = "Öffnen";
+"finder.copyPath" = "Pfad kopieren";
+"finder.information" = "Informationen";
+"finder.path" = "Pfad";
+"finder.noSelection" = "Wähle ein Projekt aus, um Details zu sehen";
+"finder.iconSize" = "Symbolgröße";
+"scan.scanning" = "Projekte werden gescannt…";
+"onboarding.step.welcome" = "Willkommen";
+"onboarding.stepCounter" = "Schritt %d von %d";
+
+/* Project detail overview */
+"detail.loading" = "Projektdetails werden geladen…";
+"detail.git.title" = "Git-Übersicht";
+"detail.git.refresh" = "Git-Übersicht aktualisieren";
+"detail.git.noRepository" = "Dieses Projekt ist kein Git-Repository.";
+"detail.git.unavailable" = "Git-Informationen konnten nicht gelesen werden.";
+"detail.git.detached" = "Losgelöster HEAD";
+"detail.git.clean" = "Arbeitsverzeichnis sauber";
+"detail.git.changedFiles" = "%d geänderte Dateien";
+"detail.git.lastCommit" = "LETZTER COMMIT";
+"detail.git.noCommits" = "Noch keine Commits.";
+"detail.git.openRemote" = "Repository öffnen";
+"detail.languages.title" = "Sprachen";
+"detail.languages.other" = "Andere";
+"detail.readme.readFull" = "Vollständig lesen";
+"detail.readme.empty" = "Die README ist leer.";
+"detail.readme.missing" = "Keine README im Projektordner gefunden.";
+"detail.readme.unreadable" = "Die README konnte nicht gelesen werden.";
+"detail.readme.tooLarge" = "Diese README ist zu groß für die Vorschau. Öffnen Sie die Datei zum Lesen.";
+"detail.readme.openFile" = "Datei öffnen";
+"detail.readme.close" = "Schließen";
+"analyze.title" = "Code-Analyse";
+"dependency.package" = "Paket";
+"dependency.version" = "Version";
+"dependency.source" = "Quelle";
+"dependency.upgradeableCount" = "%d aktualisierbar";
+
+// MARK: - Menu Bar
+"menuBar.open" = "DevAtlas öffnen";
+"menuBar.quit" = "DevAtlas beenden";
