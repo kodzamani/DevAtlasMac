@@ -509,3 +509,25 @@
 "scan.scanning" = "Projekte werden gescannt…";
 "onboarding.step.welcome" = "Willkommen";
 "onboarding.stepCounter" = "Schritt %d von %d";
+
+/* Project detail overview */
+"detail.loading" = "Projektdetails werden geladen…";
+"detail.git.title" = "Git-Übersicht";
+"detail.git.refresh" = "Git-Übersicht aktualisieren";
+"detail.git.noRepository" = "Dieses Projekt ist kein Git-Repository.";
+"detail.git.unavailable" = "Git-Informationen konnten nicht gelesen werden.";
+"detail.git.detached" = "Losgelöster HEAD";
+"detail.git.clean" = "Arbeitsverzeichnis sauber";
+"detail.git.changedFiles" = "%d geänderte Dateien";
+"detail.git.lastCommit" = "LETZTER COMMIT";
+"detail.git.noCommits" = "Noch keine Commits.";
+"detail.git.openRemote" = "Repository öffnen";
+"detail.languages.title" = "Sprachen";
+"detail.languages.other" = "Andere";
+"detail.readme.readFull" = "Vollständig lesen";
+"detail.readme.empty" = "Die README ist leer.";
+"detail.readme.missing" = "Keine README im Projektordner gefunden.";
+"detail.readme.unreadable" = "Die README konnte nicht gelesen werden.";
+"detail.readme.tooLarge" = "Diese README ist zu groß für die Vorschau. Öffnen Sie die Datei zum Lesen.";
+"detail.readme.openFile" = "Datei öffnen";
+"detail.readme.close" = "Schließen";

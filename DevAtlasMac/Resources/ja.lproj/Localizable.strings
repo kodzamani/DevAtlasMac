@@ -509,3 +509,25 @@
 "scan.scanning" = "プロジェクトをスキャン中…";
 "onboarding.step.welcome" = "ようこそ";
 "onboarding.stepCounter" = "ステップ %d / %d";
+
+/* Project detail overview */
+"detail.loading" = "プロジェクトの詳細を読み込み中…";
+"detail.git.title" = "Git 概要";
+"detail.git.refresh" = "Git 概要を更新";
+"detail.git.noRepository" = "このプロジェクトは Git リポジトリではありません。";
+"detail.git.unavailable" = "Git 情報を読み取れませんでした。";
+"detail.git.detached" = "分離された HEAD";
+"detail.git.clean" = "作業ツリーに変更なし";
+"detail.git.changedFiles" = "%d 個の変更ファイル";
+"detail.git.lastCommit" = "最新のコミット";
+"detail.git.noCommits" = "まだコミットがありません。";
+"detail.git.openRemote" = "リポジトリを開く";
+"detail.languages.title" = "使用言語";
+"detail.languages.other" = "その他";
+"detail.readme.readFull" = "全文を読む";
+"detail.readme.empty" = "README は空です。";
+"detail.readme.missing" = "プロジェクトフォルダに README が見つかりません。";
+"detail.readme.unreadable" = "README を読み取れませんでした。";
+"detail.readme.tooLarge" = "この README は大きすぎるためプレビューできません。ファイルを開いてお読みください。";
+"detail.readme.openFile" = "ファイルを開く";
+"detail.readme.close" = "閉じる";

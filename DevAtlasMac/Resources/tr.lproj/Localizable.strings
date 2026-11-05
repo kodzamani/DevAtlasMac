@@ -514,3 +514,25 @@
 "scan.scanning" = "Projeler taranıyor…";
 "onboarding.step.welcome" = "Hoş Geldiniz";
 "onboarding.stepCounter" = "Adım %d / %d";
+
+/* Project detail overview */
+"detail.loading" = "Proje detayları yükleniyor…";
+"detail.git.title" = "Git Özeti";
+"detail.git.refresh" = "Git özetini yenile";
+"detail.git.noRepository" = "Bu proje bir Git deposu değil.";
+"detail.git.unavailable" = "Git bilgileri okunamadı.";
+"detail.git.detached" = "Bağımsız HEAD";
+"detail.git.clean" = "Çalışma alanı temiz";
+"detail.git.changedFiles" = "%d değiştirilmiş dosya";
+"detail.git.lastCommit" = "SON COMMIT";
+"detail.git.noCommits" = "Henüz commit yok.";
+"detail.git.openRemote" = "Depoyu aç";
+"detail.languages.title" = "Dil Dağılımı";
+"detail.languages.other" = "Diğer";
+"detail.readme.readFull" = "Tamamını oku";
+"detail.readme.empty" = "README dosyası boş.";
+"detail.readme.missing" = "Proje klasöründe README bulunamadı.";
+"detail.readme.unreadable" = "README dosyası okunamadı.";
+"detail.readme.tooLarge" = "Bu README önizleme için çok büyük. Okumak için dosyayı açın.";
+"detail.readme.openFile" = "Dosyayı aç";
+"detail.readme.close" = "Kapat";

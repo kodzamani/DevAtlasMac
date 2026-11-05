@@ -134,6 +134,7 @@ struct ContentView: View {
             ZStack {
                 if viewModel.isShowingDetail, let project = viewModel.selectedProject {
                     ProjectDetailView(viewModel: viewModel, project: project)
+                        .id(project.id)
                         .transition(.opacity)
                 } else {
                     ProjectBrowserView(viewModel: viewModel) {

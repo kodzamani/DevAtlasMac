@@ -15,28 +15,29 @@ struct ProjectDetailView: View {
     @State private var versionCheckTask: Task<Void, Never>?
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 14) {
-                projectHeader
-                quickActionsSection
-                statsRow
-                techStackCard
-
-                CollapsibleDependenciesSectionView(
-                    project: project,
-                    dependencies: dependencies
-                )
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    projectHeader
+                    quickActionsSection
+                    statsRow
+                    overviewCards(isWide: geometry.size.width >= 900)
+                }
+                .frame(maxWidth: 1100)
+                .padding(.init(top: 20, leading: 24, bottom: 32, trailing: 24))
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: 1100)
-            .padding(.init(top: 20, leading: 24, bottom: 32, trailing: 24))
-            .frame(maxWidth: .infinity)
         }
         // Separate tasks, so each section appears as soon as its own data is ready.
         .task {
-            stats = await ProjectStatistics.calculate(for: project)
+            let result = await ProjectStatistics.calculate(for: project)
+            guard !Task.isCancelled else { return }
+            stats = result
         }
         .task {
-            codeAnalysis = await CodeAnalyzer.analyze(for: project)
+            let result = await CodeAnalyzer.analyze(for: project)
+            guard !Task.isCancelled else { return }
+            codeAnalysis = result
         }
         .task {
             let loadedDeps = await DependenciesService.getDependencies(for: project)
@@ -209,6 +210,36 @@ struct ProjectDetailView: View {
     }
     
     // MARK: - Overview
+    private func overviewCards(isWide: Bool) -> some View {
+        let layout = isWide
+            ? AnyLayout(HStackLayout(alignment: .top, spacing: 18))
+            : AnyLayout(VStackLayout(alignment: .leading, spacing: 18))
+
+        return layout {
+            VStack(alignment: .leading, spacing: 0) {
+                ProjectReadmeSection(projectPath: project.path)
+
+                Divider()
+                    .overlay(Color.daCardEdge)
+                    .padding(.horizontal, 18)
+
+                CollapsibleDependenciesSectionView(dependencies: dependencies)
+            }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .daCardSurface()
+
+            VStack(alignment: .leading, spacing: 18) {
+                ProjectGitCard(projectPath: project.path)
+                ProjectLanguagesCard(analysis: codeAnalysis)
+                if !project.tags.isEmpty {
+                    techStackCard
+                }
+            }
+            .frame(width: isWide ? 290 : nil)
+            .frame(maxWidth: isWide ? nil : .infinity)
+        }
+    }
+
     private var statsRow: some View {
         HStack(spacing: 0) {
             StatMiniCard(label: "dashboard.size".localized, systemImage: "internaldrive", value: stats?.totalSize)

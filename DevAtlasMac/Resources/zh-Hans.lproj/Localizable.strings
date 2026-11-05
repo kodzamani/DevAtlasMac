@@ -511,3 +511,25 @@
 "scan.scanning" = "正在扫描项目…";
 "onboarding.step.welcome" = "欢迎";
 "onboarding.stepCounter" = "第 %d 步，共 %d 步";
+
+/* Project detail overview */
+"detail.loading" = "正在加载项目详情…";
+"detail.git.title" = "Git 概览";
+"detail.git.refresh" = "刷新 Git 概览";
+"detail.git.noRepository" = "此项目不是 Git 仓库。";
+"detail.git.unavailable" = "无法读取 Git 信息。";
+"detail.git.detached" = "分离的 HEAD";
+"detail.git.clean" = "工作区干净";
+"detail.git.changedFiles" = "%d 个文件已更改";
+"detail.git.lastCommit" = "最近提交";
+"detail.git.noCommits" = "尚无提交。";
+"detail.git.openRemote" = "打开仓库";
+"detail.languages.title" = "语言分布";
+"detail.languages.other" = "其他";
+"detail.readme.readFull" = "阅读全文";
+"detail.readme.empty" = "README 为空。";
+"detail.readme.missing" = "项目文件夹中未找到 README。";
+"detail.readme.unreadable" = "无法读取 README。";
+"detail.readme.tooLarge" = "此 README 太大，无法预览。请打开文件阅读。";
+"detail.readme.openFile" = "打开文件";
+"detail.readme.close" = "关闭";

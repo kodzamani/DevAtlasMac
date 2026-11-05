@@ -4,7 +4,6 @@ import SwiftUI
 
 /// UI component to display project dependencies in a collapsible section
 struct CollapsibleDependenciesSectionView: View {
-    let project: ProjectInfo
     let dependencies: ProjectDependencies?
     @State private var isExpanded: Bool = false
     
@@ -35,7 +34,6 @@ struct CollapsibleDependenciesSectionView: View {
             }
             .padding(18)
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .daCardSurface()
             .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())
@@ -50,7 +48,7 @@ struct CollapsibleDependenciesSectionView: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(Color.daTertiaryText)
             
-            Text(project.name)
+            Text("projects.dependencies".localized)
                 .font(.daSubSectionSemiBold)
                 .foregroundStyle(Color.daPrimaryText)
             

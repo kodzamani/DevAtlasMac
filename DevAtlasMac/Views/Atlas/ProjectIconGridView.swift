@@ -140,6 +140,8 @@ private struct ProjectIconTile: View {
 
     @State private var rippleCount = 0
 
+    private var selectionColor: Color { Color(hex: project.displayIconColor) }
+
     var body: some View {
         VStack(spacing: 5) {
             ProjectFolderIcon(project: project, size: iconSize)
@@ -148,9 +150,9 @@ private struct ProjectIconTile: View {
                 .background {
                     if isSelected {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(Color.daAccent.opacity(0.10))
+                            .fill(selectionColor.opacity(0.10))
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .strokeBorder(Color.daAccent.opacity(0.55), lineWidth: 1)
+                            .strokeBorder(selectionColor.opacity(0.55), lineWidth: 1)
                     }
                 }
 
@@ -164,7 +166,7 @@ private struct ProjectIconTile: View {
                 .padding(.vertical, 1.5)
                 .background {
                     if isSelected {
-                        RoundedRectangle(cornerRadius: 4, style: .continuous).fill(Color.daAccent)
+                        RoundedRectangle(cornerRadius: 4, style: .continuous).fill(selectionColor)
                     }
                 }
 
