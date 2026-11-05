@@ -139,7 +139,6 @@ struct NoteEditorView: View {
                     .background(
                         RoundedRectangle(cornerRadius: 4)
                             .fill(isEditing ? Color.daWhite : Color.clear)
-                            .shadow(color: isEditing ? Color.black.opacity(0.04) : Color.clear, radius: 1, y: 1)
                     )
                 }
                 .buttonStyle(.plain)
@@ -159,7 +158,6 @@ struct NoteEditorView: View {
                     .background(
                         RoundedRectangle(cornerRadius: 4)
                             .fill(!isEditing ? Color.daWhite : Color.clear)
-                            .shadow(color: !isEditing ? Color.black.opacity(0.04) : Color.clear, radius: 1, y: 1)
                     )
                 }
                 .buttonStyle(.plain)
@@ -347,11 +345,6 @@ struct NoteEditorView: View {
                     lineWidth: isNotesFocused ? 1.5 : 1
                 )
         )
-        .shadow(
-            color: isNotesFocused ? Color.daAccent.opacity(0.08) : Color.black.opacity(0.03),
-            radius: isNotesFocused ? 8 : 4,
-            y: isNotesFocused ? 2 : 1
-        )
     }
     
     // MARK: - Markdown Preview
@@ -483,7 +476,6 @@ struct NoteEditorView: View {
                                     )
                                 )
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .shadow(color: Color.daAccent.opacity(0.25), radius: 4, y: 2)
                                 .scaleEffect(addButtonPressed ? 0.92 : 1.0)
                         }
                         .buttonStyle(.plain)
@@ -541,7 +533,6 @@ struct NoteEditorView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.daBorder, lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.03), radius: 4, y: 1)
     }
     
     // MARK: - Premium Progress Badge
@@ -713,7 +704,6 @@ struct NoteEditorView: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(isHovered ? columnColor.opacity(0.5) : Color.daBorder, lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.04), radius: 2, y: 1)
         .onHover { hovering in
             hoveredTodoId = hovering ? todo.id : nil
         }
@@ -746,7 +736,6 @@ struct NoteEditorView: View {
                                     )
                                 )
                                 .frame(width: 20, height: 20)
-                                .shadow(color: Color.daGreen.opacity(0.3), radius: 3, y: 1)
                             
                             Image(systemName: "checkmark")
                                 .font(.system(size: 10, weight: .bold))

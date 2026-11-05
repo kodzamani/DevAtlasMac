@@ -485,3 +485,25 @@
 "editor.todoStatus.inProgress" = "In Bearbeitung";
 "editor.todoStatus.todo" = "Offen";
 "scan.foundProjects" = "%d Projekte gefunden";
+
+/* Finder-style browser */
+"finder.name" = "Name";
+"finder.dateModified" = "Änderungsdatum";
+"finder.kind" = "Art";
+"finder.branch" = "Branch";
+"finder.tags" = "Tags";
+"finder.iconsView" = "Symbole";
+"finder.listView" = "Liste";
+"finder.columnsView" = "Spalten";
+"finder.viewMode" = "Darstellung";
+"finder.back" = "Zurück";
+"finder.forward" = "Vorwärts";
+"finder.actions" = "Aktionen";
+"finder.togglePreview" = "Vorschau ein-/ausblenden";
+"finder.open" = "Öffnen";
+"finder.copyPath" = "Pfad kopieren";
+"finder.information" = "Informationen";
+"finder.path" = "Pfad";
+"finder.noSelection" = "Wähle ein Projekt aus, um Details zu sehen";
+"finder.iconSize" = "Symbolgröße";
+"scan.scanning" = "Projekte werden gescannt…";

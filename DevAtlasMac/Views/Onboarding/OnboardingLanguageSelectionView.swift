@@ -58,7 +58,7 @@ struct OnboardingLanguageSelectionView: View {
             .padding(.vertical, 10)
             .background(Color.daWhite)
             .clipShape(Capsule())
-            .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 4)
+            .overlay(Capsule().stroke(Color.daBorder, lineWidth: 1))
             
             Spacer()
             
@@ -108,7 +108,6 @@ struct OnboardingLanguageSelectionView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(selectedLanguage == language ? Color.daAccent : Color.daBorder.opacity(0.6), lineWidth: selectedLanguage == language ? 2 : 1)
             )
-            .shadow(color: selectedLanguage == language ? Color.daAccent.opacity(0.15) : Color.black.opacity(0.04), radius: selectedLanguage == language ? 8 : 4, x: 0, y: 2)
         }
         .buttonStyle(.plain)
     }
@@ -123,15 +122,6 @@ struct OnboardingLanguageSelectionView: View {
         case .korean: return "🇰🇷"
         case .italian: return "🇮🇹"
         case .french: return "🇫🇷"
-        }
-    }
-}
-
-// Helper to chunk array
-extension Array {
-    func chunked(into size: Int) -> [[Element]] {
-        stride(from: 0, to: count, by: size).map {
-            Array(self[$0..<Swift.min($0 + size, count)])
         }
     }
 }

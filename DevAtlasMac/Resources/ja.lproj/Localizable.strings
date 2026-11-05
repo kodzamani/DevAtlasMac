@@ -485,3 +485,25 @@
 "editor.todoStatus.inProgress" = "進行中";
 "editor.todoStatus.todo" = "未着手";
 "scan.foundProjects" = "%d件のプロジェクトが見つかりました";
+
+/* Finder-style browser */
+"finder.name" = "名前";
+"finder.dateModified" = "変更日";
+"finder.kind" = "種類";
+"finder.branch" = "ブランチ";
+"finder.tags" = "タグ";
+"finder.iconsView" = "アイコン";
+"finder.listView" = "リスト";
+"finder.columnsView" = "カラム";
+"finder.viewMode" = "表示";
+"finder.back" = "戻る";
+"finder.forward" = "進む";
+"finder.actions" = "アクション";
+"finder.togglePreview" = "プレビューの表示/非表示";
+"finder.open" = "開く";
+"finder.copyPath" = "パスをコピー";
+"finder.information" = "情報";
+"finder.path" = "パス";
+"finder.noSelection" = "プロジェクトを選択すると詳細が表示されます";
+"finder.iconSize" = "アイコンサイズ";
+"scan.scanning" = "プロジェクトをスキャン中…";

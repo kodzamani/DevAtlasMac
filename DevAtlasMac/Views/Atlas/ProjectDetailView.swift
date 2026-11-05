@@ -17,13 +17,11 @@ struct ProjectDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                backButton
                 projectHeader
                 techStackAndDependenciesCard
             }
             .padding(.init(top: 20, leading: 20, bottom: 32, trailing: 20))
         }
-        .background(Color.daOffWhite)
         .task {
             async let s = ProjectStatistics.calculate(for: project)
             async let a = CodeAnalyzer.analyze(for: project)
@@ -55,57 +53,12 @@ struct ProjectDetailView: View {
         }
     }
     
-    // MARK: - Back Button
-    private var backButton: some View {
-        Button {
-            viewModel.goBack()
-        } label: {
-            HStack(spacing: 6) {
-                Text("←")
-                    .font(.daSectionHeader)
-                    .foregroundStyle(Color.daTertiaryText)
-                Text("projects.backToProjects".localized)
-                    .font(.daBody)
-                    .foregroundStyle(Color.daTertiaryText)
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 5)
-            .background(Color.daLightGray)
-            .overlay(
-                RoundedRectangle(cornerRadius: 6)
-                    .stroke(Color.daBorder, lineWidth: 1)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 6))
-        }
-        .buttonStyle(.plain)
-        .padding(.bottom, 18)
-    }
-    
     // MARK: - Project Header
     private var projectHeader: some View {
         HStack(alignment: .top, spacing: 16) {
             // Left side: Icon
-            Group {
-                if let assetName = project.iconAssetName {
-                    Image(assetName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 26, height: 26)
-                        .foregroundStyle(.white)
-                } else if let systemImage = project.iconSystemImage {
-                    Image(systemName: systemImage)
-                        .font(.daIconText)
-                        .foregroundStyle(.white)
-                } else {
-                    Text(project.displayIconText)
-                        .font(.daIconText)
-                        .foregroundStyle(.white)
-                }
-            }
-            .frame(width: 52, height: 52)
-            .background(Color(hex: project.displayIconColor))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            
+            ProjectFolderIcon(project: project, size: 64)
+
             // Left side: Project info
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 12) {

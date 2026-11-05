@@ -487,3 +487,25 @@
 "editor.todoStatus.done" = "已完成";
 "editor.todoStatus.inProgress" = "进行中";
 "editor.todoStatus.todo" = "待办";
+
+/* Finder-style browser */
+"finder.name" = "名称";
+"finder.dateModified" = "修改日期";
+"finder.kind" = "种类";
+"finder.branch" = "分支";
+"finder.tags" = "标签";
+"finder.iconsView" = "图标";
+"finder.listView" = "列表";
+"finder.columnsView" = "分栏";
+"finder.viewMode" = "显示方式";
+"finder.back" = "后退";
+"finder.forward" = "前进";
+"finder.actions" = "操作";
+"finder.togglePreview" = "显示或隐藏预览";
+"finder.open" = "打开";
+"finder.copyPath" = "复制路径";
+"finder.information" = "信息";
+"finder.path" = "路径";
+"finder.noSelection" = "选择一个项目以查看详情";
+"finder.iconSize" = "图标大小";
+"scan.scanning" = "正在扫描项目…";

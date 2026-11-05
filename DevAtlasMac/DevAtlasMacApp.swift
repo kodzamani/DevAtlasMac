@@ -6,7 +6,8 @@ struct DevAtlasMacApp: App {
         WindowGroup {
             ContentView()
         }
-        .windowStyle(.hiddenTitleBar)
+        .windowStyle(.titleBar)
+        .windowToolbarStyle(.unified)
         .defaultSize(width: 1440, height: 900)
     }
 }

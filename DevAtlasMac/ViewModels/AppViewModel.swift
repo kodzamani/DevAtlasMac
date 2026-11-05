@@ -18,7 +18,20 @@ final class AppViewModel {
             applyFilters()
         }
     }
-    var isGridView: Bool = true
+    var selectedTag: String? {
+        didSet {
+            if isShowingDetail { goBack() }
+            applyFilters()
+        }
+    }
+    var viewMode: BrowserViewMode = BrowserViewMode(rawValue: UserDefaults.standard.string(forKey: "browserViewMode") ?? "") ?? .icons {
+        didSet { UserDefaults.standard.set(viewMode.rawValue, forKey: "browserViewMode") }
+    }
+    var isPreviewPaneVisible: Bool = UserDefaults.standard.object(forKey: "browserPreviewPaneVisible") as? Bool ?? true {
+        didSet { UserDefaults.standard.set(isPreviewPaneVisible, forKey: "browserPreviewPaneVisible") }
+    }
+    /// The project selected in the browser. Opening it is a separate step, as in Finder.
+    var highlightedProjectID: String?
     var scanProgress = ScanProgress()
     var selectedProject: ProjectInfo?
     var isShowingDetail: Bool = false
@@ -48,6 +61,126 @@ final class AppViewModel {
     var desktopCount: Int { projects.filter { $0.category == .desktop }.count }
     var mobileCount: Int { projects.filter { $0.category == .mobile }.count }
     var cloudCount: Int { projects.filter { $0.category == .cloud }.count }
+
+    /// The most used tags, shown in the sidebar like Finder's tags.
+    var topTags: [String] {
+        let counts = Dictionary(projects.flatMap(\.tags).map { ($0, 1) }, uniquingKeysWith: +)
+        return counts
+            .sorted { ($0.value, $1.key) > ($1.value, $0.key) }
+            .prefix(6)
+            .map(\.key)
+    }
+
+    var highlightedProject: ProjectInfo? {
+        guard let highlightedProjectID else { return nil }
+        return filteredProjects.first { $0.id == highlightedProjectID }
+    }
+
+    // MARK: - Sidebar
+
+    var sidebarSelection: SidebarDestination? {
+        get {
+            if selectedTab != .atlas { return .tab(selectedTab) }
+            if let selectedTag { return .tag(selectedTag) }
+            return .category(selectedCategory)
+        }
+        set {
+            switch newValue {
+            case .category(let category):
+                selectedTab = .atlas
+                if selectedTag != nil { selectedTag = nil }
+                selectedCategory = category
+            case .tag(let tag):
+                selectedTab = .atlas
+                selectedCategory = "All"
+                selectedTag = tag
+            case .tab(let tab):
+                selectedTab = tab
+            case nil:
+                break
+            }
+        }
+    }
+
+    /// The current place, as shown in the window title and the path bar.
+    var locationTitle: String {
+        if let selectedTag { return selectedTag }
+        switch selectedCategory {
+        case "All": return "sidebar.allProjects".localized
+        case "Web": return "sidebar.web".localized
+        case "Desktop": return "sidebar.desktop".localized
+        case "Mobile": return "sidebar.mobile".localized
+        case "Cloud": return "sidebar.cloud".localized
+        default: return selectedCategory
+        }
+    }
+
+    var windowTitle: String {
+        switch selectedTab {
+        case .atlas: return isShowingDetail ? (selectedProject?.name ?? locationTitle) : locationTitle
+        case .stats: return "tab.stats".localized
+        case .notebook: return "tab.notebook".localized
+        case .aiPrompts: return "tab.aiPrompts".localized
+        case .settings: return "tab.settings".localized
+        }
+    }
+
+    // MARK: - History
+
+    private var backStack: [BrowserLocation] = []
+    private var forwardStack: [BrowserLocation] = []
+    private var recordedLocation: BrowserLocation?
+
+    var canNavigateBack: Bool { !backStack.isEmpty }
+    var canNavigateForward: Bool { !forwardStack.isEmpty }
+
+    var currentLocation: BrowserLocation {
+        BrowserLocation(
+            tab: selectedTab,
+            category: selectedCategory,
+            tag: selectedTag,
+            projectID: isShowingDetail ? selectedProject?.id : nil
+        )
+    }
+
+    /// Adds the current location to the history if it changed since the last call.
+    func recordLocationChange() {
+        let location = currentLocation
+        guard let previous = recordedLocation else {
+            recordedLocation = location
+            return
+        }
+        guard previous != location else { return }
+        backStack.append(previous)
+        if backStack.count > 50 { backStack.removeFirst() }
+        forwardStack.removeAll()
+        recordedLocation = location
+    }
+
+    func navigateBack() {
+        guard let target = backStack.popLast() else { return }
+        forwardStack.append(currentLocation)
+        restore(target)
+    }
+
+    func navigateForward() {
+        guard let target = forwardStack.popLast() else { return }
+        backStack.append(currentLocation)
+        restore(target)
+    }
+
+    private func restore(_ location: BrowserLocation) {
+        selectedTab = location.tab
+        if selectedCategory != location.category { selectedCategory = location.category }
+        if selectedTag != location.tag { selectedTag = location.tag }
+
+        if let id = location.projectID, let project = projects.first(where: { $0.id == id }) {
+            selectProject(project)
+        } else {
+            goBack()
+        }
+        recordedLocation = currentLocation
+    }
 
     // MARK: - Initialization
 
@@ -136,6 +269,10 @@ final class AppViewModel {
 
         if selectedCategory != "All" {
             result = result.filter { $0.category.rawValue == selectedCategory }
+        }
+
+        if let selectedTag {
+            result = result.filter { $0.tags.contains(selectedTag) }
         }
 
         if !searchText.isEmpty {

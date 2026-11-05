@@ -67,10 +67,10 @@ extension Color {
     }
 
     // MARK: - Primary Colors
-    static var daPrimaryText: Color { isDark ? Color(hex: "F9FAFB") : Color(hex: "111827") }
-    static var daSecondaryText: Color { isDark ? Color(hex: "D1D5DB") : Color(hex: "374151") }
-    static var daTertiaryText: Color { isDark ? Color(hex: "9CA3AF") : Color(hex: "6B7280") }
-    static var daMutedText: Color { isDark ? Color(hex: "6B7280") : Color(hex: "9CA3AF") }
+    static var daPrimaryText: Color { isDark ? Color(hex: "F5F5F7") : Color(hex: "1D1D1F") }
+    static var daSecondaryText: Color { isDark ? Color(hex: "C7C7CC") : Color(hex: "3A3A3C") }
+    static var daTertiaryText: Color { isDark ? Color(hex: "98989D") : Color(hex: "6E6E73") }
+    static var daMutedText: Color { isDark ? Color(hex: "6E6E73") : Color(hex: "8E8E93") }
 
     // MARK: - Accent Colors
     static var daBlue: Color { Color(hex: "3B82F6") }
@@ -81,15 +81,15 @@ extension Color {
     static var daOrange: Color { Color(hex: "F97316") }
 
     // MARK: - Background Colors
-    static var daWhite: Color { isDark ? Color(hex: "131313") : Color(hex: "FFFFFF") }
-    static var daOffWhite: Color { isDark ? Color(hex: "000000") : Color(hex: "F8F8F8") }
-    static var daLightGray: Color { isDark ? Color(hex: "1C1C1E") : Color(hex: "F3F4F6") }
-    static var daVeryLightGray: Color { isDark ? Color(hex: "0A0A0A") : Color(hex: "F9FAFB") }
-    static var daBorder: Color { isDark ? Color(hex: "2A2A2A") : Color(hex: "E5E7EB") }
+    static var daWhite: Color { isDark ? Color(hex: "262628") : Color(hex: "FFFFFF") }
+    static var daOffWhite: Color { isDark ? Color(hex: "1A1A1C") : Color(hex: "F5F5F7") }
+    static var daLightGray: Color { isDark ? Color(hex: "2E2E30") : Color(hex: "F0F0F3") }
+    static var daVeryLightGray: Color { isDark ? Color(hex: "222224") : Color(hex: "F8F8FA") }
+    static var daBorder: Color { isDark ? Color(hex: "38383A") : Color(hex: "E3E3E6") }
     static var daLightBlue: Color { isDark ? Color(hex: "1E293B") : Color(hex: "EFF6FF") }
     static var daLightGreen: Color { isDark ? Color(hex: "14532D") : Color(hex: "DCFCE7") }
-    static var daSeparator: Color { isDark ? Color(hex: "333333") : Color(hex: "D1D5DB") }
-    static var backgroundSecondary: Color { isDark ? Color(hex: "1A1A1A") : Color(hex: "F5F5F5") }
+    static var daSeparator: Color { isDark ? Color(hex: "48484A") : Color(hex: "D1D1D6") }
+    static var backgroundSecondary: Color { isDark ? Color(hex: "232325") : Color(hex: "F2F2F5") }
 
     // MARK: - Icon Grid Colors (Dynamic based on accent color)
     static var daIconGridLight: Color {

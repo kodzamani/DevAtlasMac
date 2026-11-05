@@ -15,7 +15,6 @@ struct OnboardingWelcomeView: View {
                     .scaledToFit()
                     .frame(width: 256, height: 256)
                     .clipShape(RoundedRectangle(cornerRadius: 22))
-                    .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 8)
                 
                 VStack(spacing: 6) {
                     Text("app.name".localized)
@@ -48,7 +47,6 @@ struct OnboardingWelcomeView: View {
                 RoundedRectangle(cornerRadius: 14)
                     .stroke(Color.daBorder.opacity(0.6), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.04), radius: 12, x: 0, y: 6)
             
             Spacer()
             

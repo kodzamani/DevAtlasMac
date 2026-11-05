@@ -29,7 +29,6 @@ struct SettingsContentView: View {
                 .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.daOffWhite)
             .onAppear {
                 pendingExcludedPaths = languageManager.excludedPaths
             }

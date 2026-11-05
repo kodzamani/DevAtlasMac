@@ -1730,7 +1730,6 @@ Make all assessments honest and specific. Reference actual files and code sectio
             }
             .padding(24)
         }
-        .background(Color.backgroundSecondary.opacity(0.5))
     }
     
     private var headerSection: some View {

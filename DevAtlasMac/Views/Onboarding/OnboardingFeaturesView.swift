@@ -45,7 +45,6 @@ struct OnboardingFeaturesView: View {
                 RoundedRectangle(cornerRadius: 14)
                     .stroke(Color.daBorder.opacity(0.6), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.04), radius: 12, x: 0, y: 6)
             
             // Category Pills
             HStack(spacing: 8) {

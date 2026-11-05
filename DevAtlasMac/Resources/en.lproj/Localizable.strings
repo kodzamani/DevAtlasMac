@@ -490,3 +490,25 @@
 "aiprompts.prompt.boilerplateGen.desc" = "Creates all necessary file and folder structures for a new module or feature.";
 "aiprompts.prompt.projectReport.title" = "Project Analysis Report";
 "aiprompts.prompt.projectReport.desc" = "Provides a holistic X-ray of the project: architecture, quality, risks, and improvement suggestions.";
+
+/* Finder-style browser */
+"finder.name" = "Name";
+"finder.dateModified" = "Date Modified";
+"finder.kind" = "Kind";
+"finder.branch" = "Branch";
+"finder.tags" = "Tags";
+"finder.iconsView" = "as Icons";
+"finder.listView" = "as List";
+"finder.columnsView" = "as Columns";
+"finder.viewMode" = "View";
+"finder.back" = "Back";
+"finder.forward" = "Forward";
+"finder.actions" = "Actions";
+"finder.togglePreview" = "Show or Hide Preview";
+"finder.open" = "Open";
+"finder.copyPath" = "Copy Path";
+"finder.information" = "Information";
+"finder.path" = "Path";
+"finder.noSelection" = "Select a project to see its details";
+"finder.iconSize" = "Icon Size";
+"scan.scanning" = "Scanning projects…";

@@ -45,7 +45,6 @@ struct StatsContentView: View {
                 }
                 .padding(24)
             }
-            .background(Color.daOffWhite)
         }
         .task {
             // Filtered projects are already gathered by AppViewModel
@@ -116,7 +115,7 @@ struct StatsContentView: View {
         .padding(20)
         .background(Color.daWhite)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
     }
     
     // MARK: - Git Activity Chart
@@ -297,7 +296,7 @@ struct StatsContentView: View {
         .padding(20)
         .background(Color.daWhite)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
     }
     
     // Helper function to check if a Git stat is being hovered
@@ -584,7 +583,7 @@ struct StatsContentView: View {
         .padding(20)
         .background(Color.daWhite)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(maxWidth: .infinity)
     }
     
@@ -696,7 +695,7 @@ struct StatsContentView: View {
         .padding(20)
         .background(Color.daWhite)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(minWidth: 350)
         .frame(height: 500)
     }
@@ -808,7 +807,7 @@ struct StatsContentView: View {
         .padding(20)
         .background(Color.daWhite)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(maxWidth: .infinity)
     }
     
@@ -883,7 +882,7 @@ struct StatsContentView: View {
         .padding(20)
         .background(Color.daWhite)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
         .frame(maxWidth: .infinity)
         .frame(height: 500)
     }
@@ -1010,7 +1009,7 @@ struct StatsContentView: View {
             .padding(20)
             .background(Color.daWhite)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
             .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)
         }
         
@@ -1031,7 +1030,7 @@ struct StatsContentView: View {
             .frame(height: height)
             .background(Color.daWhite)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(color: Color.black.opacity(0.03), radius: 5, y: 2)
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
             .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)
         }
     }

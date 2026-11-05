@@ -85,13 +85,13 @@ struct CollapsibleDependenciesSectionView: View {
                 if deps.hasDependencies {
                     if deps.projectGroups.isEmpty {
                         Text("projects.collapsedDependencies"
-                            .localized(with: deps.totalCount))
+                            .localized(deps.totalCount))
                             .font(.daBody)
                             .foregroundStyle(Color.daSecondaryText)
                             .padding(.top, 4)
                     } else {
                         Text("projects.collapsedDependenciesMultiProject"
-                            .localized(with: deps.totalCount, deps.projectGroups.count))
+                            .localized(deps.totalCount, deps.projectGroups.count))
                             .font(.daBody)
                             .foregroundStyle(Color.daSecondaryText)
                             .padding(.top, 4)
@@ -397,14 +397,5 @@ struct CollapsibleDependenciesSectionView: View {
                 .font(.system(size: 10))
                 .foregroundStyle(Color.black)
         }
-    }
-}
-
-// MARK: - Localization Extension
-
-extension String {
-    func localized(with arguments: CVarArg...) -> String {
-        let localized = NSLocalizedString(self, comment: "")
-        return String(format: localized, arguments: arguments)
     }
 }

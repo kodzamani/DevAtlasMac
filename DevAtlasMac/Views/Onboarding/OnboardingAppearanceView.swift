@@ -99,7 +99,6 @@ struct OnboardingAppearanceView: View {
                 RoundedRectangle(cornerRadius: 14)
                     .stroke(isSelected ? Color.daAccent : Color.daBorder.opacity(0.6), lineWidth: isSelected ? 2 : 1)
             )
-            .shadow(color: isSelected ? Color.daAccent.opacity(0.12) : Color.black.opacity(0.04), radius: isSelected ? 12 : 8, x: 0, y: 4)
             .scaleEffect(isSelected ? 1.02 : 1.0)
             .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isSelected)
         }

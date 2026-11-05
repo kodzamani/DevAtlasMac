@@ -490,3 +490,25 @@
 "aiprompts.prompt.boilerplateGen.desc" = "Yeni bir modül veya feature için gerekli tüm dosya ve klasör yapısını oluşturur.";
 "aiprompts.prompt.projectReport.title" = "Proje Analiz Raporu";
 "aiprompts.prompt.projectReport.desc" = "Projenin bütünsel bir röntgenini çıkarır: mimari, kalite, risk ve iyileştirme önerileri.";
+
+/* Finder-style browser */
+"finder.name" = "Ad";
+"finder.dateModified" = "Değiştirilme Tarihi";
+"finder.kind" = "Tür";
+"finder.branch" = "Dal";
+"finder.tags" = "Etiketler";
+"finder.iconsView" = "Simgeler";
+"finder.listView" = "Liste";
+"finder.columnsView" = "Sütunlar";
+"finder.viewMode" = "Görünüm";
+"finder.back" = "Geri";
+"finder.forward" = "İleri";
+"finder.actions" = "Eylemler";
+"finder.togglePreview" = "Önizlemeyi Göster/Gizle";
+"finder.open" = "Aç";
+"finder.copyPath" = "Yolu Kopyala";
+"finder.information" = "Bilgi";
+"finder.path" = "Yol";
+"finder.noSelection" = "Ayrıntıları görmek için bir proje seçin";
+"finder.iconSize" = "Simge Boyutu";
+"scan.scanning" = "Projeler taranıyor…";

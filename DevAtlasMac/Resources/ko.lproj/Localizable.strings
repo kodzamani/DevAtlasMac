@@ -485,3 +485,25 @@
 "editor.todoStatus.inProgress" = "진행 중";
 "editor.todoStatus.todo" = "할 일";
 "scan.foundProjects" = "%d개의 프로젝트를 찾았습니다";
+
+/* Finder-style browser */
+"finder.name" = "이름";
+"finder.dateModified" = "수정일";
+"finder.kind" = "종류";
+"finder.branch" = "브랜치";
+"finder.tags" = "태그";
+"finder.iconsView" = "아이콘";
+"finder.listView" = "목록";
+"finder.columnsView" = "열";
+"finder.viewMode" = "보기";
+"finder.back" = "뒤로";
+"finder.forward" = "앞으로";
+"finder.actions" = "동작";
+"finder.togglePreview" = "미리보기 표시/숨기기";
+"finder.open" = "열기";
+"finder.copyPath" = "경로 복사";
+"finder.information" = "정보";
+"finder.path" = "경로";
+"finder.noSelection" = "프로젝트를 선택하면 세부 정보가 표시됩니다";
+"finder.iconSize" = "아이콘 크기";
+"scan.scanning" = "프로젝트 스캔 중…";
