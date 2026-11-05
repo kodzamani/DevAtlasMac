@@ -35,7 +35,6 @@ struct StatsContentView: View {
                 }
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .daVerifyStats)) { _ in selectedProjectToAnalyze = viewModel.projects.first(where: { $0.name == "DevAtlasMac" }) ?? viewModel.projects.first } // TEMPVERIFY
         .task {
             // Filtered projects are already gathered by AppViewModel
             statsVM.refreshStats(with: viewModel.filteredProjects)
@@ -264,7 +263,7 @@ struct StatsContentView: View {
                                     }
                             }
                         }
-                        .overlay(
+                        .overlay(alignment: .topLeading) {
                             Group {
                                 if let hoveredDate = hoveredGitDate,
                                    let stat = hoveredGitStat {
@@ -290,7 +289,8 @@ struct StatsContentView: View {
                                 }
                             }
                             .padding()
-                        )
+                            .allowsHitTesting(false)
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     
@@ -590,6 +590,7 @@ struct StatsContentView: View {
                         }
                     }
                         .padding()
+                        .allowsHitTesting(false)
                 )
                 
                 // Custom wrapping legend
@@ -810,6 +811,7 @@ struct StatsContentView: View {
                         }
                     }
                         .padding()
+                        .allowsHitTesting(false)
                 )
                 
                 // Custom wrapping legend
@@ -897,6 +899,7 @@ struct StatsContentView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                             .padding(12)
+                            .allowsHitTesting(false)
                         }
                     }
                 }

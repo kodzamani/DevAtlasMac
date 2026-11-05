@@ -12,12 +12,9 @@ struct SettingsContentView: View {
         GeometryReader { proxy in
             ScrollView {
                 VStack(spacing: 12) {
-                    // App Header - Compact
-                    compactAppHeader
-                    
-                    // About - Compact
-                    compactAboutSection
-                    
+                    // App Header
+                    appHeader
+
                     // Unified Settings Card
                     unifiedSettingsCard
                     
@@ -38,32 +35,56 @@ struct SettingsContentView: View {
         }
     }
     
-    // MARK: - Compact App Header
-    private var compactAppHeader: some View {
-        VStack(spacing: 8) {
+    // MARK: - App Header
+    private var appHeader: some View {
+        HStack(spacing: 20) {
             Image("logo_brand")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 150, height: 150)
-                .clipShape(RoundedRectangle(cornerRadius: 18))
-            
-            Text("app.name".localized)
-                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                .foregroundStyle(Color.daPrimaryText)
+                .frame(width: 128, height: 128)
+                .accessibilityHidden(true)
+
+            Divider()
+                .frame(height: 104)
+
+            VStack(alignment: .leading, spacing: 8) {
+                wordmark
+
+                Text("settings.about.description".localized)
+                    .font(.system(size: 13))
+                    .foregroundStyle(Color.daSecondaryText)
+                    .lineSpacing(3)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
-        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
     }
-    
-    // MARK: - Compact About
-    private var compactAboutSection: some View {
-        Text("settings.about.description".localized)
-            .font(.system(size: 12))
-            .foregroundStyle(Color.daSecondaryText)
-            .multilineTextAlignment(.center)
-            .lineSpacing(3)
-            .padding(.horizontal, 8)
+
+    private var wordmark: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 0) {
+            Text(verbatim: "Dev")
+                .foregroundStyle(Color.daPrimaryText)
+
+            Text(verbatim: "Atlas")
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [
+                            Color(red: 0.49, green: 0.23, blue: 0.93),
+                            Color(red: 0.66, green: 0.33, blue: 0.97)
+                        ],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+        }
+        .font(.system(size: 44, weight: .bold))
+        .lineLimit(1)
+        .minimumScaleFactor(0.7)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("app.name".localized)
     }
-    
+
     // MARK: - Unified Settings Card
     private var unifiedSettingsCard: some View {
         VStack(spacing: 16) {

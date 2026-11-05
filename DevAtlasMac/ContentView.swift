@@ -78,8 +78,6 @@ struct ContentView: View {
             }
         }
         .tint(Color.daAccent)
-        .id(viewModel.isDarkMode)
-        .onAppear { VerifyHookTEMP.install(viewModel) } // TEMPVERIFY
         .onChange(of: viewModel.currentLocation, initial: true) {
             viewModel.recordLocationChange()
         }

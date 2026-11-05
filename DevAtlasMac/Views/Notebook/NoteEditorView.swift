@@ -24,7 +24,7 @@ struct NoteEditorView: View {
     var body: some View {
         VStack(spacing: 0) {
             editorHeader
-            Divider().foregroundStyle(Color.daBorder)
+            Divider().overlay(Color.daCardEdge)
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
@@ -80,7 +80,7 @@ struct NoteEditorView: View {
                     .font(.system(size: 11))
                     .foregroundStyle(Color.daAccent)
                     .padding(5)
-                    .background(RoundedRectangle(cornerRadius: 4).fill(Color.daLightBlue))
+                    .background(RoundedRectangle(cornerRadius: 4).fill(Color.primary.opacity(0.05)))
             }
             .buttonStyle(.plain)
             .popover(isPresented: $showSettingsPopover, arrowEdge: .bottom) {
@@ -97,7 +97,7 @@ struct NoteEditorView: View {
                     .font(.system(size: 11))
                     .foregroundStyle(Color.daAccent)
                     .padding(5)
-                    .background(RoundedRectangle(cornerRadius: 4).fill(Color.daLightBlue))
+                    .background(RoundedRectangle(cornerRadius: 4).fill(Color.primary.opacity(0.05)))
             }
             .buttonStyle(.plain)
             
@@ -114,7 +114,7 @@ struct NoteEditorView: View {
                     .padding(5)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(Color.daLightBlue)
+                            .fill(Color.primary.opacity(0.05))
                     )
             }
             .menuStyle(.borderlessButton)
@@ -137,7 +137,7 @@ struct NoteEditorView: View {
                     .foregroundStyle(isEditing ? Color.daAccent : Color.daMutedText)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(isEditing ? Color.daWhite : Color.clear)
+                            .fill(isEditing ? Color.primary.opacity(0.08) : Color.clear)
                     )
                 }
                 .buttonStyle(.plain)
@@ -156,13 +156,13 @@ struct NoteEditorView: View {
                     .foregroundStyle(!isEditing ? Color.daAccent : Color.daMutedText)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(!isEditing ? Color.daWhite : Color.clear)
+                            .fill(!isEditing ? Color.primary.opacity(0.08) : Color.clear)
                     )
                 }
                 .buttonStyle(.plain)
             }
             .padding(3)
-            .background(Color.daLightGray)
+            .background(Color.primary.opacity(0.05))
             .clipShape(RoundedRectangle(cornerRadius: 6))
             
             Text(note.projectName)
@@ -170,12 +170,11 @@ struct NoteEditorView: View {
                 .foregroundStyle(Color.daAccent)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 3)
-                .background(Color.daLightBlue)
+                .background(Color.daAccent.opacity(0.12))
                 .clipShape(Capsule())
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
-        .background(Color.daCard)
     }
     
     // MARK: - Notes Section (Premium Card)
@@ -209,14 +208,14 @@ struct NoteEditorView: View {
                         .foregroundStyle(Color.daMutedText)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 3)
-                        .background(Color.daLightGray)
+                        .background(Color.primary.opacity(0.05))
                         .clipShape(Capsule())
                 }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
             
-            Divider().foregroundStyle(Color.daBorder.opacity(0.5))
+            Divider().overlay(Color.daCardEdge)
             
             if let attachments = note.attachments, !attachments.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -304,7 +303,7 @@ struct NoteEditorView: View {
                                 .padding(.horizontal, 8)
                                 .padding(.top, 6)
                             
-                            Divider().foregroundStyle(Color.daBorder)
+                            Divider().overlay(Color.daCardEdge)
                             
                             slashCommandItem(title: "editor.heading1".localized, icon: "textformat.size", insertValue: "# ")
                             slashCommandItem(title: "editor.heading2".localized, icon: "textformat.size.smaller", insertValue: "## ")
@@ -314,12 +313,12 @@ struct NoteEditorView: View {
                             slashCommandItem(title: "editor.codeBlock".localized, icon: "curlybraces", insertValue: "```\n\n```")
                         }
                         .frame(width: 200)
-                        .background(Color.daWhite)
+                        .background(.regularMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.daBorder, lineWidth: 1)
+                                .stroke(Color.daCardEdge, lineWidth: 1)
                         )
                         .padding(10)
                         .offset(y: -20)
@@ -332,7 +331,7 @@ struct NoteEditorView: View {
         }
         .background(
             ZStack {
-                Color.daWhite
+                Color.daCard
                 editorThemeBackground
             }
         )
@@ -340,7 +339,7 @@ struct NoteEditorView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(
-                    isNotesFocused ? Color.daAccent.opacity(0.5) : Color.daBorder,
+                    isNotesFocused ? Color.daAccent.opacity(0.5) : Color.daCardEdge,
                     lineWidth: isNotesFocused ? 1.5 : 1
                 )
         )
@@ -394,7 +393,7 @@ struct NoteEditorView: View {
                                 .foregroundStyle(!isGridView ? Color.daAccent : Color.daMutedText)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
-                                .background(!isGridView ? Color.daLightBlue.opacity(0.5) : Color.clear)
+                                .background(!isGridView ? Color.primary.opacity(0.08) : Color.clear)
                         }
                         .buttonStyle(.plain)
                         
@@ -406,11 +405,11 @@ struct NoteEditorView: View {
                                 .foregroundStyle(isGridView ? Color.daAccent : Color.daMutedText)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
-                                .background(isGridView ? Color.daLightBlue.opacity(0.5) : Color.clear)
+                                .background(isGridView ? Color.primary.opacity(0.08) : Color.clear)
                         }
                         .buttonStyle(.plain)
                     }
-                    .background(Color.daLightGray)
+                    .background(Color.primary.opacity(0.05))
                     .clipShape(RoundedRectangle(cornerRadius: 6))
                     .padding(.leading, 8)
                 }
@@ -424,7 +423,7 @@ struct NoteEditorView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
             
-            Divider().foregroundStyle(Color.daBorder.opacity(0.5))
+            Divider().overlay(Color.daCardEdge)
             
             // Add Todo Input
             VStack(spacing: 0) {
@@ -486,7 +485,7 @@ struct NoteEditorView: View {
             
             // Todo List
             if !note.todos.isEmpty {
-                Divider().foregroundStyle(Color.daBorder.opacity(0.3)).padding(.horizontal, 12)
+                Divider().overlay(Color.daCardEdge).padding(.horizontal, 12)
                 
                 if isGridView {
                     kanbanGrid()
@@ -504,14 +503,14 @@ struct NoteEditorView: View {
                         if !completedTodos.isEmpty {
                             HStack(spacing: 6) {
                                 Rectangle()
-                                    .fill(Color.daBorder.opacity(0.5))
+                                    .fill(Color.primary.opacity(0.1))
                                     .frame(height: 0.5)
                                 Text("editor.completedCount".localized(completedTodos.count))
                                     .font(.system(size: 10, weight: .medium, design: .rounded))
                                     .foregroundStyle(Color.daMutedText)
                                     .fixedSize()
                                 Rectangle()
-                                    .fill(Color.daBorder.opacity(0.5))
+                                    .fill(Color.primary.opacity(0.1))
                                     .frame(height: 0.5)
                             }
                             .padding(.horizontal, 16)
@@ -530,7 +529,7 @@ struct NoteEditorView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.daBorder, lineWidth: 1)
+                .stroke(Color.daCardEdge, lineWidth: 1)
         )
     }
     
@@ -545,7 +544,7 @@ struct NoteEditorView: View {
             // Circular progress indicator
             ZStack {
                 Circle()
-                    .stroke(Color.daBorder.opacity(0.3), lineWidth: 2)
+                    .stroke(Color.primary.opacity(0.1), lineWidth: 2)
                     .frame(width: 18, height: 18)
                 
                 Circle()
@@ -574,7 +573,7 @@ struct NoteEditorView: View {
         .padding(.vertical, 5)
         .background(
             Capsule()
-                .fill(isComplete ? Color.daLightGreen.opacity(0.5) : Color.daLightGray)
+                .fill(isComplete ? Color.daGreen.opacity(0.12) : Color.primary.opacity(0.05))
         )
         .animation(.easeInOut(duration: 0.3), value: done)
     }
@@ -609,7 +608,7 @@ struct NoteEditorView: View {
                     .foregroundStyle(Color.daMutedText)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
-                    .background(Color.daLightGray)
+                    .background(Color.primary.opacity(0.05))
                     .clipShape(Capsule())
             }
             .padding(.bottom, 4)
@@ -701,7 +700,7 @@ struct NoteEditorView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(isHovered ? columnColor.opacity(0.5) : Color.daBorder, lineWidth: 1)
+                .stroke(isHovered ? columnColor.opacity(0.5) : Color.daCardEdge, lineWidth: 1)
         )
         .onHover { hovering in
             hoveredTodoId = hovering ? todo.id : nil
@@ -743,13 +742,13 @@ struct NoteEditorView: View {
                         } else {
                             Circle()
                                 .stroke(
-                                    isHovered ? Color.daAccent.opacity(0.5) : Color.daBorder,
+                                    isHovered ? Color.daAccent.opacity(0.5) : Color.primary.opacity(0.2),
                                     lineWidth: 1.5
                                 )
                                 .frame(width: 20, height: 20)
                                 .background(
                                     Circle()
-                                        .fill(isHovered ? Color.daLightBlue.opacity(0.3) : Color.clear)
+                                        .fill(isHovered ? Color.primary.opacity(0.03) : Color.clear)
                                 )
                         }
                     }
@@ -789,7 +788,7 @@ struct NoteEditorView: View {
                                 .foregroundStyle(Color.daSecondaryText)
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 2)
-                                .background(Color.daLightGray)
+                                .background(Color.primary.opacity(0.05))
                                 .clipShape(Capsule())
                             }
                             
@@ -898,7 +897,7 @@ struct NoteEditorView: View {
                             .padding(5)
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .fill(dueDateTodoId == todo.id ? Color.daLightBlue : Color.clear)
+                                    .fill(dueDateTodoId == todo.id ? Color.daAccent.opacity(0.12) : Color.clear)
                             )
                     }
                     .buttonStyle(.plain)
@@ -913,7 +912,7 @@ struct NoteEditorView: View {
                             .padding(5)
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .fill(settingsTodoId == todo.id ? Color.daLightBlue : (isHovered ? Color.daLightGray : Color.clear))
+                                    .fill(settingsTodoId == todo.id ? Color.daAccent.opacity(0.12) : (isHovered ? Color.primary.opacity(0.05) : Color.clear))
                             )
                     }
                     .buttonStyle(.plain)
@@ -934,7 +933,7 @@ struct NoteEditorView: View {
                             .padding(5)
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .fill(isHovered ? Color.daLightGray : Color.clear)
+                                    .fill(isHovered ? Color.primary.opacity(0.05) : Color.clear)
                             )
                     }
                     .buttonStyle(.plain)
@@ -947,15 +946,15 @@ struct NoteEditorView: View {
             
             // Inline date picker
             if dueDateTodoId == todo.id {
-                Divider().foregroundStyle(Color.daBorder.opacity(0.5))
+                Divider().overlay(Color.daCardEdge)
                 dueDatePicker(todo)
             }
         }
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(
-                    todo.isCompleted ? Color.daLightGreen.opacity(0.15) :
-                        isHovered ? Color.daLightBlue.opacity(0.2) :
+                    todo.isCompleted ? Color.daGreen.opacity(0.06) :
+                        isHovered ? Color.primary.opacity(0.035) :
                         Color.clear
                 )
         )
@@ -1085,9 +1084,8 @@ struct NoteEditorView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 8)
-        .background(Color.daCard)
         .overlay(alignment: .top) {
-            Divider().foregroundStyle(Color.daBorder)
+            Divider().overlay(Color.daCardEdge)
         }
     }
     

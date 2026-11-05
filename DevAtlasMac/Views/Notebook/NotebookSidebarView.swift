@@ -22,11 +22,10 @@ struct NotebookSidebarView: View {
             bottomSection
         }
         .frame(width: 180)
-        .background(Color.daCard)
         .overlay(alignment: .trailing) {
             Rectangle()
-                .fill(Color.daBorder)
-                .frame(width: 0.7)
+                .fill(Color.daCardEdge)
+                .frame(width: 1)
         }
         .sheet(item: $detailProject, onDismiss: {
             viewModel.isShowingProjectAnalysis = false
@@ -65,11 +64,11 @@ struct NotebookSidebarView: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 5)
-        .background(Color.daLightGray)
+        .background(Color.primary.opacity(0.05))
         .clipShape(RoundedRectangle(cornerRadius: 5))
         .overlay(
             RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.daBorder, lineWidth: 0.5)
+                .stroke(Color.daCardEdge, lineWidth: 0.5)
         )
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
@@ -186,7 +185,7 @@ struct NotebookSidebarView: View {
                         .padding(.horizontal, 5)
                         .padding(.vertical, 1)
                         .background(
-                            Capsule().fill(isSelected ? Color.daAccentLight : Color.daLightGray)
+                            Capsule().fill(isSelected ? Color.daAccent.opacity(0.12) : Color.primary.opacity(0.05))
                         )
                 }
             }
@@ -194,7 +193,7 @@ struct NotebookSidebarView: View {
             .padding(.vertical, 6)
             .background(
                 RoundedRectangle(cornerRadius: 6)
-                    .fill(isSelected ? Color.daAccentLight.opacity(0.5) : Color.clear)
+                    .fill(isSelected ? Color.daAccent.opacity(0.1) : Color.clear)
             )
         }
         .buttonStyle(.plain)
@@ -222,7 +221,7 @@ struct NotebookSidebarView: View {
                 .foregroundStyle(Color.daAccent)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 7)
-                .background(Color.daAccentLight)
+                .background(Color.daAccent.opacity(0.12))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
@@ -243,7 +242,7 @@ struct NotebookSidebarView: View {
                 .foregroundStyle(Color.daSecondaryText)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 7)
-                .background(Color.daLightGray)
+                .background(Color.primary.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .buttonStyle(.plain)
@@ -251,7 +250,7 @@ struct NotebookSidebarView: View {
         .padding(.horizontal, 10)
         .padding(.vertical, 10)
         .overlay(alignment: .top) {
-            Rectangle().fill(Color.daBorder).frame(height: 1)
+            Rectangle().fill(Color.daCardEdge).frame(height: 1)
         }
     }
 }

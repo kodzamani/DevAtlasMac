@@ -66,9 +66,8 @@ struct NotebookContentView: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
-            .background(Color.daCard)
             .overlay(alignment: .bottom) {
-                Divider().foregroundStyle(Color.daBorder)
+                Divider().overlay(Color.daCardEdge)
             }
             
             // Notes list
@@ -159,11 +158,10 @@ struct NotebookContentView: View {
             }
         }
         .frame(width: 260)
-        .background(Color.daCard)
         .overlay(alignment: .trailing) {
             Rectangle()
-                .fill(Color.daBorder)
-                .frame(width: 0.5)
+                .fill(Color.daCardEdge)
+                .frame(width: 1)
         }
     }
     

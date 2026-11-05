@@ -47,7 +47,6 @@ struct CollapsibleDependenciesSectionView: View {
             .accessibilityHidden(!isExpanded)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .onReceive(NotificationCenter.default.publisher(for: .daVerifyDeps)) { _ in toggle() } // TEMPVERIFY
     }
 
     private func toggle() {

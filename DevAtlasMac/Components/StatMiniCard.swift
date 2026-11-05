@@ -10,7 +10,8 @@ struct StatMiniCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(label)
-                .font(.system(size: 11, weight: .medium))
+                .font(.system(size: 10, weight: .medium))
+                .textCase(.uppercase)
                 .foregroundStyle(Color.daTertiaryText)
                 .lineLimit(1)
 
