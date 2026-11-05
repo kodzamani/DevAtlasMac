@@ -207,7 +207,6 @@
 "stats.allProjects" = "所有项目";
 "stats.projectTypes" = "项目类型";
 "stats.topProjectsByFileCount" = "文件数最多的项目";
-"stats.projectsAnalyze" = "分析项目";
 "stats.noSourceFiles" = "未找到源文件";
 "stats.analyzingProject" = "正在分析项目...";
 "stats.contributionsHeatmap" = "贡献热力图";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "项目中未发现未使用的代码。做得好！";
-"analyze.projectsAnalyze" = "分析项目";
 "analyze.file" = "文件";
 "analyze.extension" = "扩展名";
 "analyze.lines" = "行数";
@@ -300,7 +298,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "查找未使用的代码";
 "analyze.analyzing" = "分析中...";
-"analyze.savedToNotes" = "已保存到笔记！";
 "analyze.filesAnalyzed" = "文件已分析";
 "analyze.totalFiles" = "文件总数";
 "analyze.totalLines" = "代码总行数";
@@ -365,8 +362,6 @@
 "projects.devDependencies" = "开发依赖项";
 "projects.noDependencies" = "未找到依赖项";
 "projects.loadingDependencies" = "正在加载依赖项...";
-"projects.collapsedDependencies" = "项目中有%d个依赖项，点击查看详情";
-"projects.collapsedDependenciesMultiProject" = "跨%d个项目有%d个依赖项，点击查看详情";
 "dependency.upgradeable" = "可升级";
 
 
@@ -533,3 +528,8 @@
 "detail.readme.tooLarge" = "此 README 太大，无法预览。请打开文件阅读。";
 "detail.readme.openFile" = "打开文件";
 "detail.readme.close" = "关闭";
+"analyze.title" = "代码分析";
+"dependency.package" = "包";
+"dependency.version" = "版本";
+"dependency.source" = "来源";
+"dependency.upgradeableCount" = "%d 个可升级";

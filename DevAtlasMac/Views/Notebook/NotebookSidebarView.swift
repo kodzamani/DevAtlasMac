@@ -28,7 +28,9 @@ struct NotebookSidebarView: View {
                 .fill(Color.daBorder)
                 .frame(width: 0.7)
         }
-        .sheet(item: $detailProject) { project in
+        .sheet(item: $detailProject, onDismiss: {
+            viewModel.isShowingProjectAnalysis = false
+        }) { project in
             ProjectDetailView(viewModel: viewModel, project: project)
                 .frame(minWidth: 900, minHeight: 600)
         }

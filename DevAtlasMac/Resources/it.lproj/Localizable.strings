@@ -207,7 +207,6 @@
 "stats.allProjects" = "Tutti i Progetti";
 "stats.projectTypes" = "Tipi di Progetto";
 "stats.topProjectsByFileCount" = "Migliori Progetti per Numero di File";
-"stats.projectsAnalyze" = "Analizza i Progetti";
 "stats.noSourceFiles" = "Nessun file sorgente trovato";
 "stats.analyzingProject" = "Analisi del progetto in corso...";
 "stats.contributionsHeatmap" = "Mappa dei Contributi";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "Nessun codice non utilizzato trovato nel progetto. Ottimo lavoro!";
-"analyze.projectsAnalyze" = "Analizza i Progetti";
 "analyze.file" = "File";
 "analyze.extension" = "Estensione";
 "analyze.lines" = "Linee";
@@ -328,7 +326,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "Trova codice non utilizzato";
 "analyze.analyzing" = "Analisi in corso...";
-"analyze.savedToNotes" = "Salvato nelle note!";
 "analyze.filesAnalyzed" = "file analizzati";
 "analyze.totalFiles" = "Totale file";
 "analyze.totalLines" = "Totale righe";
@@ -362,8 +359,6 @@
 "projects.devDependencies" = "Dipendenze di sviluppo";
 "projects.noDependencies" = "Nessuna dipendenza trovata";
 "projects.loadingDependencies" = "Caricamento dipendenze...";
-"projects.collapsedDependencies" = "%d dipendenze nel progetto, clicca per vedere i dettagli";
-"projects.collapsedDependenciesMultiProject" = "%d dipendenze su %d progetti, clicca per vedere i dettagli";
 "dependency.upgradeable" = "Aggiornabile";
 
 
@@ -531,3 +526,8 @@
 "detail.readme.tooLarge" = "Questo README è troppo grande per l’anteprima. Apri il file per leggerlo.";
 "detail.readme.openFile" = "Apri file";
 "detail.readme.close" = "Chiudi";
+"analyze.title" = "Analisi del codice";
+"dependency.package" = "Pacchetto";
+"dependency.version" = "Versione";
+"dependency.source" = "Origine";
+"dependency.upgradeableCount" = "%d aggiornabili";

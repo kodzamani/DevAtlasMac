@@ -5,7 +5,7 @@ struct StatsContentView: View {
     @Bindable var viewModel: AppViewModel
     @Bindable var statsVM: StatsViewModel
     @State private var selectedProjectToAnalyze: ProjectInfo?
-    @State private var codeAnalysisForPopup: CodeAnalysisResult?
+    @State private var codeAnalysisForAnalysis: CodeAnalysisResult?
     @State private var hoveredProject: String? = nil
     @State private var hoveredProjectType: String? = nil
     @State private var hoveredGitDate: Date? = nil
@@ -17,6 +17,35 @@ struct StatsContentView: View {
     @State private var selectedGitProjects: Set<String> = []
     
     var body: some View {
+        DrillInContainer(isPresented: selectedProjectToAnalyze != nil) {
+            statsPage
+        } detail: {
+            if let project = selectedProjectToAnalyze {
+                ProjectAnalysisPage(
+                    project: project,
+                    analysis: codeAnalysisForAnalysis,
+                    runner: viewModel.runner
+                ) {
+                    selectedProjectToAnalyze = nil
+                }
+                .task(id: project.id) {
+                    let result = await CodeAnalyzer.analyze(for: project)
+                    guard !Task.isCancelled else { return }
+                    codeAnalysisForAnalysis = result
+                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .daVerifyStats)) { _ in selectedProjectToAnalyze = viewModel.projects.first(where: { $0.name == "DevAtlasMac" }) ?? viewModel.projects.first } // TEMPVERIFY
+        .task {
+            // Filtered projects are already gathered by AppViewModel
+            statsVM.refreshStats(with: viewModel.filteredProjects)
+        }
+        .onChange(of: viewModel.filteredProjects) { _, newProjects in
+            statsVM.projectsDidChange(newProjects)
+        }
+    }
+
+    private var statsPage: some View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 24) {
@@ -49,18 +78,6 @@ struct StatsContentView: View {
                 }
                 .padding(24)
             }
-        }
-        .task {
-            // Filtered projects are already gathered by AppViewModel
-            statsVM.refreshStats(with: viewModel.filteredProjects)
-        }
-        .onChange(of: viewModel.filteredProjects) { _, newProjects in
-            statsVM.projectsDidChange(newProjects)
-        }
-        .sheet(item: $selectedProjectToAnalyze, onDismiss: {
-            codeAnalysisForPopup = nil
-        }) { proj in
-            analyzeSheet(for: proj)
         }
     }
     
@@ -650,7 +667,7 @@ struct StatsContentView: View {
                         ForEach(Array(filteredProjects.enumerated()), id: \.element.id) { index, metric in
                             Button {
                                 if let proj = statsVM.getProject(named: metric.projectName) {
-                                    codeAnalysisForPopup = nil
+                                    codeAnalysisForAnalysis = nil
                                     selectedProjectToAnalyze = proj
                                 }
                             } label: {
@@ -889,72 +906,6 @@ struct StatsContentView: View {
         .daCardSurface()
         .frame(maxWidth: .infinity)
         .frame(height: 500)
-    }
-    
-    // MARK: - Analyze Sheet
-    private func analyzeSheet(for proj: ProjectInfo) -> some View {
-        VStack(spacing: 0) {
-            HStack {
-                HStack(spacing: 8) {
-                    Image(systemName: "chart.bar.doc.horizontal")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(Color.daEmerald)
-                    Text("stats.projectsAnalyze".localized)
-                        .font(.daSectionTitle)
-                        .foregroundStyle(Color.daPrimaryText)
-                }
-                Spacer()
-                Text(proj.name)
-                    .font(.daBody)
-                    .foregroundStyle(Color.daMutedText)
-                Button {
-                    selectedProjectToAnalyze = nil
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 18))
-                        .foregroundStyle(Color.daMutedText)
-                }
-                .buttonStyle(.plain)
-                .padding(.leading, 12)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
-
-            Divider()
-                .foregroundStyle(Color.daBorder)
-
-            if let analysis = codeAnalysisForPopup {
-                if analysis.totalFiles > 0 {
-                    ScrollView {
-                        ProjectAnalyzeView(analysis: analysis, projectPath: proj.path, runner: viewModel.runner)
-                            .padding(20)
-                    }
-                } else {
-                    Spacer()
-                    VStack(spacing: 8) {
-                        Image(systemName: "doc.text.magnifyingglass")
-                            .font(.system(size: 32))
-                            .foregroundStyle(Color.daMutedText)
-                        Text("stats.noSourceFiles".localized)
-                            .font(.daBody)
-                            .foregroundStyle(Color.daMutedText)
-                    }
-                    Spacer()
-                }
-            } else {
-                ScrollView {
-                    ProjectAnalyzeSkeleton()
-                        .padding(20)
-                }
-                .scrollDisabled(true)
-            }
-        }
-        .frame(minWidth: 800, minHeight: 600)
-        .frame(idealWidth: 900, idealHeight: 700)
-        .background { AuroraBackground() }
-        .task(id: proj.id) {
-            codeAnalysisForPopup = await CodeAnalyzer.analyze(for: proj)
-        }
     }
     
     // MARK: - Skeleton Loading View

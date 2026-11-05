@@ -207,7 +207,6 @@
 "stats.allProjects" = "Tüm Projeler";
 "stats.projectTypes" = "Proje Türleri";
 "stats.topProjectsByFileCount" = "Dosya Sayısına Göre En İyi Projeler";
-"stats.projectsAnalyze" = "Projeleri Analiz Et";
 "stats.noSourceFiles" = "Kaynak dosya bulunamadı";
 "stats.analyzingProject" = "Proje analiz ediliyor...";
 "stats.contributionsHeatmap" = "Katkı Isı Haritası";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "Projede kullanılmayan kod bulunamadı. Harika iş!";
-"analyze.projectsAnalyze" = "Projeleri Analiz Et";
 "analyze.file" = "Dosya";
 "analyze.extension" = "Uzantı";
 "analyze.lines" = "Satırlar";
@@ -302,7 +300,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "Kullanılmayan Kodu Bul";
 "analyze.analyzing" = "Analiz ediliyor...";
-"analyze.savedToNotes" = "Notlara Kaydedildi!";
 "analyze.filesAnalyzed" = "dosya analiz edildi";
 "analyze.totalFiles" = "Toplam Dosya";
 "analyze.totalLines" = "Toplam Satır";
@@ -393,9 +390,7 @@
 "projects.devDependencies" = "Geliştirme Bağımlılıkları";
 "projects.noDependencies" = "Bağımlılık bulunamadı";
 "projects.loadingDependencies" = "Bağımlılıklar yükleniyor...";
-"projects.collapsedDependencies" = "Projede %d bağımlılık var, detayları görmek için tıklayın";
 "dependency.upgradeable" = "Yükseltilebilir";
-"projects.collapsedDependenciesMultiProject" = "%d proje üzerinde %d bağımlılık var, detayları görmek için tıklayın";
 
 
 /* --- AI Prompts --- */
@@ -536,3 +531,8 @@
 "detail.readme.tooLarge" = "Bu README önizleme için çok büyük. Okumak için dosyayı açın.";
 "detail.readme.openFile" = "Dosyayı aç";
 "detail.readme.close" = "Kapat";
+"analyze.title" = "Kod Analizi";
+"dependency.package" = "Paket";
+"dependency.version" = "Sürüm";
+"dependency.source" = "Kaynak";
+"dependency.upgradeableCount" = "%d güncellenebilir";

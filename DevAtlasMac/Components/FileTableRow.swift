@@ -1,5 +1,12 @@
 import SwiftUI
 
+/// Shared with the header row in `ProjectAnalyzeView`, so the columns line up.
+enum FileTableColumn {
+    static let index: CGFloat = 34
+    static let fileExtension: CGFloat = 72
+    static let lines: CGFloat = 110
+}
+
 struct FileTableRow: View {
     let index: Int
     let file: FileLineInfo
@@ -15,62 +22,84 @@ struct FileTableRow: View {
         return CGFloat(file.lineCount) / CGFloat(maxLineCount)
     }
 
-    private var barColor: Color {
-        if barWidthRatio > 0.75 { return Color(hex: "EF4444") }
-        if barWidthRatio > 0.5 { return Color(hex: "F59E0B") }
-        if barWidthRatio > 0.25 { return Color(hex: "3B82F6") }
-        return Color(hex: "10B981")
+    private var fileName: String {
+        (file.relativePath as NSString).lastPathComponent
+    }
+
+    private var directory: String {
+        (file.relativePath as NSString).deletingLastPathComponent
     }
 
     var body: some View {
         HStack(spacing: 0) {
             Text("\(index)")
-                .font(.daSmallLabel)
+                .font(.system(size: 10))
+                .monospacedDigit()
                 .foregroundStyle(Color.daMutedText)
-                .frame(width: 36, alignment: .center)
+                .frame(width: FileTableColumn.index, alignment: .center)
 
-            VStack(alignment: .leading, spacing: 1) {
-                Text(file.relativePath)
-                    .font(.daFont(size: 11, weight: .medium))
-                    .foregroundStyle(Color.daSecondaryText)
+            HStack(spacing: 8) {
+                Text(fileName)
+                    .font(.system(size: 12))
+                    .foregroundStyle(Color.daPrimaryText)
                     .lineLimit(1)
                     .truncationMode(.middle)
+                    .layoutPriority(1)
+
+                if !directory.isEmpty {
+                    Text(directory)
+                        .font(.system(size: 11))
+                        .foregroundStyle(Color.daTertiaryText)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                }
+
+                if isHovered {
+                    Button {
+                        showEditorPicker = true
+                    } label: {
+                        Image(systemName: "arrow.up.forward.app")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color.daTertiaryText)
+                    }
+                    .buttonStyle(.plain)
+                    .help("common.openWith".localized)
+                    .accessibilityLabel("common.openWith".localized)
+                }
             }
+            .padding(.trailing, 10)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .help(file.relativePath)
 
             Text(file.fileExtension)
-                .font(.daFont(size: 10, weight: .medium))
+                .font(.system(size: 11, design: .monospaced))
                 .foregroundStyle(Color.daTertiaryText)
-                .padding(.horizontal, 6)
-                .padding(.vertical, 2)
-                .background(Color.primary.opacity(0.05))
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .frame(width: 80, alignment: .center)
+                .lineLimit(1)
+                .frame(width: FileTableColumn.fileExtension, alignment: .leading)
 
-            HStack(spacing: 6) {
-                GeometryReader { geometry in
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(Color.primary.opacity(0.07))
-                            .frame(height: 4)
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(barColor.opacity(0.7))
-                            .frame(width: geometry.size.width * barWidthRatio, height: 4)
+            HStack(spacing: 8) {
+                Capsule()
+                    .fill(Color.primary.opacity(0.07))
+                    .frame(width: 44, height: 4)
+                    .overlay(alignment: .leading) {
+                        Capsule()
+                            .fill(Color.daAccent.opacity(0.75))
+                            .frame(width: max(2, 44 * barWidthRatio), height: 4)
                     }
-                    .frame(maxHeight: .infinity, alignment: .center)
-                }
-                .frame(width: 40)
+                    .accessibilityHidden(true)
 
-                Text(formatNumber(file.lineCount))
-                    .font(.daFont(size: 11, weight: .semibold))
+                Text(file.lineCount.formatted())
+                    .font(.system(size: 11, weight: .medium))
+                    .monospacedDigit()
                     .foregroundStyle(Color.daPrimaryText)
+                    .lineLimit(1)
                     .frame(width: 50, alignment: .trailing)
             }
-            .frame(width: 100, alignment: .trailing)
+            .frame(width: FileTableColumn.lines, alignment: .trailing)
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 6)
-        .background(isHovered ? Color.primary.opacity(0.04) : Color.clear)
+        .padding(.horizontal, 12)
+        .frame(height: 32)
+        .background(Color.primary.opacity(isHovered ? 0.035 : 0))
         .contentShape(Rectangle())
         .onHover { isHovered = $0 }
         .onTapGesture(count: 2) {
@@ -116,16 +145,5 @@ struct FileTableRow: View {
         }
         .frame(width: 200)
         .background(Color.daCard)
-    }
-
-    private static let lineCountFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ","
-        return formatter
-    }()
-
-    private func formatNumber(_ n: Int) -> String {
-        FileTableRow.lineCountFormatter.string(from: NSNumber(value: n)) ?? "\(n)"
     }
 }

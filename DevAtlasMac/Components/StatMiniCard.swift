@@ -3,38 +3,51 @@ import SwiftUI
 /// One figure in a stats strip. The strip provides the surface.
 struct StatMiniCard: View {
     let label: String
-    let systemImage: String
     /// Nil while the value is still loading.
     let value: String?
+    var footnote: String? = nil
 
     var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: systemImage)
-                .font(.system(size: 15, weight: .regular))
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.system(size: 11, weight: .medium))
                 .foregroundStyle(Color.daTertiaryText)
-                .frame(width: 22)
+                .lineLimit(1)
 
-            VStack(alignment: .leading, spacing: 3) {
-                Text(label)
-                    .font(.system(size: 11, weight: .medium))
+            if let value {
+                Text(value)
+                    .font(.system(size: 20, weight: .semibold))
+                    .monospacedDigit()
+                    .foregroundStyle(Color.daPrimaryText)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .contentTransition(.numericText())
+            } else {
+                SkeletonBlock()
+                    .frame(width: 64, height: 18)
+                    .padding(.vertical, 3)
+            }
+
+            if let footnote {
+                Text(footnote)
+                    .font(.system(size: 10))
                     .foregroundStyle(Color.daTertiaryText)
-
-                if let value {
-                    Text(value)
-                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-                        .monospacedDigit()
-                        .foregroundStyle(Color.daPrimaryText)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                        .contentTransition(.numericText())
-                } else {
-                    SkeletonBlock()
-                        .frame(width: 64, height: 18)
-                        .padding(.vertical, 3)
-                }
+                    .lineLimit(1)
+                    .truncationMode(.middle)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(14)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 13)
+    }
+}
+
+/// The hairline between two figures in a stats strip.
+struct StatStripDivider: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.daCardEdge)
+            .frame(width: 1)
+            .padding(.vertical, 12)
     }
 }

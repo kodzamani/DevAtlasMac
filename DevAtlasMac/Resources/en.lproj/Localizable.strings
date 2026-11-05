@@ -207,7 +207,6 @@
 "stats.allProjects" = "All Projects";
 "stats.projectTypes" = "Project Types";
 "stats.topProjectsByFileCount" = "Top Projects by File Count";
-"stats.projectsAnalyze" = "Projects Analyze";
 "stats.noSourceFiles" = "No source files found";
 "stats.analyzingProject" = "Analyzing project...";
 "stats.contributionsHeatmap" = "Contributions Heatmap";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "No unused code found in the project. Great job!";
-"analyze.projectsAnalyze" = "Projects Analyze";
 "analyze.file" = "File";
 "analyze.extension" = "Extension";
 "analyze.lines" = "Lines";
@@ -302,7 +300,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "Find Unused Code";
 "analyze.analyzing" = "Analyzing...";
-"analyze.savedToNotes" = "Saved to Notes!";
 "analyze.filesAnalyzed" = "files analyzed";
 "analyze.totalFiles" = "Total Files";
 "analyze.totalLines" = "Total Lines";
@@ -393,8 +390,6 @@
 "projects.devDependencies" = "Dev Dependencies";
 "projects.noDependencies" = "No dependencies found";
 "projects.loadingDependencies" = "Loading dependencies...";
-"projects.collapsedDependencies" = "%d dependencies in project, click to see details";
-"projects.collapsedDependenciesMultiProject" = "%d dependencies across %d projects, click to see details";
 "dependency.upgradeable" = "Upgradeable";
 
 
@@ -536,3 +531,8 @@
 "detail.readme.tooLarge" = "This README is too large to preview. Open the file to read it.";
 "detail.readme.openFile" = "Open file";
 "detail.readme.close" = "Close";
+"analyze.title" = "Code Analysis";
+"dependency.package" = "Package";
+"dependency.version" = "Version";
+"dependency.source" = "Source";
+"dependency.upgradeableCount" = "%d upgradeable";

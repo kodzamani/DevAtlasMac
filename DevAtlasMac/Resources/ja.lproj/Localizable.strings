@@ -207,7 +207,6 @@
 "stats.allProjects" = "すべてのプロジェクト";
 "stats.projectTypes" = "プロジェクトタイプ";
 "stats.topProjectsByFileCount" = "ファイル数最多的プロジェクト";
-"stats.projectsAnalyze" = "プロジェクト分析";
 "stats.noSourceFiles" = "ソースファイルが見つかりません";
 "stats.analyzingProject" = "プロジェクト分析中...";
 "stats.contributionsHeatmap" = "コントリビューションヒートマップ";
@@ -233,7 +232,6 @@
 
 /* Project Analyze */
 "analyze.noUnusedCode" = "プロジェクトに未使用のコードは見つかりませんでした。よくできました！";
-"analyze.projectsAnalyze" = "プロジェクト分析";
 "analyze.file" = "ファイル";
 "analyze.extension" = "拡張子";
 "analyze.lines" = "行数";
@@ -328,7 +326,6 @@
 /* Project Analyze - Additional */
 "analyze.findUnusedCode" = "未使用コードを見つける";
 "analyze.analyzing" = "分析中...";
-"analyze.savedToNotes" = "ノートに保存しました！";
 "analyze.filesAnalyzed" = "ファイル分析済み";
 "analyze.totalFiles" = "総ファイル数";
 "analyze.totalLines" = "総行数";
@@ -362,8 +359,6 @@
 "projects.devDependencies" = "開発用依存関係";
 "projects.noDependencies" = "依存関係が見つかりません";
 "projects.loadingDependencies" = "依存関係を読み込み中...";
-"projects.collapsedDependencies" = "プロジェクトに%d個の依存関係があります。詳細を表示するにはクリックしてください";
-"projects.collapsedDependenciesMultiProject" = "%d個のプロジェクトにわたる%d個の依存関係があります。詳細を表示するにはクリックしてください";
 "dependency.upgradeable" = "アップグレード可能";
 
 
@@ -531,3 +526,8 @@
 "detail.readme.tooLarge" = "この README は大きすぎるためプレビューできません。ファイルを開いてお読みください。";
 "detail.readme.openFile" = "ファイルを開く";
 "detail.readme.close" = "閉じる";
+"analyze.title" = "コード分析";
+"dependency.package" = "パッケージ";
+"dependency.version" = "バージョン";
+"dependency.source" = "ソース";
+"dependency.upgradeableCount" = "%d 件更新可能";

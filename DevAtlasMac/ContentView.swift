@@ -73,13 +73,13 @@ struct ContentView: View {
                 prompt: viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized
             )
             .navigationTitle(viewModel.windowTitle)
-            .toolbarBackground(.hidden, for: .windowToolbar)
             .toolbar {
                 AppToolbar(viewModel: viewModel, statsVM: statsVM)
             }
         }
         .tint(Color.daAccent)
         .id(viewModel.isDarkMode)
+        .onAppear { VerifyHookTEMP.install(viewModel) } // TEMPVERIFY
         .onChange(of: viewModel.currentLocation, initial: true) {
             viewModel.recordLocationChange()
         }

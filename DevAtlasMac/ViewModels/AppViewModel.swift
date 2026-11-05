@@ -35,6 +35,8 @@ final class AppViewModel {
     var scanProgress = ScanProgress()
     var selectedProject: ProjectInfo?
     var isShowingDetail: Bool = false
+    /// The open project page has stepped into its code analysis.
+    var isShowingProjectAnalysis: Bool = false
     var isDarkMode: Bool = UserDefaults.standard.bool(forKey: "isDarkMode") {
         didSet { UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode") }
     }
@@ -141,7 +143,8 @@ final class AppViewModel {
             tab: selectedTab,
             category: selectedCategory,
             tag: selectedTag,
-            projectID: isShowingDetail ? selectedProject?.id : nil
+            projectID: isShowingDetail ? selectedProject?.id : nil,
+            isAnalyzingProject: isShowingDetail && isShowingProjectAnalysis
         )
     }
 
@@ -178,6 +181,7 @@ final class AppViewModel {
 
         if let id = location.projectID, let project = projects.first(where: { $0.id == id }) {
             selectProject(project)
+            isShowingProjectAnalysis = location.isAnalyzingProject
         } else {
             goBack()
         }
@@ -367,10 +371,12 @@ final class AppViewModel {
     func selectProject(_ project: ProjectInfo) {
         selectedProject = project
         isShowingDetail = true
+        isShowingProjectAnalysis = false
     }
 
     func goBack() {
         isShowingDetail = false
+        isShowingProjectAnalysis = false
         selectedProject = nil
     }
 

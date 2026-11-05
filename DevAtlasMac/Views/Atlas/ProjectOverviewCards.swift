@@ -105,10 +105,11 @@ struct ProjectGitCard: View {
 
 struct ProjectLanguagesCard: View {
     let analysis: CodeAnalysisResult?
+    var showsAllLanguages = false
 
     private var languages: [LanguageBreakdown] {
         guard let breakdown = analysis?.languageBreakdown else { return [] }
-        guard breakdown.count > 6 else { return breakdown }
+        guard breakdown.count > 6, !showsAllLanguages else { return breakdown }
         return Array(breakdown.prefix(5)) + [LanguageBreakdown(
             language: "detail.languages.other".localized,
             percentage: breakdown.dropFirst(5).reduce(0) { $0 + $1.percentage },
@@ -172,6 +173,9 @@ struct ProjectReadmeSection: View {
 
     @State private var state: ProjectReadmeState?
     @State private var showFullReadme = false
+    @State private var isPreviewClipped = false
+
+    private let previewHeight: CGFloat = 340
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -198,8 +202,12 @@ struct ProjectReadmeSection: View {
                 } else {
                     ReadmeDocumentContent(document: document, isPreview: true)
                         .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxHeight: 340, alignment: .topLeading)
+                        .onGeometryChange(for: Bool.self) { $0.size.height > previewHeight } action: {
+                            isPreviewClipped = $0
+                        }
+                        .frame(maxHeight: previewHeight, alignment: .topLeading)
                         .clipped()
+                        .mask(previewFade)
                         .contentShape(Rectangle())
                     Divider().overlay(Color.daCardEdge)
                     HStack {
@@ -235,6 +243,19 @@ struct ProjectReadmeSection: View {
                 ReadmeDocumentSheet(document: document)
             }
         }
+    }
+
+    /// Fades a cut-off preview out instead of slicing through a line of text.
+    private var previewFade: LinearGradient {
+        LinearGradient(
+            stops: [
+                .init(color: .black, location: 0),
+                .init(color: .black, location: isPreviewClipped ? 0.84 : 1),
+                .init(color: isPreviewClipped ? .clear : .black, location: 1)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
 
     private func openFileButton(_ url: URL) -> some View {
@@ -294,7 +315,7 @@ private struct ReadmeDocumentSheet: View {
     }
 }
 
-private struct OverviewCardHeading: View {
+struct OverviewCardHeading: View {
     let title: String
     let icon: String
 

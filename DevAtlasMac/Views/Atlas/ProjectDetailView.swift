@@ -9,23 +9,20 @@ struct ProjectDetailView: View {
     @State private var codeAnalysis: CodeAnalysisResult?
     @State private var dependencies: ProjectDependencies?
     @State private var showEditorPicker = false
-    @State private var showAnalyze = false
     @State private var showScriptPicker = false
     @State private var availableScripts: [ProjectRunner.PackageScript] = []
     @State private var versionCheckTask: Task<Void, Never>?
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    projectHeader
-                    quickActionsSection
-                    statsRow
-                    overviewCards(isWide: geometry.size.width >= 900)
-                }
-                .frame(maxWidth: 1100)
-                .padding(.init(top: 20, leading: 24, bottom: 32, trailing: 24))
-                .frame(maxWidth: .infinity)
+        DrillInContainer(isPresented: viewModel.isShowingProjectAnalysis) {
+            overviewPage
+        } detail: {
+            ProjectAnalysisPage(
+                project: project,
+                analysis: codeAnalysis,
+                runner: viewModel.runner
+            ) {
+                viewModel.isShowingProjectAnalysis = false
             }
         }
         // Separate tasks, so each section appears as soon as its own data is ready.
@@ -60,36 +57,69 @@ struct ProjectDetailView: View {
             versionCheckTask?.cancel()
             versionCheckTask = nil
         }
-        .sheet(isPresented: $showAnalyze) {
-            analyzeSheet
-        }
     }
     
-    // MARK: - Project Header
-    private var projectHeader: some View {
-        HStack(spacing: 16) {
-            ProjectFolderIcon(project: project, size: 76)
+    // MARK: - Overview Page
+    private var overviewPage: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    projectHeader(isWide: geometry.size.width >= 820)
+                    statsRow
+                    overviewCards(isWide: geometry.size.width >= 900)
+                }
+                .frame(maxWidth: 1100)
+                .padding(.init(top: 22, leading: 24, bottom: 32, trailing: 24))
+                .frame(maxWidth: .infinity)
+            }
+        }
+    }
 
-            VStack(alignment: .leading, spacing: 5) {
-                HStack(spacing: 10) {
+    // MARK: - Project Header
+    private func projectHeader(isWide: Bool) -> some View {
+        let layout = isWide
+            ? AnyLayout(HStackLayout(alignment: .center, spacing: 24))
+            : AnyLayout(VStackLayout(alignment: .leading, spacing: 14))
+
+        return layout {
+            projectIdentity
+                .frame(maxWidth: .infinity, alignment: .leading)
+            actionBar
+                .fixedSize()
+        }
+        .padding(.bottom, 4)
+    }
+
+    private var projectIdentity: some View {
+        HStack(spacing: 14) {
+            ProjectFolderIcon(project: project, size: 60)
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 8) {
                     Text(project.name)
-                        .font(.system(size: 24, weight: .bold))
+                        .font(.system(size: 21, weight: .semibold))
                         .foregroundStyle(Color.daPrimaryText)
                         .lineLimit(1)
+                        .truncationMode(.middle)
+                        .textSelection(.enabled)
 
                     if project.isActive {
-                        HStack(spacing: 5) {
+                        HStack(spacing: 4) {
                             Circle()
                                 .fill(Color.daGreen)
                                 .frame(width: 6, height: 6)
                             Text("projects.active".localized)
-                                .font(.system(size: 11, weight: .medium))
-                                .foregroundStyle(Color.daTertiaryText)
+                                .font(.system(size: 10, weight: .medium))
+                                .foregroundStyle(Color.daDarkGreen)
                         }
+                        .padding(.horizontal, 7)
+                        .padding(.vertical, 3)
+                        .background(Color.daGreen.opacity(0.12), in: Capsule())
+                        .fixedSize()
                     }
                 }
 
-                HStack(spacing: 12) {
+                HStack(spacing: 10) {
                     Text(project.projectType)
 
                     if let branch = project.gitBranch {
@@ -100,12 +130,13 @@ struct ProjectDetailView: View {
                 }
                 .font(.system(size: 12))
                 .foregroundStyle(Color.daTertiaryText)
+                .lineLimit(1)
 
                 Button {
                     viewModel.revealInFinder(project)
                 } label: {
-                    Text(project.path)
-                        .font(.system(size: 11))
+                    Text((project.path as NSString).abbreviatingWithTildeInPath)
+                        .font(.system(size: 11, design: .monospaced))
                         .foregroundStyle(Color.daMutedText)
                         .lineLimit(1)
                         .truncationMode(.middle)
@@ -113,8 +144,6 @@ struct ProjectDetailView: View {
                 .buttonStyle(.plain)
                 .help("projects.revealInFinder".localized)
             }
-
-            Spacer(minLength: 0)
         }
     }
 
@@ -136,27 +165,22 @@ struct ProjectDetailView: View {
     }
 
     // MARK: - Action Bar
-    private var quickActionsSection: some View {
-        FlowLayout(spacing: 6) {
+    private var actionBar: some View {
+        HStack(spacing: 6) {
             if project.isAppleProject {
                 CompactQuickActionCard(
                     glyph: .hammer,
-                    title: "projects.openInXcode".localized
+                    title: "projects.openInXcode".localized,
+                    style: .primary
                 ) {
                     viewModel.openInXcode(project)
                 }
+
+                codeEditorButton(style: .iconOnly)
+            } else {
+                codeEditorButton(style: .primary)
             }
-            
-            CompactQuickActionCard(
-                glyph: .braces,
-                title: "projects.openInCodeEditor".localized
-            ) {
-                showEditorPicker = true
-            }
-            .popover(isPresented: $showEditorPicker, arrowEdge: .bottom) {
-                editorPickerPopover
-            }
-            
+
             if viewModel.runner.isRunnableProject(at: project.path) {
                 CompactQuickActionCard(
                     glyph: .play,
@@ -166,13 +190,13 @@ struct ProjectDetailView: View {
                     if availableScripts.isEmpty {
                         availableScripts = viewModel.getProjectScripts(project)
                     }
-                    
+
                     // If no scripts found, try running with default command
                     if availableScripts.isEmpty {
                         viewModel.runProject(project)
                         return
                     }
-                    
+
                     // Show picker if more than 1 script, otherwise run directly
                     if availableScripts.count > 1 {
                         showScriptPicker = true
@@ -184,31 +208,38 @@ struct ProjectDetailView: View {
                     scriptPickerPopover
                 }
             }
-            
+
             CompactQuickActionCard(
                 glyph: .terminal,
-                title: "projects.openTerminal".localized
+                title: "projects.openTerminal".localized,
+                style: .iconOnly
             ) {
                 viewModel.openTerminal(project)
             }
-            
+
             CompactQuickActionCard(
                 glyph: .folder,
-                title: "projects.revealInFinder".localized
+                title: "projects.revealInFinder".localized,
+                style: .iconOnly
             ) {
                 viewModel.revealInFinder(project)
             }
-            
-            CompactQuickActionCard(
-                glyph: .bars,
-                title: "projects.analyzeProject".localized
-            ) {
-                showAnalyze = true
-            }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
+    private func codeEditorButton(style: CompactQuickActionCard.Style) -> some View {
+        CompactQuickActionCard(
+            glyph: .braces,
+            title: "projects.openInCodeEditor".localized,
+            style: style
+        ) {
+            showEditorPicker = true
+        }
+        .popover(isPresented: $showEditorPicker, arrowEdge: .bottom) {
+            editorPickerPopover
+        }
+    }
+
     // MARK: - Overview
     private func overviewCards(isWide: Bool) -> some View {
         let layout = isWide
@@ -216,17 +247,14 @@ struct ProjectDetailView: View {
             : AnyLayout(VStackLayout(alignment: .leading, spacing: 18))
 
         return layout {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 18) {
                 ProjectReadmeSection(projectPath: project.path)
-
-                Divider()
-                    .overlay(Color.daCardEdge)
-                    .padding(.horizontal, 18)
+                    .daCardSurface()
 
                 CollapsibleDependenciesSectionView(dependencies: dependencies)
+                    .daCardSurface()
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .daCardSurface()
 
             VStack(alignment: .leading, spacing: 18) {
                 ProjectGitCard(projectPath: project.path)
@@ -242,21 +270,21 @@ struct ProjectDetailView: View {
 
     private var statsRow: some View {
         HStack(spacing: 0) {
-            StatMiniCard(label: "dashboard.size".localized, systemImage: "internaldrive", value: stats?.totalSize)
-            statsDivider
-            StatMiniCard(label: "dashboard.files".localized, systemImage: "doc.on.doc", value: codeAnalysis.map { formatNumber($0.totalFiles) })
-            statsDivider
-            StatMiniCard(label: "dashboard.lines".localized, systemImage: "text.alignleft", value: codeAnalysis.map { formatNumber($0.totalLines) })
+            StatMiniCard(label: "dashboard.size".localized, value: stats?.totalSize)
+            StatStripDivider()
+            StatMiniCard(label: "dashboard.files".localized, value: codeAnalysis?.totalFiles.formatted())
+            StatStripDivider()
+            StatMiniCard(label: "dashboard.lines".localized, value: codeAnalysis?.totalLines.formatted())
+            StatStripDivider()
+            StatMiniCard(label: "projects.dependencies".localized, value: dependencies?.totalCount.formatted())
+            StatStripDivider()
+            AnalyzeEntryButton {
+                viewModel.isShowingProjectAnalysis = true
+            }
         }
         .fixedSize(horizontal: false, vertical: true)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .daCardSurface()
-    }
-
-    private var statsDivider: some View {
-        Rectangle()
-            .fill(Color.daCardEdge)
-            .frame(width: 1)
-            .padding(.vertical, 12)
     }
 
     // MARK: - Tech Stack
@@ -282,88 +310,6 @@ struct ProjectDetailView: View {
         .daCardSurface()
     }
 
-    // MARK: - Format Number
-    private func formatNumber(_ n: Int) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = "."
-        return formatter.string(from: NSNumber(value: n)) ?? "\(n)"
-    }
-    
-    // MARK: - Analyze Sheet
-    private var analyzeSheet: some View {
-        VStack(spacing: 0) {
-            // Sheet header
-            HStack {
-                HStack(spacing: 8) {
-                    Image(systemName: "chart.bar.doc.horizontal")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(Color.daEmerald)
-                    Text("analyze.projectsAnalyze".localized)
-                        .font(.daSectionTitle)
-                        .foregroundStyle(Color.daPrimaryText)
-                }
-                Spacer()
-                Text(project.name)
-                    .font(.daBody)
-                    .foregroundStyle(Color.daMutedText)
-                Button {
-                    showAnalyze = false
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 18))
-                        .foregroundStyle(Color.daMutedText)
-                }
-                .buttonStyle(.plain)
-                .padding(.leading, 12)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
-            
-            Divider()
-                .foregroundStyle(Color.daBorder)
-            
-            // Content
-            if let analysis = codeAnalysis {
-                if analysis.totalFiles > 0 {
-                    ScrollView {
-                        ProjectAnalyzeView(
-                            analysis: analysis,
-                            projectPath: project.path,
-                            runner: viewModel.runner
-                        )
-                            .padding(20)
-                    }
-                } else {
-                    Spacer()
-                    VStack(spacing: 8) {
-                        Image(systemName: "doc.text.magnifyingglass")
-                            .font(.system(size: 32))
-                            .foregroundStyle(Color.daMutedText)
-                        Text("stats.noSourceFiles".localized)
-                            .font(.daBody)
-                            .foregroundStyle(Color.daMutedText)
-                    }
-                    Spacer()
-                }
-            } else {
-                ScrollView {
-                    ProjectAnalyzeSkeleton()
-                        .padding(20)
-                }
-                .scrollDisabled(true)
-            }
-        }
-        .frame(minWidth: 800, minHeight: 600)
-        .frame(idealWidth: 900, idealHeight: 700)
-        .background { AuroraBackground() }
-        .task {
-            if codeAnalysis == nil {
-                codeAnalysis = await CodeAnalyzer.analyze(for: project)
-            }
-        }
-    }
-    
     // MARK: - Editor Picker Popover
     
     private var editorPickerPopover: some View {
@@ -462,5 +408,39 @@ struct ProjectDetailView: View {
         }
         .frame(width: 300)
         .frame(minHeight: 180, maxHeight: 400)
+    }
+}
+
+/// The way into the code analysis page, at the end of the stats strip whose numbers it explains.
+private struct AnalyzeEntryButton: View {
+    let action: () -> Void
+
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                LineGlyphView(glyph: .bars, isSelected: isHovered)
+
+                Text("projects.analyzeProject".localized)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(Color.daSecondaryText)
+                    .lineLimit(1)
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 10, weight: .semibold))
+                    .foregroundStyle(Color.daTertiaryText)
+                    .offset(x: isHovered ? 2 : 0)
+            }
+            .padding(.horizontal, 16)
+            .frame(maxHeight: .infinity)
+            .background(Color.primary.opacity(isHovered ? 0.04 : 0))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .fixedSize(horizontal: true, vertical: false)
+        .onHover { hovering in
+            withAnimation(.easeOut(duration: 0.12)) { isHovered = hovering }
+        }
     }
 }

@@ -6,4 +6,5 @@ struct BrowserLocation: Equatable {
     var category: String
     var tag: String?
     var projectID: String?
+    var isAnalyzingProject = false
 }
