@@ -21,14 +21,18 @@ struct StatsContentView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     
-                    if statsVM.isCalculating {
+                    if isWaitingForMetrics {
                         StatsSkeletonView()
                     } else {
                         // 0. Summary Cards
                         summaryCardsSection
                         
                         // 1. Git Contributions Chart
-                        gitChartSection
+                        if statsVM.isLoadingGitStats {
+                            SkeletonChartCard(height: 330)
+                        } else {
+                            gitChartSection
+                        }
                         
                         // 2. Project Metrics Donut Charts
                         HStack(alignment: .top, spacing: 24) {
@@ -48,18 +52,21 @@ struct StatsContentView: View {
         }
         .task {
             // Filtered projects are already gathered by AppViewModel
-            await statsVM.refreshStats(with: viewModel.filteredProjects)
+            statsVM.refreshStats(with: viewModel.filteredProjects)
         }
         .onChange(of: viewModel.filteredProjects) { _, newProjects in
-            Task {
-                await statsVM.refreshStats(with: newProjects)
-            }
+            statsVM.projectsDidChange(newProjects)
         }
         .sheet(item: $selectedProjectToAnalyze, onDismiss: {
             codeAnalysisForPopup = nil
         }) { proj in
             analyzeSheet(for: proj)
         }
+    }
+    
+    /// Nothing to draw yet: line counts are still arriving for the very first time.
+    private var isWaitingForMetrics: Bool {
+        !statsVM.hasLoadedMetrics || (viewModel.isCalculatingStats && statsVM.projectMetrics.isEmpty)
     }
     
     // MARK: - Summary Cards
@@ -83,19 +90,21 @@ struct StatsContentView: View {
                 title: "stats.gitAdditions".localized,
                 value: "+\(statsVM.gitDailyStats.reduce(0) { $0 + $1.additions }.formatted())",
                 icon: "plus.circle.fill",
-                color: Color.green
+                color: Color.green,
+                isLoading: statsVM.isLoadingGitStats
             )
             
             summaryCard(
                 title: "stats.gitDeletions".localized,
                 value: "-\(statsVM.gitDailyStats.reduce(0) { $0 + $1.deletions }.formatted())",
                 icon: "minus.circle.fill",
-                color: Color.red
+                color: Color.red,
+                isLoading: statsVM.isLoadingGitStats
             )
         }
     }
     
-    private func summaryCard(title: String, value: String, icon: String, color: Color) -> some View {
+    private func summaryCard(title: String, value: String, icon: String, color: Color, isLoading: Bool = false) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text(title)
@@ -106,16 +115,21 @@ struct StatsContentView: View {
                     .font(.system(size: 16))
                     .foregroundStyle(color.opacity(0.8))
             }
-            Text(value)
-                .font(.system(size: 28, weight: .bold, design: .rounded))
-                .foregroundStyle(Color.daPrimaryText)
-                .contentTransition(.numericText())
-                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: value)
+            if isLoading {
+                SkeletonBlock(cornerRadius: 8)
+                    .frame(width: 96, height: 34)
+            } else {
+                Text(value)
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color.daPrimaryText)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                    .contentTransition(.numericText())
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: value)
+            }
         }
         .padding(20)
-        .background(Color.daCard)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
+        .daCardSurface()
     }
     
     // MARK: - Git Activity Chart
@@ -164,7 +178,7 @@ struct StatsContentView: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(Color.daCard)
+                    .background(Color.primary.opacity(0.05))
                     .clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
@@ -253,7 +267,7 @@ struct StatsContentView: View {
                                         }
                                     }
                                     .padding(8)
-                                    .background(Color.daWhite)
+                                    .background(.regularMaterial)
                                     .clipShape(RoundedRectangle(cornerRadius: 6))
                                     .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                                 }
@@ -294,9 +308,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daCard)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
+        .daCardSurface()
     }
     
     // Helper function to check if a Git stat is being hovered
@@ -453,7 +465,7 @@ struct StatsContentView: View {
     
     // MARK: - Consistent Colors
     private var allProjectNames: [String] {
-        Array(Set(statsVM.projectMetrics.map(\.projectName) + statsVM.gitDailyStats.map(\.projectName))).sorted()
+        statsVM.allProjectNames
     }
     
     private var allProjectColors: [Color] {
@@ -555,7 +567,7 @@ struct StatsContentView: View {
                                     .font(.daSmallLabel)
                             }
                             .padding(8)
-                            .background(Color.daWhite)
+                            .background(.regularMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                         }
@@ -581,9 +593,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daCard)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
+        .daCardSurface()
         .frame(maxWidth: .infinity)
     }
     
@@ -608,7 +618,7 @@ struct StatsContentView: View {
                         .textFieldStyle(.plain)
                 }
                 .padding(8)
-                .background(Color.daCard)
+                .background(Color.primary.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 
                 // Type filters
@@ -625,8 +635,8 @@ struct StatsContentView: View {
                                 Text(type)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
-                                    .background(selectedTypes.contains(type) ? Color.daBlue : Color.daOffWhite)
-                                    .foregroundStyle(selectedTypes.contains(type) ? Color.daWhite : Color.daPrimaryText)
+                                    .background(selectedTypes.contains(type) ? Color.daAccent : Color.primary.opacity(0.05))
+                                    .foregroundStyle(selectedTypes.contains(type) ? Color.white : Color.daPrimaryText)
                                     .clipShape(Capsule())
                             }
                             .buttonStyle(.plain)
@@ -693,9 +703,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daCard)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
+        .daCardSurface()
         .frame(minWidth: 350)
         .frame(height: 500)
     }
@@ -779,7 +787,7 @@ struct StatsContentView: View {
                                     .font(.daSmallLabel)
                             }
                             .padding(8)
-                            .background(Color.daWhite)
+                            .background(.regularMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                         }
@@ -805,9 +813,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daCard)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
+        .daCardSurface()
         .frame(maxWidth: .infinity)
     }
     
@@ -870,7 +876,7 @@ struct StatsContentView: View {
                                     .font(.daSmallLabel)
                             }
                             .padding(8)
-                            .background(Color.daWhite)
+                            .background(.regularMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                             .padding(12)
@@ -880,9 +886,7 @@ struct StatsContentView: View {
             }
         }
         .padding(20)
-        .background(Color.daCard)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
+        .daCardSurface()
         .frame(maxWidth: .infinity)
         .frame(height: 500)
     }
@@ -915,7 +919,6 @@ struct StatsContentView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
-            .background(Color.daCard)
 
             Divider()
                 .foregroundStyle(Color.daBorder)
@@ -939,15 +942,11 @@ struct StatsContentView: View {
                     Spacer()
                 }
             } else {
-                Spacer()
-                VStack(spacing: 10) {
-                    ProgressView()
-                        .controlSize(.regular)
-                    Text("stats.analyzingProject".localized)
-                        .font(.daBody)
-                        .foregroundStyle(Color.daMutedText)
+                ScrollView {
+                    ProjectAnalyzeSkeleton()
+                        .padding(20)
                 }
-                Spacer()
+                .scrollDisabled(true)
             }
         }
         .frame(minWidth: 800, minHeight: 600)
@@ -960,79 +959,37 @@ struct StatsContentView: View {
     
     // MARK: - Skeleton Loading View
     struct StatsSkeletonView: View {
-        @State private var isAnimating = false
-        
         var body: some View {
             VStack(spacing: 24) {
                 // Summary Cards
                 HStack(spacing: 24) {
                     ForEach(0..<4, id: \.self) { _ in
-                        skeletonSummaryCard
+                        SkeletonCard {
+                            VStack(alignment: .leading, spacing: 14) {
+                                SkeletonBlock()
+                                    .frame(width: 100, height: 14)
+                                SkeletonBlock(cornerRadius: 8)
+                                    .frame(width: 96, height: 30)
+                            }
+                        }
                     }
                 }
                 
                 // Git Chart
-                skeletonCard(height: 330)
+                SkeletonChartCard(height: 330)
                 
                 // Donut Charts
                 HStack(alignment: .top, spacing: 24) {
-                    skeletonCard(height: 380)
-                    skeletonCard(height: 380)
+                    SkeletonChartCard(height: 380)
+                    SkeletonChartCard(height: 380)
                 }
                 
                 // Details & Files
                 HStack(alignment: .top, spacing: 24) {
-                    skeletonCard(height: 500)
-                    skeletonCard(height: 500)
+                    SkeletonChartCard(height: 500)
+                    SkeletonChartCard(height: 500)
                 }
             }
-            .onAppear {
-                isAnimating = true
-            }
-        }
-        
-        private var skeletonSummaryCard: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                        .frame(width: 100, height: 16)
-                    Spacer()
-                    Circle()
-                        .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                        .frame(width: 16, height: 16)
-                }
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                    .frame(width: 80, height: 28)
-            }
-            .padding(20)
-            .background(Color.daCard)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
-            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)
-        }
-        
-        private func skeletonCard(height: CGFloat) -> some View {
-            VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.gray.opacity(isAnimating ? 0.1 : 0.2))
-                        .frame(width: 150, height: 20)
-                    Spacer()
-                }
-                
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(isAnimating ? 0.05 : 0.1))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .padding(20)
-            .frame(height: height)
-            .background(Color.daCard)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.daBorder, lineWidth: 1))
-            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isAnimating)
         }
     }
 }
-

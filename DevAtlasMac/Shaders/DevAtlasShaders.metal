@@ -42,7 +42,7 @@ static float3 da_unpremultiply(half4 c) {
     float2 uv = position / max(size.y, 1.0);
     float t = time * 0.025;
 
-    float3 base = dark > 0.5 ? float3(0.102, 0.102, 0.110) : float3(0.965, 0.965, 0.972);
+    float3 base = dark > 0.5 ? float3(0.082, 0.084, 0.094) : float3(0.906, 0.914, 0.933);
     // Half-desaturated so a saturated accent doesn't tint the whole window.
     float3 rawTint = da_unpremultiply(accent);
     float3 tint = mix(float3(dot(rawTint, float3(0.299, 0.587, 0.114))), rawTint, 0.5);
@@ -51,7 +51,7 @@ static float3 da_unpremultiply(half4 c) {
     float2 p2 = float2(aspect * (0.80 + 0.10 * cos(t * 0.7)), 0.90 + 0.08 * sin(t * 0.9));
 
     float wash = exp(-length_squared(uv - p1) * 1.6) + 0.7 * exp(-length_squared(uv - p2) * 1.6);
-    float strength = dark > 0.5 ? 0.04 : 0.025;
+    float strength = dark > 0.5 ? 0.06 : 0.04;
     float3 result = mix(base, tint, clamp(wash, 0.0, 1.0) * strength);
 
     result += (da_hash(position) - 0.5) / 255.0;

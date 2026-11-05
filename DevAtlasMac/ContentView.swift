@@ -31,6 +31,8 @@ struct ContentView: View {
         .task {
             await viewModel.loadInitialData()
             await notebookVM.loadNotes()
+            // Warm the stats so the tab opens with its data already in place.
+            statsVM.refreshStats(with: viewModel.filteredProjects)
         }
         .animation(.easeInOut(duration: 0.3), value: onboardingVM.isPresented)
         .onReceive(NotificationCenter.default.publisher(for: .languageDidChange)) { _ in
@@ -78,7 +80,7 @@ struct ContentView: View {
         }
         .tint(Color.daAccent)
         .id(viewModel.isDarkMode)
-        .onChange(of: viewModel.currentLocation) {
+        .onChange(of: viewModel.currentLocation, initial: true) {
             viewModel.recordLocationChange()
         }
         .keyboardShortcut(KeyEquivalent("p"), modifiers: .command, action: {

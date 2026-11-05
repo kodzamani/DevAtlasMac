@@ -35,12 +35,8 @@ struct CollapsibleDependenciesSectionView: View {
             }
             .padding(18)
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .background(Color.daCard)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.daBorder, lineWidth: 0.5)
-            )
+            .daCardSurface()
+            .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())
         .animation(.spring(duration: 0.3), value: isExpanded)
@@ -52,7 +48,7 @@ struct CollapsibleDependenciesSectionView: View {
         HStack(spacing: 8) {
             Image(systemName: "shippingbox.fill")
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(Color.daBlue)
+                .foregroundStyle(Color.daTertiaryText)
             
             Text(project.name)
                 .font(.daSubSectionSemiBold)
@@ -66,7 +62,7 @@ struct CollapsibleDependenciesSectionView: View {
                     .foregroundStyle(Color.daMutedText)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
-                    .background(Color.daLightGray)
+                    .background(Color.primary.opacity(0.05))
                     .clipShape(Capsule())
             }
             
@@ -229,7 +225,7 @@ struct CollapsibleDependenciesSectionView: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.daBorder, lineWidth: 1)
+                    .strokeBorder(Color.primary.opacity(0.08), lineWidth: 1)
             )
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
@@ -265,7 +261,7 @@ struct CollapsibleDependenciesSectionView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
         }
-        .background(Color.daLightGray.opacity(0.5))
+        .background(Color.primary.opacity(0.04))
     }
     
     private func tableRow(dependency: Dependency, isEven: Bool) -> some View {
@@ -335,7 +331,7 @@ struct CollapsibleDependenciesSectionView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
         }
-        .background(isEven ? Color.daWhite : Color.daLightGray.opacity(0.3))
+        .background(isEven ? Color.clear : Color.primary.opacity(0.025))
     }
     
     private func typeColor(_ type: DependencyType) -> Color {

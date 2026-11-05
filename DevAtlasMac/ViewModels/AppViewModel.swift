@@ -46,6 +46,8 @@ final class AppViewModel {
 
     // MARK: - Stats
     private var statsTask: Task<Void, Never>?
+    /// Projects whose persisted counts were already re-checked during this launch.
+    private var refreshedCountIDs: Set<String> = []
     var filteredTotalFiles: Int = 0
     var filteredTotalLines: Int = 0
     var isCalculatingStats: Bool = false
@@ -203,10 +205,6 @@ final class AppViewModel {
             }
         }
         
-        for i in cached.indices {
-            cached[i].totalFiles = nil
-            cached[i].totalLines = nil
-        }
         if !cached.isEmpty {
             await MainActor.run {
                 self.projects = deduplicatedByPath(cached)
@@ -312,7 +310,7 @@ final class AppViewModel {
             for project in currentProjects {
                 if Task.isCancelled { return }
                 
-                if let f = project.totalFiles, let l = project.totalLines {
+                if let f = project.totalFiles, let l = project.totalLines, refreshedCountIDs.contains(project.id) {
                     files += f
                     lines += l
                 } else {
@@ -322,6 +320,9 @@ final class AppViewModel {
                     
                     if !Task.isCancelled {
                         await MainActor.run {
+                            self.refreshedCountIDs.insert(project.id)
+                            // Unchanged counts must not republish the project list.
+                            guard project.totalFiles != result.totalFiles || project.totalLines != result.totalLines else { return }
                             if let idx = self.projects.firstIndex(where: { $0.id == project.id }) {
                                 self.projects[idx].totalFiles = result.totalFiles
                                 self.projects[idx].totalLines = result.totalLines

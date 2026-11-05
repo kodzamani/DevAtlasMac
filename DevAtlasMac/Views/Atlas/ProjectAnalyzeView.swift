@@ -55,12 +55,7 @@ struct ProjectAnalyzeView: View {
             }
         }
         .padding(18)
-        .background(Color.daCard)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.daBorder, lineWidth: 1)
-        )
+        .daCardSurface()
         .sheet(isPresented: $showMarkdownPreview) {
             MarkdownPreviewSheet(
                 htmlContent: generatedHTML,
@@ -114,7 +109,7 @@ struct ProjectAnalyzeView: View {
                 .buttonStyle(.plain)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 6)
-                .background(Color.daLightGray)
+                .background(Color.primary.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 6))
                 .disabled(isAnalyzing)
             }
@@ -187,13 +182,13 @@ struct ProjectAnalyzeView: View {
                     }
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
-                    .background(Color.daLightGray)
+                    .background(Color.primary.opacity(0.05))
                     .clipShape(Capsule())
                 }
             }
         }
         .padding(12)
-        .background(Color.daCard)
+        .background(Color.primary.opacity(0.03))
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
@@ -216,7 +211,7 @@ struct ProjectAnalyzeView: View {
             .foregroundStyle(Color.daMutedText)
             .padding(.horizontal, 10)
             .padding(.vertical, 8)
-            .background(Color.daLightGray)
+            .background(Color.primary.opacity(0.05))
             .clipShape(RoundedRectangle(cornerRadius: 6))
             
             // Table rows
@@ -257,7 +252,7 @@ struct ProjectAnalyzeView: View {
                         .font(.system(size: 10, weight: .semibold))
                         .foregroundStyle(currentPage > 0 ? Color.daBlue : Color.daMutedText)
                         .frame(width: 26, height: 26)
-                        .background(Color.daLightGray)
+                        .background(Color.primary.opacity(0.05))
                         .clipShape(RoundedRectangle(cornerRadius: 6))
                 }
                 .buttonStyle(.plain)
@@ -285,7 +280,7 @@ struct ProjectAnalyzeView: View {
                         .font(.system(size: 10, weight: .semibold))
                         .foregroundStyle(currentPage < totalPages - 1 ? Color.daBlue : Color.daMutedText)
                         .frame(width: 26, height: 26)
-                        .background(Color.daLightGray)
+                        .background(Color.primary.opacity(0.05))
                         .clipShape(RoundedRectangle(cornerRadius: 6))
                 }
                 .buttonStyle(.plain)
@@ -359,4 +354,31 @@ struct ProjectAnalyzeView: View {
     }
 }
 
+/// The analyze card's layout while its numbers are being worked out.
+struct ProjectAnalyzeSkeleton: View {
+    var body: some View {
+        SkeletonCard {
+            VStack(alignment: .leading, spacing: 16) {
+                SkeletonBlock()
+                    .frame(width: 170, height: 16)
 
+                HStack(spacing: 10) {
+                    ForEach(0..<4, id: \.self) { _ in
+                        SkeletonBlock(cornerRadius: 8)
+                            .frame(height: 52)
+                    }
+                }
+
+                SkeletonBlock(cornerRadius: 3)
+                    .frame(height: 6)
+
+                VStack(spacing: 12) {
+                    ForEach(0..<9, id: \.self) { _ in
+                        SkeletonBlock(cornerRadius: 4)
+                            .frame(height: 16)
+                    }
+                }
+            }
+        }
+    }
+}

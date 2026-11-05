@@ -31,13 +31,15 @@ struct ProjectDetailView: View {
             .padding(.init(top: 20, leading: 24, bottom: 32, trailing: 24))
             .frame(maxWidth: .infinity)
         }
+        // Separate tasks, so each section appears as soon as its own data is ready.
         .task {
-            async let s = ProjectStatistics.calculate(for: project)
-            async let a = CodeAnalyzer.analyze(for: project)
-            async let d = DependenciesService.getDependencies(for: project)
-            stats = await s
-            codeAnalysis = await a
-            let loadedDeps = await d
+            stats = await ProjectStatistics.calculate(for: project)
+        }
+        .task {
+            codeAnalysis = await CodeAnalyzer.analyze(for: project)
+        }
+        .task {
+            let loadedDeps = await DependenciesService.getDependencies(for: project)
             guard !Task.isCancelled else { return }
             dependencies = loadedDeps
             
@@ -134,7 +136,7 @@ struct ProjectDetailView: View {
 
     // MARK: - Action Bar
     private var quickActionsSection: some View {
-        HStack(spacing: 2) {
+        FlowLayout(spacing: 6) {
             if project.isAppleProject {
                 CompactQuickActionCard(
                     glyph: .hammer,
@@ -203,18 +205,27 @@ struct ProjectDetailView: View {
                 showAnalyze = true
             }
         }
-        .padding(4)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .daCardSurface(cornerRadius: 10)
     }
     
     // MARK: - Overview
     private var statsRow: some View {
-        HStack(spacing: 10) {
-            StatMiniCard(label: "dashboard.size".localized, value: stats?.totalSize ?? "–")
-            StatMiniCard(label: "dashboard.files".localized, value: codeAnalysis.map { formatNumber($0.totalFiles) } ?? "–")
-            StatMiniCard(label: "dashboard.lines".localized, value: codeAnalysis.map { formatNumber($0.totalLines) } ?? "–")
+        HStack(spacing: 0) {
+            StatMiniCard(label: "dashboard.size".localized, systemImage: "internaldrive", value: stats?.totalSize)
+            statsDivider
+            StatMiniCard(label: "dashboard.files".localized, systemImage: "doc.on.doc", value: codeAnalysis.map { formatNumber($0.totalFiles) })
+            statsDivider
+            StatMiniCard(label: "dashboard.lines".localized, systemImage: "text.alignleft", value: codeAnalysis.map { formatNumber($0.totalLines) })
         }
+        .fixedSize(horizontal: false, vertical: true)
+        .daCardSurface()
+    }
+
+    private var statsDivider: some View {
+        Rectangle()
+            .fill(Color.daCardEdge)
+            .frame(width: 1)
+            .padding(.vertical, 12)
     }
 
     // MARK: - Tech Stack
@@ -231,7 +242,7 @@ struct ProjectDetailView: View {
                         .foregroundStyle(Color.daSecondaryText)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 4)
-                        .background(Color.daAccent.opacity(0.08), in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+                        .background(Color.primary.opacity(0.05), in: Capsule())
                 }
             }
         }
@@ -305,15 +316,11 @@ struct ProjectDetailView: View {
                     Spacer()
                 }
             } else {
-                Spacer()
-                VStack(spacing: 10) {
-                    ProgressView()
-                        .controlSize(.regular)
-                    Text("stats.analyzingProject".localized)
-                        .font(.daBody)
-                        .foregroundStyle(Color.daMutedText)
+                ScrollView {
+                    ProjectAnalyzeSkeleton()
+                        .padding(20)
                 }
-                Spacer()
+                .scrollDisabled(true)
             }
         }
         .frame(minWidth: 800, minHeight: 600)
@@ -361,7 +368,6 @@ struct ProjectDetailView: View {
             }
         }
         .frame(width: 220)
-        .background(Color.daWhite)
     }
     
     // MARK: - Script Picker Popover
@@ -425,6 +431,5 @@ struct ProjectDetailView: View {
         }
         .frame(width: 300)
         .frame(minHeight: 180, maxHeight: 400)
-        .background(Color.daWhite)
     }
 }

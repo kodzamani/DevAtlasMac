@@ -18,10 +18,11 @@ struct CompactQuickActionCard: View {
                     .foregroundStyle(Color.daSecondaryText)
                     .lineLimit(1)
             }
-            .padding(.horizontal, 10)
+            .padding(.leading, 8)
+            .padding(.trailing, 12)
             .frame(height: 32)
-            .background(isHovered ? Color.primary.opacity(0.05) : Color.clear, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
-            .contentShape(Rectangle())
+            .background(Color.primary.opacity(isHovered ? 0.09 : 0.045), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         }
         .buttonStyle(.plain)
         .onHover { isHovered = $0 }

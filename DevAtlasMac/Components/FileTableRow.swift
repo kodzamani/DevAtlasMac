@@ -43,7 +43,7 @@ struct FileTableRow: View {
                 .foregroundStyle(Color.daTertiaryText)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 2)
-                .background(Color.daLightGray)
+                .background(Color.primary.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .frame(width: 80, alignment: .center)
 
@@ -51,7 +51,7 @@ struct FileTableRow: View {
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 2)
-                            .fill(Color.daLightGray)
+                            .fill(Color.primary.opacity(0.07))
                             .frame(height: 4)
                         RoundedRectangle(cornerRadius: 2)
                             .fill(barColor.opacity(0.7))
@@ -70,7 +70,7 @@ struct FileTableRow: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(isHovered ? Color.daLightGray.opacity(0.5) : Color.clear)
+        .background(isHovered ? Color.primary.opacity(0.04) : Color.clear)
         .contentShape(Rectangle())
         .onHover { isHovered = $0 }
         .onTapGesture(count: 2) {
