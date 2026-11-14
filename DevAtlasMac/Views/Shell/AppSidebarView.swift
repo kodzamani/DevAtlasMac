@@ -18,8 +18,11 @@ struct AppSidebarView: View {
             Section("nav.workspace".localized) {
                 tabRow("tab.stats".localized, icon: .bars, tab: .stats)
                 tabRow("tab.notebook".localized, icon: .notebook, tab: .notebook)
+            }
+
+            Section("nav.tools".localized) {
+                tabRow("tab.projectCache".localized, icon: .trash, tab: .projectCache)
                 tabRow("tab.aiPrompts".localized, icon: .sparkle, tab: .aiPrompts)
-                tabRow("tab.settings".localized, icon: .sliders, tab: .settings)
             }
 
             if !viewModel.topTags.isEmpty {
@@ -35,6 +38,16 @@ struct AppSidebarView: View {
             }
         }
         .listStyle(.sidebar)
+        // Settings stays at the foot of the sidebar, apart from the places the user works in.
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            VStack(spacing: 0) {
+                Divider()
+                    .opacity(0.6)
+                tabRow("tab.settings".localized, icon: .sliders, tab: .settings)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 8)
+            }
+        }
     }
 
     private func categoryRow(_ title: String, icon: LineGlyph, category: String, count: Int) -> some View {

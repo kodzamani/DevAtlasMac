@@ -245,6 +245,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "Çalışma Alanı";
+"nav.tools" = "Araçlar";
 "nav.projects" = "Projeler";
 "nav.export" = "Dışa Aktar";
 
@@ -559,3 +560,43 @@
 "quickSearch.hint.run" = "Çalıştır";
 "quickSearch.hint.back" = "Geri";
 "quickSearch.hint.close" = "Kapat";
+
+// MARK: - Project Cache
+"tab.projectCache" = "Proje Önbelleği";
+"cache.reclaimable" = "Kazanılabilir alan";
+"cache.projects" = "Önbellekli proje";
+"cache.folders" = "Önbellek klasörü";
+"cache.largest" = "En büyük";
+"cache.scanning" = "Önbellekler ölçülüyor…";
+"cache.scanProgress" = "%lld / %lld proje";
+"cache.rescan" = "Yeniden tara";
+"cache.filter.all" = "Tümü";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "Derleme çıktısı";
+"cache.kind.packages" = "Kurulu paketler";
+"cache.kind.frameworkCache" = "Framework önbelleği";
+"cache.kind.toolCache" = "Araç önbelleği";
+"cache.kind.virtualEnv" = "Python sanal ortamı";
+"cache.select" = "Seç";
+"cache.select.all" = "Tümünü Seç";
+"cache.select.none" = "Seçimi Kaldır";
+"cache.select.stale30" = "30+ gündür dokunulmayan projeler";
+"cache.select.stale180" = "6+ aydır dokunulmayan projeler";
+"cache.sort" = "Sırala";
+"cache.sort.size" = "Boyut";
+"cache.sort.name" = "Ad";
+"cache.sort.oldest" = "En eski proje";
+"cache.folderCount" = "%lld klasör";
+"cache.noMatches" = "Bu filtreye uyan önbellek yok.";
+"cache.empty.title" = "Önbellek bulunamadı";
+"cache.empty.message" = "Projelerinde şu an temizlenecek bir şey yok.";
+"cache.cleaning" = "Temizleniyor…";
+"cache.selectionSummary" = "%lld klasör seçildi";
+"cache.clean" = "%@ temizle";
+"cache.confirm.title" = "%@ önbellek temizlensin mi?";
+"cache.confirm.message" = "%lld klasör silinecek. Projeler bir sonraki kurulum veya derlemede bunları yeniden oluşturur.";
+"cache.confirm.trash" = "Çöp Sepetine Taşı";
+"cache.confirm.delete" = "Kalıcı Olarak Sil";
+"cache.result.freed" = "%@ alan açıldı";
+"cache.result.failed" = "%lld klasör silinemedi";

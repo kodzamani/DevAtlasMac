@@ -4,6 +4,7 @@ import SwiftUI
 struct AppToolbar: ToolbarContent {
     @Bindable var viewModel: AppViewModel
     @Bindable var statsVM: StatsViewModel
+    let cacheVM: ProjectCacheViewModel
 
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .navigation) {
@@ -30,6 +31,12 @@ struct AppToolbar: ToolbarContent {
                 notebookScopeMenu
             case .stats:
                 statsControls
+            case .projectCache:
+                Button("cache.rescan".localized, systemImage: "arrow.clockwise") {
+                    cacheVM.scan(viewModel.projects)
+                }
+                .disabled(cacheVM.isScanning || cacheVM.isCleaning)
+                .help("cache.rescan".localized)
             default:
                 EmptyView()
             }

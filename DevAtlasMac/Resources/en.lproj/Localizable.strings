@@ -245,6 +245,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "Workspace";
+"nav.tools" = "Tools";
 "nav.projects" = "Projects";
 "nav.export" = "Export";
 
@@ -559,3 +560,43 @@
 "quickSearch.hint.run" = "Run";
 "quickSearch.hint.back" = "Back";
 "quickSearch.hint.close" = "Close";
+
+// MARK: - Project Cache
+"tab.projectCache" = "Project Cache";
+"cache.reclaimable" = "Reclaimable";
+"cache.projects" = "Projects with cache";
+"cache.folders" = "Cache folders";
+"cache.largest" = "Largest";
+"cache.scanning" = "Measuring caches…";
+"cache.scanProgress" = "%lld of %lld projects";
+"cache.rescan" = "Rescan";
+"cache.filter.all" = "All";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "Build output";
+"cache.kind.packages" = "Installed packages";
+"cache.kind.frameworkCache" = "Framework cache";
+"cache.kind.toolCache" = "Tool cache";
+"cache.kind.virtualEnv" = "Python virtualenv";
+"cache.select" = "Select";
+"cache.select.all" = "Select All";
+"cache.select.none" = "Deselect All";
+"cache.select.stale30" = "Projects untouched for 30+ days";
+"cache.select.stale180" = "Projects untouched for 6+ months";
+"cache.sort" = "Sort by";
+"cache.sort.size" = "Size";
+"cache.sort.name" = "Name";
+"cache.sort.oldest" = "Oldest project";
+"cache.folderCount" = "%lld folders";
+"cache.noMatches" = "No caches match this filter.";
+"cache.empty.title" = "No caches found";
+"cache.empty.message" = "Your projects have nothing to clean up right now.";
+"cache.cleaning" = "Cleaning…";
+"cache.selectionSummary" = "%lld folders selected";
+"cache.clean" = "Clean %@";
+"cache.confirm.title" = "Clean %@ of cache?";
+"cache.confirm.message" = "%lld folders will be removed. Each project rebuilds them the next time it is installed or built.";
+"cache.confirm.trash" = "Move to Trash";
+"cache.confirm.delete" = "Delete Permanently";
+"cache.result.freed" = "%@ freed";
+"cache.result.failed" = "%lld could not be removed";

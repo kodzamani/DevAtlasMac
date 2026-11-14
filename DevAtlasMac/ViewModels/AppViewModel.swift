@@ -131,6 +131,7 @@ final class AppViewModel {
         switch selectedTab {
         case .atlas: return isShowingDetail ? (selectedProject?.name ?? locationTitle) : locationTitle
         case .stats: return "tab.stats".localized
+        case .projectCache: return "tab.projectCache".localized
         case .notebook: return "tab.notebook".localized
         case .aiPrompts: return "tab.aiPrompts".localized
         case .settings: return "tab.settings".localized

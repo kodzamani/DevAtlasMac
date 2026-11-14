@@ -243,6 +243,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "워크스페이스";
+"nav.tools" = "도구";
 "nav.projects" = "프로젝트";
 "nav.export" = "내보내기";
 
@@ -554,3 +555,43 @@
 "quickSearch.hint.run" = "실행";
 "quickSearch.hint.back" = "뒤로";
 "quickSearch.hint.close" = "닫기";
+
+// MARK: - Project Cache
+"tab.projectCache" = "프로젝트 캐시";
+"cache.reclaimable" = "확보 가능";
+"cache.projects" = "캐시가 있는 프로젝트";
+"cache.folders" = "캐시 폴더";
+"cache.largest" = "최대";
+"cache.scanning" = "캐시 측정 중…";
+"cache.scanProgress" = "%lld / %lld 프로젝트";
+"cache.rescan" = "다시 스캔";
+"cache.filter.all" = "전체";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "빌드 출력";
+"cache.kind.packages" = "설치된 패키지";
+"cache.kind.frameworkCache" = "프레임워크 캐시";
+"cache.kind.toolCache" = "도구 캐시";
+"cache.kind.virtualEnv" = "Python 가상 환경";
+"cache.select" = "선택";
+"cache.select.all" = "모두 선택";
+"cache.select.none" = "선택 해제";
+"cache.select.stale30" = "30일 이상 손대지 않은 프로젝트";
+"cache.select.stale180" = "6개월 이상 손대지 않은 프로젝트";
+"cache.sort" = "정렬";
+"cache.sort.size" = "크기";
+"cache.sort.name" = "이름";
+"cache.sort.oldest" = "오래된 프로젝트";
+"cache.folderCount" = "폴더 %lld개";
+"cache.noMatches" = "이 필터와 일치하는 캐시가 없습니다.";
+"cache.empty.title" = "캐시를 찾을 수 없음";
+"cache.empty.message" = "지금은 정리할 항목이 없습니다.";
+"cache.cleaning" = "정리 중…";
+"cache.selectionSummary" = "폴더 %lld개 선택됨";
+"cache.clean" = "%@ 정리";
+"cache.confirm.title" = "캐시 %@를 정리할까요?";
+"cache.confirm.message" = "폴더 %lld개가 삭제됩니다. 다음 설치 또는 빌드 시 다시 생성됩니다.";
+"cache.confirm.trash" = "휴지통으로 이동";
+"cache.confirm.delete" = "영구 삭제";
+"cache.result.freed" = "%@ 확보됨";
+"cache.result.failed" = "%lld개를 삭제하지 못했습니다";

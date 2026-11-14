@@ -4,6 +4,7 @@ struct ContentView: View {
     @Bindable var viewModel: AppViewModel
     let notebookVM: NotebookViewModel
     let statsVM: StatsViewModel
+    let cacheVM: ProjectCacheViewModel
     @State private var onboardingVM = OnboardingViewModel()
     @State private var languageManager = LanguageManager()
     @State private var isSearchPresented = false
@@ -58,6 +59,8 @@ struct ContentView: View {
                         atlasContent
                     case .stats:
                         statsLayout
+                    case .projectCache:
+                        ProjectCacheContentView(viewModel: viewModel, cacheVM: cacheVM)
                     case .notebook:
                         notebookLayout
                     case .aiPrompts:
@@ -75,7 +78,7 @@ struct ContentView: View {
             )
             .navigationTitle(viewModel.windowTitle)
             .toolbar {
-                AppToolbar(viewModel: viewModel, statsVM: statsVM)
+                AppToolbar(viewModel: viewModel, statsVM: statsVM, cacheVM: cacheVM)
             }
         }
         .tint(Color.daAccent)
@@ -169,5 +172,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(viewModel: AppViewModel(), notebookVM: NotebookViewModel(), statsVM: StatsViewModel())
+    ContentView(viewModel: AppViewModel(), notebookVM: NotebookViewModel(), statsVM: StatsViewModel(), cacheVM: ProjectCacheViewModel())
 }

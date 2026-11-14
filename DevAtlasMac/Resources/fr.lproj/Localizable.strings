@@ -243,6 +243,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "Espace de Travail";
+"nav.tools" = "Outils";
 "nav.projects" = "Projets";
 "nav.export" = "Exporter";
 
@@ -554,3 +555,43 @@
 "quickSearch.hint.run" = "Exécuter";
 "quickSearch.hint.back" = "Retour";
 "quickSearch.hint.close" = "Fermer";
+
+// MARK: - Project Cache
+"tab.projectCache" = "Cache des projets";
+"cache.reclaimable" = "Récupérable";
+"cache.projects" = "Projets avec cache";
+"cache.folders" = "Dossiers de cache";
+"cache.largest" = "Le plus volumineux";
+"cache.scanning" = "Mesure des caches…";
+"cache.scanProgress" = "%lld projets sur %lld";
+"cache.rescan" = "Analyser à nouveau";
+"cache.filter.all" = "Tout";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "Sortie de build";
+"cache.kind.packages" = "Paquets installés";
+"cache.kind.frameworkCache" = "Cache de framework";
+"cache.kind.toolCache" = "Cache d’outils";
+"cache.kind.virtualEnv" = "Environnement virtuel Python";
+"cache.select" = "Sélectionner";
+"cache.select.all" = "Tout sélectionner";
+"cache.select.none" = "Tout désélectionner";
+"cache.select.stale30" = "Projets inactifs depuis plus de 30 jours";
+"cache.select.stale180" = "Projets inactifs depuis plus de 6 mois";
+"cache.sort" = "Trier par";
+"cache.sort.size" = "Taille";
+"cache.sort.name" = "Nom";
+"cache.sort.oldest" = "Projet le plus ancien";
+"cache.folderCount" = "%lld dossiers";
+"cache.noMatches" = "Aucun cache ne correspond à ce filtre.";
+"cache.empty.title" = "Aucun cache trouvé";
+"cache.empty.message" = "Vos projets n’ont rien à nettoyer pour le moment.";
+"cache.cleaning" = "Nettoyage…";
+"cache.selectionSummary" = "%lld dossiers sélectionnés";
+"cache.clean" = "Nettoyer %@";
+"cache.confirm.title" = "Nettoyer %@ de cache ?";
+"cache.confirm.message" = "%lld dossiers seront supprimés. Chaque projet les recrée à la prochaine installation ou compilation.";
+"cache.confirm.trash" = "Placer dans la corbeille";
+"cache.confirm.delete" = "Supprimer définitivement";
+"cache.result.freed" = "%@ libérés";
+"cache.result.failed" = "%lld n’ont pas pu être supprimés";

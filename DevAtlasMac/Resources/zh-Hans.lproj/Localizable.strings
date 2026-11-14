@@ -243,6 +243,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "工作区";
+"nav.tools" = "工具";
 "nav.projects" = "项目";
 "nav.export" = "导出";
 
@@ -556,3 +557,43 @@
 "quickSearch.hint.run" = "运行";
 "quickSearch.hint.back" = "返回";
 "quickSearch.hint.close" = "关闭";
+
+// MARK: - Project Cache
+"tab.projectCache" = "项目缓存";
+"cache.reclaimable" = "可释放";
+"cache.projects" = "有缓存的项目";
+"cache.folders" = "缓存文件夹";
+"cache.largest" = "最大";
+"cache.scanning" = "正在统计缓存…";
+"cache.scanProgress" = "%lld / %lld 个项目";
+"cache.rescan" = "重新扫描";
+"cache.filter.all" = "全部";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "构建产物";
+"cache.kind.packages" = "已安装的依赖包";
+"cache.kind.frameworkCache" = "框架缓存";
+"cache.kind.toolCache" = "工具缓存";
+"cache.kind.virtualEnv" = "Python 虚拟环境";
+"cache.select" = "选择";
+"cache.select.all" = "全选";
+"cache.select.none" = "取消全选";
+"cache.select.stale30" = "30 天以上未改动的项目";
+"cache.select.stale180" = "6 个月以上未改动的项目";
+"cache.sort" = "排序方式";
+"cache.sort.size" = "大小";
+"cache.sort.name" = "名称";
+"cache.sort.oldest" = "最早的项目";
+"cache.folderCount" = "%lld 个文件夹";
+"cache.noMatches" = "没有符合此筛选条件的缓存。";
+"cache.empty.title" = "未找到缓存";
+"cache.empty.message" = "你的项目目前没有需要清理的内容。";
+"cache.cleaning" = "正在清理…";
+"cache.selectionSummary" = "已选择 %lld 个文件夹";
+"cache.clean" = "清理 %@";
+"cache.confirm.title" = "要清理 %@ 的缓存吗？";
+"cache.confirm.message" = "将移除 %lld 个文件夹。项目会在下次安装或构建时重新生成它们。";
+"cache.confirm.trash" = "移到废纸篓";
+"cache.confirm.delete" = "永久删除";
+"cache.result.freed" = "已释放 %@";
+"cache.result.failed" = "%lld 个无法移除";

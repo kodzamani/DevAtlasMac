@@ -243,6 +243,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "Arbeitsbereich";
+"nav.tools" = "Werkzeuge";
 "nav.projects" = "Projekte";
 "nav.export" = "Exportieren";
 
@@ -554,3 +555,43 @@
 "quickSearch.hint.run" = "Ausführen";
 "quickSearch.hint.back" = "Zurück";
 "quickSearch.hint.close" = "Schließen";
+
+// MARK: - Project Cache
+"tab.projectCache" = "Projekt-Cache";
+"cache.reclaimable" = "Freigebbar";
+"cache.projects" = "Projekte mit Cache";
+"cache.folders" = "Cache-Ordner";
+"cache.largest" = "Größtes";
+"cache.scanning" = "Caches werden gemessen …";
+"cache.scanProgress" = "%lld von %lld Projekten";
+"cache.rescan" = "Erneut scannen";
+"cache.filter.all" = "Alle";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "Build-Ausgabe";
+"cache.kind.packages" = "Installierte Pakete";
+"cache.kind.frameworkCache" = "Framework-Cache";
+"cache.kind.toolCache" = "Tool-Cache";
+"cache.kind.virtualEnv" = "Python-Virtualenv";
+"cache.select" = "Auswählen";
+"cache.select.all" = "Alle auswählen";
+"cache.select.none" = "Auswahl aufheben";
+"cache.select.stale30" = "Seit über 30 Tagen unberührte Projekte";
+"cache.select.stale180" = "Seit über 6 Monaten unberührte Projekte";
+"cache.sort" = "Sortieren nach";
+"cache.sort.size" = "Größe";
+"cache.sort.name" = "Name";
+"cache.sort.oldest" = "Ältestes Projekt";
+"cache.folderCount" = "%lld Ordner";
+"cache.noMatches" = "Keine Caches für diesen Filter.";
+"cache.empty.title" = "Keine Caches gefunden";
+"cache.empty.message" = "In deinen Projekten gibt es derzeit nichts zu bereinigen.";
+"cache.cleaning" = "Wird bereinigt …";
+"cache.selectionSummary" = "%lld Ordner ausgewählt";
+"cache.clean" = "%@ bereinigen";
+"cache.confirm.title" = "%@ Cache bereinigen?";
+"cache.confirm.message" = "%lld Ordner werden entfernt. Jedes Projekt erstellt sie bei der nächsten Installation oder beim nächsten Build neu.";
+"cache.confirm.trash" = "In den Papierkorb legen";
+"cache.confirm.delete" = "Endgültig löschen";
+"cache.result.freed" = "%@ freigegeben";
+"cache.result.failed" = "%lld konnten nicht entfernt werden";

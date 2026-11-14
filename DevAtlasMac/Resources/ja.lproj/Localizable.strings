@@ -243,6 +243,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "ワークスペース";
+"nav.tools" = "ツール";
 "nav.projects" = "プロジェクト";
 "nav.export" = "エクスポート";
 
@@ -554,3 +555,43 @@
 "quickSearch.hint.run" = "実行";
 "quickSearch.hint.back" = "戻る";
 "quickSearch.hint.close" = "閉じる";
+
+// MARK: - Project Cache
+"tab.projectCache" = "プロジェクトキャッシュ";
+"cache.reclaimable" = "解放可能";
+"cache.projects" = "キャッシュのあるプロジェクト";
+"cache.folders" = "キャッシュフォルダ";
+"cache.largest" = "最大";
+"cache.scanning" = "キャッシュを計測中…";
+"cache.scanProgress" = "%lld / %lld プロジェクト";
+"cache.rescan" = "再スキャン";
+"cache.filter.all" = "すべて";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "ビルド出力";
+"cache.kind.packages" = "インストール済みパッケージ";
+"cache.kind.frameworkCache" = "フレームワークキャッシュ";
+"cache.kind.toolCache" = "ツールキャッシュ";
+"cache.kind.virtualEnv" = "Python 仮想環境";
+"cache.select" = "選択";
+"cache.select.all" = "すべて選択";
+"cache.select.none" = "選択を解除";
+"cache.select.stale30" = "30日以上更新のないプロジェクト";
+"cache.select.stale180" = "6か月以上更新のないプロジェクト";
+"cache.sort" = "並べ替え";
+"cache.sort.size" = "サイズ";
+"cache.sort.name" = "名前";
+"cache.sort.oldest" = "古いプロジェクト順";
+"cache.folderCount" = "%lld 個のフォルダ";
+"cache.noMatches" = "このフィルタに一致するキャッシュはありません。";
+"cache.empty.title" = "キャッシュが見つかりません";
+"cache.empty.message" = "現在、クリーンアップするものはありません。";
+"cache.cleaning" = "クリーンアップ中…";
+"cache.selectionSummary" = "%lld 個のフォルダを選択中";
+"cache.clean" = "%@ をクリーンアップ";
+"cache.confirm.title" = "%@ のキャッシュをクリーンアップしますか？";
+"cache.confirm.message" = "%lld 個のフォルダが削除されます。次回のインストールまたはビルド時に再作成されます。";
+"cache.confirm.trash" = "ゴミ箱に入れる";
+"cache.confirm.delete" = "完全に削除";
+"cache.result.freed" = "%@ を解放しました";
+"cache.result.failed" = "%lld 個を削除できませんでした";

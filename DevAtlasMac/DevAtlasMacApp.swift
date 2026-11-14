@@ -8,6 +8,7 @@ struct DevAtlasMacApp: App {
     @State private var viewModel: AppViewModel
     @State private var notebookVM = NotebookViewModel()
     @State private var statsVM = StatsViewModel()
+    @State private var cacheVM = ProjectCacheViewModel()
 
     init() {
         let viewModel = AppViewModel()
@@ -19,7 +20,7 @@ struct DevAtlasMacApp: App {
 
     var body: some Scene {
         Window("DevAtlas", id: MenuBarContent.mainWindowID) {
-            ContentView(viewModel: viewModel, notebookVM: notebookVM, statsVM: statsVM)
+            ContentView(viewModel: viewModel, notebookVM: notebookVM, statsVM: statsVM, cacheVM: cacheVM)
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified)

@@ -243,6 +243,7 @@
 /* Navigation */
 "nav.devAtlas" = "DevAtlas";
 "nav.workspace" = "Workspace";
+"nav.tools" = "Strumenti";
 "nav.projects" = "Progetti";
 "nav.export" = "Esporta";
 
@@ -554,3 +555,43 @@
 "quickSearch.hint.run" = "Esegui";
 "quickSearch.hint.back" = "Indietro";
 "quickSearch.hint.close" = "Chiudi";
+
+// MARK: - Project Cache
+"tab.projectCache" = "Cache dei progetti";
+"cache.reclaimable" = "Recuperabile";
+"cache.projects" = "Progetti con cache";
+"cache.folders" = "Cartelle di cache";
+"cache.largest" = "Più grande";
+"cache.scanning" = "Misurazione delle cache…";
+"cache.scanProgress" = "%lld di %lld progetti";
+"cache.rescan" = "Nuova scansione";
+"cache.filter.all" = "Tutto";
+"cache.kind.nodeModules" = "node_modules";
+"cache.kind.derivedData" = "Xcode DerivedData";
+"cache.kind.buildOutput" = "Output di build";
+"cache.kind.packages" = "Pacchetti installati";
+"cache.kind.frameworkCache" = "Cache del framework";
+"cache.kind.toolCache" = "Cache degli strumenti";
+"cache.kind.virtualEnv" = "Ambiente virtuale Python";
+"cache.select" = "Seleziona";
+"cache.select.all" = "Seleziona tutto";
+"cache.select.none" = "Deseleziona tutto";
+"cache.select.stale30" = "Progetti non toccati da oltre 30 giorni";
+"cache.select.stale180" = "Progetti non toccati da oltre 6 mesi";
+"cache.sort" = "Ordina per";
+"cache.sort.size" = "Dimensione";
+"cache.sort.name" = "Nome";
+"cache.sort.oldest" = "Progetto più vecchio";
+"cache.folderCount" = "%lld cartelle";
+"cache.noMatches" = "Nessuna cache corrisponde a questo filtro.";
+"cache.empty.title" = "Nessuna cache trovata";
+"cache.empty.message" = "Al momento i tuoi progetti non hanno nulla da pulire.";
+"cache.cleaning" = "Pulizia in corso…";
+"cache.selectionSummary" = "%lld cartelle selezionate";
+"cache.clean" = "Pulisci %@";
+"cache.confirm.title" = "Pulire %@ di cache?";
+"cache.confirm.message" = "%lld cartelle verranno rimosse. Ogni progetto le ricrea alla prossima installazione o build.";
+"cache.confirm.trash" = "Sposta nel Cestino";
+"cache.confirm.delete" = "Elimina definitivamente";
+"cache.result.freed" = "%@ liberati";
+"cache.result.failed" = "%lld non sono state rimosse";
