@@ -152,7 +152,7 @@ private struct ChatNoticeRow: View {
         .padding(.vertical, 9)
         .background(
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(tint.opacity(0.09))
+                .fill(Color.primary.opacity(0.05))
         )
         .accessibilityElement(children: .combine)
     }

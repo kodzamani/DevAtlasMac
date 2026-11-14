@@ -58,6 +58,8 @@ extension Color {
     static var daCardEdge: Color { adaptive(dark: Color.white.opacity(0.07), light: Color.black.opacity(0.06)) }
     static var daOffWhite: Color { adaptive(dark: Color(hex: "1A1A1C"), light: Color(hex: "F5F5F7")) }
     static var daLightGray: Color { adaptive(dark: Color(hex: "2E2E30"), light: Color(hex: "F0F0F3")) }
+    /// Opaque, slightly toned surface for the chat composer and popovers.
+    static var daChatSurface: Color { adaptive(dark: Color(hex: "1E1E20"), light: Color(hex: "ECECF0")) }
     static var daBorder: Color { adaptive(dark: Color(hex: "38383A"), light: Color(hex: "E3E3E6")) }
     /// Docker's brand blue, lifted for dark surfaces.
     static var daDocker: Color { adaptive(dark: Color(hex: "4C8DFF"), light: Color(hex: "1D63ED")) }

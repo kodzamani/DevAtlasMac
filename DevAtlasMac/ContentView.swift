@@ -164,10 +164,17 @@ struct ContentView: View {
     }
 
     // MARK: - Notebook Layout
+    @ViewBuilder
     private var notebookLayout: some View {
-        Group {
+        let layout = Group {
             NotebookSidebarView(viewModel: viewModel, notebookVM: notebookVM)
             NotebookContentView(notebookVM: notebookVM, viewModel: viewModel)
+        }
+        // The scroll views under the toolbar would otherwise wash it out with a light edge blur.
+        if #available(macOS 26.0, *) {
+            layout.scrollEdgeEffectHidden(true, for: .top)
+        } else {
+            layout
         }
     }
     

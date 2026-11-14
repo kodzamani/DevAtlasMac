@@ -7,6 +7,7 @@ import Carbon.HIToolbox
 struct ChatComposerView: View {
     @Bindable var chatVM: ChatViewModel
 
+    @Environment(\.colorScheme) private var colorScheme
     @FocusState private var isFocused: Bool
     @State private var keyMonitor = ChatComposerKeyMonitor()
 
@@ -84,10 +85,16 @@ struct ChatComposerView: View {
         .onTapGesture { isFocused = true }
         .chatGlass(cornerRadius: ChatMetrics.composerCorner)
         .overlay(
-            shape.strokeBorder(Color.daAccent.opacity(isFocused ? 0.45 : 0), lineWidth: 1)
+            shape.strokeBorder(Color.daAccent.opacity(borderOpacity), lineWidth: 0.75)
                 .allowsHitTesting(false)
         )
         .animation(.easeOut(duration: 0.12), value: isFocused)
+    }
+
+    /// Soft accent-tinted edge, tuned separately for dark and light appearances.
+    private var borderOpacity: Double {
+        let base = colorScheme == .dark ? 0.22 : 0.30
+        return isFocused ? base : 0
     }
 
     private var sendButton: some View {

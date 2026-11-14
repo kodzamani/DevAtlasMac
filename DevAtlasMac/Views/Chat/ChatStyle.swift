@@ -104,20 +104,16 @@ struct ChatChipButtonStyle: ButtonStyle {
     }
 }
 
-/// Liquid Glass on macOS 26, a blurred panel with a hairline elsewhere.
+/// Solid toned panel with a hairline, so it stays rich in both dark and light.
 struct ChatGlassBackground: ViewModifier {
     let cornerRadius: CGFloat
 
     func body(content: Content) -> some View {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-        if #available(macOS 26.0, *) {
-            content.glassEffect(.regular, in: shape)
-        } else {
-            content
-                .background(.regularMaterial, in: shape)
-                .overlay(shape.strokeBorder(Color.daCardEdge, lineWidth: 0.75))
-                .shadow(color: .black.opacity(0.12), radius: 18, y: 6)
-        }
+        content
+            .background(Color.daChatSurface, in: shape)
+            .overlay(shape.strokeBorder(Color.daCardEdge, lineWidth: 0.75))
+            .shadow(color: .black.opacity(0.10), radius: 14, y: 4)
     }
 }
 

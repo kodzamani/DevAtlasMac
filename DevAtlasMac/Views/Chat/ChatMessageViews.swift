@@ -51,7 +51,7 @@ struct ChatMessageRow: View {
             Spacer(minLength: 80)
             Text(verbatim: userText)
                 .font(.system(size: 13.5))
-                .foregroundStyle(Color.daPrimaryText)
+                .foregroundStyle(Color.white)
                 .lineSpacing(2)
                 .textSelection(.enabled)
                 .fixedSize(horizontal: false, vertical: true)
@@ -59,7 +59,7 @@ struct ChatMessageRow: View {
                 .padding(.vertical, 9)
                 .background(
                     RoundedRectangle(cornerRadius: ChatMetrics.bubbleCorner, style: .continuous)
-                        .fill(Color.daAccent.opacity(0.14))
+                        .fill(Color.daAccent)
                 )
                 .frame(maxWidth: 520, alignment: .trailing)
         }
