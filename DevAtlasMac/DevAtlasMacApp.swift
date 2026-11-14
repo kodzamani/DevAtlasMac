@@ -9,10 +9,12 @@ struct DevAtlasMacApp: App {
     @State private var notebookVM = NotebookViewModel()
     @State private var statsVM = StatsViewModel()
     @State private var cacheVM = ProjectCacheViewModel()
+    @State private var chatVM: ChatViewModel
 
     init() {
         let viewModel = AppViewModel()
         _viewModel = State(initialValue: viewModel)
+        _chatVM = State(initialValue: ChatViewModel(appViewModel: viewModel))
         QuickSearchController.shared.configure(viewModel: viewModel)
         // The menu bar needs the projects even if no window opens at launch.
         Task { await viewModel.loadInitialData() }
@@ -20,7 +22,7 @@ struct DevAtlasMacApp: App {
 
     var body: some Scene {
         Window("DevAtlas", id: MenuBarContent.mainWindowID) {
-            ContentView(viewModel: viewModel, notebookVM: notebookVM, statsVM: statsVM, cacheVM: cacheVM)
+            ContentView(viewModel: viewModel, notebookVM: notebookVM, statsVM: statsVM, cacheVM: cacheVM, chatVM: chatVM)
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified)

@@ -5,6 +5,7 @@ struct ContentView: View {
     let notebookVM: NotebookViewModel
     let statsVM: StatsViewModel
     let cacheVM: ProjectCacheViewModel
+    let chatVM: ChatViewModel
     @State private var onboardingVM = OnboardingViewModel()
     @State private var languageManager = LanguageManager()
     @State private var isSearchPresented = false
@@ -57,6 +58,8 @@ struct ContentView: View {
                     switch viewModel.selectedTab {
                     case .atlas:
                         atlasContent
+                    case .chat:
+                        ChatContentView(viewModel: viewModel, chatVM: chatVM)
                     case .stats:
                         statsLayout
                     case .projectCache:
@@ -70,15 +73,15 @@ struct ContentView: View {
                     }
                 }
             }
-            .searchable(
+            .modifier(ToolbarSearchModifier(
+                isEnabled: viewModel.selectedTab != .chat,
                 text: $viewModel.searchText,
                 isPresented: $isSearchPresented,
-                placement: .toolbar,
                 prompt: viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized
-            )
-            .navigationTitle(viewModel.windowTitle)
+            ))
+            .navigationTitle(viewModel.selectedTab == .chat ? "" : viewModel.windowTitle)
             .toolbar {
-                AppToolbar(viewModel: viewModel, statsVM: statsVM, cacheVM: cacheVM)
+                AppToolbar(viewModel: viewModel, statsVM: statsVM, cacheVM: cacheVM, chatVM: chatVM)
             }
         }
         .tint(Color.daAccent)
@@ -172,5 +175,24 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(viewModel: AppViewModel(), notebookVM: NotebookViewModel(), statsVM: StatsViewModel(), cacheVM: ProjectCacheViewModel())
+    let appVM = AppViewModel()
+    return ContentView(viewModel: appVM, notebookVM: NotebookViewModel(), statsVM: StatsViewModel(), cacheVM: ProjectCacheViewModel(), chatVM: ChatViewModel(appViewModel: appVM))
+}
+
+
+/// Adds the toolbar search field, except on screens that have nothing to search (Chat).
+private struct ToolbarSearchModifier: ViewModifier {
+    let isEnabled: Bool
+    @Binding var text: String
+    @Binding var isPresented: Bool
+    let prompt: String
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if isEnabled {
+            content.searchable(text: $text, isPresented: $isPresented, placement: .toolbar, prompt: prompt)
+        } else {
+            content
+        }
+    }
 }

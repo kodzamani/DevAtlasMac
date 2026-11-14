@@ -130,6 +130,7 @@ final class AppViewModel {
     var windowTitle: String {
         switch selectedTab {
         case .atlas: return isShowingDetail ? (selectedProject?.name ?? locationTitle) : locationTitle
+        case .chat: return "tab.chat".localized
         case .stats: return "tab.stats".localized
         case .projectCache: return "tab.projectCache".localized
         case .notebook: return "tab.notebook".localized

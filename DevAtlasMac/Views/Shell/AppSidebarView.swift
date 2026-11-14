@@ -16,6 +16,7 @@ struct AppSidebarView: View {
             }
 
             Section("nav.workspace".localized) {
+                tabRow("tab.chat".localized, icon: .chat, tab: .chat)
                 tabRow("tab.stats".localized, icon: .bars, tab: .stats)
                 tabRow("tab.notebook".localized, icon: .notebook, tab: .notebook)
             }

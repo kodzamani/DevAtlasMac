@@ -21,6 +21,7 @@ enum LineGlyph {
     case play
     case branch
     case trash
+    case chat
 
     fileprivate var path: Path {
         var p = Path()
@@ -194,6 +195,25 @@ enum LineGlyph {
             p.addLine(to: CGPoint(x: 7.8, y: 12.5))
             p.move(to: CGPoint(x: 10.4, y: 8))
             p.addLine(to: CGPoint(x: 10.2, y: 12.5))
+
+        case .chat:
+            p.move(to: CGPoint(x: 5, y: 3))
+            p.addLine(to: CGPoint(x: 13, y: 3))
+            p.addQuadCurve(to: CGPoint(x: 15.5, y: 5.5), control: CGPoint(x: 15.5, y: 3))
+            p.addLine(to: CGPoint(x: 15.5, y: 10))
+            p.addQuadCurve(to: CGPoint(x: 13, y: 12.5), control: CGPoint(x: 15.5, y: 12.5))
+            p.addLine(to: CGPoint(x: 8.5, y: 12.5))
+            p.addLine(to: CGPoint(x: 5.5, y: 15.5))
+            p.addLine(to: CGPoint(x: 5.5, y: 12.5))
+            p.addLine(to: CGPoint(x: 5, y: 12.5))
+            p.addQuadCurve(to: CGPoint(x: 2.5, y: 10), control: CGPoint(x: 2.5, y: 12.5))
+            p.addLine(to: CGPoint(x: 2.5, y: 5.5))
+            p.addQuadCurve(to: CGPoint(x: 5, y: 3), control: CGPoint(x: 2.5, y: 3))
+            p.closeSubpath()
+            p.move(to: CGPoint(x: 6, y: 6.5))
+            p.addLine(to: CGPoint(x: 12, y: 6.5))
+            p.move(to: CGPoint(x: 6, y: 9.2))
+            p.addLine(to: CGPoint(x: 10, y: 9.2))
         }
 
         return p

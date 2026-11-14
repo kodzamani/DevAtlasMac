@@ -5,7 +5,9 @@ struct AppToolbar: ToolbarContent {
     @Bindable var viewModel: AppViewModel
     @Bindable var statsVM: StatsViewModel
     let cacheVM: ProjectCacheViewModel
+    let chatVM: ChatViewModel
 
+    @ToolbarContentBuilder
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .navigation) {
             Button("finder.back".localized, systemImage: "chevron.left") {
@@ -23,6 +25,10 @@ struct AppToolbar: ToolbarContent {
             .help("finder.forward".localized)
         }
 
+        if #available(macOS 26.0, *) {
+            chatTitleItem
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             switch viewModel.selectedTab {
             case .atlas where !viewModel.isShowingDetail:
@@ -37,14 +43,33 @@ struct AppToolbar: ToolbarContent {
                 }
                 .disabled(cacheVM.isScanning || cacheVM.isCleaning)
                 .help("cache.rescan".localized)
+            case .chat:
+                ChatToolbarActions(chatVM: chatVM)
             default:
                 EmptyView()
             }
 
-            Button("sidebar.darkMode".localized, systemImage: viewModel.isDarkMode ? "sun.max" : "moon") {
-                viewModel.isDarkMode.toggle()
+            if viewModel.selectedTab != .chat {
+                Button("sidebar.darkMode".localized, systemImage: viewModel.isDarkMode ? "sun.max" : "moon") {
+                    viewModel.isDarkMode.toggle()
+                }
+                .help("sidebar.darkMode".localized)
             }
-            .help("sidebar.darkMode".localized)
+        }
+    }
+
+    // MARK: - Chat
+
+    /// The conversation title sits apart from the back/forward capsule, without a shared glass background.
+    @available(macOS 26.0, *)
+    @ToolbarContentBuilder
+    private var chatTitleItem: some ToolbarContent {
+        if viewModel.selectedTab == .chat {
+            ToolbarSpacer(.fixed, placement: .navigation)
+            ToolbarItem(placement: .navigation) {
+                ChatToolbarTitle(chatVM: chatVM)
+            }
+            .sharedBackgroundVisibility(.hidden)
         }
     }
 
