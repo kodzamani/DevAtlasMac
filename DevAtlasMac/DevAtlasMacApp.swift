@@ -34,7 +34,9 @@ struct DevAtlasMacApp: App {
             MenuBarLabel()
                 .task {
                     while !Task.isCancelled {
-                        await viewModel.portManager.refresh()
+                        async let ports: Void = viewModel.portManager.refresh()
+                        async let docker: Void = viewModel.dockerManager.refresh(projects: viewModel.projects)
+                        _ = await (ports, docker)
                         do { try await Task.sleep(for: .seconds(10)) }
                         catch { return }
                     }

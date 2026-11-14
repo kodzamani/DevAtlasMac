@@ -72,6 +72,29 @@ struct MenuBarContent: View {
 
         Divider()
 
+        Menu("tab.docker".localized) {
+            Button("docker.showAll".localized) {
+                viewModel.selectedTab = .docker
+                showMainWindow()
+            }
+            Button("docker.refresh".localized) {
+                Task { await viewModel.dockerManager.refresh(projects: viewModel.projects) }
+            }.disabled(viewModel.dockerManager.isRefreshing)
+            if let error = viewModel.dockerManager.errorMessage ?? viewModel.dockerManager.scanMessage { Text(error) }
+            ForEach(viewModel.dockerManager.containers) { container in
+                Menu("\(container.isRunning ? "●" : "○") \(container.name)") {
+                    Text(container.image)
+                    Text(container.stateTitle)
+                    Button((container.isRunning ? "docker.action.stop" : "docker.action.start").localized) {
+                        Task {
+                            await viewModel.dockerManager.perform(container.isRunning ? .stop : .start, on: container, projects: viewModel.projects)
+                        }
+                    }.disabled(viewModel.dockerManager.busyIDs.contains(container.id) || !["running", "exited", "created"].contains(container.state))
+                }
+            }
+        }
+        Divider()
+
         Button("menuBar.quit".localized) { NSApp.terminate(nil) }
     }
 

@@ -22,6 +22,10 @@ struct AppSidebarView: View {
             }
 
             Section("nav.tools".localized) {
+                row("tab.docker".localized, destination: .tab(.docker)) {
+                    DockerIcon(.whale, size: 18)
+                        .foregroundStyle(viewModel.selectedTab == .docker ? Color.daAccent : Color.daTertiaryText)
+                }
                 row("tab.ports".localized, destination: .tab(.ports)) {
                     PortIcon(.network)
                         .foregroundStyle(viewModel.selectedTab == .ports ? Color.daAccent : Color.daTertiaryText)

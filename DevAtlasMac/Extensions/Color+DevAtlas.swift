@@ -98,6 +98,8 @@ extension Color {
     static var daBorder: Color { adaptive(dark: Color(hex: "38383A"), light: Color(hex: "E3E3E6")) }
     static var daLightBlue: Color { adaptive(dark: Color(hex: "1E293B"), light: Color(hex: "EFF6FF")) }
     static var daLightGreen: Color { adaptive(dark: Color(hex: "14532D"), light: Color(hex: "DCFCE7")) }
+    /// Docker's brand blue, lifted for dark surfaces.
+    static var daDocker: Color { adaptive(dark: Color(hex: "4C8DFF"), light: Color(hex: "1D63ED")) }
     static var daSeparator: Color { adaptive(dark: Color(hex: "48484A"), light: Color(hex: "D1D1D6")) }
     static var backgroundSecondary: Color { adaptive(dark: Color(hex: "232325"), light: Color(hex: "F2F2F5")) }
 

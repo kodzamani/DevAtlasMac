@@ -29,6 +29,17 @@ struct AppToolbar: ToolbarContent {
             chatTitleItem
         }
 
+        if viewModel.selectedTab == .docker {
+            ToolbarItem(placement: .principal) {
+                Picker("docker.mode".localized, selection: Bindable(viewModel.dockerManager).mode) {
+                    ForEach(DockerViewModel.Mode.allCases) { Text($0.title).tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .fixedSize()
+            }
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             switch viewModel.selectedTab {
             case .atlas where !viewModel.isShowingDetail:
@@ -46,6 +57,12 @@ struct AppToolbar: ToolbarContent {
                 .accessibilityLabel("ports.refresh".localized)
                 .disabled(viewModel.portManager.isScanning)
                 .help("ports.refresh".localized)
+            case .docker:
+                Button("docker.refresh".localized, systemImage: "arrow.clockwise") {
+                    Task { await viewModel.dockerManager.refresh(projects: viewModel.projects) }
+                }
+                .disabled(viewModel.dockerManager.isRefreshing)
+                .help("docker.refresh".localized)
             case .projectCache:
                 Button("cache.rescan".localized, systemImage: "arrow.clockwise") {
                     cacheVM.scan(viewModel.projects)

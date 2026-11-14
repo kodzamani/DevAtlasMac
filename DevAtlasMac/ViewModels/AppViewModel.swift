@@ -67,6 +67,7 @@ final class AppViewModel {
     private let index = ProjectIndex()
     let runner = ProjectRunner()
     let portManager = PortProcessViewModel()
+    let dockerManager = DockerViewModel()
 
     /// Every port surface is scoped to indexed projects; unmatched system listeners stay hidden.
     @MainActor var projectPortListeners: [PortListener] {
@@ -144,6 +145,7 @@ final class AppViewModel {
         case .chat: return "tab.chat".localized
         case .stats: return "tab.stats".localized
         case .ports: return "tab.ports".localized
+        case .docker: return "tab.docker".localized
         case .projectCache: return "tab.projectCache".localized
         case .notebook: return "tab.notebook".localized
         case .aiPrompts: return "tab.aiPrompts".localized

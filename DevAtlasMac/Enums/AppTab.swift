@@ -5,6 +5,7 @@ enum AppTab: String, CaseIterable {
     case chat
     case stats
     case ports
+    case docker
     case projectCache
     case notebook
     case aiPrompts

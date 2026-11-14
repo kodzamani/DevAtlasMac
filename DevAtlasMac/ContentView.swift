@@ -64,6 +64,8 @@ struct ContentView: View {
                         statsLayout
                     case .ports:
                         PortProcessContentView(viewModel: viewModel)
+                    case .docker:
+                        DockerContentView(viewModel: viewModel)
                     case .projectCache:
                         ProjectCacheContentView(viewModel: viewModel, cacheVM: cacheVM)
                     case .notebook:
@@ -79,7 +81,7 @@ struct ContentView: View {
                 isEnabled: viewModel.selectedTab != .chat,
                 text: $viewModel.searchText,
                 isPresented: $isSearchPresented,
-                prompt: viewModel.selectedTab == .ports ? "ports.search".localized : (viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized)
+                prompt: viewModel.selectedTab == .docker ? "docker.search".localized : viewModel.selectedTab == .ports ? "ports.search".localized : (viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized)
             ))
             .navigationTitle(viewModel.selectedTab == .chat ? "" : viewModel.windowTitle)
             .toolbar {
