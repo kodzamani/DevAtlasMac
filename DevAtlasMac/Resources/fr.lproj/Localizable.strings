@@ -535,3 +535,22 @@
 // MARK: - Menu Bar
 "menuBar.open" = "Ouvrir DevAtlas";
 "menuBar.quit" = "Quitter DevAtlas";
+
+// MARK: - Quick Search
+"menuBar.quickSearch" = "Recherche rapide";
+"quickSearch.placeholder" = "Rechercher des projets…";
+"quickSearch.actionsPlaceholder" = "Choisir une action…";
+"quickSearch.recent" = "Projets récents";
+"quickSearch.results" = "Projets · %d";
+"quickSearch.actions" = "Actions";
+"quickSearch.noResults" = "Aucun projet correspondant";
+"quickSearch.noProjectsYet" = "Aucun projet analysé pour l'instant";
+"quickSearch.noActions" = "Aucune action correspondante";
+"quickSearch.openInDevAtlas" = "Ouvrir dans DevAtlas";
+"quickSearch.openIn" = "Ouvrir dans %@";
+"quickSearch.hint.navigate" = "Naviguer";
+"quickSearch.hint.actions" = "Actions";
+"quickSearch.hint.open" = "Ouvrir";
+"quickSearch.hint.run" = "Exécuter";
+"quickSearch.hint.back" = "Retour";
+"quickSearch.hint.close" = "Fermer";

@@ -537,3 +537,22 @@
 // MARK: - Menu Bar
 "menuBar.open" = "打开 DevAtlas";
 "menuBar.quit" = "退出 DevAtlas";
+
+// MARK: - Quick Search
+"menuBar.quickSearch" = "快速搜索";
+"quickSearch.placeholder" = "搜索项目…";
+"quickSearch.actionsPlaceholder" = "选择操作…";
+"quickSearch.recent" = "最近的项目";
+"quickSearch.results" = "项目 · %d";
+"quickSearch.actions" = "操作";
+"quickSearch.noResults" = "没有匹配的项目";
+"quickSearch.noProjectsYet" = "尚未扫描任何项目";
+"quickSearch.noActions" = "没有匹配的操作";
+"quickSearch.openInDevAtlas" = "在 DevAtlas 中打开";
+"quickSearch.openIn" = "在 %@ 中打开";
+"quickSearch.hint.navigate" = "导航";
+"quickSearch.hint.actions" = "操作";
+"quickSearch.hint.open" = "打开";
+"quickSearch.hint.run" = "运行";
+"quickSearch.hint.back" = "返回";
+"quickSearch.hint.close" = "关闭";

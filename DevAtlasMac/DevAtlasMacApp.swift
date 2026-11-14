@@ -12,6 +12,7 @@ struct DevAtlasMacApp: App {
     init() {
         let viewModel = AppViewModel()
         _viewModel = State(initialValue: viewModel)
+        QuickSearchController.shared.configure(viewModel: viewModel)
         // The menu bar needs the projects even if no window opens at launch.
         Task { await viewModel.loadInitialData() }
     }
@@ -27,8 +28,23 @@ struct DevAtlasMacApp: App {
         MenuBarExtra {
             MenuBarContent(viewModel: viewModel)
         } label: {
-            Image("menubar_logo")
+            MenuBarLabel()
         }
         .menuBarExtraStyle(.menu)
+    }
+}
+
+/// The menu bar icon. Always on screen, so it hands the quick search panel a way to open the
+/// main window even while that window is closed.
+private struct MenuBarLabel: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Image("menubar_logo")
+            .onAppear {
+                QuickSearchController.shared.openMainWindow = {
+                    openWindow(id: MenuBarContent.mainWindowID)
+                }
+            }
     }
 }

@@ -535,3 +535,22 @@
 // MARK: - Menu Bar
 "menuBar.open" = "DevAtlasを開く";
 "menuBar.quit" = "DevAtlasを終了";
+
+// MARK: - Quick Search
+"menuBar.quickSearch" = "クイック検索";
+"quickSearch.placeholder" = "プロジェクトを検索…";
+"quickSearch.actionsPlaceholder" = "アクションを選択…";
+"quickSearch.recent" = "最近のプロジェクト";
+"quickSearch.results" = "プロジェクト · %d";
+"quickSearch.actions" = "アクション";
+"quickSearch.noResults" = "一致するプロジェクトがありません";
+"quickSearch.noProjectsYet" = "まだスキャンされたプロジェクトがありません";
+"quickSearch.noActions" = "一致するアクションがありません";
+"quickSearch.openInDevAtlas" = "DevAtlasで開く";
+"quickSearch.openIn" = "%@で開く";
+"quickSearch.hint.navigate" = "移動";
+"quickSearch.hint.actions" = "アクション";
+"quickSearch.hint.open" = "開く";
+"quickSearch.hint.run" = "実行";
+"quickSearch.hint.back" = "戻る";
+"quickSearch.hint.close" = "閉じる";
