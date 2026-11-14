@@ -66,6 +66,17 @@ final class AppViewModel {
     private let scanner = ProjectScanner()
     private let index = ProjectIndex()
     let runner = ProjectRunner()
+    let portManager = PortProcessViewModel()
+
+    /// Every port surface is scoped to indexed projects; unmatched system listeners stay hidden.
+    @MainActor var projectPortListeners: [PortListener] {
+        portManager.listeners.filter { project(for: $0) != nil }
+    }
+
+    func project(for listener: PortListener) -> ProjectInfo? {
+        guard let path = PortProcessService.matchingPath(for: listener.workingDirectory, projectPaths: projects.map(\.path)) else { return nil }
+        return projects.first { $0.path == path }
+    }
 
     // MARK: - Category Counts
     var allCount: Int { projects.count }
@@ -132,6 +143,7 @@ final class AppViewModel {
         case .atlas: return isShowingDetail ? (selectedProject?.name ?? locationTitle) : locationTitle
         case .chat: return "tab.chat".localized
         case .stats: return "tab.stats".localized
+        case .ports: return "tab.ports".localized
         case .projectCache: return "tab.projectCache".localized
         case .notebook: return "tab.notebook".localized
         case .aiPrompts: return "tab.aiPrompts".localized

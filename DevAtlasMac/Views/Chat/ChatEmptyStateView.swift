@@ -128,6 +128,7 @@ struct ChatEmptyStateView: View {
     private static func tint(for command: ChatSlashCommand) -> Color {
         switch command {
         case .recent: return Color(hex: "5E5CE6")
+        case .ports: return Color(hex: "30B158")
         case .stats: return Color(hex: "0A84FF")
         case .rescan: return Color(hex: "30B158")
         case .new: return Color(hex: "8E8E93")

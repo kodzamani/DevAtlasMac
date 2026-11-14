@@ -52,6 +52,7 @@ enum ChatContent: Codable, Hashable {
     case cache(ChatCachePayload)
     case readme(ChatReadmePayload)
     case workspaceStats(ChatWorkspaceStatsPayload)
+    case ports([PortListener])
 }
 
 struct ChatNotice: Codable, Hashable {
@@ -361,7 +362,7 @@ enum ChatActionGroup: Int, CaseIterable {
 }
 
 enum ChatSlashCommand: String, CaseIterable, Identifiable, Codable {
-    case recent, stats, rescan, new, help
+    case recent, stats, ports, rescan, new, help
 
     var id: String { rawValue }
     var token: String { "/" + rawValue }
@@ -369,6 +370,7 @@ enum ChatSlashCommand: String, CaseIterable, Identifiable, Codable {
     var glyph: ChatGlyph {
         switch self {
         case .recent: return .clock
+        case .ports: return .terminal
         case .stats: return .pie
         case .rescan: return .refresh
         case .new: return .compose

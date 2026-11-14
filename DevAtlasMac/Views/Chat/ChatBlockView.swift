@@ -50,6 +50,8 @@ struct ChatBlockView: View {
             ChatCacheCard(payload: payload)
         case .readme(let payload):
             ChatReadmeCard(payload: payload)
+        case .ports(let listeners):
+            ChatPortsCard(listeners: listeners, viewModel: chatVM.appViewModel)
         case .workspaceStats(let payload):
             ChatWorkspaceStatsCard(payload: payload)
         }

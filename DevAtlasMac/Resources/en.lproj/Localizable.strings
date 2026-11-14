@@ -691,7 +691,7 @@
 "chat.plain.cache.header" = "%1$@ — %2$@ of cache";
 "chat.plain.scripts.header" = "%@ — scripts";
 "chat.plain.workspace.summary" = "%1$lld projects · %2$lld files · %3$lld lines";
-"chat.help.body" = "**Here's what I can do**\n\n- **Pick a project:** type part of its name. Matches appear above the box; use ↑ ↓, then Tab or Return.\n- **Run an action:** with a project picked, type its number or a word like `git`, `stats`, `deps`, `outdated`, `cache`, `clean`, `readme`, `run`, `note` or `todo`, or click a card.\n- **Slash commands:** `/recent` recent projects, `/stats` workspace overview, `/rescan` scan your drives again, `/new` new chat, `/help` this help.\n- **Esc** closes the list or cancels a note.";
+"chat.help.body" = "**Here's what I can do**\n\n- **Pick a project:** type part of its name. Matches appear above the box; use ↑ ↓, then Tab or Return.\n- **Run an action:** with a project picked, type its number or a word like `git`, `stats`, `deps`, `outdated`, `cache`, `clean`, `readme`, `run`, `note` or `todo`, or click a card.\n- **Slash commands:** `/ports` listening ports, `/recent` recent projects, `/stats` workspace overview, `/rescan` scan your drives again, `/new` new chat, `/help` this help.\n- **Esc** closes the list or cancels a note.";
 "chat.header.newChat" = "New chat";
 "chat.header.history" = "Chat history";
 "chat.empty.morning" = "Good morning";
@@ -768,3 +768,32 @@
 "chat.group.insights" = "Insights";
 "chat.group.notes" = "Notes";
 "chat.group.cleanup" = "Cleanup";
+
+// Port Scanner
+"tab.ports" = "Port Scanner";
+"chat.command.ports" = "Listening ports";
+"ports.subtitle" = "Your running projects, all in one place.";
+"ports.count" = "%d listening endpoints";
+"ports.updated" = "Updated: ";
+"ports.scanning" = "Scanning ports…";
+"ports.empty" = "No projects running";
+"ports.empty.detail" = "Start a development server in one of your projects. Its port will appear here automatically.";
+"ports.openBrowser" = "Open in browser";
+"ports.stop" = "Stop";
+"ports.stop.help" = "Send SIGTERM to this process. All its ports will close if it exits.";
+"ports.unknownDirectory" = "Working directory unavailable";
+"ports.showAll" = "Open Port Scanner";
+"ports.refresh" = "Refresh ports";
+"ports.search" = "Search ports, processes or projects";
+"ports.error.scan" = "Ports could not be scanned. Refresh to try again.";
+"ports.error.stale" = "The process has exited or changed. Refresh the list and try again.";
+"ports.error.signal" = "The process could not be stopped: %@";
+
+"ports.noResults" = "No matching ports";
+"ports.noResults.detail" = "Try another port, process or project name.";
+"ports.clearSearch" = "Clear search";
+"ports.unavailable" = "Unable to load ports";
+"ports.runNew" = "Run new project";
+"ports.runNew.detail" = "Start a web project";
+"ports.runNew.title" = "Runnable web projects";
+"ports.runNew.empty" = "No runnable web projects found.";

@@ -691,7 +691,7 @@
 "chat.plain.cache.header" = "%1$@ — %2$@ önbellek";
 "chat.plain.scripts.header" = "%@ — script'ler";
 "chat.plain.workspace.summary" = "%1$lld proje · %2$lld dosya · %3$lld satır";
-"chat.help.body" = "**Neler yapabilirim**\n\n- **Proje seçin:** adının bir kısmını yazın. Eşleşmeler kutunun üstünde görünür; ↑ ↓ ile seçip Tab veya Return'e basın.\n- **Eylem çalıştırın:** bir proje seçiliyken numarasını ya da `git`, `stats`, `deps`, `outdated`, `cache`, `clean`, `readme`, `run`, `note` veya `todo` gibi bir kelime yazın ya da bir karta tıklayın.\n- **Eğik çizgi komutları:** `/recent` son projeler, `/stats` çalışma alanı özeti, `/rescan` disklerinizi yeniden tarar, `/new` yeni sohbet, `/help` bu yardım.\n- **Esc** listeyi kapatır ya da notu iptal eder.";
+"chat.help.body" = "**Neler yapabilirim**\n\n- **Proje seçin:** adının bir kısmını yazın. Eşleşmeler kutunun üstünde görünür; ↑ ↓ ile seçip Tab veya Return'e basın.\n- **Eylem çalıştırın:** bir proje seçiliyken numarasını ya da `git`, `stats`, `deps`, `outdated`, `cache`, `clean`, `readme`, `run`, `note` veya `todo` gibi bir kelime yazın ya da bir karta tıklayın.\n- **Eğik çizgi komutları:** `/ports` açık portlar, `/recent` son projeler, `/stats` çalışma alanı özeti, `/rescan` disklerinizi yeniden tarar, `/new` yeni sohbet, `/help` bu yardım.\n- **Esc** listeyi kapatır ya da notu iptal eder.";
 "chat.header.newChat" = "Yeni sohbet";
 "chat.header.history" = "Sohbet geçmişi";
 "chat.empty.morning" = "Günaydın";
@@ -768,3 +768,32 @@
 "chat.group.insights" = "Analiz";
 "chat.group.notes" = "Notlar";
 "chat.group.cleanup" = "Temizlik";
+
+// Port Scanner
+"tab.ports" = "Port Tarayıcı";
+"chat.command.ports" = "Açık portlar";
+"ports.subtitle" = "Çalışan projeleriniz, tek bir yerde.";
+"ports.count" = "%d dinlenen uç nokta";
+"ports.updated" = "Son güncelleme: ";
+"ports.scanning" = "Portlar taranıyor…";
+"ports.empty" = "Çalışan proje yok";
+"ports.empty.detail" = "Projelerinizden birinde geliştirme sunucusu başlatın. Açılan port burada otomatik olarak görünecek.";
+"ports.openBrowser" = "Tarayıcıda aç";
+"ports.stop" = "Durdur";
+"ports.stop.help" = "Bu sürece SIGTERM gönderir. Süreç kapanırsa tüm portları kapanır.";
+"ports.unknownDirectory" = "Çalışma dizinine erişilemiyor";
+"ports.showAll" = "Port Tarayıcıyı aç";
+"ports.refresh" = "Portları yenile";
+"ports.search" = "Port, süreç veya proje ara";
+"ports.error.scan" = "Portlar taranamadı. Yenileyerek tekrar deneyin.";
+"ports.error.stale" = "Süreç kapandı veya değişti. Listeyi yenileyip tekrar deneyin.";
+"ports.error.signal" = "Süreç durdurulamadı: %@";
+
+"ports.noResults" = "Eşleşen port bulunamadı";
+"ports.noResults.detail" = "Başka bir port, süreç veya proje adıyla aramayı deneyin.";
+"ports.clearSearch" = "Aramayı temizle";
+"ports.unavailable" = "Portlar yüklenemedi";
+"ports.runNew" = "Yeni proje çalıştır";
+"ports.runNew.detail" = "Web projesini başlat";
+"ports.runNew.title" = "Çalıştırılabilir web projeleri";
+"ports.runNew.empty" = "Çalıştırılabilir yeni web projesi yok.";

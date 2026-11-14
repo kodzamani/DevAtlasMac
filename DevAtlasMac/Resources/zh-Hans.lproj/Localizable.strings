@@ -765,3 +765,32 @@
 "chat.group.insights" = "分析";
 "chat.group.notes" = "备注";
 "chat.group.cleanup" = "清理";
+
+// Port Scanner
+"tab.ports" = "Port Scanner";
+"chat.command.ports" = "Listening ports";
+"ports.subtitle" = "Your running projects, all in one place.";
+"ports.count" = "%d listening endpoints";
+"ports.updated" = "Updated: ";
+"ports.scanning" = "Scanning ports…";
+"ports.empty" = "No projects running";
+"ports.empty.detail" = "Start a development server in one of your projects. Its port will appear here automatically.";
+"ports.openBrowser" = "Open in browser";
+"ports.stop" = "Stop";
+"ports.stop.help" = "Send SIGTERM to this process. All its ports will close if it exits.";
+"ports.unknownDirectory" = "Working directory unavailable";
+"ports.showAll" = "Open Port Scanner";
+"ports.refresh" = "Refresh ports";
+"ports.search" = "Search ports, processes or projects";
+"ports.error.scan" = "Ports could not be scanned. Refresh to try again.";
+"ports.error.stale" = "The process has exited or changed. Refresh the list and try again.";
+"ports.error.signal" = "The process could not be stopped: %@";
+
+"ports.noResults" = "No matching ports";
+"ports.noResults.detail" = "Try another port, process or project name.";
+"ports.clearSearch" = "Clear search";
+"ports.unavailable" = "Unable to load ports";
+"ports.runNew" = "Run new project";
+"ports.runNew.detail" = "Start a web project";
+"ports.runNew.title" = "Runnable web projects";
+"ports.runNew.empty" = "No runnable web projects found.";

@@ -22,6 +22,10 @@ struct AppSidebarView: View {
             }
 
             Section("nav.tools".localized) {
+                row("tab.ports".localized, destination: .tab(.ports)) {
+                    PortIcon(.network)
+                        .foregroundStyle(viewModel.selectedTab == .ports ? Color.daAccent : Color.daTertiaryText)
+                }
                 tabRow("tab.projectCache".localized, icon: .trash, tab: .projectCache)
                 tabRow("tab.aiPrompts".localized, icon: .sparkle, tab: .aiPrompts)
             }

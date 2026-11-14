@@ -102,6 +102,17 @@ struct ChatActionExecutor {
             let title = "chat.card.recent.title".localized
             return ([ChatBlock(content: .projectList(title: title, projects: projects))],
                     Self.plainList(title: title, projects: projects))
+        case .ports:
+            await appViewModel.portManager.refresh()
+            if let error = appViewModel.portManager.errorMessage {
+                let notice = ChatNotice(kind: .error, title: error)
+                return ([ChatBlock(content: .notice(notice))], error)
+            }
+            let rows = appViewModel.projectPortListeners
+            let lines = rows.map { row in
+                "\(row.port) · \(row.command) · PID \(row.pid) · \(appViewModel.project(for: row)?.name ?? row.workingDirectory ?? "—")"
+            }
+            return ([ChatBlock(content: .ports(rows))], (["tab.ports".localized] + lines).joined(separator: "\n"))
         case .stats:
             return workspaceStats()
         case .rescan:

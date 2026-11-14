@@ -32,6 +32,13 @@ struct DevAtlasMacApp: App {
             MenuBarContent(viewModel: viewModel)
         } label: {
             MenuBarLabel()
+                .task {
+                    while !Task.isCancelled {
+                        await viewModel.portManager.refresh()
+                        do { try await Task.sleep(for: .seconds(10)) }
+                        catch { return }
+                    }
+                }
         }
         .menuBarExtraStyle(.menu)
     }

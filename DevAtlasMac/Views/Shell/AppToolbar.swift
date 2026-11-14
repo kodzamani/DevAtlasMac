@@ -37,6 +37,15 @@ struct AppToolbar: ToolbarContent {
                 notebookScopeMenu
             case .stats:
                 statsControls
+            case .ports:
+                Button {
+                    Task { await viewModel.portManager.refresh() }
+                } label: {
+                    PortIcon(.refresh)
+                }
+                .accessibilityLabel("ports.refresh".localized)
+                .disabled(viewModel.portManager.isScanning)
+                .help("ports.refresh".localized)
             case .projectCache:
                 Button("cache.rescan".localized, systemImage: "arrow.clockwise") {
                     cacheVM.scan(viewModel.projects)

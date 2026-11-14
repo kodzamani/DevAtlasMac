@@ -41,6 +41,37 @@ struct MenuBarContent: View {
 
         Divider()
 
+        Menu("tab.ports".localized) {
+            Button("ports.showAll".localized) {
+                viewModel.selectedTab = .ports
+                showMainWindow()
+            }
+            Button("ports.refresh".localized) { Task { await viewModel.portManager.refresh() } }
+            if let error = viewModel.portManager.errorMessage { Text(error) }
+            if viewModel.projectPortListeners.isEmpty { Text("ports.empty".localized) }
+            ForEach(viewModel.projectPortListeners) { listener in
+                Menu("\(listener.port) · \(viewModel.project(for: listener)?.name ?? listener.command)") {
+                    Text("\(listener.command) · PID \(listener.pid)")
+                    Text(listener.workingDirectory ?? "ports.unknownDirectory".localized)
+                    if let url = listener.browserURL {
+                        Link("ports.openBrowser".localized, destination: url)
+                    }
+                    if let project = viewModel.project(for: listener) {
+                        Button(project.name) {
+                            viewModel.openProject(project)
+                            showMainWindow()
+                        }
+                    }
+                    Button("ports.stop".localized, role: .destructive) {
+                        Task { await viewModel.portManager.stop(listener) }
+                    }
+                    .disabled(listener.startedAt == nil || viewModel.portManager.stoppingPIDs.contains(listener.pid))
+                }
+            }
+        }
+
+        Divider()
+
         Button("menuBar.quit".localized) { NSApp.terminate(nil) }
     }
 
