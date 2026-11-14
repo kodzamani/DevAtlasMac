@@ -217,25 +217,6 @@ class UnusedCodeAnalyzer: @unchecked Sendable {
         return html
     }
 
-    func generateMarkdownList(from results: [UnusedCodeResult]) -> String {
-        guard !results.isEmpty else {
-            return "No unused code found in the project. Great job!"
-        }
-        
-        var markdown = "### Unused Code Analysis\n\n"
-        markdown += "> Automatically generated analysis of unused declarations in the project.\n"
-        markdown += "> Found **\(results.count)** potential unused items.\n\n"
-        
-        markdown += "| Type | Name | Location | Hints |\n"
-        markdown += "|------|------|----------|-------|\n"
-        
-        for result in results {
-            let hintsText = result.hints.joined(separator: ", ")
-            markdown += "| `\(result.kind)` | **\(result.name)** | `\(result.location)` | \(hintsText)\n"
-        }
-        
-        return markdown
-    }
 
     func generateRemovalPrompt(from results: [UnusedCodeResult], projectPath: String) -> String {
         guard !results.isEmpty else {

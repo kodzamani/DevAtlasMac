@@ -7,8 +7,4 @@ struct ProjectDependencyGroup: Identifiable, Hashable {
     var id: String { projectName }
     let projectName: String
     var dependencies: [Dependency]
-    
-    var dependencyCount: Int {
-        dependencies.count
-    }
 }

@@ -282,12 +282,6 @@ final class ChatViewModel {
         runCommand(command, echo: true)
     }
 
-    func sendSuggestionChip(_ text: String) {
-        draft = text
-        areSuggestionsDismissed = true
-        submit()
-    }
-
     func copy(_ message: ChatMessage) {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
