@@ -540,3 +540,22 @@
 // MARK: - Menu Bar
 "menuBar.open" = "DevAtlas'ı Aç";
 "menuBar.quit" = "DevAtlas'tan Çık";
+
+// MARK: - Quick Search
+"menuBar.quickSearch" = "Hızlı Arama";
+"quickSearch.placeholder" = "Proje ara…";
+"quickSearch.actionsPlaceholder" = "Bir işlem seç…";
+"quickSearch.recent" = "Son Projeler";
+"quickSearch.results" = "Projeler · %d";
+"quickSearch.actions" = "İşlemler";
+"quickSearch.noResults" = "Eşleşen proje yok";
+"quickSearch.noProjectsYet" = "Henüz taranmış proje yok";
+"quickSearch.noActions" = "Eşleşen işlem yok";
+"quickSearch.openInDevAtlas" = "DevAtlas'ta Aç";
+"quickSearch.openIn" = "%@ ile Aç";
+"quickSearch.hint.navigate" = "Gezin";
+"quickSearch.hint.actions" = "İşlemler";
+"quickSearch.hint.open" = "Aç";
+"quickSearch.hint.run" = "Çalıştır";
+"quickSearch.hint.back" = "Geri";
+"quickSearch.hint.close" = "Kapat";

@@ -15,6 +15,8 @@ struct MenuBarContent: View {
         let editors = viewModel.installedEditors()
 
         Button("menuBar.open".localized) { showMainWindow() }
+        Button("menuBar.quickSearch".localized) { QuickSearchController.shared.show() }
+            .keyboardShortcut(.space, modifiers: .control)
 
         Divider()
 

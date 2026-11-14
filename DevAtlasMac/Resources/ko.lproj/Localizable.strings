@@ -535,3 +535,22 @@
 // MARK: - Menu Bar
 "menuBar.open" = "DevAtlas 열기";
 "menuBar.quit" = "DevAtlas 종료";
+
+// MARK: - Quick Search
+"menuBar.quickSearch" = "빠른 검색";
+"quickSearch.placeholder" = "프로젝트 검색…";
+"quickSearch.actionsPlaceholder" = "작업 선택…";
+"quickSearch.recent" = "최근 프로젝트";
+"quickSearch.results" = "프로젝트 · %d";
+"quickSearch.actions" = "작업";
+"quickSearch.noResults" = "일치하는 프로젝트 없음";
+"quickSearch.noProjectsYet" = "아직 스캔된 프로젝트 없음";
+"quickSearch.noActions" = "일치하는 작업 없음";
+"quickSearch.openInDevAtlas" = "DevAtlas에서 열기";
+"quickSearch.openIn" = "%@에서 열기";
+"quickSearch.hint.navigate" = "이동";
+"quickSearch.hint.actions" = "작업";
+"quickSearch.hint.open" = "열기";
+"quickSearch.hint.run" = "실행";
+"quickSearch.hint.back" = "뒤로";
+"quickSearch.hint.close" = "닫기";
