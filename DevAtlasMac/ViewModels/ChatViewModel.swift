@@ -312,7 +312,7 @@ final class ChatViewModel {
         return appViewModel.projects.first { $0.path == snapshot.path } ?? snapshot
     }
 
-    var recentProjects: [ProjectInfo] { Array(appViewModel.menuProjects.prefix(6)) }
+    var recentProjects: [ProjectInfo] { Array(appViewModel.menuProjects.prefix(ChatActionExecutor.recentProjectLimit)) }
 
     // MARK: - Project resolution
 

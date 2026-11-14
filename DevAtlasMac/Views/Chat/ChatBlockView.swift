@@ -244,6 +244,15 @@ private struct ChatActionGrid: View {
     let actions: [ChatAction]
     let onSelect: (ChatAction) -> Void
 
+    @State private var isExpanded = false
+    private let collapsedCount = 7
+
+    private var hasMore: Bool { actions.count > collapsedCount }
+
+    private var visibleActions: [ChatAction] {
+        isExpanded || !hasMore ? actions : Array(actions.prefix(collapsedCount))
+    }
+
     private struct Entry: Identifiable {
         let number: Int
         let action: ChatAction
@@ -257,7 +266,7 @@ private struct ChatActionGrid: View {
     }
 
     private var sections: [Section] {
-        let entries = actions.enumerated().map { Entry(number: $0.offset + 1, action: $0.element) }
+        let entries = visibleActions.enumerated().map { Entry(number: $0.offset + 1, action: $0.element) }
         return ChatActionGroup.allCases.compactMap { group in
             let items = entries.filter { $0.action.group == group }
             return items.isEmpty ? nil : Section(group: group, items: items)
@@ -265,6 +274,42 @@ private struct ChatActionGrid: View {
     }
 
     var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            sectionStack
+                .overlay(alignment: .bottom) {
+                    if hasMore && !isExpanded { teaserFade }
+                }
+            if hasMore { toggleButton }
+        }
+    }
+
+    /// A soft blur over the last visible row, hinting that more actions are below.
+    private var teaserFade: some View {
+        Rectangle()
+            .fill(.ultraThinMaterial)
+            .mask(LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom))
+            .frame(height: 60)
+            .allowsHitTesting(false)
+    }
+
+    private var toggleButton: some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.25)) { isExpanded.toggle() }
+            if isExpanded {
+                NotificationCenter.default.post(name: .chatThreadNeedsScroll, object: nil)
+            }
+        } label: {
+            Text((isExpanded ? "chat.card.actions.showLess" : "chat.card.actions.showMore").localized)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundStyle(Color.daAccent)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 4)
+        }
+        .buttonStyle(.plain)
+        .cursor(.pointingHand)
+    }
+
+    private var sectionStack: some View {
         VStack(alignment: .leading, spacing: 14) {
             ForEach(sections) { entry in
                 VStack(alignment: .leading, spacing: 6) {
@@ -290,6 +335,11 @@ private struct ChatActionGrid: View {
             }
         }
     }
+}
+
+extension Notification.Name {
+    /// Asks the chat thread to scroll to its bottom, e.g. after a card expands.
+    static let chatThreadNeedsScroll = Notification.Name("chat.thread.needsScroll")
 }
 
 private struct ChatActionRowLabel: View {
@@ -351,6 +401,13 @@ private struct ChatProjectListView: View {
     let projects: [ProjectInfo]
     let onSelect: (ProjectInfo) -> Void
 
+    @State private var isExpanded = false
+
+    private let collapsedCount = 7
+    private let rowHeight: CGFloat = 54
+
+    private var needsShowMore: Bool { projects.count > collapsedCount }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             if !title.isEmpty {
@@ -362,21 +419,62 @@ private struct ChatProjectListView: View {
 
             if projects.isEmpty {
                 ChatCardEmptyState(glyph: .folder, message: "chat.card.projectList.empty".localized)
-            } else {
-                VStack(spacing: 0) {
-                    ForEach(Array(projects.enumerated()), id: \.element.id) { index, project in
-                        if index > 0 {
-                            Color.clear.frame(height: 2)
+            } else if needsShowMore {
+                ScrollViewReader { proxy in
+                    VStack(spacing: 6) {
+                        // Fixed height keeps the first rows visible; the rest scroll inside the card.
+                        ScrollView(.vertical, showsIndicators: isExpanded) {
+                            rows
+                                .padding(4)
                         }
-                        Button { onSelect(project) } label: {
-                            row(project)
+                        .frame(height: CGFloat(collapsedCount) * rowHeight + 8)
+                        .chatSurface(cornerRadius: ChatMetrics.cardCorner)
+
+                        Button {
+                            if isExpanded {
+                                withAnimation(.easeInOut(duration: 0.25)) {
+                                    isExpanded = false
+                                }
+                                proxy.scrollTo(projects[0].id, anchor: .top)
+                            } else {
+                                withAnimation(.easeInOut(duration: 0.25)) {
+                                    isExpanded = true
+                                }
+                                // Scroll the card down to the first project beyond the initial rows.
+                                Task { @MainActor in
+                                    try? await Task.sleep(nanoseconds: 50_000_000)
+                                    proxy.scrollTo(projects[collapsedCount].id, anchor: .top)
+                                }
+                            }
+                        } label: {
+                            Text((isExpanded ? "chat.card.projectList.showLess" : "chat.card.projectList.showMore").localized)
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundStyle(Color.daAccent)
                         }
-                        .buttonStyle(ChatHoverRowStyle(cornerRadius: 9))
+                        .buttonStyle(.plain)
                         .cursor(.pointingHand)
                     }
                 }
-                .padding(4)
-                .chatSurface(cornerRadius: ChatMetrics.cardCorner)
+            } else {
+                VStack(spacing: 0) { rows }
+                    .padding(4)
+                    .chatSurface(cornerRadius: ChatMetrics.cardCorner)
+            }
+        }
+    }
+
+    private var rows: some View {
+        VStack(spacing: 0) {
+            ForEach(Array(projects.enumerated()), id: \.element.id) { index, project in
+                if index > 0 {
+                    Color.clear.frame(height: 2)
+                }
+                Button { onSelect(project) } label: {
+                    row(project)
+                }
+                .buttonStyle(ChatHoverRowStyle(cornerRadius: 9))
+                .cursor(.pointingHand)
+                .id(project.id)
             }
         }
     }

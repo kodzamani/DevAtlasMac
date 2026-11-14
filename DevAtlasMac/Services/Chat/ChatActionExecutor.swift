@@ -344,9 +344,6 @@ struct ChatActionExecutor {
         let results: [UnusedCodeResult]
         do {
             results = try await analyzer.analyze(projectPath: project.path)
-        } catch AnalyzerError.peripheryNotFound {
-            return notice(.warning, "analyze.peripheryRequired".localized,
-                          detail: "analyze.peripheryRequiredMessage".localized)
         } catch AnalyzerError.unsupportedLanguage(let language) {
             return notice(.info, "chat.notice.unusedUnsupported".localized(language))
         } catch {

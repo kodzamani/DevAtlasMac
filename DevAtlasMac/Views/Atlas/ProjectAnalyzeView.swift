@@ -308,7 +308,6 @@ private struct UnusedCodeButton: View {
     @State private var generatedHTML = ""
     @State private var unusedCodeResults: [UnusedCodeResult] = []
     @State private var showNoUnusedCodeAlert = false
-    @State private var showPeripheryInstallAlert = false
 
     private static let supportedLanguages: Set<String> = ["Swift", "C#", "JavaScript", "Dart"]
 
@@ -359,14 +358,6 @@ private struct UnusedCodeButton: View {
         .alert("analyze.noUnusedCode".localized, isPresented: $showNoUnusedCodeAlert) {
             Button("common.done".localized, role: .cancel) { }
         }
-        .alert("analyze.peripheryRequired".localized, isPresented: $showPeripheryInstallAlert) {
-            Button("analyze.installPeriphery".localized) {
-                openPeripheryInstallationGuide()
-            }
-            Button("common.cancel".localized, role: .cancel) { }
-        } message: {
-            Text("analyze.peripheryRequiredMessage".localized)
-        }
     }
 
     private func run() {
@@ -392,21 +383,10 @@ private struct UnusedCodeButton: View {
             } catch {
                 await MainActor.run {
                     self.isAnalyzing = false
-                    if case AnalyzerError.peripheryNotFound = error {
-                        self.showPeripheryInstallAlert = true
-                    }
                 }
                 print("Failed to run analyzer: \(error)")
             }
         }
-    }
-
-    private func openPeripheryInstallationGuide() {
-        guard let url = URL(string: "https://github.com/peripheryapp/periphery#installation") else {
-            return
-        }
-
-        NSWorkspace.shared.open(url)
     }
 }
 

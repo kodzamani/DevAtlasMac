@@ -307,9 +307,6 @@
 "analyze.totalLines" = "Total Lines";
 "analyze.avgLinesPerFile" = "Avg Lines/File";
 "analyze.largestFile" = "Largest File";
-"analyze.peripheryRequired" = "Periphery Required";
-"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
-"analyze.installPeriphery" = "Open Install Guide";
 
 /* Common - Additional */
 "common.openWith" = "Open with…";
@@ -709,6 +706,10 @@
 "chat.card.showLess" = "Show less";
 "chat.card.project.files" = "%@ files";
 "chat.card.projectList.empty" = "No projects found.";
+"chat.card.actions.showMore" = "Show more";
+"chat.card.actions.showLess" = "Show less";
+"chat.card.projectList.showMore" = "Show more";
+"chat.card.projectList.showLess" = "Show less";
 "chat.card.git.title" = "Git activity";
 "chat.card.git.subtitle" = "Your activity · last %lld days";
 "chat.card.git.commitsPerDay" = "Commits per day";

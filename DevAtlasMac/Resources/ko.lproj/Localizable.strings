@@ -333,9 +333,6 @@
 "analyze.totalLines" = "총 줄";
 "analyze.avgLinesPerFile" = "평균 줄/파일";
 "analyze.largestFile" = "가장 큰 파일";
-"analyze.peripheryRequired" = "Periphery Required";
-"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
-"analyze.installPeriphery" = "Open Install Guide";
 
 /* Projects Footer */
 "projects.footer.projects" = "프로젝트";

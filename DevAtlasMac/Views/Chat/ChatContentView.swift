@@ -96,6 +96,9 @@ struct ChatContentView: View {
             .onChange(of: chatVM.activeProject?.id) {
                 scrollToBottom(proxy, animated: true)
             }
+            .onReceive(NotificationCenter.default.publisher(for: .chatThreadNeedsScroll)) { _ in
+                scrollToBottom(proxy, animated: true)
+            }
         }
     }
 
@@ -185,6 +188,7 @@ struct ChatToolbarTitle: View {
                     .transition(.scale(scale: 0.85).combined(with: .opacity))
             }
         }
+        .padding(.leading, 12)
         .animation(.snappy(duration: 0.22), value: chatVM.activeProject?.id)
     }
 }

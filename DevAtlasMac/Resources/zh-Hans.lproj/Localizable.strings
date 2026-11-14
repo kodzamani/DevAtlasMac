@@ -305,9 +305,6 @@
 "analyze.totalLines" = "代码总行数";
 "analyze.avgLinesPerFile" = "平均行数/文件";
 "analyze.largestFile" = "最大文件";
-"analyze.peripheryRequired" = "Periphery Required";
-"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
-"analyze.installPeriphery" = "Open Install Guide";
 
 /* Scan */
 "scan.foundProjects" = "已找到 %d 个项目";

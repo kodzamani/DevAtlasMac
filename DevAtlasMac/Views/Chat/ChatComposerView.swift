@@ -71,10 +71,6 @@ struct ChatComposerView: View {
                 .frame(minHeight: 20)
 
             HStack(spacing: 6) {
-                ChatComposerSlashButton(help: "chat.composer.commands".localized) {
-                    insertSlash()
-                }
-
                 recentProjectsMenu
 
                 Spacer(minLength: 8)
@@ -153,15 +149,6 @@ struct ChatComposerView: View {
         .accessibilityLabel("chat.composer.recentProjects".localized)
     }
 
-    /// Opens the command list by starting the draft with a slash.
-    private func insertSlash() {
-        if isDraftBlank {
-            chatVM.draft = "/"
-        } else if !chatVM.draft.hasPrefix("/") {
-            chatVM.draft = "/" + chatVM.draft
-        }
-        isFocused = true
-    }
 
     // MARK: - Context Chip
 
@@ -249,25 +236,6 @@ private struct ChatContextChip: View {
 }
 
 // MARK: - Buttons
-
-private struct ChatComposerSlashButton: View {
-    let help: String
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            Text("/")
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
-                .foregroundStyle(.secondary)
-                .frame(width: 28, height: 28)
-                .background(ChatHoverCircle())
-                .contentShape(Circle())
-        }
-        .buttonStyle(ChatPressScaleButtonStyle())
-        .help(help)
-        .accessibilityLabel(help)
-    }
-}
 
 private struct ChatHoverCircle: View {
     @State private var isHovered = false

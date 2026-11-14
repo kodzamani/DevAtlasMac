@@ -307,9 +307,6 @@
 "analyze.totalLines" = "Toplam Satır";
 "analyze.avgLinesPerFile" = "Ortalama Satır/Dosya";
 "analyze.largestFile" = "En Büyük Dosya";
-"analyze.peripheryRequired" = "Periphery Gerekli";
-"analyze.peripheryRequiredMessage" = "Swift kullanılmayan kod analizi yalnızca Periphery ile çalışır. Kurmak için şu komutu kullanın: brew install peripheryapp/periphery/periphery";
-"analyze.installPeriphery" = "Kurulum Rehberini Aç";
 
 /* Common - Additional */
 "common.openWith" = "Birlikte Aç…";
@@ -709,6 +706,10 @@
 "chat.card.showLess" = "Daha az göster";
 "chat.card.project.files" = "%@ dosya";
 "chat.card.projectList.empty" = "Proje bulunamadı.";
+"chat.card.actions.showMore" = "Daha fazla göster";
+"chat.card.actions.showLess" = "Daha az göster";
+"chat.card.projectList.showMore" = "Daha fazla göster";
+"chat.card.projectList.showLess" = "Daha az göster";
 "chat.card.git.title" = "Git aktivitesi";
 "chat.card.git.subtitle" = "Aktiviteniz · son %lld gün";
 "chat.card.git.commitsPerDay" = "Günlük commit";

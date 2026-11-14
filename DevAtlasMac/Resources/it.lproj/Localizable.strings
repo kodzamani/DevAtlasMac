@@ -333,9 +333,6 @@
 "analyze.totalLines" = "Totale righe";
 "analyze.avgLinesPerFile" = "Media righe/file";
 "analyze.largestFile" = "File più grande";
-"analyze.peripheryRequired" = "Periphery Required";
-"analyze.peripheryRequiredMessage" = "Swift unused code analysis runs only with Periphery. Install it with: brew install peripheryapp/periphery/periphery";
-"analyze.installPeriphery" = "Open Install Guide";
 
 /* Projects Footer */
 "projects.footer.projects" = "Progetti";

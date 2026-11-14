@@ -9,20 +9,22 @@ struct AppToolbar: ToolbarContent {
 
     @ToolbarContentBuilder
     var body: some ToolbarContent {
-        ToolbarItemGroup(placement: .navigation) {
-            Button("finder.back".localized, systemImage: "chevron.left") {
-                viewModel.navigateBack()
-            }
-            .disabled(!viewModel.canNavigateBack)
-            .keyboardShortcut("[", modifiers: .command)
-            .help("finder.back".localized)
+        if viewModel.selectedTab != .chat {
+            ToolbarItemGroup(placement: .navigation) {
+                Button("finder.back".localized, systemImage: "chevron.left") {
+                    viewModel.navigateBack()
+                }
+                .disabled(!viewModel.canNavigateBack)
+                .keyboardShortcut("[", modifiers: .command)
+                .help("finder.back".localized)
 
-            Button("finder.forward".localized, systemImage: "chevron.right") {
-                viewModel.navigateForward()
+                Button("finder.forward".localized, systemImage: "chevron.right") {
+                    viewModel.navigateForward()
+                }
+                .disabled(!viewModel.canNavigateForward)
+                .keyboardShortcut("]", modifiers: .command)
+                .help("finder.forward".localized)
             }
-            .disabled(!viewModel.canNavigateForward)
-            .keyboardShortcut("]", modifiers: .command)
-            .help("finder.forward".localized)
         }
 
         if #available(macOS 26.0, *) {
