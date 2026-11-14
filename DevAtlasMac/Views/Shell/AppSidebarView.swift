@@ -7,18 +7,18 @@ struct AppSidebarView: View {
 
     var body: some View {
         List {
+            Section("nav.workspace".localized) {
+                tabRow("tab.chat".localized, icon: .chat, tab: .chat)
+                tabRow("tab.stats".localized, icon: .bars, tab: .stats)
+                tabRow("tab.notebook".localized, icon: .notebook, tab: .notebook)
+            }
+
             Section("nav.projects".localized) {
                 categoryRow("sidebar.allProjects".localized, icon: .folder, category: "All", count: viewModel.allCount)
                 categoryRow("sidebar.web".localized, icon: .globe, category: "Web", count: viewModel.webCount)
                 categoryRow("sidebar.desktop".localized, icon: .desktop, category: "Desktop", count: viewModel.desktopCount)
                 categoryRow("sidebar.mobile".localized, icon: .phone, category: "Mobile", count: viewModel.mobileCount)
                 categoryRow("sidebar.cloud".localized, icon: .cloud, category: "Cloud", count: viewModel.cloudCount)
-            }
-
-            Section("nav.workspace".localized) {
-                tabRow("tab.chat".localized, icon: .chat, tab: .chat)
-                tabRow("tab.stats".localized, icon: .bars, tab: .stats)
-                tabRow("tab.notebook".localized, icon: .notebook, tab: .notebook)
             }
 
             Section("nav.tools".localized) {
