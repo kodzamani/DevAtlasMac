@@ -962,3 +962,8 @@
 "agents.empty.titleProject" = "Was bauen wir in %@?";
 "agents.start" = "%@ starten";
 "agents.composer.agent" = "Agent";
+
+// Agent prompt suggestions
+"agents.prompts.title" = "Mit einem Prompt starten";
+"agents.prompts.browse" = "Alle Prompts";
+"agents.prompts.useHint" = "Diesen Prompt in das Aufgabenfeld einfügen";

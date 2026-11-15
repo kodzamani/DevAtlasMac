@@ -962,3 +962,8 @@
 "agents.empty.titleProject" = "%@ で何を作りましょう？";
 "agents.start" = "%@ を起動";
 "agents.composer.agent" = "エージェント";
+
+// Agent prompt suggestions
+"agents.prompts.title" = "プロンプトから始める";
+"agents.prompts.browse" = "すべてのプロンプト";
+"agents.prompts.useHint" = "このプロンプトをタスク欄に挿入";

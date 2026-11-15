@@ -3,7 +3,7 @@ import AppKit
 import Carbon.HIToolbox
 
 /// The Agents tab before any session is open, laid out like a new chat:
-/// a mark and greeting in the middle, agents as starter cards, and a composer at the bottom.
+/// a greeting, agent and prompt starter cards, and a composer at the bottom.
 struct AgentsEmptyStateView: View {
     let viewModel: AppViewModel
 
@@ -177,6 +177,13 @@ struct AgentsEmptyStateView: View {
 
                     agentsGrid
                         .padding(.top, 28)
+
+                    AgentPromptSuggestions(
+                        onSelect: usePrompt,
+                        onBrowse: { viewModel.selectedTab = .aiPrompts }
+                    )
+                    .padding(.top, 32)
+                    .modifier(AgentEntryStagger(isVisible: hasAppeared, index: 5))
                 }
                 .frame(maxWidth: ChatMetrics.columnWidth)
                 .padding(.horizontal, 24)
@@ -419,6 +426,13 @@ struct AgentsEmptyStateView: View {
     }
 
     // MARK: - Actions & Keyboard Handling
+
+    private func usePrompt(_ template: AIPromptTemplate) {
+        prompt = template.prompt
+        isPickerOpen = false
+        wasMentionOpenedByChip = false
+        isFocused = true
+    }
 
     private func toggleProjectPicker() {
         if isSuggestionListVisible {

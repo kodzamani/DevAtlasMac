@@ -962,3 +962,8 @@
 "agents.empty.titleProject" = "%@에서 무엇을 만들까요?";
 "agents.start" = "%@ 시작";
 "agents.composer.agent" = "에이전트";
+
+// Agent prompt suggestions
+"agents.prompts.title" = "프롬프트로 시작하기";
+"agents.prompts.browse" = "모든 프롬프트";
+"agents.prompts.useHint" = "이 프롬프트를 작업 입력란에 삽입";

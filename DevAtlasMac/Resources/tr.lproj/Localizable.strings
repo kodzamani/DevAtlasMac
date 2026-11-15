@@ -971,3 +971,8 @@
 "agents.empty.titleProject" = "%@ üzerinde ne yapalım?";
 "agents.start" = "%@ başlat";
 "agents.composer.agent" = "Ajan";
+
+// Agent prompt suggestions
+"agents.prompts.title" = "Bir prompt ile başla";
+"agents.prompts.browse" = "Tüm promptlar";
+"agents.prompts.useHint" = "Bu promptu görev alanına ekle";

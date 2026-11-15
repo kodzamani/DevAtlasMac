@@ -964,3 +964,8 @@
 "agents.empty.titleProject" = "在 %@ 中做些什么？";
 "agents.start" = "启动 %@";
 "agents.composer.agent" = "智能体";
+
+// Agent prompt suggestions
+"agents.prompts.title" = "从提示词开始";
+"agents.prompts.browse" = "所有提示词";
+"agents.prompts.useHint" = "将此提示词填入任务输入框";
