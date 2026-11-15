@@ -14,13 +14,19 @@ final class AgentSessionsViewModel {
     private(set) var isDetecting = false
     private(set) var hasDetected = false
     private(set) var sessions: [AgentSession] = []
-    var selectedSessionID: UUID?
+    var selectedSessionID: UUID? {
+        didSet { if selectedSessionID != nil { isComposing = false } }
+    }
+    /// True while the start screen is shown over running sessions (toolbar "+").
+    private(set) var isComposing = false
     /// The agent last started, preselected in the launcher.
     var preferredAgentID: String? = UserDefaults.standard.string(forKey: "agents.preferredAgent") {
         didSet { UserDefaults.standard.set(preferredAgentID, forKey: "agents.preferredAgent") }
     }
 
     @ObservationIgnored private var terminationObserver: NSObjectProtocol?
+
+    func showComposer() { isComposing = true }
 
     var installedAgents: [DetectedAgent] { agents.filter(\.isInstalled) }
     var selectedSession: AgentSession? { sessions.first { $0.id == selectedSessionID } }
@@ -126,11 +132,6 @@ final class AgentSession: Identifiable {
         case .agent(let agent): return agent.agent.name
         case .shell: return "agents.shell".localized
         }
-    }
-
-    var agentID: String? {
-        if case .agent(let agent) = launch { return agent.id }
-        return nil
     }
 
     var isRunning: Bool { state == .running }

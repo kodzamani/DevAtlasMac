@@ -9,7 +9,7 @@ struct AgentsContentView: View {
         // Keep this screen's ideal size from enlarging the split view and shifting its sidebar.
         GeometryReader { geometry in
             Group {
-                if manager.sessions.isEmpty {
+                if manager.sessions.isEmpty || manager.isComposing {
                     AgentsEmptyStateView(viewModel: viewModel)
                         .transition(.opacity)
                 } else {
@@ -19,7 +19,7 @@ struct AgentsContentView: View {
             }
             .frame(width: geometry.size.width, height: geometry.size.height, alignment: .topLeading)
         }
-        .animation(.easeOut(duration: 0.2), value: manager.sessions.isEmpty)
+        .animation(.easeOut(duration: 0.2), value: manager.sessions.isEmpty || manager.isComposing)
         .task { await manager.ensureDetected() }
     }
 

@@ -25,22 +25,15 @@ struct AgentSessionTabs: View {
     }
 }
 
-/// "New Session" toolbar button with the agent picker popover.
+/// "New Session" toolbar button: switches to the agent start screen instead of opening a popover.
 struct AgentNewSessionButton: View {
-    let viewModel: AppViewModel
-    @State private var isPresented = false
+    let manager: AgentSessionsViewModel
 
     var body: some View {
         Button("agents.newSession".localized, systemImage: "plus") {
-            isPresented = true
+            manager.showComposer()
         }
         .help("agents.newSession".localized)
-        .popover(isPresented: $isPresented, arrowEdge: .bottom) {
-            AgentLaunchPopover(
-                manager: viewModel.agentManager,
-                projects: viewModel.projects.sorted { $0.lastModified > $1.lastModified }
-            ) { _ in isPresented = false }
-        }
     }
 }
 

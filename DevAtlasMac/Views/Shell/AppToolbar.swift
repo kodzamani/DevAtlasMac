@@ -84,7 +84,7 @@ struct AppToolbar: ToolbarContent {
                 .disabled(viewModel.agentManager.isDetecting)
                 .help("agents.rescan".localized)
                 if !viewModel.agentManager.sessions.isEmpty {
-                    AgentNewSessionButton(viewModel: viewModel)
+                    AgentNewSessionButton(manager: viewModel.agentManager)
                 }
             case .chat:
                 ChatToolbarActions(chatVM: chatVM)
