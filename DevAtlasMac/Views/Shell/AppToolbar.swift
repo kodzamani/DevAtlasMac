@@ -42,6 +42,12 @@ struct AppToolbar: ToolbarContent {
             }
         }
 
+        if viewModel.selectedTab == .agents && !viewModel.agentManager.sessions.isEmpty {
+            ToolbarItem(placement: .principal) {
+                AgentSessionTabs(manager: viewModel.agentManager)
+            }
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             switch viewModel.selectedTab {
             case .atlas where !viewModel.isShowingDetail:
@@ -71,6 +77,15 @@ struct AppToolbar: ToolbarContent {
                 }
                 .disabled(cacheVM.isScanning || cacheVM.isCleaning)
                 .help("cache.rescan".localized)
+            case .agents:
+                Button("agents.rescan".localized, systemImage: "arrow.clockwise") {
+                    Task { await viewModel.agentManager.refreshAgents() }
+                }
+                .disabled(viewModel.agentManager.isDetecting)
+                .help("agents.rescan".localized)
+                if !viewModel.agentManager.sessions.isEmpty {
+                    AgentNewSessionButton(viewModel: viewModel)
+                }
             case .chat:
                 ChatToolbarActions(chatVM: chatVM)
             default:

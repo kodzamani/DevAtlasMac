@@ -36,6 +36,8 @@ struct ContentView: View {
             // Warm the stats so the tab opens with its data already in place.
             statsVM.projectsDidChange(viewModel.filteredProjects)
         }
+        // Agent menus on project pages need the list before the Agents tab is ever opened.
+        .task { await viewModel.agentManager.ensureDetected() }
         .animation(.easeInOut(duration: 0.3), value: onboardingVM.isPresented)
         .onReceive(NotificationCenter.default.publisher(for: .languageDidChange)) { _ in
             languageRefreshTrigger += 1
@@ -66,6 +68,8 @@ struct ContentView: View {
                         PortProcessContentView(viewModel: viewModel)
                     case .docker:
                         DockerContentView(viewModel: viewModel)
+                    case .agents:
+                        AgentsContentView(viewModel: viewModel)
                     case .projectCache:
                         ProjectCacheContentView(viewModel: viewModel, cacheVM: cacheVM)
                     case .notebook:
@@ -78,7 +82,7 @@ struct ContentView: View {
                 }
             }
             .modifier(ToolbarSearchModifier(
-                isEnabled: viewModel.selectedTab != .chat,
+                isEnabled: viewModel.selectedTab != .chat && viewModel.selectedTab != .agents,
                 text: $viewModel.searchText,
                 isPresented: $isSearchPresented,
                 prompt: viewModel.selectedTab == .docker ? "docker.search".localized : viewModel.selectedTab == .ports ? "ports.search".localized : (viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized)

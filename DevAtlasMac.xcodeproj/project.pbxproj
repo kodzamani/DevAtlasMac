@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6EEDDB1F2F4BFAE1008D159F /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6EEDDB1E2F4BFAE1008D159F /* MarkdownUI */; };
+		7A11C0DE2F9A000300A1B2C3 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 7A11C0DE2F9A000200A1B2C3 /* SwiftTerm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EEDDB1F2F4BFAE1008D159F /* MarkdownUI in Frameworks */,
+				7A11C0DE2F9A000300A1B2C3 /* SwiftTerm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			name = DevAtlasMac;
 			packageProductDependencies = (
 				6EEDDB1E2F4BFAE1008D159F /* MarkdownUI */,
+				7A11C0DE2F9A000200A1B2C3 /* SwiftTerm */,
 			);
 			productName = DevAtlasMac;
 			productReference = 6EA9093A2F4576480076ED35 /* DevAtlasMac.app */;
@@ -109,6 +112,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6EEDDB1D2F4BFAE1008D159F /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+				7A11C0DE2F9A000100A1B2C3 /* XCRemoteSwiftPackageReference "SwiftTerm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6EA9093B2F4576480076ED35 /* Products */;
@@ -355,6 +359,14 @@
 				minimumVersion = 2.4.1;
 			};
 		};
+		7A11C0DE2F9A000100A1B2C3 /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/migueldeicaza/SwiftTerm";
+			requirement = {
+				kind = exactVersion;
+				version = 1.18.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -362,6 +374,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6EEDDB1D2F4BFAE1008D159F /* XCRemoteSwiftPackageReference "MarkdownUI" */;
 			productName = MarkdownUI;
+		};
+		7A11C0DE2F9A000200A1B2C3 /* SwiftTerm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A11C0DE2F9A000100A1B2C3 /* XCRemoteSwiftPackageReference "SwiftTerm" */;
+			productName = SwiftTerm;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

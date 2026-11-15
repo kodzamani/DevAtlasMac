@@ -937,3 +937,28 @@
 "docker.volumes.empty" = "Nessun volume o montaggio.";
 "docker.deps.empty" = "Nessun altro servizio disponibile.";
 "docker.readOnly" = "Montaggio di sola lettura";
+
+/* AI Agents */
+"tab.agents" = "Agenti IA";
+"agents.subtitle" = "Esegui agenti di codice nelle cartelle dei progetti";
+"agents.project" = "Progetto";
+"agents.selectProject" = "Seleziona un progetto";
+"agents.prompt.placeholder" = "Primo compito per l’agente (facoltativo)";
+"agents.notInstalled" = "Non installato";
+"agents.rescan" = "Cerca di nuovo";
+"agents.shell" = "Shell";
+"agents.openShell" = "Apri shell";
+"agents.openWithAgent" = "Apri con agente";
+"agents.newSession" = "Nuova sessione";
+"agents.exited" = "Terminato con codice %@";
+"agents.ended" = "Sessione terminata";
+"agents.restart" = "Riavvia";
+"agents.close" = "Chiudi";
+"agents.none.title" = "Nessun agente trovato";
+"agents.none.detail" = "Installa Claude Code, OpenCode, Codex o un altro agente da terminale, poi cerca di nuovo.";
+"agents.detecting" = "Ricerca degli agenti…";
+"agents.installed" = "Installati";
+"agents.empty.title" = "Cosa costruiamo?";
+"agents.empty.titleProject" = "Cosa costruiamo in %@?";
+"agents.start" = "Avvia %@";
+"agents.composer.agent" = "Agente";

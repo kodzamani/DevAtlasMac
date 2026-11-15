@@ -937,3 +937,28 @@
 "docker.volumes.empty" = "ボリュームやマウントはありません。";
 "docker.deps.empty" = "依存できる他のサービスはありません。";
 "docker.readOnly" = "読み取り専用マウント";
+
+/* AI Agents */
+"tab.agents" = "AIエージェント";
+"agents.subtitle" = "プロジェクトフォルダでコーディングエージェントを実行";
+"agents.project" = "プロジェクト";
+"agents.selectProject" = "プロジェクトを選択";
+"agents.prompt.placeholder" = "エージェントへの最初のタスク(任意)";
+"agents.notInstalled" = "未インストール";
+"agents.rescan" = "再スキャン";
+"agents.shell" = "シェル";
+"agents.openShell" = "シェルを開く";
+"agents.openWithAgent" = "エージェントで開く";
+"agents.newSession" = "新規セッション";
+"agents.exited" = "コード %@ で終了しました";
+"agents.ended" = "セッションが終了しました";
+"agents.restart" = "再起動";
+"agents.close" = "閉じる";
+"agents.none.title" = "エージェントが見つかりません";
+"agents.none.detail" = "Claude Code、OpenCode、Codex などのターミナルエージェントをインストールしてから再スキャンしてください。";
+"agents.detecting" = "エージェントを検索中…";
+"agents.installed" = "インストール済み";
+"agents.empty.title" = "何を作りましょう？";
+"agents.empty.titleProject" = "%@ で何を作りましょう？";
+"agents.start" = "%@ を起動";
+"agents.composer.agent" = "エージェント";

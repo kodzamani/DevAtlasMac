@@ -946,3 +946,28 @@
 "docker.volumes.empty" = "Volume veya klasör bağlantısı yok.";
 "docker.deps.empty" = "Bağımlı olunabilecek başka servis yok.";
 "docker.readOnly" = "Salt okunur bağlantı";
+
+/* AI Agents */
+"tab.agents" = "AI Ajanlar";
+"agents.subtitle" = "Kod ajanlarını proje klasörlerinde çalıştırın";
+"agents.project" = "Proje";
+"agents.selectProject" = "Proje seçin";
+"agents.prompt.placeholder" = "Ajan için ilk görev (isteğe bağlı)";
+"agents.notInstalled" = "Kurulu değil";
+"agents.rescan" = "Yeniden tara";
+"agents.shell" = "Kabuk";
+"agents.openShell" = "Kabuk aç";
+"agents.openWithAgent" = "Ajanla Aç";
+"agents.newSession" = "Yeni Oturum";
+"agents.exited" = "%@ koduyla çıktı";
+"agents.ended" = "Oturum sona erdi";
+"agents.restart" = "Yeniden başlat";
+"agents.close" = "Kapat";
+"agents.none.title" = "Ajan bulunamadı";
+"agents.none.detail" = "Claude Code, OpenCode, Codex ya da başka bir terminal ajanı kurup yeniden tarayın.";
+"agents.detecting" = "Ajanlar aranıyor…";
+"agents.installed" = "Kurulu";
+"agents.empty.title" = "Bugün ne yapalım?";
+"agents.empty.titleProject" = "%@ üzerinde ne yapalım?";
+"agents.start" = "%@ başlat";
+"agents.composer.agent" = "Ajan";

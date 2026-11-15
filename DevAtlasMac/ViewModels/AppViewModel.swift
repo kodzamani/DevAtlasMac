@@ -68,6 +68,7 @@ final class AppViewModel {
     let runner = ProjectRunner()
     let portManager = PortProcessViewModel()
     let dockerManager = DockerViewModel()
+    let agentManager = AgentSessionsViewModel()
 
     /// Every port surface is scoped to indexed projects; unmatched system listeners stay hidden.
     @MainActor var projectPortListeners: [PortListener] {
@@ -146,6 +147,7 @@ final class AppViewModel {
         case .stats: return "tab.stats".localized
         case .ports: return "tab.ports".localized
         case .docker: return "tab.docker".localized
+        case .agents: return "tab.agents".localized
         case .projectCache: return "tab.projectCache".localized
         case .notebook: return "tab.notebook".localized
         case .aiPrompts: return "tab.aiPrompts".localized
@@ -475,5 +477,18 @@ final class AppViewModel {
 
     func revealInFinder(_ project: ProjectInfo) {
         runner.revealInFinder(at: project.path)
+    }
+
+    /// Starts an agent in the project and shows it on the Agents tab.
+    @MainActor
+    func openAgent(_ agent: DetectedAgent, project: ProjectInfo, prompt: String? = nil) {
+        guard agentManager.start(agent, projectName: project.name, directory: project.path, prompt: prompt) != nil else { return }
+        showAgentsTab()
+    }
+
+    @MainActor
+    func showAgentsTab() {
+        // The project page stays open underneath, so going back to Atlas returns to it.
+        selectedTab = .agents
     }
 }

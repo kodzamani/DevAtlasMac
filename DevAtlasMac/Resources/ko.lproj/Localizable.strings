@@ -937,3 +937,28 @@
 "docker.volumes.empty" = "볼륨 또는 마운트가 없습니다.";
 "docker.deps.empty" = "의존할 다른 서비스가 없습니다.";
 "docker.readOnly" = "읽기 전용 마운트";
+
+/* AI Agents */
+"tab.agents" = "AI 에이전트";
+"agents.subtitle" = "프로젝트 폴더에서 코딩 에이전트 실행";
+"agents.project" = "프로젝트";
+"agents.selectProject" = "프로젝트 선택";
+"agents.prompt.placeholder" = "에이전트의 첫 작업 (선택 사항)";
+"agents.notInstalled" = "설치되지 않음";
+"agents.rescan" = "다시 검색";
+"agents.shell" = "셸";
+"agents.openShell" = "셸 열기";
+"agents.openWithAgent" = "에이전트로 열기";
+"agents.newSession" = "새 세션";
+"agents.exited" = "코드 %@(으)로 종료됨";
+"agents.ended" = "세션이 종료됨";
+"agents.restart" = "다시 시작";
+"agents.close" = "닫기";
+"agents.none.title" = "에이전트를 찾을 수 없음";
+"agents.none.detail" = "Claude Code, OpenCode, Codex 등 터미널 에이전트를 설치한 뒤 다시 검색하세요.";
+"agents.detecting" = "에이전트 찾는 중…";
+"agents.installed" = "설치됨";
+"agents.empty.title" = "무엇을 만들까요?";
+"agents.empty.titleProject" = "%@에서 무엇을 만들까요?";
+"agents.start" = "%@ 시작";
+"agents.composer.agent" = "에이전트";

@@ -939,3 +939,28 @@
 "docker.volumes.empty" = "没有卷或挂载。";
 "docker.deps.empty" = "没有可依赖的其他服务。";
 "docker.readOnly" = "只读挂载";
+
+/* AI Agents */
+"tab.agents" = "AI 智能体";
+"agents.subtitle" = "在项目文件夹中运行编程智能体";
+"agents.project" = "项目";
+"agents.selectProject" = "选择项目";
+"agents.prompt.placeholder" = "给智能体的第一个任务(可选)";
+"agents.notInstalled" = "未安装";
+"agents.rescan" = "重新扫描";
+"agents.shell" = "Shell";
+"agents.openShell" = "打开 Shell";
+"agents.openWithAgent" = "用智能体打开";
+"agents.newSession" = "新会话";
+"agents.exited" = "已退出,代码 %@";
+"agents.ended" = "会话已结束";
+"agents.restart" = "重新启动";
+"agents.close" = "关闭";
+"agents.none.title" = "未找到智能体";
+"agents.none.detail" = "请安装 Claude Code、OpenCode、Codex 或其他终端智能体,然后重新扫描。";
+"agents.detecting" = "正在查找智能体…";
+"agents.installed" = "已安装";
+"agents.empty.title" = "今天要做什么？";
+"agents.empty.titleProject" = "在 %@ 中做些什么？";
+"agents.start" = "启动 %@";
+"agents.composer.agent" = "智能体";

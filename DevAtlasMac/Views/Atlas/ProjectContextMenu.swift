@@ -31,6 +31,22 @@ struct ProjectContextMenu: View {
             }
         }
 
+        Menu("agents.openWithAgent".localized) {
+            let agents = viewModel.agentManager.installedAgents
+            if !viewModel.agentManager.hasDetected {
+                Text("agents.detecting".localized)
+            } else if agents.isEmpty {
+                Text("agents.none.title".localized)
+            }
+            ForEach(agents) { agent in
+                Button(agent.agent.name) { viewModel.openAgent(agent, project: project) }
+            }
+            Divider()
+            Button("agents.openShell".localized) {
+                viewModel.agentManager.startShell(projectName: project.name, directory: project.path)
+                viewModel.showAgentsTab()
+            }
+        }
         Button("projects.openTerminal".localized) { viewModel.openTerminal(project) }
         Button("projects.revealInFinder".localized) { viewModel.revealInFinder(project) }
 
