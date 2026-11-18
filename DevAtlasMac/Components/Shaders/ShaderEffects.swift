@@ -1,5 +1,6 @@
 import SwiftUI
 
+@available(macOS 14.0, *)
 private struct RippleShading: ViewModifier {
     let origin: CGPoint
     let elapsed: TimeInterval
@@ -33,11 +34,27 @@ extension View {
     /// Only use on purely SwiftUI content: shaders can't sample AppKit-backed views.
     func daRipple<Trigger: Equatable>(origin: CGPoint, trigger: Trigger) -> some View {
         let duration: TimeInterval = 0.5
-        return keyframeAnimator(initialValue: TimeInterval(0), trigger: trigger) { view, elapsed in
-            view.modifier(RippleShading(origin: origin, elapsed: elapsed, duration: duration))
-        } keyframes: { _ in
-            MoveKeyframe(0)
-            LinearKeyframe(duration, duration: duration)
+        return RippleHost(origin: origin, trigger: trigger, duration: duration) { self }
+    }
+}
+
+/// Applies the ripple on macOS 14+; plain content before (Metal shaders and keyframes need 14).
+private struct RippleHost<Trigger: Equatable, Content: View>: View {
+    let origin: CGPoint
+    let trigger: Trigger
+    let duration: TimeInterval
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        if #available(macOS 14.0, *) {
+            content().keyframeAnimator(initialValue: TimeInterval(0), trigger: trigger) { view, elapsed in
+                view.modifier(RippleShading(origin: origin, elapsed: elapsed, duration: duration))
+            } keyframes: { _ in
+                MoveKeyframe(0)
+                LinearKeyframe(duration, duration: duration)
+            }
+        } else {
+            content()
         }
     }
 }

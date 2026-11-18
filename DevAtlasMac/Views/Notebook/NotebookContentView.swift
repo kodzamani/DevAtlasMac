@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct NotebookContentView: View {
-    @Bindable var notebookVM: NotebookViewModel
-    @Bindable var viewModel: AppViewModel
+    @ObservedObject var notebookVM: NotebookViewModel
+    @ObservedObject var viewModel: AppViewModel
     var body: some View {
         HStack(spacing: 0) {
             noteListPanel
@@ -14,10 +14,10 @@ struct NotebookContentView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onChange(of: viewModel.notebookSearchScope) { _, newScope in
+        .daOnChange(of: viewModel.notebookSearchScope) { _, newScope in
             notebookVM.searchScope = newScope
         }
-        .onChange(of: viewModel.searchText) { _, newText in
+        .daOnChange(of: viewModel.searchText) { _, newText in
             notebookVM.searchText = newText
         }
     }

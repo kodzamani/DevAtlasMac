@@ -22,7 +22,7 @@ struct StatMiniCard: View {
                     .foregroundStyle(Color.daPrimaryText)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
-                    .contentTransition(.numericText())
+                    .daNumericTransition()
             } else {
                 SkeletonBlock()
                     .frame(width: 64, height: 18)

@@ -47,7 +47,7 @@ struct CompactQuickActionCard: View {
         case .primary:
             HStack(spacing: 6) {
                 LineGlyphView(glyph: glyph)
-                    .environment(\.backgroundProminence, .increased)
+                    .environment(\.daIncreasedProminence, true)
                 Text(title)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(.white)

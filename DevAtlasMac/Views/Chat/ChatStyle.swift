@@ -66,7 +66,7 @@ struct ChatIconTile: View {
             .frame(width: size, height: size)
             .background(
                 RoundedRectangle(cornerRadius: size * 0.27, style: .continuous)
-                    .fill(tint.gradient)
+                    .fill(tint.daGradient)
             )
     }
 }

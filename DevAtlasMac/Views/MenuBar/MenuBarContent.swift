@@ -2,10 +2,11 @@ import SwiftUI
 import AppKit
 
 /// The menu behind the menu bar icon. Works whether or not the main window is open.
+@available(macOS 13.0, *)
 struct MenuBarContent: View {
     static let mainWindowID = "main"
 
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     @Environment(\.openWindow) private var openWindow
 
     var body: some View {
@@ -102,6 +103,6 @@ struct MenuBarContent: View {
         // Back in the Dock first, or the window opens behind the frontmost app.
         NSApp.setActivationPolicy(.regular)
         openWindow(id: Self.mainWindowID)
-        NSApp.activate()
+        NSApp.activate(ignoringOtherApps: true)
     }
 }

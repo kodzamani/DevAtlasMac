@@ -1,9 +1,31 @@
 import SwiftUI
 import Charts
 
+/// Charts (selection, donut sectors) need macOS 14; Monterey gets a short notice instead of the charts.
 struct StatsContentView: View {
-    @Bindable var viewModel: AppViewModel
-    @Bindable var statsVM: StatsViewModel
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var statsVM: StatsViewModel
+
+    var body: some View {
+        if #available(macOS 14.0, *) {
+            StatsChartsView(viewModel: viewModel, statsVM: statsVM)
+        } else {
+            VStack(spacing: 8) {
+                Image(systemName: "chart.bar.xaxis")
+                    .font(.system(size: 34))
+                    .foregroundStyle(Color.daTertiaryText)
+                Text("Statistics require macOS 14 or later.")
+                    .foregroundStyle(Color.daSecondaryText)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+}
+
+@available(macOS 14.0, *)
+struct StatsChartsView: View {
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var statsVM: StatsViewModel
     @State private var selectedProjectToAnalyze: ProjectInfo?
     @State private var codeAnalysisForAnalysis: CodeAnalysisResult?
     @State private var hoveredProject: String? = nil
@@ -39,7 +61,7 @@ struct StatsContentView: View {
             // Filtered projects are already gathered by AppViewModel
             statsVM.refreshStats(with: viewModel.filteredProjects)
         }
-        .onChange(of: viewModel.filteredProjects) { _, newProjects in
+        .daOnChange(of: viewModel.filteredProjects) { _, newProjects in
             statsVM.projectsDidChange(newProjects)
         }
     }
@@ -140,7 +162,7 @@ struct StatsContentView: View {
                     .foregroundStyle(Color.daPrimaryText)
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                    .contentTransition(.numericText())
+                    .daNumericTransition()
                     .animation(.spring(response: 0.3, dampingFraction: 0.7), value: value)
             }
         }
@@ -250,7 +272,7 @@ struct StatsContentView: View {
                                 Rectangle()
                                     .fill(Color.clear)
                                     .contentShape(Rectangle())
-                                    .onContinuousHover { phase in
+                                    .daContinuousHover { phase in
                                         switch phase {
                                         case .active(let location):
                                             updateHoveredGitStat(at: location, chartProxy: chartProxy, geometry: geometry)
@@ -555,7 +577,7 @@ struct StatsContentView: View {
                         Rectangle()
                             .fill(Color.clear)
                             .contentShape(Rectangle())
-                            .onContinuousHover { phase in
+                            .daContinuousHover { phase in
                                 switch phase {
                                 case .active(let location):
                                     hoveredProject = metricName(
@@ -777,7 +799,7 @@ struct StatsContentView: View {
                         Rectangle()
                             .fill(Color.clear)
                             .contentShape(Rectangle())
-                            .onContinuousHover { phase in
+                            .daContinuousHover { phase in
                                 switch phase {
                                 case .active(let location):
                                     hoveredProjectType = metricName(
@@ -870,7 +892,7 @@ struct StatsContentView: View {
                             Rectangle()
                                 .fill(Color.clear)
                                 .contentShape(Rectangle())
-                                .onContinuousHover { phase in
+                                .daContinuousHover { phase in
                                     switch phase {
                                     case .active(let location):
                                         hoveredFileProject = fileMetricName(

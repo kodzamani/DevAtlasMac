@@ -1,66 +1,65 @@
 import SwiftUI
-import Observation
+import Combine
 
-@Observable
-final class AppViewModel {
+final class AppViewModel: ObservableObject {
     // MARK: - State
-    var projects: [ProjectInfo] = [] {
+    @Published var projects: [ProjectInfo] = [] {
         didSet { refreshMenuProjects() }
     }
     /// The menu bar's list, newest first. Ignores line counts, which change one project at a
     /// time during analysis and would otherwise rebuild the whole menu on each update.
-    private(set) var menuProjects: [ProjectInfo] = []
+    @Published private(set) var menuProjects: [ProjectInfo] = []
     /// Bumped when the language changes, so views outside the window can redraw.
-    var languageRevision: Int = 0
-    var filteredProjects: [ProjectInfo] = []
-    var searchText: String = "" {
+    @Published var languageRevision: Int = 0
+    @Published var filteredProjects: [ProjectInfo] = []
+    @Published var searchText: String = "" {
         didSet {
             if isShowingDetail { goBack() }
             applyFilters()
         }
     }
-    var selectedCategory: String = "All" {
+    @Published var selectedCategory: String = "All" {
         didSet {
             if isShowingDetail { goBack() }
             applyFilters()
         }
     }
-    var selectedTag: String? {
+    @Published var selectedTag: String? {
         didSet {
             if isShowingDetail { goBack() }
             applyFilters()
         }
     }
-    var viewMode: BrowserViewMode = BrowserViewMode(rawValue: UserDefaults.standard.string(forKey: "browserViewMode") ?? "") ?? .icons {
+    @Published var viewMode: BrowserViewMode = BrowserViewMode(rawValue: UserDefaults.standard.string(forKey: "browserViewMode") ?? "") ?? .icons {
         didSet { UserDefaults.standard.set(viewMode.rawValue, forKey: "browserViewMode") }
     }
-    var isPreviewPaneVisible: Bool = UserDefaults.standard.object(forKey: "browserPreviewPaneVisible") as? Bool ?? true {
+    @Published var isPreviewPaneVisible: Bool = UserDefaults.standard.object(forKey: "browserPreviewPaneVisible") as? Bool ?? true {
         didSet { UserDefaults.standard.set(isPreviewPaneVisible, forKey: "browserPreviewPaneVisible") }
     }
     /// The project selected in the browser. Opening it is a separate step, as in Finder.
-    var highlightedProjectID: String?
-    var scanProgress = ScanProgress()
-    var selectedProject: ProjectInfo?
-    var isShowingDetail: Bool = false
+    @Published var highlightedProjectID: String?
+    @Published var scanProgress = ScanProgress()
+    @Published var selectedProject: ProjectInfo?
+    @Published var isShowingDetail: Bool = false
     /// The open project page has stepped into its code analysis.
-    var isShowingProjectAnalysis: Bool = false
-    var isDarkMode: Bool = UserDefaults.standard.bool(forKey: "isDarkMode") {
+    @Published var isShowingProjectAnalysis: Bool = false
+    @Published var isDarkMode: Bool = UserDefaults.standard.bool(forKey: "isDarkMode") {
         didSet { UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode") }
     }
-    var selectedTab: AppTab = .atlas
-    var notebookSearchScope: NotebookSearchScope = .allNotes
+    @Published var selectedTab: AppTab = .atlas
+    @Published var notebookSearchScope: NotebookSearchScope = .allNotes
     
     // Navigation to notebook
-    var pendingNavigateToNoteId: String?
+    @Published var pendingNavigateToNoteId: String?
 
     // MARK: - Stats
     private var statsTask: Task<Void, Never>?
     private var initialLoad: Task<Void, Never>?
     /// Projects whose persisted counts were already re-checked during this launch.
-    private var refreshedCountIDs: Set<String> = []
-    var filteredTotalFiles: Int = 0
-    var filteredTotalLines: Int = 0
-    var isCalculatingStats: Bool = false
+    @Published private var refreshedCountIDs: Set<String> = []
+    @Published var filteredTotalFiles: Int = 0
+    @Published var filteredTotalLines: Int = 0
+    @Published var isCalculatingStats: Bool = false
 
     // MARK: - Services
     private let scanner = ProjectScanner()
@@ -68,6 +67,15 @@ final class AppViewModel {
     let runner = ProjectRunner()
     let portManager = PortProcessViewModel()
     let dockerManager = DockerViewModel()
+
+    private var childObservers: [AnyCancellable] = []
+
+    init() {
+        childObservers = [
+            portManager.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() },
+            dockerManager.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
+        ]
+    }
 
     /// Every port surface is scoped to indexed projects; unmatched system listeners stay hidden.
     @MainActor var projectPortListeners: [PortListener] {
@@ -155,9 +163,9 @@ final class AppViewModel {
 
     // MARK: - History
 
-    private var backStack: [BrowserLocation] = []
-    private var forwardStack: [BrowserLocation] = []
-    private var recordedLocation: BrowserLocation?
+    @Published private var backStack: [BrowserLocation] = []
+    @Published private var forwardStack: [BrowserLocation] = []
+    @Published private var recordedLocation: BrowserLocation?
 
     var canNavigateBack: Bool { !backStack.isEmpty }
     var canNavigateForward: Bool { !forwardStack.isEmpty }

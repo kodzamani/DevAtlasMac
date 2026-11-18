@@ -3,7 +3,7 @@ import SwiftUI
 /// One turn in the thread: a right-aligned bubble for the user, an avatar and rich blocks for the assistant.
 struct ChatMessageRow: View {
     let message: ChatMessage
-    let chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
     /// The last row keeps its toolbar visible, like most chat apps.
     var isLast: Bool = false
 
@@ -201,7 +201,7 @@ private struct ChatFailedNote: View {
 /// Copy + timestamp under a message. Always takes its height so hovering never shifts the layout.
 private struct ChatMessageToolbar: View {
     let message: ChatMessage
-    let chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
     let isVisible: Bool
 
     @State private var didCopy = false

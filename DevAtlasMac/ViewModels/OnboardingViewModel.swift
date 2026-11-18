@@ -1,13 +1,12 @@
 import Foundation
 import SwiftUI
-import Observation
+import Combine
 
 /// Onboarding ViewModel - manages onboarding state and navigation
-@Observable
-final class OnboardingViewModel {
+final class OnboardingViewModel: ObservableObject {
     // MARK: - State
-    var currentPage: OnboardingPage = .welcome
-    var isPresented: Bool = false
+    @Published var currentPage: OnboardingPage = .welcome
+    @Published var isPresented: Bool = false
     
     // MARK: - UserDefaults Keys
     private let hasCompletedOnboardingKey = "hasCompletedOnboarding"

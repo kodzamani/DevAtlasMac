@@ -4,7 +4,7 @@ import AppKit
 /// The floating list above the composer: matching projects, a project's numbered actions,
 /// or slash commands. The highlighted row follows `chatVM.suggestionIndex`.
 struct ChatSuggestionList: View {
-    let chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     static let rowHeight: CGFloat = 44
     static let headerHeight: CGFloat = 24
@@ -64,9 +64,8 @@ struct ChatSuggestionList: View {
                 .padding(.top, 2)
                 .padding(.bottom, 6)
             }
-            .scrollIndicators(.automatic)
             .frame(height: listHeight(for: entries))
-            .onChange(of: chatVM.suggestionIndex) { _, index in
+            .daOnChange(of: chatVM.suggestionIndex) { _, index in
                 guard chatVM.suggestions.indices.contains(index) else { return }
                 withAnimation(.easeOut(duration: 0.12)) {
                     proxy.scrollTo(chatVM.suggestions[index].id)
@@ -119,7 +118,7 @@ struct ChatSuggestionList: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .onContinuousHover { phase in
+        .daContinuousHover { phase in
             guard case .active = phase else { return }
             let pointer = NSEvent.mouseLocation
             defer { lastPointer = pointer }

@@ -2,7 +2,7 @@ import SwiftUI
 
 /// The welcome screen of a new conversation: a mark, a greeting and a few things to start with.
 struct ChatEmptyStateView: View {
-    let chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     @State private var hasAppeared = false
 
@@ -73,7 +73,7 @@ struct ChatEmptyStateView: View {
                 .padding(.vertical, 24)
                 .frame(maxWidth: .infinity, minHeight: geo.size.height)
             }
-            .scrollBounceBehavior(.basedOnSize)
+            .daScrollBounceBasedOnSize()
         }
         .onAppear { hasAppeared = true }
     }

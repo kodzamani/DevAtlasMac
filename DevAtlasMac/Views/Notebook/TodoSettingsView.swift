@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TodoSettingsView: View {
-    @Bindable var notebookVM: NotebookViewModel
+    @ObservedObject var notebookVM: NotebookViewModel
     let note: NotebookNote
     let todo: TodoItem
     @Environment(\.dismiss) private var dismiss

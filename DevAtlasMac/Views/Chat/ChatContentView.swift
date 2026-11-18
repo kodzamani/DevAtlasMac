@@ -2,8 +2,8 @@ import SwiftUI
 
 /// The Chat tab: a header, the message thread (or a welcome screen) and the composer pinned to the bottom.
 struct ChatContentView: View {
-    let viewModel: AppViewModel
-    @Bindable var chatVM: ChatViewModel
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     @State private var isScrolled = false
 
@@ -33,7 +33,7 @@ struct ChatContentView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .task { await chatVM.load() }
-        .onChange(of: chatVM.messages.isEmpty) { _, isEmpty in
+        .daOnChange(of: chatVM.messages.isEmpty) { _, isEmpty in
             if isEmpty { isScrolled = false }
         }
     }
@@ -77,23 +77,23 @@ struct ChatContentView: View {
                 .id(chatVM.current.id)
             }
             .coordinateSpace(name: Self.scrollSpace)
-            .scrollBounceBehavior(.basedOnSize)
+            .daScrollBounceBasedOnSize()
             .mask(threadFadeMask)
             .onPreferenceChange(ChatScrollOffsetKey.self) { offset in
                 let scrolled = offset < -4
                 if scrolled != isScrolled { isScrolled = scrolled }
             }
             .onAppear { scrollToBottom(proxy, animated: false) }
-            .onChange(of: chatVM.current.id) {
+            .daOnChange(of: chatVM.current.id) {
                 scrollToBottom(proxy, animated: false)
             }
-            .onChange(of: chatVM.messages.count) {
+            .daOnChange(of: chatVM.messages.count) {
                 scrollToBottom(proxy, animated: true)
             }
-            .onChange(of: chatVM.messages.last) {
+            .daOnChange(of: chatVM.messages.last) {
                 scrollToBottom(proxy, animated: true)
             }
-            .onChange(of: chatVM.activeProject?.id) {
+            .daOnChange(of: chatVM.activeProject?.id) {
                 scrollToBottom(proxy, animated: true)
             }
             .onReceive(NotificationCenter.default.publisher(for: .chatThreadNeedsScroll)) { _ in
@@ -167,7 +167,7 @@ struct ChatProjectPill: View {
 
 /// Conversation title and active project, shown in the window toolbar.
 struct ChatToolbarTitle: View {
-    let chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     private var title: String {
         let title = chatVM.current.title.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -181,7 +181,7 @@ struct ChatToolbarTitle: View {
                 .foregroundStyle(Color.daPrimaryText)
                 .lineLimit(1)
                 .fixedSize(horizontal: true, vertical: false)
-                .contentTransition(.opacity)
+                .daContentTransitionOpacity()
 
             if let project = chatVM.activeProject {
                 ChatProjectPill(project: project)
@@ -195,7 +195,7 @@ struct ChatToolbarTitle: View {
 
 /// History popover button and "new chat" button for the window toolbar.
 struct ChatToolbarActions: View {
-    @Bindable var chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
     @State private var isHistoryPresented = false
 
     var body: some View {

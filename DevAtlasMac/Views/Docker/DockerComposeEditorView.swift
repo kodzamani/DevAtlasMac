@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DockerComposeEditorView: View {
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     private var manager: DockerViewModel { viewModel.dockerManager }
 
     var body: some View {
@@ -32,7 +32,7 @@ struct DockerComposeEditorView: View {
         .task {
             while !Task.isCancelled {
                 await viewModel.portManager.refresh()
-                do { try await Task.sleep(for: .seconds(8)) } catch { break }
+                do { try await Task.sleep(nanoseconds: UInt64(8 * 1_000_000_000)) } catch { break }
             }
         }
     }
@@ -40,7 +40,7 @@ struct DockerComposeEditorView: View {
     // MARK: Chrome
 
     private var topBar: some View {
-        @Bindable var manager = manager
+        @ObservedObject var manager = manager
         return HStack(spacing: 11) {
             DockerIconTile(kind: .compose, tint: .daDocker, size: 34)
             VStack(alignment: .leading, spacing: 2) {
@@ -110,7 +110,7 @@ struct DockerComposeEditorView: View {
         } label: {
             DockerActionLabel(kind: .folder, title: "docker.openCompose".localized, style: prominent ? .prominent : .plain)
         }
-        .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
+        .daBorderlessMenu()
     }
 
     private var emptyState: some View {
@@ -175,7 +175,7 @@ struct DockerComposeEditorView: View {
                 Divider().opacity(0.6)
                 TextEditor(text: Binding(get: { manager.yaml }, set: { manager.setYAML($0) }))
                     .font(.system(size: 12, design: .monospaced)).autocorrectionDisabled()
-                    .scrollContentBackground(.hidden)
+                    .daScrollContentBackgroundHidden()
                     .padding(.horizontal, 8).padding(.vertical, 6)
             }
             .daCardSurface()
@@ -233,7 +233,7 @@ struct DockerComposeEditorView: View {
                         .frame(width: 22, height: 22)
                         .background(Color.daDocker.opacity(0.12), in: Circle())
                 }
-                .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
+                .daBorderlessMenu()
                 .help("docker.addService".localized)
             }
             .padding(.horizontal, 12).frame(height: 38)

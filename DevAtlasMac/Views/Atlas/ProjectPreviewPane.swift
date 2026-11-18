@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Finder's preview pane: a large icon, metadata and quick actions for the selected project.
 struct ProjectPreviewPane: View {
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     let project: ProjectInfo?
 
     var body: some View {
@@ -99,7 +99,7 @@ struct ProjectPreviewPane: View {
 
             Divider()
 
-            Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 10, verticalSpacing: 7) {
+            VStack(alignment: .leading, spacing: 7) {
                 row("finder.dateModified".localized, project.lastModified.formatted(date: .abbreviated, time: .shortened))
                 if let branch = project.gitBranch {
                     row("finder.branch".localized, branch)
@@ -117,10 +117,10 @@ struct ProjectPreviewPane: View {
     }
 
     private func row(_ title: String, _ value: String) -> some View {
-        GridRow {
+        HStack(alignment: .firstTextBaseline, spacing: 10) {
             Text(title)
                 .foregroundStyle(Color.daMutedText)
-                .gridColumnAlignment(.trailing)
+                .frame(width: 84, alignment: .trailing)
             Text(value)
                 .foregroundStyle(Color.daSecondaryText)
                 .textSelection(.enabled)

@@ -11,15 +11,19 @@ struct AuroraBackground: View {
     var body: some View {
         TimelineView(.animation(minimumInterval: 1.0 / 8.0, paused: reduceMotion || controlActiveState != .key)) { context in
             GeometryReader { proxy in
-                Rectangle()
-                    .colorEffect(
-                        ShaderLibrary.daAurora(
-                            .float2(proxy.size),
-                            .float(context.date.timeIntervalSince(startDate)),
-                            .color(Color.daAccent),
-                            .float(colorScheme == .dark ? 1 : 0)
+                if #available(macOS 14.0, *) {
+                    Rectangle()
+                        .colorEffect(
+                            ShaderLibrary.daAurora(
+                                .float2(proxy.size),
+                                .float(context.date.timeIntervalSince(startDate)),
+                                .color(Color.daAccent),
+                                .float(colorScheme == .dark ? 1 : 0)
+                            )
                         )
-                    )
+                } else {
+                    Rectangle().fill(Color.daAccent.opacity(colorScheme == .dark ? 0.05 : 0.03))
+                }
             }
         }
         .ignoresSafeArea()

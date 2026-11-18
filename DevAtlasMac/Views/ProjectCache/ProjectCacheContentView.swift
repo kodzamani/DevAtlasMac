@@ -4,8 +4,8 @@ import AppKit
 /// Lists the regenerable folders of every project (installed packages, build output, tool
 /// caches) and frees the space they take.
 struct ProjectCacheContentView: View {
-    @Bindable var viewModel: AppViewModel
-    @Bindable var cacheVM: ProjectCacheViewModel
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var cacheVM: ProjectCacheViewModel
 
     @State private var isConfirmingClean = false
 

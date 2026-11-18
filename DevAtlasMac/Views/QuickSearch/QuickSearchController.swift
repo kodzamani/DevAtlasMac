@@ -201,7 +201,7 @@ final class QuickSearchController: NSObject, NSWindowDelegate {
 
         let panel = QuickSearchPanel(contentRect: NSRect(origin: .zero, size: Self.panelSize))
         let hostingView = NSHostingView(rootView: QuickSearchView(model: model))
-        hostingView.sizingOptions = []
+        if #available(macOS 13.0, *) { hostingView.sizingOptions = [] }
         panel.contentView = hostingView
         panel.delegate = self
         panel.dragRegion = NSRect(
@@ -286,6 +286,6 @@ final class QuickSearchController: NSObject, NSWindowDelegate {
         } else if let window = NSApp.windows.first(where: { $0.canBecomeMain && !($0 is QuickSearchPanel) }) {
             window.makeKeyAndOrderFront(nil)
         }
-        NSApp.activate()
+        NSApp.activate(ignoringOtherApps: true)
     }
 }

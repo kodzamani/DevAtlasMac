@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Finder's list view: sortable columns backed by a native table.
 struct ProjectTableView: View {
-    @Bindable var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     @State private var sortOrder = [KeyPathComparator(\ProjectInfo.lastModified, order: .reverse)]
 
@@ -41,16 +41,19 @@ struct ProjectTableView: View {
             }
         }
         .tableStyle(.inset(alternatesRowBackgrounds: true))
-        .scrollContentBackground(.hidden)
-        .contextMenu(forSelectionType: ProjectInfo.ID.self) { ids in
-            if let project = project(from: ids) {
-                ProjectContextMenu(viewModel: viewModel, project: project)
+        .daScrollContentBackgroundHidden()
+        .modifier(TableRowActions(
+            menu: { ids in
+                if let project = project(from: ids) {
+                    ProjectContextMenu(viewModel: viewModel, project: project)
+                }
+            },
+            open: { ids in
+                if let project = project(from: ids) {
+                    viewModel.selectProject(project)
+                }
             }
-        } primaryAction: { ids in
-            if let project = project(from: ids) {
-                viewModel.selectProject(project)
-            }
-        }
+        ))
     }
 
     private func project(from ids: Set<ProjectInfo.ID>) -> ProjectInfo? {

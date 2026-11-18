@@ -1,26 +1,25 @@
 import SwiftUI
-import Observation
+import Combine
 import AppKit
 import MarkdownUI
 
-@Observable
-final class NotebookViewModel {
+final class NotebookViewModel: ObservableObject {
     // MARK: - State
-    var notes: [NotebookNote] = [] {
+    @Published var notes: [NotebookNote] = [] {
         didSet {
             cleanFilters()
         }
     }
-    var selectedProjectId: String?
-    var selectedNote: NotebookNote?
-    var searchText: String = ""
-    var newTodoText: String = ""
+    @Published var selectedProjectId: String?
+    @Published var selectedNote: NotebookNote?
+    @Published var searchText: String = ""
+    @Published var newTodoText: String = ""
     
     // MARK: - New Feature Filters
-    var showArchived: Bool = false
-    var filterTags: Set<String> = []
-    var selectedFolder: String?
-    var sortOption: NoteSortOption = .updatedDesc
+    @Published var showArchived: Bool = false
+    @Published var filterTags: Set<String> = []
+    @Published var selectedFolder: String?
+    @Published var sortOption: NoteSortOption = .updatedDesc
 
     // MARK: - Services
     private let store = NotebookStore.shared
@@ -71,7 +70,7 @@ final class NotebookViewModel {
     }
 
     // Search scope property that will be set from the parent view
-    var searchScope: NotebookSearchScope = .allNotes
+    @Published var searchScope: NotebookSearchScope = .allNotes
     
     var filteredNotes: [NotebookNote] {
         var result = notes
@@ -521,6 +520,8 @@ final class NotebookViewModel {
 
     @MainActor
     func exportNoteToPDF(_ note: NotebookNote) {
+        // ImageRenderer (used for the pages) needs macOS 13.
+        guard #available(macOS 13.0, *) else { NSSound.beep(); return }
         let panel = NSSavePanel()
         panel.allowedContentTypes = [.pdf]
         panel.nameFieldStringValue = note.title.isEmpty ? "Note" : note.title

@@ -1,17 +1,16 @@
 import Foundation
-import Observation
+import Combine
 
 @MainActor
-@Observable
-final class PortProcessViewModel {
+final class PortProcessViewModel: ObservableObject {
     nonisolated init() {}
 
-    private(set) var listeners: [PortListener] = []
-    private(set) var isScanning = false
-    private(set) var stoppingPIDs: Set<Int32> = []
-    private(set) var lastUpdated: Date?
-    var errorMessage: String?
-    @ObservationIgnored private var scanTask: Task<Void, Never>?
+    @Published private(set) var listeners: [PortListener] = []
+    @Published private(set) var isScanning = false
+    @Published private(set) var stoppingPIDs: Set<Int32> = []
+    @Published private(set) var lastUpdated: Date?
+    @Published var errorMessage: String?
+    private var scanTask: Task<Void, Never>?
 
     func refresh() async {
         if let scanTask { await scanTask.value; return }

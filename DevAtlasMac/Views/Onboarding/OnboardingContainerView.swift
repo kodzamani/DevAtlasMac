@@ -2,10 +2,10 @@ import SwiftUI
 
 /// A centered setup assistant with horizontal progress and persistent navigation.
 struct OnboardingContainerView: View {
-    @Environment(AppViewModel.self) private var appViewModel
-    @Environment(LanguageManager.self) private var languageManager
+    @EnvironmentObject private var appViewModel: AppViewModel
+    @EnvironmentObject private var languageManager: LanguageManager
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Bindable var viewModel: OnboardingViewModel
+    @ObservedObject var viewModel: OnboardingViewModel
 
     @State private var languageTrigger: Int = 0
 
@@ -93,7 +93,6 @@ struct OnboardingContainerView: View {
                 .padding(.vertical, 18)
                 .frame(maxWidth: .infinity, minHeight: proxy.size.height)
             }
-            .scrollIndicators(.automatic)
         }
         .id(viewModel.currentPage)
         .transition(reduceMotion ? .opacity : .opacity.combined(with: .offset(y: 8)))
@@ -135,7 +134,7 @@ struct OnboardingContainerView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
-        .background(Color.daCard, in: UnevenRoundedRectangle(bottomLeadingRadius: 24, bottomTrailingRadius: 24))
+        .background(Color.daCard, in: BottomRoundedRectangle(radius: 24))
         .overlay(alignment: .top) {
             Divider()
         }
@@ -186,7 +185,7 @@ struct OnboardingContainerView: View {
 
 #Preview {
     OnboardingContainerView(viewModel: OnboardingViewModel())
-        .environment(AppViewModel())
-        .environment(LanguageManager())
+        .environmentObject(AppViewModel())
+        .environmentObject(LanguageManager())
         .frame(width: 1200, height: 800)
 }

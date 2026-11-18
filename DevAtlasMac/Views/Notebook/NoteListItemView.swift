@@ -25,10 +25,10 @@ struct NoteListItemView: View {
                             .foregroundStyle(iconColor)
                     }
                     Text(note.title)
+                        .strikethrough(note.isArchived == true, color: .gray)
                         .font(.daBodySemiBold)
                         .foregroundStyle(Color.daPrimaryText)
                         .lineLimit(1)
-                        .strikethrough(note.isArchived == true, color: .gray)
                     Spacer()
                     Text(formattedDate(note.updatedAt))
                         .font(.daSmallLabel)

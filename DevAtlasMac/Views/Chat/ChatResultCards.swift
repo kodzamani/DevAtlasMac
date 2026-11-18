@@ -61,7 +61,7 @@ struct ChatResultSectionLabel: View {
             }
         }
         .font(.system(size: 10.5, weight: .semibold))
-        .tracking(0.3)
+        .daTracking(0.3)
         .foregroundStyle(Color.daTertiaryText)
         .lineLimit(1)
         .accessibilityAddTraits(.isHeader)
@@ -79,7 +79,7 @@ struct ChatProportionBar: View {
             ZStack(alignment: .leading) {
                 Capsule().fill(Color.primary.opacity(0.06))
                 Capsule()
-                    .fill(color.gradient)
+                    .fill(color.daGradient)
                     .frame(width: max(height, proxy.size.width * min(max(fraction, 0), 1)))
             }
         }
@@ -365,14 +365,22 @@ struct ChatGitCard: View {
         return payload.days.first { Calendar.current.isDate($0.date, inSameDayAs: hoveredDate) }
     }
 
+    @ViewBuilder
     private var chart: some View {
+        if #available(macOS 14.0, *) {
+            commitsChart
+        }
+    }
+
+    @available(macOS 14.0, *)
+    private var commitsChart: some View {
         Chart(payload.days) { day in
             BarMark(
                 x: .value("Day", day.date, unit: .day),
                 y: .value("Commits", day.commits)
             )
             .cornerRadius(3)
-            .foregroundStyle(Color.daAccent.gradient)
+            .foregroundStyle(Color.daAccent.daGradient)
             .opacity(hoveredDay == nil || hoveredDay?.date == day.date ? 1 : 0.4)
         }
         .chartXSelection(value: $hoveredDate)
@@ -692,7 +700,7 @@ struct ChatUnusedCodeCard: View {
             NSPasteboard.general.setString(prompt, forType: .string)
             withAnimation(.easeOut(duration: 0.12)) { didCopy = true }
             Task { @MainActor in
-                try? await Task.sleep(for: .seconds(1.6))
+                try? await Task.sleep(nanoseconds: UInt64(1.6 * 1_000_000_000))
                 withAnimation(.easeOut(duration: 0.2)) { didCopy = false }
             }
         } label: {
@@ -973,9 +981,9 @@ struct ChatWorkspaceStatsCard: View {
         let maxCount = max(slices.map(\.count).max() ?? 1, 1)
         return VStack(alignment: .leading, spacing: 8) {
             ChatResultSectionLabel(text: title)
-            Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 7) {
+            VStack(alignment: .leading, spacing: 7) {
                 ForEach(slices) { slice in
-                    GridRow {
+                    HStack(spacing: 10) {
                         HStack(spacing: 6) {
                             if let hex = slice.colorHex {
                                 Circle().fill(Color(hex: hex)).frame(width: 7, height: 7)
@@ -995,7 +1003,7 @@ struct ChatWorkspaceStatsCard: View {
                             .font(.system(size: 11.5, weight: .medium))
                             .monospacedDigit()
                             .foregroundStyle(Color.daTertiaryText)
-                            .gridColumnAlignment(.trailing)
+                            .frame(minWidth: 36, alignment: .trailing)
                     }
                     .accessibilityElement(children: .combine)
                 }

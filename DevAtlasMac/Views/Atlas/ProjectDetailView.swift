@@ -2,7 +2,7 @@ import SwiftUI
 import AppKit
 
 struct ProjectDetailView: View {
-    @Bindable var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     let project: ProjectInfo
     
     @State private var stats: ProjectStats?
@@ -77,11 +77,7 @@ struct ProjectDetailView: View {
 
     // MARK: - Project Header
     private func projectHeader(isWide: Bool) -> some View {
-        let layout = isWide
-            ? AnyLayout(HStackLayout(alignment: .center, spacing: 24))
-            : AnyLayout(VStackLayout(alignment: .leading, spacing: 14))
-
-        return layout {
+        AdaptiveStack(isWide: isWide, verticalAlignment: .center, horizontalAlignment: .leading, wideSpacing: 24, narrowSpacing: 14) {
             projectIdentity
                 .frame(maxWidth: .infinity, alignment: .leading)
             actionBar
@@ -242,11 +238,7 @@ struct ProjectDetailView: View {
 
     // MARK: - Overview
     private func overviewCards(isWide: Bool) -> some View {
-        let layout = isWide
-            ? AnyLayout(HStackLayout(alignment: .top, spacing: 18))
-            : AnyLayout(VStackLayout(alignment: .leading, spacing: 18))
-
-        return layout {
+        AdaptiveStack(isWide: isWide, verticalAlignment: .top, horizontalAlignment: .leading, wideSpacing: 18, narrowSpacing: 18) {
             VStack(alignment: .leading, spacing: 18) {
                 ProjectReadmeSection(projectPath: project.path)
                     .daCardSurface()

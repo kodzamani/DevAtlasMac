@@ -1,11 +1,12 @@
 import SwiftUI
 
 /// Window toolbar: history navigation on the leading side, contextual controls on the trailing side.
+@available(macOS 13.0, *)
 struct AppToolbar: ToolbarContent {
-    @Bindable var viewModel: AppViewModel
-    @Bindable var statsVM: StatsViewModel
-    let cacheVM: ProjectCacheViewModel
-    let chatVM: ChatViewModel
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var statsVM: StatsViewModel
+    @ObservedObject var cacheVM: ProjectCacheViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     @ToolbarContentBuilder
     var body: some ToolbarContent {
@@ -33,7 +34,7 @@ struct AppToolbar: ToolbarContent {
 
         if viewModel.selectedTab == .docker {
             ToolbarItem(placement: .principal) {
-                Picker("docker.mode".localized, selection: Bindable(viewModel.dockerManager).mode) {
+                Picker("docker.mode".localized, selection: daBinding(viewModel.dockerManager, \.mode)) {
                     ForEach(DockerViewModel.Mode.allCases) { Text($0.title).tag($0) }
                 }
                 .pickerStyle(.segmented)
@@ -43,46 +44,7 @@ struct AppToolbar: ToolbarContent {
         }
 
         ToolbarItemGroup(placement: .primaryAction) {
-            switch viewModel.selectedTab {
-            case .atlas where !viewModel.isShowingDetail:
-                browserControls
-            case .notebook:
-                notebookScopeMenu
-            case .stats:
-                statsControls
-            case .ports:
-                Button {
-                    Task { await viewModel.portManager.refresh() }
-                } label: {
-                    PortIcon(.refresh)
-                }
-                .accessibilityLabel("ports.refresh".localized)
-                .disabled(viewModel.portManager.isScanning)
-                .help("ports.refresh".localized)
-            case .docker:
-                Button("docker.refresh".localized, systemImage: "arrow.clockwise") {
-                    Task { await viewModel.dockerManager.refresh(projects: viewModel.projects) }
-                }
-                .disabled(viewModel.dockerManager.isRefreshing)
-                .help("docker.refresh".localized)
-            case .projectCache:
-                Button("cache.rescan".localized, systemImage: "arrow.clockwise") {
-                    cacheVM.scan(viewModel.projects)
-                }
-                .disabled(cacheVM.isScanning || cacheVM.isCleaning)
-                .help("cache.rescan".localized)
-            case .chat:
-                ChatToolbarActions(chatVM: chatVM)
-            default:
-                EmptyView()
-            }
-
-            if viewModel.selectedTab != .chat {
-                Button("sidebar.darkMode".localized, systemImage: viewModel.isDarkMode ? "sun.max" : "moon") {
-                    viewModel.isDarkMode.toggle()
-                }
-                .help("sidebar.darkMode".localized)
-            }
+            AppToolbarActions(viewModel: viewModel, statsVM: statsVM, cacheVM: cacheVM, chatVM: chatVM)
         }
     }
 
@@ -98,6 +60,100 @@ struct AppToolbar: ToolbarContent {
                 ChatToolbarTitle(chatVM: chatVM)
             }
             .sharedBackgroundVisibility(.hidden)
+        }
+    }
+}
+
+/// Monterey toolbar: the same controls without the conditional toolbar items macOS 12 lacks.
+struct LegacyAppToolbar: ToolbarContent {
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var statsVM: StatsViewModel
+    @ObservedObject var cacheVM: ProjectCacheViewModel
+    @ObservedObject var chatVM: ChatViewModel
+
+    var body: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigation) {
+            if viewModel.selectedTab != .chat {
+                Button("finder.back".localized, systemImage: "chevron.left") {
+                    viewModel.navigateBack()
+                }
+                .disabled(!viewModel.canNavigateBack)
+                .keyboardShortcut("[", modifiers: .command)
+                .help("finder.back".localized)
+
+                Button("finder.forward".localized, systemImage: "chevron.right") {
+                    viewModel.navigateForward()
+                }
+                .disabled(!viewModel.canNavigateForward)
+                .keyboardShortcut("]", modifiers: .command)
+                .help("finder.forward".localized)
+            }
+        }
+
+        ToolbarItem(placement: .principal) {
+            if viewModel.selectedTab == .docker {
+                Picker("docker.mode".localized, selection: daBinding(viewModel.dockerManager, \.mode)) {
+                    ForEach(DockerViewModel.Mode.allCases) { Text($0.title).tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .fixedSize()
+            }
+        }
+
+        ToolbarItemGroup(placement: .primaryAction) {
+            AppToolbarActions(viewModel: viewModel, statsVM: statsVM, cacheVM: cacheVM, chatVM: chatVM)
+        }
+    }
+}
+
+/// Trailing controls that change with the selected tab.
+struct AppToolbarActions: View {
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var statsVM: StatsViewModel
+    @ObservedObject var cacheVM: ProjectCacheViewModel
+    @ObservedObject var chatVM: ChatViewModel
+
+    var body: some View {
+        switch viewModel.selectedTab {
+        case .atlas where !viewModel.isShowingDetail:
+            browserControls
+        case .notebook:
+            notebookScopeMenu
+        case .stats:
+            statsControls
+        case .ports:
+            Button {
+                Task { await viewModel.portManager.refresh() }
+            } label: {
+                PortIcon(.refresh)
+            }
+            .accessibilityLabel("ports.refresh".localized)
+            .disabled(viewModel.portManager.isScanning)
+            .help("ports.refresh".localized)
+        case .docker:
+            Button("docker.refresh".localized, systemImage: "arrow.clockwise") {
+                Task { await viewModel.dockerManager.refresh(projects: viewModel.projects) }
+            }
+            .disabled(viewModel.dockerManager.isRefreshing)
+            .help("docker.refresh".localized)
+        case .projectCache:
+            Button("cache.rescan".localized, systemImage: "arrow.clockwise") {
+                cacheVM.scan(viewModel.projects)
+            }
+            .disabled(cacheVM.isScanning || cacheVM.isCleaning)
+            .help("cache.rescan".localized)
+        case .chat:
+            ChatToolbarActions(chatVM: chatVM)
+        default:
+            EmptyView()
+        }
+
+        if viewModel.selectedTab != .chat {
+            Button("sidebar.darkMode".localized, systemImage: viewModel.isDarkMode ? "sun.max" : "moon") {
+                viewModel.isDarkMode.toggle()
+            }
+            .help("sidebar.darkMode".localized)
         }
     }
 

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NoteSettingsView: View {
-    @Bindable var notebookVM: NotebookViewModel
+    @ObservedObject var notebookVM: NotebookViewModel
     let note: NotebookNote
     @Environment(\.dismiss) private var dismiss
     

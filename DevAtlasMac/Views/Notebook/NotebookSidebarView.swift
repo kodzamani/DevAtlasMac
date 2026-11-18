@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct NotebookSidebarView: View {
-    @Bindable var viewModel: AppViewModel
-    @Bindable var notebookVM: NotebookViewModel
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var notebookVM: NotebookViewModel
     @State private var detailProject: ProjectInfo?
 
     /// Projects deduplicated by name

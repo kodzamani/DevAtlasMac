@@ -5,7 +5,7 @@ import Carbon.HIToolbox
 /// The floating input at the bottom of the chat, with the suggestion list above it
 /// and a row of key hints below.
 struct ChatComposerView: View {
-    @Bindable var chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     @Environment(\.colorScheme) private var colorScheme
     @FocusState private var isFocused: Bool
@@ -38,10 +38,10 @@ struct ChatComposerView: View {
         .onDisappear {
             keyMonitor.remove()
         }
-        .onChange(of: isFocused) { _, focused in
+        .daOnChange(of: isFocused) { _, focused in
             keyMonitor.isFocused = focused
         }
-        .onChange(of: chatVM.focusRequest) {
+        .daOnChange(of: chatVM.focusRequest) {
             isFocused = true
         }
         // Focus set before the window is key does not take; claim it once the window is
@@ -56,6 +56,17 @@ struct ChatComposerView: View {
 
     // MARK: - Input Box
 
+    /// Multi-line field on macOS 13+, single line before.
+    @ViewBuilder
+    private var draftField: some View {
+        if #available(macOS 13.0, *) {
+            TextField(chatVM.composerPlaceholder, text: $chatVM.draft, axis: .vertical)
+                .lineLimit(1...6)
+        } else {
+            TextField(chatVM.composerPlaceholder, text: $chatVM.draft)
+        }
+    }
+
     private var inputBox: some View {
         let shape = RoundedRectangle(cornerRadius: ChatMetrics.composerCorner, style: .continuous)
         return VStack(alignment: .leading, spacing: 10) {
@@ -63,8 +74,7 @@ struct ChatComposerView: View {
                 context
             }
 
-            TextField(chatVM.composerPlaceholder, text: $chatVM.draft, axis: .vertical)
-                .lineLimit(1...6)
+            draftField
                 .textFieldStyle(.plain)
                 .font(.system(size: 14))
                 .focused($isFocused)
@@ -270,15 +280,24 @@ private struct ChatComposerHints: View {
 
     var body: some View {
         // Drops hints from the end as the window narrows, then hides the row.
-        ViewThatFits(in: .horizontal) {
-            row(hints)
-            row(Array(hints.prefix(3)))
-            row(Array(hints.prefix(2)))
-            Color.clear.frame(height: 18)
-        }
+        fittingRows
         .frame(maxWidth: .infinity)
         .frame(height: 18)
         .animation(.easeOut(duration: 0.12), value: isListVisible)
+    }
+
+    @ViewBuilder
+    private var fittingRows: some View {
+        if #available(macOS 13.0, *) {
+            ViewThatFits(in: .horizontal) {
+                row(hints)
+                row(Array(hints.prefix(3)))
+                row(Array(hints.prefix(2)))
+                Color.clear.frame(height: 18)
+            }
+        } else {
+            row(Array(hints.prefix(2)))
+        }
     }
 
     private var hints: [(keys: [String], label: String)] {

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct OnboardingAppearanceView: View {
-    @Bindable var appViewModel: AppViewModel
-    @Environment(LanguageManager.self) private var languageManager
+    @ObservedObject var appViewModel: AppViewModel
+    @EnvironmentObject private var languageManager: LanguageManager
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
@@ -141,5 +141,5 @@ private struct MiniWindowPreview: View {
 
 #Preview {
     OnboardingAppearanceView(appViewModel: AppViewModel())
-        .environment(LanguageManager())
+        .environmentObject(LanguageManager())
 }

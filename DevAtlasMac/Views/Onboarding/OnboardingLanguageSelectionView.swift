@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct OnboardingLanguageSelectionView: View {
-    @Environment(LanguageManager.self) private var languageManager
+    @EnvironmentObject private var languageManager: LanguageManager
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 4)
 
@@ -70,5 +70,5 @@ struct OnboardingLanguageSelectionView: View {
 
 #Preview {
     OnboardingLanguageSelectionView()
-        .environment(LanguageManager())
+        .environmentObject(LanguageManager())
 }

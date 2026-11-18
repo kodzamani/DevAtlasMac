@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Finder's column view: project kinds, the projects of that kind, then a preview.
 struct ProjectColumnsView: View {
-    @Bindable var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     @State private var selectedKind: String?
 
@@ -52,11 +52,11 @@ struct ProjectColumnsView: View {
                         .foregroundStyle(.tertiary)
                 }
                 .tag(kind.name)
-                .listRowSeparator(.hidden)
+                .daListRowSeparatorHidden()
             }
         }
         .listStyle(.plain)
-        .scrollContentBackground(.hidden)
+        .daScrollContentBackgroundHidden()
     }
 
     private var projectColumn: some View {
@@ -67,19 +67,22 @@ struct ProjectColumnsView: View {
                     Text(project.name).lineLimit(1).truncationMode(.middle)
                 }
                 .tag(project.id)
-                .listRowSeparator(.hidden)
+                .daListRowSeparatorHidden()
             }
         }
         .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .contextMenu(forSelectionType: ProjectInfo.ID.self) { ids in
-            if let id = ids.first, let project = projectsOfKind.first(where: { $0.id == id }) {
-                ProjectContextMenu(viewModel: viewModel, project: project)
+        .daScrollContentBackgroundHidden()
+        .modifier(TableRowActions(
+            menu: { ids in
+                if let id = ids.first, let project = projectsOfKind.first(where: { $0.id == id }) {
+                    ProjectContextMenu(viewModel: viewModel, project: project)
+                }
+            },
+            open: { ids in
+                if let id = ids.first, let project = projectsOfKind.first(where: { $0.id == id }) {
+                    viewModel.selectProject(project)
+                }
             }
-        } primaryAction: { ids in
-            if let id = ids.first, let project = projectsOfKind.first(where: { $0.id == id }) {
-                viewModel.selectProject(project)
-            }
-        }
+        ))
     }
 }

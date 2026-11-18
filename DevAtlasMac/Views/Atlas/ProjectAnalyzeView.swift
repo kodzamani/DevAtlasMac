@@ -90,7 +90,7 @@ struct ProjectAnalysisPage: View {
                     .padding(.init(top: 20, leading: 24, bottom: 32, trailing: 24))
                     .frame(maxWidth: .infinity)
             }
-            .scrollDisabled(true)
+            .daScrollDisabled(true)
         }
     }
 }

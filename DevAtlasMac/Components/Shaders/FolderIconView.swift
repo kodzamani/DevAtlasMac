@@ -16,7 +16,7 @@ struct FolderIconView: View {
     var body: some View {
         Rectangle()
             .modifier(
-                FolderShading(
+                FolderShadingCompat(
                     size: iconSize,
                     tint: tint,
                     pointer: pointer,
@@ -27,7 +27,7 @@ struct FolderIconView: View {
             )
             .frame(width: iconSize.width, height: iconSize.height)
             .animation(.easeOut(duration: 0.15), value: isHovered)
-            .onContinuousHover(coordinateSpace: .local) { phase in
+            .daContinuousHover { phase in
                 guard isInteractive else { return }
                 switch phase {
                 case .active(let location):
@@ -41,6 +41,24 @@ struct FolderIconView: View {
     }
 }
 
+private struct FolderShadingCompat: ViewModifier {
+    let size: CGSize
+    let tint: Color
+    let pointer: CGPoint
+    var hover: Double
+    var open: Double
+    let pixelSize: CGFloat
+
+    func body(content: Content) -> some View {
+        if #available(macOS 14.0, *) {
+            content.modifier(FolderShading(size: size, tint: tint, pointer: pointer, hover: hover, open: open, pixelSize: pixelSize))
+        } else {
+            content.foregroundStyle(tint.opacity(0.85 + 0.15 * hover))
+        }
+    }
+}
+
+@available(macOS 14.0, *)
 private struct FolderShading: ViewModifier, Animatable {
     let size: CGSize
     let tint: Color

@@ -1,42 +1,43 @@
 import SwiftUI
 import AppKit
-import Observation
+import Combine
 
 /// State behind the Chat tab: a conversational command interface over the user's projects.
 /// Nothing here talks to a language model; typed text is matched against projects, actions and
 /// slash commands, and the answers come from ChatActionExecutor.
 @MainActor
-@Observable
-final class ChatViewModel {
-    @ObservationIgnored let appViewModel: AppViewModel
-    @ObservationIgnored private let executor: ChatActionExecutor
-    @ObservationIgnored private let store = ChatStore.shared
+final class ChatViewModel: ObservableObject {
+    let appViewModel: AppViewModel
+    private let executor: ChatActionExecutor
+    private let store = ChatStore.shared
 
     private struct RunningTask {
         let conversationID: String
         let task: Task<Void, Never>
     }
 
-    @ObservationIgnored private var tasks: [String: RunningTask] = [:]
-    @ObservationIgnored private var saveTask: Task<Void, Never>?
-    @ObservationIgnored private var loadTask: Task<Void, Never>?
-    @ObservationIgnored private var hasLoaded = false
-    @ObservationIgnored private var actionCache: [String: [ChatAction]] = [:]
+    private var tasks: [String: RunningTask] = [:]
+    private var saveTask: Task<Void, Never>?
+    private var loadTask: Task<Void, Never>?
+    private var hasLoaded = false
+    private var parentObserver: AnyCancellable?
+    private var actionCache: [String: [ChatAction]] = [:]
 
     static let suggestionLimit = 6
     static let projectListLimit = 8
-    private static let thinkingDelay = Duration.milliseconds(300)
+    private static let thinkingDelay: UInt64 = 300 * 1_000_000
     private static let animation = Animation.snappy(duration: 0.25)
 
     init(appViewModel: AppViewModel) {
         self.appViewModel = appViewModel
         self.executor = ChatActionExecutor(appViewModel: appViewModel)
+        parentObserver = appViewModel.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
     }
 
     // MARK: Conversations
 
-    private(set) var conversations: [ChatConversation] = []
-    private(set) var current = ChatConversation()
+    @Published private(set) var conversations: [ChatConversation] = []
+    @Published private(set) var current = ChatConversation()
     var messages: [ChatMessage] { current.messages }
 
     var activeProject: ProjectInfo? {
@@ -113,17 +114,17 @@ final class ChatViewModel {
 
     // MARK: Composer
 
-    var draft: String = "" {
+    @Published var draft: String = "" {
         didSet {
             if draft != oldValue { recomputeSuggestions() }
         }
     }
-    private(set) var suggestions: [ChatSuggestion] = []
-    var suggestionIndex: Int = 0
-    private var areSuggestionsDismissed = false
+    @Published private(set) var suggestions: [ChatSuggestion] = []
+    @Published var suggestionIndex: Int = 0
+    @Published private var areSuggestionsDismissed = false
     var isSuggestionListVisible: Bool { !suggestions.isEmpty && !areSuggestionsDismissed }
-    private(set) var pendingInput: ChatPendingInput?
-    private(set) var focusRequest: Int = 0
+    @Published private(set) var pendingInput: ChatPendingInput?
+    @Published private(set) var focusRequest: Int = 0
 
     var composerPlaceholder: String {
         switch pendingInput {
@@ -732,7 +733,7 @@ final class ChatViewModel {
         modifyConversation(id) { $0.messages.append(placeholder) }
 
         let task = Task { [weak self] in
-            try? await Task.sleep(for: Self.thinkingDelay)
+            try? await Task.sleep(nanoseconds: Self.thinkingDelay)
             guard let self, !Task.isCancelled else { return }
             self.tasks[placeholderID] = nil
             self.updateMessage(placeholderID, in: id) { reply in
@@ -790,7 +791,7 @@ final class ChatViewModel {
     private func scheduleSave() {
         saveTask?.cancel()
         saveTask = Task { [weak self] in
-            try? await Task.sleep(for: .milliseconds(500))
+            try? await Task.sleep(nanoseconds: 500 * 1_000_000)
             guard !Task.isCancelled, let self else { return }
             let snapshot = self.conversations
             await self.store.saveConversations(snapshot)

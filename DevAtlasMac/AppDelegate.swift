@@ -10,11 +10,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        false
+        !appHasMenuBarExtra
     }
 
     @objc private func windowWillClose(_ notification: Notification) {
-        guard let closing = notification.object as? NSWindow, closing.canBecomeMain else { return }
+        guard appHasMenuBarExtra, let closing = notification.object as? NSWindow, closing.canBecomeMain else { return }
         let hasOtherWindow = NSApp.windows.contains { $0 !== closing && $0.isVisible && $0.canBecomeMain }
         if !hasOtherWindow {
             NSApp.setActivationPolicy(.accessory)
@@ -23,7 +23,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     /// Catches a window that comes back without the menu bar, such as relaunching from Finder.
     @objc private func windowDidBecomeKey(_ notification: Notification) {
-        guard let window = notification.object as? NSWindow, window.canBecomeMain else { return }
+        guard appHasMenuBarExtra, let window = notification.object as? NSWindow, window.canBecomeMain else { return }
         if NSApp.activationPolicy() != .regular {
             NSApp.setActivationPolicy(.regular)
         }

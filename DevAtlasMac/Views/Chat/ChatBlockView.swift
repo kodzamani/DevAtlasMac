@@ -5,7 +5,7 @@ import SwiftUI
 struct ChatBlockView: View {
     let block: ChatBlock
     let message: ChatMessage
-    let chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     var body: some View {
         content
@@ -179,10 +179,10 @@ private struct ChatProjectCard: View {
                 Button(action: onOpen) {
                     HStack(spacing: 5) {
                         Text(project.name)
+                            .underline(isNameHovered, color: Color.daPrimaryText.opacity(0.4))
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundStyle(Color.daPrimaryText)
                             .lineLimit(1)
-                            .underline(isNameHovered, color: Color.daPrimaryText.opacity(0.4))
                         ChatIcon(.arrowUpRight, size: 11.5)
                             .foregroundStyle(Color.daTertiaryText)
                             .opacity(isNameHovered ? 1 : 0)
@@ -638,7 +638,7 @@ private struct ChatProminentButtonStyle: ButtonStyle {
                 .foregroundStyle(.white)
                 .padding(.horizontal, 14)
                 .frame(minHeight: 30)
-                .background(Capsule().fill(tint.gradient))
+                .background(Capsule().fill(tint.daGradient))
                 .overlay(Capsule().fill(Color.white.opacity(isHovered ? 0.1 : 0)))
                 .contentShape(Capsule())
                 .scaleEffect(configuration.isPressed ? 0.97 : 1)

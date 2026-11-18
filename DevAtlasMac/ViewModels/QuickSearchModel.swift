@@ -1,6 +1,6 @@
 import SwiftUI
 import AppKit
-import Observation
+import Combine
 
 /// Something the quick search panel can do with the chosen project.
 struct QuickSearchAction: Identifiable {
@@ -22,38 +22,39 @@ struct QuickSearchMatch: Identifiable {
 }
 
 /// State behind the quick search panel: first pick a project, then pick what to do with it.
-@Observable
-final class QuickSearchModel {
+final class QuickSearchModel: ObservableObject {
     enum Stage: Equatable {
         case projects
         case actions(ProjectInfo)
     }
 
-    private(set) var stage: Stage = .projects
-    var query: String = "" {
+    @Published private(set) var stage: Stage = .projects
+    @Published var query: String = "" {
         didSet { if query != oldValue { selection = 0 } }
     }
-    var selection: Int = 0
+    @Published var selection: Int = 0
     /// Bumped to put the cursor back in the search field.
-    private(set) var focusRequest: Int = 0
+    @Published private(set) var focusRequest: Int = 0
 
     /// Shown when nothing is typed.
     static let recentLimit = 8
     private static let resultLimit = 50
 
     private let viewModel: AppViewModel
+    private var parentObserver: AnyCancellable?
     /// Closes the panel before an action runs, so apps it opens come to the front.
     var onFinish: () -> Void = {}
     /// Shows the project in the main window.
     var onOpenInApp: (ProjectInfo) -> Void = { _ in }
 
     /// The search typed before stepping into a project's actions, restored on the way back.
-    private var projectQuery = ""
-    private var projectSelection = 0
-    private var stageActions: [QuickSearchAction] = []
+    @Published private var projectQuery = ""
+    @Published private var projectSelection = 0
+    @Published private var stageActions: [QuickSearchAction] = []
 
     init(viewModel: AppViewModel) {
         self.viewModel = viewModel
+        parentObserver = viewModel.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
     }
 
     // MARK: - Results

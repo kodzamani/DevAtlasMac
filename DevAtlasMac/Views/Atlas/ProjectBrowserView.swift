@@ -2,7 +2,7 @@ import SwiftUI
 
 /// The main Atlas screen: the selected view mode, Finder's preview pane, path bar and status bar.
 struct ProjectBrowserView: View {
-    @Bindable var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     var onShowOnboarding: (() -> Void)? = nil
 
     @AppStorage("browserIconSize") private var iconSize: Double = 64
@@ -129,7 +129,7 @@ struct ProjectBrowserView: View {
 
 /// Finder's path bar. Shows the selected project's location, or the current sidebar location.
 struct BrowserPathBar: View {
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     private struct Segment: Identifiable {
         let id: String
@@ -159,7 +159,7 @@ struct BrowserPathBar: View {
                 pathSegments
                     .frame(minWidth: proxy.size.width, minHeight: proxy.size.height, alignment: .leading)
             }
-            .defaultScrollAnchor(.trailing)
+            .daDefaultScrollAnchorTrailing()
         }
     }
 

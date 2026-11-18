@@ -1,9 +1,8 @@
 import Foundation
-import Observation
+import Combine
 
 @MainActor
-@Observable
-final class DockerViewModel {
+final class DockerViewModel: ObservableObject {
     nonisolated init() {}
 
     enum Mode: String, CaseIterable, Identifiable {
@@ -16,29 +15,29 @@ final class DockerViewModel {
         var id: String { rawValue }
         var title: String { "docker.filter.\(rawValue)".localized }
     }
-    var mode: Mode = .containers
-    var filter: Filter = .all
-    private(set) var state: DockerDaemonState?
-    private(set) var containers: [DockerContainer] = []
-    private(set) var stacks: [DockerComposeStack] = []
-    private(set) var runtimes: [DockerRuntime] = []
-    private(set) var isRefreshing = false
-    private(set) var isStarting = false
-    private(set) var busyIDs: Set<String> = []
-    private(set) var lastUpdated: Date?
-    var errorMessage: String?
-    private(set) var scanMessage: String?
-    private(set) var activeStack: DockerComposeStack?
-    private(set) var document: DockerComposeDocument?
-    private(set) var yaml = ""
-    private(set) var savedSource: String?
-    private(set) var visualError: String?
-    private(set) var validationMessage: String?
-    private(set) var validationSucceeded = false
-    private(set) var isSaving = false
-    var selectedServiceID: UUID?
-    var isYAMLMode = false
-    var pendingStack: DockerComposeStack?
+    @Published var mode: Mode = .containers
+    @Published var filter: Filter = .all
+    @Published private(set) var state: DockerDaemonState?
+    @Published private(set) var containers: [DockerContainer] = []
+    @Published private(set) var stacks: [DockerComposeStack] = []
+    @Published private(set) var runtimes: [DockerRuntime] = []
+    @Published private(set) var isRefreshing = false
+    @Published private(set) var isStarting = false
+    @Published private(set) var busyIDs: Set<String> = []
+    @Published private(set) var lastUpdated: Date?
+    @Published var errorMessage: String?
+    @Published private(set) var scanMessage: String?
+    @Published private(set) var activeStack: DockerComposeStack?
+    @Published private(set) var document: DockerComposeDocument?
+    @Published private(set) var yaml = ""
+    @Published private(set) var savedSource: String?
+    @Published private(set) var visualError: String?
+    @Published private(set) var validationMessage: String?
+    @Published private(set) var validationSucceeded = false
+    @Published private(set) var isSaving = false
+    @Published var selectedServiceID: UUID?
+    @Published var isYAMLMode = false
+    @Published var pendingStack: DockerComposeStack?
     var isDirty: Bool { activeStack != nil && (savedSource == nil || yaml != savedSource || visualError != nil) }
     var runningCount: Int { containers.filter(\.isRunning).count }
     var totalCPU: Double? {
@@ -104,7 +103,7 @@ final class DockerViewModel {
             for _ in 0..<30 {
                 await refresh(projects: projects)
                 if state == .running { return }
-                do { try await Task.sleep(for: .seconds(2)) } catch { return }
+                do { try await Task.sleep(nanoseconds: UInt64(2 * 1_000_000_000)) } catch { return }
             }
             errorMessage = "docker.error.starting".localized
         case .failure(let error): errorMessage = error.localizedDescription

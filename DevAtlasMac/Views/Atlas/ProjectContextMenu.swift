@@ -3,7 +3,7 @@ import AppKit
 
 /// Actions shared by the context menus and the toolbar's action menu.
 struct ProjectContextMenu: View {
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     let project: ProjectInfo
     /// Already looked up by the caller, when it shows this menu for many projects at once.
     var editors: [CodeEditor]?

@@ -1,6 +1,27 @@
 import SwiftUI
 
-struct FlowLayout: Layout {
+/// Wrapping row of tags/cards. Uses a real wrapping layout on macOS 13+; on macOS 12 the items
+/// simply stack vertically.
+struct FlowLayout<Content: View>: View {
+    var spacing: CGFloat = 8
+    let content: () -> Content
+
+    init(spacing: CGFloat = 8, @ViewBuilder content: @escaping () -> Content) {
+        self.spacing = spacing
+        self.content = content
+    }
+
+    var body: some View {
+        if #available(macOS 13.0, *) {
+            FlowLayoutImpl(spacing: spacing) { content() }
+        } else {
+            VStack(alignment: .leading, spacing: spacing) { content() }
+        }
+    }
+}
+
+@available(macOS 13.0, *)
+private struct FlowLayoutImpl: Layout {
     var spacing: CGFloat = 8
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {

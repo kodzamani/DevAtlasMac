@@ -1,15 +1,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Bindable var viewModel: AppViewModel
-    let notebookVM: NotebookViewModel
-    let statsVM: StatsViewModel
-    let cacheVM: ProjectCacheViewModel
-    let chatVM: ChatViewModel
-    @State private var onboardingVM = OnboardingViewModel()
-    @State private var languageManager = LanguageManager()
+    @ObservedObject var viewModel: AppViewModel
+    @ObservedObject var notebookVM: NotebookViewModel
+    @ObservedObject var statsVM: StatsViewModel
+    @ObservedObject var cacheVM: ProjectCacheViewModel
+    @ObservedObject var chatVM: ChatViewModel
+    @StateObject private var onboardingVM = OnboardingViewModel()
+    @StateObject private var languageManager = LanguageManager()
     @State private var isSearchPresented = false
-    @State private var columnVisibility: NavigationSplitViewVisibility = .all
     
     // Force refresh for language changes
     @State private var languageRefreshTrigger: Int = 0
@@ -19,10 +18,10 @@ struct ContentView: View {
             // Rendered instead of the main content so the window toolbar goes away with it.
             if onboardingVM.isPresented {
                 OnboardingContainerView(viewModel: onboardingVM)
-                    .environment(viewModel)
-                    .environment(languageManager)
+                    .environmentObject(viewModel)
+                    .environmentObject(languageManager)
                     .navigationTitle("")
-                    .toolbarBackground(.hidden, for: .windowToolbar)
+                    .daHideWindowToolbarBackground()
                     .transition(.opacity)
             } else {
                 mainContent
@@ -47,10 +46,46 @@ struct ContentView: View {
     // MARK: - Main Content
     @ViewBuilder
     private var mainContent: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            AppSidebarView(viewModel: viewModel)
-                .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
-        } detail: {
+        splitView
+        .tint(Color.daAccent)
+        .daOnChange(of: viewModel.currentLocation, initial: true) {
+            viewModel.recordLocationChange()
+        }
+        .keyboardShortcut(KeyEquivalent("p"), modifiers: .command, action: {
+            isSearchPresented = true
+        })
+        .keyboardShortcut(KeyEquivalent("f"), modifiers: .command, action: {
+            isSearchPresented = true
+        })
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NotebookNotesUpdated"))) { _ in
+            Task {
+                await notebookVM.loadNotes()
+            }
+        }
+        .daOnChange(of: viewModel.pendingNavigateToNoteId) { oldValue, newValue in
+            handlePendingNote(oldValue: oldValue, newValue: newValue)
+        }
+    }
+
+    @ViewBuilder
+    private var splitView: some View {
+        if #available(macOS 13.0, *) {
+            NavigationSplitView {
+                AppSidebarView(viewModel: viewModel)
+                    .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
+            } detail: {
+                detailPane
+            }
+        } else {
+            NavigationView {
+                AppSidebarView(viewModel: viewModel)
+                    .frame(minWidth: 180, idealWidth: 220, maxWidth: 300)
+                detailPane
+            }
+        }
+    }
+
+    private var detailPane: some View {
             ZStack {
                 AuroraBackground()
 
@@ -84,49 +119,23 @@ struct ContentView: View {
                 prompt: viewModel.selectedTab == .docker ? "docker.search".localized : viewModel.selectedTab == .ports ? "ports.search".localized : (viewModel.selectedTab == .notebook ? "search.notes".localized : "search.projects".localized)
             ))
             .navigationTitle(viewModel.selectedTab == .chat ? "" : viewModel.windowTitle)
-            .toolbar {
-                AppToolbar(viewModel: viewModel, statsVM: statsVM, cacheVM: cacheVM, chatVM: chatVM)
+            .daAppToolbar(viewModel: viewModel, statsVM: statsVM, cacheVM: cacheVM, chatVM: chatVM)
+    }
+
+    private func handlePendingNote(oldValue: String?, newValue: String?) {
+        if let noteId = newValue, oldValue != newValue {
+            viewModel.selectedTab = .notebook
+            if viewModel.isShowingDetail {
+                viewModel.goBack()
             }
-        }
-        .tint(Color.daAccent)
-        .onChange(of: viewModel.currentLocation, initial: true) {
-            viewModel.recordLocationChange()
-        }
-        .keyboardShortcut(KeyEquivalent("p"), modifiers: .command, action: {
-            isSearchPresented = true
-        })
-        .keyboardShortcut(KeyEquivalent("f"), modifiers: .command, action: {
-            isSearchPresented = true
-        })
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NotebookNotesUpdated"))) { _ in
             Task {
                 await notebookVM.loadNotes()
-            }
-        }
-        .onChange(of: viewModel.pendingNavigateToNoteId) { oldValue, newValue in
-            if let noteId = newValue, oldValue != newValue {
-                // Switch to notebook tab
-                viewModel.selectedTab = .notebook
-                
-                // Close the project detail view if open
-                if viewModel.isShowingDetail {
-                    viewModel.goBack()
-                }
-                
-                // Reload notes and select the saved note
-                Task {
-                    await notebookVM.loadNotes()
-                    
-                    // Wait a brief moment for notes to load, then select
-                    try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
-                    
-                    await MainActor.run {
-                        if let note = notebookVM.notes.first(where: { $0.id == noteId }) {
-                            notebookVM.selectedNote = note
-                        }
-                        // Clear the pending navigation
-                        viewModel.pendingNavigateToNoteId = nil
+                try? await Task.sleep(nanoseconds: 300_000_000)
+                await MainActor.run {
+                    if let note = notebookVM.notes.first(where: { $0.id == noteId }) {
+                        notebookVM.selectedNote = note
                     }
+                    viewModel.pendingNavigateToNoteId = nil
                 }
             }
         }
@@ -181,7 +190,7 @@ struct ContentView: View {
     // MARK: - Settings Layout
     private var settingsLayout: some View {
         SettingsContentView(languageManager: languageManager)
-            .environment(viewModel)
+            .environmentObject(viewModel)
     }
 }
 
@@ -201,7 +210,11 @@ private struct ToolbarSearchModifier: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         if isEnabled {
-            content.searchable(text: $text, isPresented: $isPresented, placement: .toolbar, prompt: prompt)
+            if #available(macOS 15.0, *) {
+                content.searchable(text: $text, isPresented: $isPresented, placement: .toolbar, prompt: prompt)
+            } else {
+                content.searchable(text: $text, placement: .toolbar, prompt: prompt)
+            }
         } else {
             content
         }

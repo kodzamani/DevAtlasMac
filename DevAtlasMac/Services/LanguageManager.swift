@@ -1,10 +1,9 @@
 import Foundation
 import SwiftUI
-import Observation
+import Combine
 
 /// Language and Appearance Manager - manages app language and accent color
-@Observable
-final class LanguageManager {
+final class LanguageManager: ObservableObject {
     // MARK: - Storage Keys
     private let languageKey = "appLanguage"
     private let accentColorKey = "appAccentColor"
@@ -16,27 +15,27 @@ final class LanguageManager {
     
     
     // MARK: - State
-    var selectedLanguage: AppLanguage {
+    @Published var selectedLanguage: AppLanguage {
         didSet {
             UserDefaults.standard.set(selectedLanguage.rawValue, forKey: languageKey)
             updateLocale()
         }
     }
     
-    var accentColor: AppAccentColor {
+    @Published var accentColor: AppAccentColor {
         didSet {
             UserDefaults.standard.set(accentColor.rawValue, forKey: accentColorKey)
         }
     }
     
-    var themeMode: ThemeMode {
+    @Published var themeMode: ThemeMode {
         didSet {
             UserDefaults.standard.set(themeMode.rawValue, forKey: themeModeKey)
         }
     }
     
     // MARK: - Excluded Paths
-    var excludedPaths: [String] {
+    @Published var excludedPaths: [String] {
         didSet {
             let normalized = excludedPaths.map {
                 URL(fileURLWithPath: $0)

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct SettingsContentView: View {
-    @Bindable var languageManager: LanguageManager
-    @Environment(AppViewModel.self) private var appViewModel
+    @ObservedObject var languageManager: LanguageManager
+    @EnvironmentObject private var appViewModel: AppViewModel
     @State private var showLanguagePicker = false
     @State private var showFolderPicker = false
     @State private var pendingExcludedPaths: [String] = []
@@ -215,7 +215,7 @@ struct SettingsContentView: View {
                 Text("settings.exclude.noPaths".localized)
                     .font(.system(size: 11))
                     .foregroundStyle(Color.daTertiaryText)
-                    .italic()
+                    .daItalic()
             }
             
             // Save Button should appear whenever there are unsaved changes,
@@ -406,5 +406,5 @@ struct SettingsContentView: View {
 
 #Preview {
     SettingsContentView(languageManager: LanguageManager())
-        .environment(AppViewModel())
+        .environmentObject(AppViewModel())
 }

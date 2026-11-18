@@ -78,7 +78,7 @@ struct ProjectGitCard: View {
                         .lineLimit(3)
                         .textSelection(.enabled)
                     HStack(spacing: 8) {
-                        Text(commit.hash).fontDesign(.monospaced)
+                        Text(commit.hash).font(.system(size: 10, design: .monospaced))
                         Text(commit.date, style: .relative)
                             .help(commit.date.formatted(date: .complete, time: .shortened))
                     }
@@ -202,9 +202,13 @@ struct ProjectReadmeSection: View {
                 } else {
                     ReadmeDocumentContent(document: document, isPreview: true)
                         .fixedSize(horizontal: false, vertical: true)
-                        .onGeometryChange(for: Bool.self) { $0.size.height > previewHeight } action: {
-                            isPreviewClipped = $0
-                        }
+                        .background(
+                            GeometryReader { proxy in
+                                Color.clear.daOnChange(of: proxy.size.height > previewHeight, initial: true) { _, clipped in
+                                    isPreviewClipped = clipped
+                                }
+                            }
+                        )
                         .frame(maxHeight: previewHeight, alignment: .topLeading)
                         .clipped()
                         .mask(previewFade)

@@ -3,7 +3,7 @@ import SwiftUI
 /// Finder-style source list. Rows draw their own selection so it stays a neutral highlight with an
 /// accent icon, instead of the system's filled selection color when the list has keyboard focus.
 struct AppSidebarView: View {
-    @Bindable var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     var body: some View {
         List {
@@ -87,7 +87,7 @@ struct AppSidebarView: View {
             action: { viewModel.sidebarSelection = destination }
         )
         .listRowInsets(EdgeInsets(top: 1, leading: 0, bottom: 1, trailing: 0))
-        .listRowSeparator(.hidden)
+        .daListRowSeparatorHidden()
     }
 
     /// Finder's tag palette, assigned from the tag's characters so a tag keeps its color across launches.

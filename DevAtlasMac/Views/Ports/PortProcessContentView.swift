@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PortProcessContentView: View {
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     private var rows: [PortListener] {
         viewModel.projectPortListeners.filter { listener in
@@ -147,7 +147,7 @@ struct PortProcessContentView: View {
 
 /// Last grid card: lists web projects (package.json with a start script) that aren't running yet.
 struct RunNewProjectCard: View {
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     @State private var isPresented = false
     @State private var candidates: [ProjectInfo] = []
     @State private var isHovering = false
@@ -206,7 +206,7 @@ struct RunNewProjectCard: View {
                                     isPresented = false
                                     viewModel.runProject(project)
                                     Task {
-                                        try? await Task.sleep(for: .seconds(4))
+                                        try? await Task.sleep(nanoseconds: UInt64(4 * 1_000_000_000))
                                         await viewModel.portManager.refresh()
                                     }
                                 } label: {
@@ -256,7 +256,7 @@ struct PortIcon: View {
 /// Compact grid card: project icon + name lead, port badge and actions sit alongside.
 struct PortGridCard: View {
     let listener: PortListener
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     @State private var isHovering = false
 
     private var project: ProjectInfo? { viewModel.project(for: listener) }
@@ -335,7 +335,7 @@ struct PortGridCard: View {
 /// Chat keeps a dated snapshot; actions revalidate the process before sending SIGTERM.
 struct ChatPortsCard: View {
     let listeners: [PortListener]
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     private var projectListeners: [PortListener] {
         listeners.filter { viewModel.project(for: $0) != nil }

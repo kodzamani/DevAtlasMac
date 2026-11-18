@@ -1,31 +1,30 @@
 import SwiftUI
-import Observation
+import Combine
 
 @MainActor
-@Observable
-final class StatsViewModel {
-    var dateRange: DateRangeFilter = .month {
+final class StatsViewModel: ObservableObject {
+    @Published var dateRange: DateRangeFilter = .month {
         didSet {
             guard dateRange != oldValue else { return }
             loadGitStats(force: true)
         }
     }
     
-    var gitDailyStats: [GitDailyStat] = [] {
+    @Published var gitDailyStats: [GitDailyStat] = [] {
         didSet { rebuildGitLookups() }
     }
-    var projectMetrics: [ProjectMetric] = [] {
+    @Published var projectMetrics: [ProjectMetric] = [] {
         didSet { rebuildProjectNames() }
     }
-    var projectFileMetrics: [ProjectMetric] = []
-    var projectTypeMetrics: [ProjectMetric] = []
+    @Published var projectFileMetrics: [ProjectMetric] = []
+    @Published var projectTypeMetrics: [ProjectMetric] = []
     /// False only until the first metrics are in.
-    private(set) var hasLoadedMetrics = false
+    @Published private(set) var hasLoadedMetrics = false
     /// True while the git section has nothing valid to show. A refresh of the range already
     /// on screen keeps the current data visible instead.
-    private(set) var isLoadingGitStats = false
+    @Published private(set) var isLoadingGitStats = false
     /// Sorted names across metrics and git activity, which keeps project colors stable.
-    private(set) var allProjectNames: [String] = []
+    @Published private(set) var allProjectNames: [String] = []
     
     // Internal state
     private struct GitRequest: Equatable {
@@ -33,12 +32,12 @@ final class StatsViewModel {
         let paths: Set<String>
     }
     
-    private var currentProjects: [ProjectInfo] = []
+    @Published private var currentProjects: [ProjectInfo] = []
     private var statsTask: Task<Void, Never>?
-    private var runningRequest: GitRequest?
-    private var loadedRequest: GitRequest?
-    private var lastCommitByProject: [String: Date] = [:]
-    private var recentChangesByProject: [String: Int] = [:]
+    @Published private var runningRequest: GitRequest?
+    @Published private var loadedRequest: GitRequest?
+    @Published private var lastCommitByProject: [String: Date] = [:]
+    @Published private var recentChangesByProject: [String: Int] = [:]
     
     /// Reloads everything. Unchanged repositories come from the git stats cache.
     func refreshStats(with projects: [ProjectInfo]) {

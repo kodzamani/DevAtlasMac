@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Finder's icon view: click selects, double click opens, arrow keys move the selection.
 struct ProjectIconGridView: View {
-    @Bindable var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     let iconSize: CGFloat
 
     @FocusState private var isFocused: Bool
@@ -41,11 +41,13 @@ struct ProjectIconGridView: View {
                 }
             }
             .focusable()
-            .focusEffectDisabled()
             .focused($isFocused)
-            .onKeyPress(keys: [.upArrow, .downArrow, .leftArrow, .rightArrow, .return]) { press in
-                handleKey(press.key, columnCount: columnCount)
-            }
+            .modifier(GridKeyboardNavigation { key in
+                if #available(macOS 14.0, *) {
+                    return handleKey(key, columnCount: columnCount) == .handled
+                }
+                return false
+            })
         }
         .onAppear { isFocused = true }
     }
@@ -91,6 +93,7 @@ struct ProjectIconGridView: View {
 
     // MARK: - Keyboard
 
+    @available(macOS 14.0, *)
     private func handleKey(_ key: KeyEquivalent, columnCount: Int) -> KeyPress.Result {
         let rows = viewModel.groupedFilteredProjects.flatMap { _, projects in
             projects.chunked(into: columnCount)
@@ -187,5 +190,22 @@ private struct ProjectIconTile: View {
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
         .accessibilityAction(named: "finder.open".localized, onOpen)
+    }
+}
+
+/// Arrow-key navigation (macOS 14+; earlier systems fall back to the mouse).
+private struct GridKeyboardNavigation: ViewModifier {
+    let handler: (KeyEquivalent) -> Bool
+
+    func body(content: Content) -> some View {
+        if #available(macOS 14.0, *) {
+            content
+                .focusEffectDisabled()
+                .onKeyPress(keys: [.upArrow, .downArrow, .leftArrow, .rightArrow, .return]) { press in
+                    handler(press.key) ? .handled : .ignored
+                }
+        } else {
+            content
+        }
     }
 }

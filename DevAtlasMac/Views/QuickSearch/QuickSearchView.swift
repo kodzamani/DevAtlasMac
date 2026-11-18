@@ -3,7 +3,7 @@ import AppKit
 
 /// The Spotlight-style card shown by Control-Space: search projects, then choose what to do.
 struct QuickSearchView: View {
-    @Bindable var model: QuickSearchModel
+    @ObservedObject var model: QuickSearchModel
     @FocusState private var isFieldFocused: Bool
     @State private var hoveredIndex: Int?
 
@@ -32,8 +32,8 @@ struct QuickSearchView: View {
         .padding(.top, Self.cardTopInset)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .onAppear { isFieldFocused = true }
-        .onChange(of: model.focusRequest) { isFieldFocused = true }
-        .onChange(of: model.stage) { hoveredIndex = nil }
+        .daOnChange(of: model.focusRequest) { isFieldFocused = true }
+        .daOnChange(of: model.stage) { hoveredIndex = nil }
     }
 
     // MARK: - Search Bar
@@ -168,9 +168,9 @@ struct QuickSearchView: View {
                 .padding(.horizontal, 14)
                 .padding(.bottom, 12)
             }
-            .scrollIndicators(.never)
+            .daScrollIndicatorsHidden()
             .frame(height: height)
-            .onChange(of: model.selection) {
+            .daOnChange(of: model.selection) {
                 proxy.scrollTo(model.selection)
             }
         }
@@ -302,7 +302,7 @@ private struct ActionRow: View {
         HStack(spacing: 12) {
             ZStack {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(action.tint.gradient)
+                    .fill(action.tint.daGradient)
                 Image(systemName: action.systemImage)
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(.white)

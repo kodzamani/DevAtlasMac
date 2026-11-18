@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Past conversations, newest first. Opened from the clock button in the chat header.
 struct ChatHistoryPopover: View {
-    let chatVM: ChatViewModel
+    @ObservedObject var chatVM: ChatViewModel
 
     @Environment(\.dismiss) private var dismiss
 
@@ -86,7 +86,7 @@ struct ChatHistoryPopover: View {
             .padding(6)
         }
         .frame(height: height)
-        .scrollBounceBehavior(.basedOnSize)
+        .daScrollBounceBasedOnSize()
     }
 }
 

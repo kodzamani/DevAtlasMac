@@ -89,7 +89,7 @@ struct CollapsibleDependenciesSectionView: View {
                         .padding(.horizontal, 7)
                         .padding(.vertical, 3)
                         .background(Color.orange.opacity(0.12), in: Capsule())
-                        .contentTransition(.numericText())
+                        .daNumericTransition()
                         .transition(.opacity)
                 }
 
@@ -146,7 +146,21 @@ struct CollapsibleDependenciesSectionView: View {
 
 /// Grows from nothing to its content's full height. The content is always laid out at full
 /// size and only the frame around it animates, so rows never reflow while it opens or closes.
-private struct VerticalReveal: Layout {
+private struct VerticalReveal<Content: View>: View {
+    var progress: CGFloat
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        if #available(macOS 13.0, *) {
+            VerticalRevealLayout(progress: progress) { content() }
+        } else if progress > 0 {
+            content()
+        }
+    }
+}
+
+@available(macOS 13.0, *)
+private struct VerticalRevealLayout: Layout {
     var progress: CGFloat
 
     var animatableData: CGFloat {

@@ -2,7 +2,7 @@ import SwiftUI
 import AppKit
 
 struct DockerContentView: View {
-    let viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     @State private var logsContainer: DockerContainer?
     @State private var removingContainer: DockerContainer?
     @State private var stoppingStack: DockerComposeStack?
@@ -18,7 +18,7 @@ struct DockerContentView: View {
         .task(id: viewModel.projects.map(\.path)) {
             while !Task.isCancelled {
                 await manager.refresh(projects: viewModel.projects)
-                do { try await Task.sleep(for: .seconds(8)) } catch { break }
+                do { try await Task.sleep(nanoseconds: UInt64(8 * 1_000_000_000)) } catch { break }
             }
         }
         .sheet(item: $logsContainer) { DockerLogsSheet(container: $0) }
@@ -56,8 +56,7 @@ struct DockerContentView: View {
                     }
                     .padding(.top, 4).padding(.bottom, 12)
                 }
-                .scrollIndicators(.automatic)
-            } else {
+                } else {
                 DockerComposeEditorView(viewModel: viewModel)
             }
         }
@@ -148,7 +147,7 @@ struct DockerContentView: View {
                 } label: {
                     DockerActionLabel(kind: .play, title: "docker.startDocker".localized, style: .prominent)
                 }
-                .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
+                .daBorderlessMenu()
             }
         }
         .padding(12)
@@ -211,9 +210,8 @@ struct DockerContentView: View {
     }
 
     private var filterBar: some View {
-        @Bindable var manager = manager
-        return ViewThatFits(in: .horizontal) {
-            HStack(spacing: 2) {
+        @ObservedObject var manager = manager
+        let segmented = HStack(spacing: 2) {
                 ForEach(DockerViewModel.Filter.allCases) { filter in
                     let isOn = manager.filter == filter
                     Button { manager.filter = filter } label: {
@@ -239,10 +237,20 @@ struct DockerContentView: View {
             .background(Color.primary.opacity(0.06), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
             .animation(.easeOut(duration: 0.15), value: manager.filter)
 
-            Picker("docker.filter".localized, selection: $manager.filter) {
+        let picker = Picker("docker.filter".localized, selection: $manager.filter) {
                 ForEach(DockerViewModel.Filter.allCases) { Text($0.title).tag($0) }
             }
             .labelsHidden().fixedSize()
+
+        return Group {
+            if #available(macOS 13.0, *) {
+                ViewThatFits(in: .horizontal) {
+                    segmented
+                    picker
+                }
+            } else {
+                segmented
+            }
         }
     }
 
@@ -306,7 +314,7 @@ private struct DockerMetric: View {
                         .font(.system(size: 16, weight: .semibold)).monospacedDigit()
                         .foregroundStyle(Color.daPrimaryText)
                         .lineLimit(1).minimumScaleFactor(0.7)
-                        .contentTransition(.numericText())
+                        .daNumericTransition()
                 } else {
                     SkeletonBlock().frame(width: 52, height: 15).padding(.vertical, 2)
                 }
@@ -381,7 +389,7 @@ private struct DockerContainerCard: View {
                         } label: {
                             DockerChip(kind: .port, text: port.title, tint: .daDocker, monospaced: true)
                         }
-                        .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
+                        .daBorderlessMenu()
                         .help(port.hostIP)
                     }
                 }
@@ -452,7 +460,7 @@ private struct DockerContainerCard: View {
                     .frame(width: 26, height: 26)
                     .background(Color.primary.opacity(0.07), in: Circle())
             }
-            .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
+            .daBorderlessMenu()
             .help("docker.actions".localized)
             .disabled(isBusy)
         }

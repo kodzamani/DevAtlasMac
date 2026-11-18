@@ -3,7 +3,7 @@ import MarkdownUI
 import UniformTypeIdentifiers
 
 struct NoteEditorView: View {
-    @Bindable var notebookVM: NotebookViewModel
+    @ObservedObject var notebookVM: NotebookViewModel
     let note: NotebookNote
     
     @State private var editingTitle: String = ""
@@ -43,7 +43,7 @@ struct NoteEditorView: View {
         .onDisappear {
             saveTask?.cancel()
         }
-        .onChange(of: note.id) { _, _ in
+        .daOnChange(of: note.id) { _, _ in
             isLoadingNote = true
             editingTitle = note.title
             editingContent = note.content
@@ -65,7 +65,7 @@ struct NoteEditorView: View {
                 .font(.daSectionTitle)
                 .foregroundStyle(Color.daPrimaryText)
                 .textFieldStyle(.plain)
-                .onChange(of: editingTitle) { _, newVal in
+                .daOnChange(of: editingTitle) { _, newVal in
                     guard !isLoadingNote, newVal != note.title else { return }
                     debounceSave {
                         await notebookVM.saveTitle(newVal, for: note)
@@ -254,7 +254,7 @@ struct NoteEditorView: View {
                     TextEditor(text: $editingContent)
                         .font(.system(size: 13.5))
                         .foregroundStyle(Color.daPrimaryText)
-                        .scrollContentBackground(.hidden)
+                        .daScrollContentBackgroundHidden()
                         .frame(minHeight: 200)
                         .padding(14)
                         .onReceive(NotificationCenter.default.publisher(for: NSTextView.didBeginEditingNotification)) { _ in
@@ -267,7 +267,7 @@ struct NoteEditorView: View {
                                 isNotesFocused = false
                             }
                         }
-                        .onChange(of: editingContent) { _, newVal in
+                        .daOnChange(of: editingContent) { _, newVal in
                             guard !isLoadingNote, newVal != note.content else { return }
                             
                             // Slash command detection
@@ -352,7 +352,7 @@ struct NoteEditorView: View {
                 Text("editor.noContentYet".localized)
                     .font(.daBody)
                     .foregroundStyle(Color.daMutedText)
-                    .italic()
+                    .daItalic()
                     .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
             } else {
                 CustomMarkdownView(content: editingContent)
@@ -648,9 +648,9 @@ struct NoteEditorView: View {
         
         return VStack(alignment: .leading, spacing: 6) {
             Text(todo.text)
+                .strikethrough(todo.currentStatus == .done, color: Color.daMutedText.opacity(0.5))
                 .font(.system(size: 12, weight: .medium))
                 .foregroundStyle(todo.currentStatus == .done ? Color.daMutedText : Color.daPrimaryText)
-                .strikethrough(todo.currentStatus == .done, color: Color.daMutedText.opacity(0.5))
             
             HStack {
                 if let dueDate = todo.dueDate {
@@ -763,9 +763,9 @@ struct NoteEditorView: View {
                     // Text + Due info
                     VStack(alignment: .leading, spacing: 3) {
                         Text(todo.text)
+                            .strikethrough(todo.isCompleted, color: Color.daMutedText.opacity(0.5))
                             .font(.system(size: 12.5, weight: todo.isCompleted ? .regular : .medium))
                             .foregroundStyle(todo.isCompleted ? Color.daMutedText : Color.daPrimaryText)
-                            .strikethrough(todo.isCompleted, color: Color.daMutedText.opacity(0.5))
                         
                         HStack(spacing: 8) {
                             if let priority = todo.priority {
@@ -829,9 +829,9 @@ struct NoteEditorView: View {
                                     .buttonStyle(.plain)
                                     
                                     Text(st.text)
+                                        .strikethrough(st.isCompleted, color: Color.daMutedText)
                                         .font(.system(size: 11))
                                         .foregroundStyle(st.isCompleted ? Color.daMutedText : Color.daSecondaryText)
-                                        .strikethrough(st.isCompleted, color: Color.daMutedText)
                                     
                                     if isHovered {
                                         Spacer()
@@ -1176,7 +1176,7 @@ struct NoteEditorView: View {
     private func debounceSave(action: @escaping () async -> Void) {
         saveTask?.cancel()
         saveTask = Task {
-            try? await Task.sleep(for: .milliseconds(500))
+            try? await Task.sleep(nanoseconds: 500 * 1_000_000)
             if !Task.isCancelled {
                 await action()
             }

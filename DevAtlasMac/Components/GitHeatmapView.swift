@@ -160,7 +160,7 @@ struct GitHeatmapView: View {
                                 proxy.scrollTo(columns.count - 1, anchor: .trailing)
                             }
                         }
-                        .onChange(of: dateRange) { _, _ in
+                        .daOnChange(of: dateRange) { _, _ in
                             if columns.count > 0 {
                                 proxy.scrollTo(columns.count - 1, anchor: .trailing)
                             }

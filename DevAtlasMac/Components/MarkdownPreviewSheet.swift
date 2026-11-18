@@ -85,7 +85,7 @@ struct MarkdownPreviewSheet: View {
         didCopyPrompt = true
         
         Task { @MainActor in
-            try? await Task.sleep(for: .seconds(2))
+            try? await Task.sleep(nanoseconds: UInt64(2 * 1_000_000_000))
             didCopyPrompt = false
         }
     }

@@ -1,5 +1,5 @@
 import SwiftUI
-import Observation
+import Combine
 
 /// One project and the cache folders found in it.
 struct ProjectCacheGroup: Identifiable {
@@ -31,25 +31,24 @@ struct CacheCleanResult: Equatable {
 }
 
 @MainActor
-@Observable
-final class ProjectCacheViewModel {
+final class ProjectCacheViewModel: ObservableObject {
     // MARK: - State
 
-    private(set) var groups: [ProjectCacheGroup] = []
-    private(set) var isScanning = false
-    private(set) var hasScanned = false
-    private(set) var scannedProjects = 0
-    private(set) var totalProjects = 0
+    @Published private(set) var groups: [ProjectCacheGroup] = []
+    @Published private(set) var isScanning = false
+    @Published private(set) var hasScanned = false
+    @Published private(set) var scannedProjects = 0
+    @Published private(set) var totalProjects = 0
 
     /// Paths of the folders picked for cleaning.
-    var selection: Set<String> = []
+    @Published var selection: Set<String> = []
     /// Projects whose folders are listed.
-    var expanded: Set<String> = []
-    var kindFilter: CacheKind?
-    var sort: CacheSortOption = .size
+    @Published var expanded: Set<String> = []
+    @Published var kindFilter: CacheKind?
+    @Published var sort: CacheSortOption = .size
 
-    private(set) var isCleaning = false
-    var lastResult: CacheCleanResult?
+    @Published private(set) var isCleaning = false
+    @Published var lastResult: CacheCleanResult?
 
     private var scanTask: Task<Void, Never>?
     private static let concurrentScans = 4

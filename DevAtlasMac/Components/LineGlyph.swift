@@ -237,10 +237,36 @@ struct LineGlyphView: View {
     let glyph: LineGlyph
     var isSelected: Bool = false
 
+    @Environment(\.daIncreasedProminence) private var forcedProminence
+
+    var body: some View {
+        if #available(macOS 14.0, *) {
+            ProminenceAwareGlyph(glyph: glyph, isSelected: isSelected, forced: forcedProminence)
+        } else {
+            LineGlyphBody(glyph: glyph, isSelected: isSelected, increased: forcedProminence)
+        }
+    }
+}
+
+@available(macOS 14.0, *)
+private struct ProminenceAwareGlyph: View {
+    let glyph: LineGlyph
+    let isSelected: Bool
+    let forced: Bool
     @Environment(\.backgroundProminence) private var backgroundProminence
 
+    var body: some View {
+        LineGlyphBody(glyph: glyph, isSelected: isSelected, increased: forced || backgroundProminence == .increased)
+    }
+}
+
+private struct LineGlyphBody: View {
+    let glyph: LineGlyph
+    let isSelected: Bool
+    let increased: Bool
+
     private var color: Color {
-        if backgroundProminence == .increased { return .white }
+        if increased { return .white }
         return isSelected ? Color.daAccent : Color.daTertiaryText
     }
 

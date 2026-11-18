@@ -222,7 +222,7 @@ struct DockerBanner<Trailing: View>: View {
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .scrollBounceBehavior(.basedOnSize)
+            .daScrollBounceBasedOnSize()
             .frame(maxHeight: 72)
             .fixedSize(horizontal: false, vertical: true)
             trailing()
